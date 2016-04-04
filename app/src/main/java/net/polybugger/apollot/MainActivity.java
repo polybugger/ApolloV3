@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         ApolloDbAdapter.setAppContext(this);
+        ApolloDbAdapter.open();
+        ApolloDbAdapter.close();
 
         setContentView(R.layout.activity_main);
     }

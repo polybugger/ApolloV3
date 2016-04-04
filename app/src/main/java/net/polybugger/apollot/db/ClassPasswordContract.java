@@ -9,7 +9,7 @@ public class ClassPasswordContract {
             ClassPasswordEntry._ID + " INTEGER PRIMARY KEY, " +
             ClassPasswordEntry.CLASS_ID + " INTEGER NOT NULL UNIQUE REFERENCES " +
                 ClassContract.TABLE_NAME + " (" + ClassContract.ClassEntry._ID + "), " +
-            ClassPasswordEntry.PASSWORD + " TEXT NOT NULL";
+            ClassPasswordEntry.PASSWORD + " TEXT NOT NULL)";
 
     private ClassPasswordContract() { }
 
