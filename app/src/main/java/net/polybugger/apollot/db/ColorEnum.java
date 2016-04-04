@@ -13,9 +13,4 @@ public enum ColorEnum {
     public String getValue() {
         return mValue;
     }
-
-    @Override
-    public String toString() {
-        return mValue;
-    }
 }

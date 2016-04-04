@@ -62,6 +62,48 @@ public class AcademicTermContract {
         return rowsDeleted;
     }
 
+    public static AcademicTermEntry _getEntry(SQLiteDatabase db, long id) {
+        AcademicTermEntry entry = null;
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{AcademicTermEntry._ID, AcademicTermEntry.DESCRIPTION, AcademicTermEntry.COLOR},
+                AcademicTermEntry._ID + "=?",
+                new String[]{String.valueOf(id)},
+                null, null, null);
+        cursor.moveToFirst();
+        if(!cursor.isAfterLast())
+            entry = new AcademicTermEntry(cursor.getLong(0), cursor.getString(1), cursor.getString(2));
+        cursor.close();
+        return entry;
+    }
+
+    public static AcademicTermEntry getEntry(long id) {
+        SQLiteDatabase db = ApolloDbAdapter.open();
+        AcademicTermEntry entry = _getEntry(db, id);
+        ApolloDbAdapter.close();
+        return entry;
+    }
+
+    public static AcademicTermEntry _getEntry(SQLiteDatabase db, String description) {
+        AcademicTermEntry entry = null;
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{AcademicTermEntry._ID, AcademicTermEntry.DESCRIPTION, AcademicTermEntry.COLOR},
+                AcademicTermEntry.DESCRIPTION + "=?",
+                new String[]{description},
+                null, null, null);
+        cursor.moveToFirst();
+        if(!cursor.isAfterLast())
+            entry = new AcademicTermEntry(cursor.getLong(0), cursor.getString(1), cursor.getString(2));
+        cursor.close();
+        return entry;
+    }
+
+    public static AcademicTermEntry getEntry(String description) {
+        SQLiteDatabase db = ApolloDbAdapter.open();
+        AcademicTermEntry entry = _getEntry(db, description);
+        ApolloDbAdapter.close();
+        return entry;
+    }
+
     public static ArrayList<AcademicTermEntry> _getEntries(SQLiteDatabase db) {
         ArrayList<AcademicTermEntry> entries = new ArrayList<>();
         Cursor cursor = db.rawQuery(SELECT_TABLE_SQL, null);
@@ -121,7 +163,7 @@ public class AcademicTermContract {
         }
 
         public int getColorInt() {
-            return (int) Long.parseLong(mColor != null ? mColor : ColorEnum.TRANSPARENT.toString(), 16);
+            return (int) Long.parseLong(mColor != null ? mColor : ColorEnum.TRANSPARENT.getValue(), 16);
         }
 
         @Override
@@ -129,19 +171,19 @@ public class AcademicTermContract {
             return mDescription;
         }
 
-        public boolean equals(AcademicTermEntry academicTermEntry) {
-            if(academicTermEntry != null && academicTermEntry.mId == mId)
+        public boolean equals(AcademicTermEntry entry) {
+            if(entry != null && entry.mId == mId)
                 return true;
             return false;
         }
 
         @Override
         public boolean equals(Object object) {
-            AcademicTermEntry academicTermEntry;
+            AcademicTermEntry entry;
             if(object != null) {
                 try {
-                    academicTermEntry = (AcademicTermEntry) object;
-                    if(academicTermEntry.mId == mId)
+                    entry = (AcademicTermEntry) object;
+                    if(entry.mId == mId)
                         return true;
                 }
                 catch(ClassCastException e) {
