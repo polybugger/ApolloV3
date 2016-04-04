@@ -5,6 +5,15 @@ import android.provider.BaseColumns;
 public class ClassContract {
 
     public static final String TABLE_NAME = "Classes";
+    public static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + " (" +
+            ClassEntry._ID + " INTEGER PRIMARY KEY, " +
+            ClassEntry.CODE + " TEXT NOT NULL, " +
+            ClassEntry.DESCRIPTION + " TEXT NULL, " +
+            ClassEntry.ACADEMIC_TERM_ID + " INTEGER NULL REFERENCES " +
+                AcademicTermContract.TABLE_NAME + " (" + AcademicTermContract.AcademicTermEntry._ID + "), " +
+            ClassEntry.YEAR + " INTEGER NULL, " +
+            ClassEntry.CURRENT + " INTEGER NOT NULL DEFAULT 1, " +
+            ClassEntry.DATE_CREATED + " TEXT NULL)";
 
     private ClassContract() { }
 

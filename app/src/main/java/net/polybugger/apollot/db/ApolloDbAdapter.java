@@ -10,13 +10,14 @@ public class ApolloDbAdapter {
     public static final String DATABASE_NAME = "ApolloDb.sqlite3";
     public static final int DATABASE_VERSION = 3;
 
-    private static Context sAppContext;
-    private static ApolloDbHelper sDbHelper;
-    private static int sOpenCounter;
-    private static SQLiteDatabase sDb;
+    private static Context sAppContext = null;
+    private static ApolloDbHelper sDbHelper = null;
+    private static int sOpenCounter = 0;
+    private static SQLiteDatabase sDb = null;
 
     private ApolloDbAdapter() { }
 
+    // http://www.dmytrodanylyk.com/concurrent-database-access/
     public static void setAppContext(Context context) {
         if(sDbHelper == null) {
             sAppContext = context.getApplicationContext();
@@ -50,37 +51,19 @@ public class ApolloDbAdapter {
         }
 
         @Override
+        public void onConfigure(SQLiteDatabase db) {
+            db.setForeignKeyConstraintsEnabled(true);
+        }
+
+        @Override
         public void onCreate(SQLiteDatabase db) {
-
-            final String CREATE_TABLE_ACADEMIC_TERMS =
-                    "CREATE TABLE " + AcademicTermContract.TABLE_NAME + " (" +
-                            AcademicTermContract.AcademicTermEntry._ID + " INTEGER PRIMARY KEY, " +
-                            AcademicTermContract.AcademicTermEntry.DESCRIPTION + " TEXT NOT NULL, " +
-                            AcademicTermContract.AcademicTermEntry.COLOR + " TEXT NULL)";
-            db.execSQL(CREATE_TABLE_ACADEMIC_TERMS);
-
-            final String CREATE_TABLE_CLASSES =
-                    "CREATE TABLE " + ClassContract.TABLE_NAME + " (" +
-                            ClassContract.ClassEntry._ID + " INTEGER PRIMARY KEY, " +
-                            ClassContract.ClassEntry.CODE + " TEXT NOT NULL, " +
-                            ClassContract.ClassEntry.DESCRIPTION + " TEXT NULL, " +
-                            ClassContract.ClassEntry.ACADEMIC_TERM_ID + " INTEGER NULL REFERENCES " + AcademicTermContract.TABLE_NAME + " (" + AcademicTermContract.AcademicTermEntry._ID + "), " +
-                            ClassContract.ClassEntry.YEAR + " INTEGER NULL, " +
-                            ClassContract.ClassEntry.CURRENT + " INTEGER NOT NULL DEFAULT 1, " +
-                            ClassContract.ClassEntry.DATE_CREATED + " TEXT NULL)";
-            db.execSQL(CREATE_TABLE_CLASSES);
-
-            final String CREATE_TABLE_CLASS_SCHEDULES =
-                    "CREATE TABLE " + ClassScheduleContract.TABLE_NAME + " (" +
-                            ClassScheduleContract.ClassScheduleEntry._ID + " INTEGER PRIMARY KEY, " +
-                            ClassScheduleContract.ClassScheduleEntry.CLASS_ID + " INTEGER NOT NULL REFERENCES " + ClassContract.TABLE_NAME + " (" + ClassContract.ClassEntry._ID + "), " +
-                            ClassScheduleContract.ClassScheduleEntry.TIME_START + " TEXT NOT NULL, " +
-                            ClassScheduleContract.ClassScheduleEntry.TIME_END + " TEXT NULL, " +
-                            ClassScheduleContract.ClassScheduleEntry.DAYS + " INTEGER NOT NULL DEFAULT 0, " +
-                            ClassScheduleContract.ClassScheduleEntry.ROOM + " TEXT NULL, " +
-                            ClassScheduleContract.ClassScheduleEntry.BUILDING + " TEXT NULL, " +
-                            ClassScheduleContract.ClassScheduleEntry.CAMPUS + " TEXT NULL)";
-            db.execSQL(CREATE_TABLE_CLASS_SCHEDULES);
+            db.execSQL(AcademicTermContract.CREATE_TABLE_SQL);
+            db.execSQL(ClassItemTypeContract.CREATE_TABLE_SQL);
+            db.execSQL(StudentContract.CREATE_TABLE_SQL);
+            db.execSQL(ClassContract.CREATE_TABLE_SQL);
+            db.execSQL(ClassScheduleContract.CREATE_TABLE_SQL);
+            db.execSQL(ClassNoteContract.CREATE_TABLE_SQL);
+            db.execSQL(ClassPasswordContract.CREATE_TABLE_SQL);
 
         }
 

@@ -5,6 +5,16 @@ import android.provider.BaseColumns;
 public class ClassScheduleContract {
 
     public static final String TABLE_NAME = "ClassSchedules";
+    public static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + " (" +
+            ClassScheduleEntry._ID + " INTEGER PRIMARY KEY, " +
+            ClassScheduleEntry.CLASS_ID + " INTEGER NOT NULL REFERENCES " +
+                ClassContract.TABLE_NAME + " (" + ClassContract.ClassEntry._ID + "), " +
+            ClassScheduleEntry.TIME_START + " TEXT NOT NULL, " +
+            ClassScheduleEntry.TIME_END + " TEXT NULL, " +
+            ClassScheduleEntry.DAYS + " INTEGER NOT NULL DEFAULT 0, " +
+            ClassScheduleEntry.ROOM + " TEXT NULL, " +
+            ClassScheduleEntry.BUILDING + " TEXT NULL, " +
+            ClassScheduleEntry.CAMPUS + " TEXT NULL)";
 
     private ClassScheduleContract() { }
 
