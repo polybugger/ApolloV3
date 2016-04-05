@@ -173,9 +173,7 @@ public class AcademicTermContract {
         }
 
         public boolean equals(AcademicTermEntry entry) {
-            if(entry != null && entry.mId == mId)
-                return true;
-            return false;
+            return (entry != null && entry.mId == mId);
         }
 
         @Override

@@ -19,7 +19,8 @@ public class ClassItemTypeContract {
             ClassItemTypeEntry._ID + ", " + // 0
             ClassItemTypeEntry.DESCRIPTION + ", " + // 1
             ClassItemTypeEntry.COLOR + // 2
-            ", FROM " + TABLE_NAME;
+            " FROM " + TABLE_NAME;
+    public static final String DELETE_ALL_SQL = "DELETE FROM " + TABLE_NAME;
 
     private ClassItemTypeContract() { }
 
@@ -172,9 +173,7 @@ public class ClassItemTypeContract {
         }
 
         public boolean equals(ClassItemTypeEntry entry) {
-            if(entry != null && entry.mId == mId)
-                return true;
-            return false;
+            return (entry != null && entry.mId == mId);
         }
 
         @Override

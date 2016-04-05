@@ -16,12 +16,12 @@ import android.test.suitebuilder.annotation.MediumTest;
 
 import java.util.ArrayList;
 
+import net.polybugger.apollot.R;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import net.polybugger.apollot.R;
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest

@@ -66,6 +66,7 @@ public class ApolloDbAdapter {
             db.execSQL(ClassPasswordContract.CREATE_TABLE_SQL);
 
             _insertDefaultAcademicTerms(db);
+            _insertDefaultClassItemTypes(db);
 
         }
 
@@ -89,5 +90,19 @@ public class ApolloDbAdapter {
         AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_10), ColorEnum.TRANSPARENT.getValue());
         AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_11), ColorEnum.TRANSPARENT.getValue());
         AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_12), ColorEnum.TRANSPARENT.getValue());
+    }
+
+    private static void _insertDefaultClassItemTypes(SQLiteDatabase db) {
+        ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_0), sAppContext.getString(R.string.default_class_item_type_color_0));
+        ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_1), sAppContext.getString(R.string.default_class_item_type_color_1));
+        ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_2), sAppContext.getString(R.string.default_class_item_type_color_2));
+        ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_3), sAppContext.getString(R.string.default_class_item_type_color_3));
+        ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_4), sAppContext.getString(R.string.default_class_item_type_color_4));
+        ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_5), sAppContext.getString(R.string.default_class_item_type_color_5));
+        ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_6), sAppContext.getString(R.string.default_class_item_type_color_6));
+        ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_7), sAppContext.getString(R.string.default_class_item_type_color_7));
+        ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_8), sAppContext.getString(R.string.default_class_item_type_color_8));
+        ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_9), sAppContext.getString(R.string.default_class_item_type_color_9));
+        ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_10), sAppContext.getString(R.string.default_class_item_type_color_10));
     }
 }
