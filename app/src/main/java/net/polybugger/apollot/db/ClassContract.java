@@ -1,8 +1,11 @@
 package net.polybugger.apollot.db;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ClassContract {
@@ -17,8 +20,43 @@ public class ClassContract {
             ClassEntry.YEAR + " INTEGER NULL, " +
             ClassEntry.CURRENT + " INTEGER NOT NULL DEFAULT 1, " +
             ClassEntry.DATE_CREATED + " TEXT NULL)";
+    public static final String SELECT_TABLE_SQL = "SELECT c." +
+            ClassEntry._ID + ", c." + // 0
+            ClassEntry.CODE + ", c." + // 1
+            ClassEntry.DESCRIPTION + ", c." + // 2
+            ClassEntry.ACADEMIC_TERM_ID + ", at." + // 3
+                AcademicTermContract.AcademicTermEntry.DESCRIPTION + ", at." + // 4
+                AcademicTermContract.AcademicTermEntry.COLOR + ", c." + // 5
+            ClassEntry.CURRENT + ", c." + // 6
+            ClassEntry.YEAR + ", c." + // 7
+            ClassEntry.DATE_CREATED + // 8
+            " FROM " + TABLE_NAME + " AS c LEFT OUTER JOIN " +
+                AcademicTermContract.TABLE_NAME + " AS at ON c." + ClassEntry.ACADEMIC_TERM_ID +
+                "=at." + AcademicTermContract.AcademicTermEntry._ID;
 
     private ClassContract() { }
+
+    public static long _insert(SQLiteDatabase db, String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Integer year, PastCurrentEnum pastCurrent, Date dateCreated) {
+        ContentValues values = new ContentValues();
+        values.put(ClassEntry.CODE, code);
+        values.put(ClassEntry.DESCRIPTION, description);
+        values.put(ClassEntry.ACADEMIC_TERM_ID, academicTerm != null ? academicTerm.getId() : null);
+        values.put(ClassEntry.YEAR, year);
+        values.put(ClassEntry.CURRENT, pastCurrent.getValue());
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
+        String sDateCreated = null;
+        if(dateCreated != null)
+            sDateCreated = sdf.format(dateCreated);
+        values.put(ClassEntry.DATE_CREATED, sDateCreated);
+        return db.insert(TABLE_NAME, null, values);
+    }
+
+    public static long insert(String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Integer year, PastCurrentEnum pastCurrent, Date dateCreated) {
+        SQLiteDatabase db = ApolloDbAdapter.open();
+        long id = _insert(db, code, description, academicTerm, year, pastCurrent, dateCreated);
+        ApolloDbAdapter.close();
+        return id;
+    }
 
     public static class ClassEntry implements BaseColumns, Serializable {
 
