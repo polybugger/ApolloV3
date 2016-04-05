@@ -1,4 +1,4 @@
-package net.polybugger.apollot;
+package net.polybugger.apollot.db;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -14,8 +14,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import net.polybugger.apollot.db.ApolloDbAdapter;
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
