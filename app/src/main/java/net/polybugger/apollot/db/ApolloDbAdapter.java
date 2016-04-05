@@ -5,6 +5,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import net.polybugger.apollot.R;
+
 public class ApolloDbAdapter {
 
     public static final String DATABASE_NAME = "ApolloDb.sqlite3";
@@ -63,11 +65,29 @@ public class ApolloDbAdapter {
             db.execSQL(ClassNoteContract.CREATE_TABLE_SQL);
             db.execSQL(ClassPasswordContract.CREATE_TABLE_SQL);
 
+            _insertDefaultAcademicTerms(db);
+
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         }
+    }
+
+    private static void _insertDefaultAcademicTerms(SQLiteDatabase db) {
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_0), sAppContext.getString(R.string.default_academic_term_color_0));
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_1), sAppContext.getString(R.string.default_academic_term_color_1));
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_2), sAppContext.getString(R.string.default_academic_term_color_2));
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_3), sAppContext.getString(R.string.default_academic_term_color_3));
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_4), sAppContext.getString(R.string.default_academic_term_color_4));
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_5), sAppContext.getString(R.string.default_academic_term_color_5));
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_6), ColorEnum.TRANSPARENT.getValue());
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_7), ColorEnum.TRANSPARENT.getValue());
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_8), ColorEnum.TRANSPARENT.getValue());
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_9), ColorEnum.TRANSPARENT.getValue());
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_10), ColorEnum.TRANSPARENT.getValue());
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_11), ColorEnum.TRANSPARENT.getValue());
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_12), ColorEnum.TRANSPARENT.getValue());
     }
 }
