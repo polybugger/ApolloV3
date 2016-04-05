@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <!-- <uses-library android:name="android.test.runner" />
+        <instrumentation android:name="android.test.InstrumentationTestRunner"
+                         android:targetPackage="net.polybugger.apollot" android:label="Apollo Tests" /> -->
+
     </application>
 
 </manifest>
