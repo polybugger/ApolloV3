@@ -30,18 +30,17 @@ public class ApolloDbAdapter {
     }
 
     public static synchronized SQLiteDatabase open() throws SQLException {
-        sOpenCounter++;
-        if(sOpenCounter == 1) {
+        if(sOpenCounter == 0)
             sDb = sDbHelper.getWritableDatabase();
-        }
+        sOpenCounter++;
         return sDb;
     }
 
     public static synchronized void close() {
-        sOpenCounter--;
-        if(sOpenCounter == 0) {
+        if(sOpenCounter == 1)
             sDb.close();
-        }
+        if(sOpenCounter > 0)
+            sOpenCounter--;
     }
 
     private static class ApolloDbHelper extends SQLiteOpenHelper {
