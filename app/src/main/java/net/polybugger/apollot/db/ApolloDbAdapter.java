@@ -17,7 +17,6 @@ public class ApolloDbAdapter {
 
     private ApolloDbAdapter() { }
 
-    // http://www.dmytrodanylyk.com/concurrent-database-access/
     public static void setAppContext(Context context) {
         if(sDbHelper == null) {
             sAppContext = context.getApplicationContext();
