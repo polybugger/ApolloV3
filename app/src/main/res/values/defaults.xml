@@ -23,7 +23,9 @@
     <string name="default_academic_term_color_5">ffa6ffe9</string> <!-- 2nd semester. -->
 
     <string name="default_class_item_type_0">Lecture</string>
+    <string name="default_class_item_type_0a">Lesson</string>
     <string name="default_class_item_type_1">Homework</string>
+    <string name="default_class_item_type_1a">Assignment</string>
     <string name="default_class_item_type_2">Exercise</string>
     <string name="default_class_item_type_3">Short Quiz</string>
     <string name="default_class_item_type_4">Long Exam</string>
@@ -35,7 +37,9 @@
     <string name="default_class_item_type_10">Final Exam</string>
 
     <string name="default_class_item_type_color_0">ffffff8d</string> <!-- lecture. -->
+    <string name="default_class_item_type_color_0a">ffffff8d</string> <!-- lesson. -->
     <string name="default_class_item_type_color_1">ff7ed8fd</string> <!-- homework. -->
+    <string name="default_class_item_type_color_1a">ff7ed8fd</string> <!-- assignment. -->
     <string name="default_class_item_type_color_2">ffa6ffe9</string> <!-- exercise. -->
     <string name="default_class_item_type_color_3">ffcbff90</string> <!-- short quiz. -->
     <string name="default_class_item_type_color_4">ffced8da</string> <!-- long exam. -->

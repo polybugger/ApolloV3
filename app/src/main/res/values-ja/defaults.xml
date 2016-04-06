@@ -23,7 +23,9 @@
     <string name="default_academic_term_color_5">ffa6ffe9</string> <!-- 2nd semester. -->
 
     <string name="default_class_item_type_0">講義</string>
+    <string name="default_class_item_type_0a">授業</string>
     <string name="default_class_item_type_1">宿題</string>
+    <string name="default_class_item_type_1a">課題</string>
     <string name="default_class_item_type_2">演習</string>
     <string name="default_class_item_type_3">小テスト</string>
     <string name="default_class_item_type_4">試験</string>
@@ -35,7 +37,9 @@
     <string name="default_class_item_type_10">期末試験</string>
 
     <string name="default_class_item_type_color_0">ffffff8d</string> <!-- lecture. -->
+    <string name="default_class_item_type_color_0a">ffffff8d</string> <!-- lesson. -->
     <string name="default_class_item_type_color_1">ff7ed8fd</string> <!-- homework. -->
+    <string name="default_class_item_type_color_1a">ff7ed8fd</string> <!-- assignment. -->
     <string name="default_class_item_type_color_2">ffa6ffe9</string> <!-- exercise. -->
     <string name="default_class_item_type_color_3">ffcbff90</string> <!-- short quiz. -->
     <string name="default_class_item_type_color_4">ffced8da</string> <!-- long exam. -->

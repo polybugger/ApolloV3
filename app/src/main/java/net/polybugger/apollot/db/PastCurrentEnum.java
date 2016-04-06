@@ -1,5 +1,9 @@
 package net.polybugger.apollot.db;
 
+import android.content.Context;
+
+import net.polybugger.apollot.R;
+
 public enum PastCurrentEnum {
 
     PAST(0),
@@ -19,5 +23,13 @@ public enum PastCurrentEnum {
 
     public int getValue() {
         return mValue;
+    }
+
+    public static String intToString(Context context, int pastCurrent) {
+        if(pastCurrent == PAST.mValue)
+            return context.getString(R.string.past);
+        if(pastCurrent == CURRENT.mValue)
+            return context.getString(R.string.current);
+        return context.getString(R.string.past);
     }
 }

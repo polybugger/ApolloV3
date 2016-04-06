@@ -2,6 +2,9 @@
 <resources>
     <string name="app_name">ApolloV3</string>
 
+    <string name="past">過去</string>
+    <string name="current">現在</string>
+
     <string name="days_mf">月～金</string>
     <string name="days_mwf">月、水、金</string>
     <string name="days_tth">火、木</string>

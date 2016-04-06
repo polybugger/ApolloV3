@@ -114,7 +114,9 @@ public class ClassItemTypeContractTest {
     public void test_getEntries() throws Exception {
         ArrayList<ClassItemTypeContract.ClassItemTypeEntry> _entries = ClassItemTypeContract._getEntries(mDb);
         ClassItemTypeContract.ClassItemTypeEntry _entry0 = ClassItemTypeContract._getEntry(mDb, mContext.getString(R.string.default_class_item_type_0));
+        ClassItemTypeContract.ClassItemTypeEntry _entry0a = ClassItemTypeContract._getEntry(mDb, mContext.getString(R.string.default_class_item_type_0a));
         ClassItemTypeContract.ClassItemTypeEntry _entry1 = ClassItemTypeContract._getEntry(mDb, mContext.getString(R.string.default_class_item_type_1));
+        ClassItemTypeContract.ClassItemTypeEntry _entry1a = ClassItemTypeContract._getEntry(mDb, mContext.getString(R.string.default_class_item_type_1a));
         ClassItemTypeContract.ClassItemTypeEntry _entry2 = ClassItemTypeContract._getEntry(mDb, mContext.getString(R.string.default_class_item_type_2));
         ClassItemTypeContract.ClassItemTypeEntry _entry3 = ClassItemTypeContract._getEntry(mDb, mContext.getString(R.string.default_class_item_type_3));
         ClassItemTypeContract.ClassItemTypeEntry _entry4 = ClassItemTypeContract._getEntry(mDb, mContext.getString(R.string.default_class_item_type_4));
@@ -128,8 +130,12 @@ public class ClassItemTypeContractTest {
         assertNotNull(_entries);
         assertNotNull(_entry0);
         assertTrue(_entries.contains(_entry0));
+        assertNotNull(_entry0a);
+        assertTrue(_entries.contains(_entry0a));
         assertNotNull(_entry1);
         assertTrue(_entries.contains(_entry1));
+        assertNotNull(_entry1a);
+        assertTrue(_entries.contains(_entry1a));
         assertNotNull(_entry2);
         assertTrue(_entries.contains(_entry2));
         assertNotNull(_entry3);
@@ -232,7 +238,9 @@ public class ClassItemTypeContractTest {
 
     private void _insertDefaultClassItemTypes() {
         ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_0), mContext.getString(R.string.default_class_item_type_color_0));
+        ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_0a), mContext.getString(R.string.default_class_item_type_color_0a));
         ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_1), mContext.getString(R.string.default_class_item_type_color_1));
+        ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_1a), mContext.getString(R.string.default_class_item_type_color_1a));
         ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_2), mContext.getString(R.string.default_class_item_type_color_2));
         ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_3), mContext.getString(R.string.default_class_item_type_color_3));
         ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_4), mContext.getString(R.string.default_class_item_type_color_4));

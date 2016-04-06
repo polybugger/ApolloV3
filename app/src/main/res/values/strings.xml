@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">ApolloV3</string>
 
+    <string name="past">Past</string>
+    <string name="current">Current</string>
+
     <string name="days_mf">M-F</string>
     <string name="days_mwf">MWF</string>
     <string name="days_tth">TTh</string>

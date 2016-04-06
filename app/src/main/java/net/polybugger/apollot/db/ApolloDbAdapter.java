@@ -99,7 +99,9 @@ public class ApolloDbAdapter {
 
     private static void _insertDefaultClassItemTypes(SQLiteDatabase db) {
         ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_0), sAppContext.getString(R.string.default_class_item_type_color_0));
+        ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_0a), sAppContext.getString(R.string.default_class_item_type_color_0a));
         ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_1), sAppContext.getString(R.string.default_class_item_type_color_1));
+        ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_1a), sAppContext.getString(R.string.default_class_item_type_color_1a));
         ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_2), sAppContext.getString(R.string.default_class_item_type_color_2));
         ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_3), sAppContext.getString(R.string.default_class_item_type_color_3));
         ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_4), sAppContext.getString(R.string.default_class_item_type_color_4));
