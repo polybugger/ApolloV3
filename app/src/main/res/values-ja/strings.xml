@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ApolloV3</string>
+
+    <string name="days_mf">月～金</string>
+    <string name="days_mwf">月、水、金</string>
+    <string name="days_tth">火、木</string>
+
+    <string name="days_mon">月</string>
+    <string name="days_tue">火</string>
+    <string name="days_wed">水</string>
+    <string name="days_thu">木</string>
+    <string name="days_fri">金</string>
+    <string name="days_sat">土</string>
+    <string name="days_sun">日</string>
+
+    <string name="days_m">月</string>
+    <string name="days_t">火</string>
+    <string name="days_w">水</string>
+    <string name="days_th">木</string>
+    <string name="days_f">金</string>
+    <string name="days_s">土</string>
+    <string name="days_su">日</string>
+
+    <string name="days_monday">月</string>
+    <string name="days_tuesday">火</string>
+    <string name="days_wednesday">水</string>
+    <string name="days_thursday">木</string>
+    <string name="days_friday">金</string>
+    <string name="days_saturday">土</string>
+    <string name="days_sunday">日</string>
+
+</resources>

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="default_academic_term_0">Fall</string>
-    <string name="default_academic_term_1">Spring</string>
-    <string name="default_academic_term_2">Summer</string>
-    <string name="default_academic_term_3">Winter</string>
-    <string name="default_academic_term_4">1st Semester</string>
-    <string name="default_academic_term_5">2nd Semester</string>
-    <string name="default_academic_term_6">1st Trimester</string>
-    <string name="default_academic_term_7">2nd Trimester</string>
-    <string name="default_academic_term_8">3rd Trimester</string>
-    <string name="default_academic_term_9">1st Quarter</string>
-    <string name="default_academic_term_10">2nd Quarter</string>
-    <string name="default_academic_term_11">3rd Quarter</string>
-    <string name="default_academic_term_12">4th Quarter</string>
+    <string name="default_academic_term_0">秋</string>
+    <string name="default_academic_term_1">春</string>
+    <string name="default_academic_term_2">夏</string>
+    <string name="default_academic_term_3">冬</string>
+    <string name="default_academic_term_4">前期</string>
+    <string name="default_academic_term_5">後期</string>
+    <string name="default_academic_term_6">一学期</string>
+    <string name="default_academic_term_7">二学期</string>
+    <string name="default_academic_term_8">三学期</string>
+    <string name="default_academic_term_9">一学期</string>
+    <string name="default_academic_term_10">二学期</string>
+    <string name="default_academic_term_11">三学期</string>
+    <string name="default_academic_term_12">四学期</string>
 
     <string name="default_academic_term_color_0">fffed17e</string> <!-- fall. -->
     <string name="default_academic_term_color_1">ffcbff90</string> <!-- spring. -->
@@ -22,17 +22,17 @@
     <string name="default_academic_term_color_4">ffced8da</string> <!-- 1st semester. -->
     <string name="default_academic_term_color_5">ffa6ffe9</string> <!-- 2nd semester. -->
 
-    <string name="default_class_item_type_0">Lecture</string>
-    <string name="default_class_item_type_1">Homework</string>
-    <string name="default_class_item_type_2">Exercise</string>
-    <string name="default_class_item_type_3">Short Quiz</string>
-    <string name="default_class_item_type_4">Long Exam</string>
-    <string name="default_class_item_type_5">Project</string>
-    <string name="default_class_item_type_6">Essay</string>
-    <string name="default_class_item_type_7">Report</string>
-    <string name="default_class_item_type_8">Quarter Exam</string>
-    <string name="default_class_item_type_9">Midterm Exam</string>
-    <string name="default_class_item_type_10">Final Exam</string>
+    <string name="default_class_item_type_0">講義</string>
+    <string name="default_class_item_type_1">宿題</string>
+    <string name="default_class_item_type_2">演習</string>
+    <string name="default_class_item_type_3">小テスト</string>
+    <string name="default_class_item_type_4">試験</string>
+    <string name="default_class_item_type_5">プロジェクト</string>
+    <string name="default_class_item_type_6">論文</string>
+    <string name="default_class_item_type_7">レポート</string>
+    <string name="default_class_item_type_8">学期試験</string>
+    <string name="default_class_item_type_9">中間試験</string>
+    <string name="default_class_item_type_10">期末試験</string>
 
     <string name="default_class_item_type_color_0">ffffff8d</string> <!-- lecture. -->
     <string name="default_class_item_type_color_1">ff7ed8fd</string> <!-- homework. -->
