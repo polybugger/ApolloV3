@@ -1,11 +1,13 @@
 package net.polybugger.apollot.db;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -30,12 +32,11 @@ public class ClassContract {
             ClassEntry.ACADEMIC_TERM_ID + ", at." + // 3
                 AcademicTermContract.AcademicTermEntry.DESCRIPTION + ", at." + // 4
                 AcademicTermContract.AcademicTermEntry.COLOR + ", c." + // 5
-            ClassEntry.CURRENT + ", c." + // 6
-            ClassEntry.YEAR + ", c." + // 7
+            ClassEntry.YEAR + ", c." + // 6
+            ClassEntry.CURRENT + ", c." + // 7
             ClassEntry.DATE_CREATED + // 8
             " FROM " + TABLE_NAME + " AS c LEFT OUTER JOIN " +
-                AcademicTermContract.TABLE_NAME + " AS at ON c." + ClassEntry.ACADEMIC_TERM_ID +
-                "=at." + AcademicTermContract.AcademicTermEntry._ID;
+                AcademicTermContract.TABLE_NAME + " AS at ON c." + ClassEntry.ACADEMIC_TERM_ID + "=at." + AcademicTermContract.AcademicTermEntry._ID;
     public static final String DELETE_ALL_SQL = "DELETE FROM " + TABLE_NAME;
 
     private ClassContract() { }
@@ -48,10 +49,7 @@ public class ClassContract {
         values.put(ClassEntry.YEAR, year);
         values.put(ClassEntry.CURRENT, pastCurrent.getValue());
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
-        String sDateCreated = null;
-        if(dateCreated != null)
-            sDateCreated = sdf.format(dateCreated);
-        values.put(ClassEntry.DATE_CREATED, sDateCreated);
+        values.put(ClassEntry.DATE_CREATED, (dateCreated != null) ? sdf.format(dateCreated) : null);
         return db.insert(TABLE_NAME, null, values);
     }
 
@@ -60,6 +58,129 @@ public class ClassContract {
         long id = _insert(db, code, description, academicTerm, year, pastCurrent, dateCreated);
         ApolloDbAdapter.close();
         return id;
+    }
+
+    public static int _update(SQLiteDatabase db, long id, String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Integer year, PastCurrentEnum pastCurrent, Date dateCreated) {
+        ContentValues values = new ContentValues();
+        values.put(ClassEntry.CODE, code);
+        values.put(ClassEntry.DESCRIPTION, description);
+        values.put(ClassEntry.ACADEMIC_TERM_ID, academicTerm != null ? academicTerm.getId() : null);
+        values.put(ClassEntry.YEAR, year);
+        values.put(ClassEntry.CURRENT, pastCurrent.getValue());
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
+        values.put(ClassEntry.DATE_CREATED, (dateCreated != null) ? sdf.format(dateCreated) : null);
+        return db.update(TABLE_NAME, values, ClassEntry._ID + "=?", new String[]{String.valueOf(id)});
+    }
+
+    public static int update(long id, String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Integer year, PastCurrentEnum pastCurrent, Date dateCreated) {
+        SQLiteDatabase db = ApolloDbAdapter.open();
+        int rowsUpdated = _update(db, id, code, description, academicTerm, year, pastCurrent, dateCreated);
+        ApolloDbAdapter.close();
+        return rowsUpdated;
+    }
+
+    public static int _delete(SQLiteDatabase db, long id) {
+        return db.delete(TABLE_NAME, ClassEntry._ID + "=?", new String[]{String.valueOf(id)});
+    }
+
+    public static int delete(long id) {
+        SQLiteDatabase db = ApolloDbAdapter.open();
+        int rowsDeleted = _delete(db, id);
+        ApolloDbAdapter.close();
+        return rowsDeleted;
+    }
+
+    public static ClassEntry _getEntry(SQLiteDatabase db, long id) {
+        ClassEntry entry = null;
+        AcademicTermContract.AcademicTermEntry academicTerm;
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
+        Date dateCreated;
+        Cursor cursor = db.query(TABLE_NAME + " AS c LEFT OUTER JOIN " +
+                        AcademicTermContract.TABLE_NAME + " AS at ON c." + ClassEntry.ACADEMIC_TERM_ID + "=at." + AcademicTermContract.AcademicTermEntry._ID,
+                new String[]{"c." + ClassEntry._ID, // 0
+                        "c." + ClassEntry.CODE, // 1
+                        "c." + ClassEntry.DESCRIPTION, // 2
+                        "c." + ClassEntry.ACADEMIC_TERM_ID, // 3
+                        "at." + AcademicTermContract.AcademicTermEntry.DESCRIPTION, // 4
+                        "at." + AcademicTermContract.AcademicTermEntry.COLOR, // 5
+                        "c." + ClassEntry.YEAR, // 6
+                        "c." + ClassEntry.CURRENT, // 7
+                        "c." + ClassEntry.DATE_CREATED}, // 8
+                "c." + ClassEntry._ID + "=?",
+                new String[]{String.valueOf(id)},
+                null, null, null);
+        cursor.moveToFirst();
+        if(!cursor.isAfterLast()) {
+            academicTerm = cursor.isNull(3) ? null : new AcademicTermContract.AcademicTermEntry(cursor.getLong(3), cursor.getString(4), cursor.getString(5));
+            try {
+                dateCreated = sdf.parse(cursor.getString(8));
+            }
+            catch(Exception e) {
+                dateCreated = null;
+            }
+            entry = new ClassEntry(cursor.getLong(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    academicTerm, // 3, 4, 5
+                    cursor.isNull(6) ? null : cursor.getLong(6),
+                    PastCurrentEnum.fromInt(cursor.getInt(7)),
+                    dateCreated); // 8
+        }
+        cursor.close();
+        return entry;
+    }
+
+    public static ClassEntry getEntry(long id) {
+        SQLiteDatabase db = ApolloDbAdapter.open();
+        ClassEntry entry = _getEntry(db, id);
+        ApolloDbAdapter.close();
+        return entry;
+    }
+
+    public static ArrayList<ClassEntry> _getEntries(SQLiteDatabase db) {
+        ArrayList<ClassEntry> entries = new ArrayList<>();
+        AcademicTermContract.AcademicTermEntry academicTerm;
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
+        Date dateCreated;
+        Cursor cursor = db.query(TABLE_NAME + " AS c LEFT OUTER JOIN " +
+                        AcademicTermContract.TABLE_NAME + " AS at ON c." + ClassEntry.ACADEMIC_TERM_ID + "=at." + AcademicTermContract.AcademicTermEntry._ID,
+                new String[]{"c." + ClassEntry._ID, // 0
+                        "c." + ClassEntry.CODE, // 1
+                        "c." + ClassEntry.DESCRIPTION, // 2
+                        "c." + ClassEntry.ACADEMIC_TERM_ID, // 3
+                        "at." + AcademicTermContract.AcademicTermEntry.DESCRIPTION, // 4
+                        "at." + AcademicTermContract.AcademicTermEntry.COLOR, // 5
+                        "c." + ClassEntry.YEAR, // 6
+                        "c." + ClassEntry.CURRENT, // 7
+                        "c." + ClassEntry.DATE_CREATED}, // 8
+                null, null, null, null, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            academicTerm = cursor.isNull(3) ? null : new AcademicTermContract.AcademicTermEntry(cursor.getLong(3), cursor.getString(4), cursor.getString(5));
+            try {
+                dateCreated = sdf.parse(cursor.getString(8));
+            }
+            catch(Exception e) {
+                dateCreated = null;
+            }
+            entries.add(new ClassEntry(cursor.getLong(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    academicTerm, // 3, 4, 5
+                    cursor.isNull(6) ? null : cursor.getLong(6),
+                    PastCurrentEnum.fromInt(cursor.getInt(7)),
+                    dateCreated)); // 8
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return entries;
+    }
+
+    public static ArrayList<ClassEntry> getEntries() {
+        SQLiteDatabase db = ApolloDbAdapter.open();
+        ArrayList<ClassEntry> entries = _getEntries(db);
+        ApolloDbAdapter.close();
+        return entries;
     }
 
     public static class ClassEntry implements BaseColumns, Serializable {
@@ -71,15 +192,15 @@ public class ClassContract {
         public static final String CURRENT = "Current";
         public static final String DATE_CREATED = "DateCreated";
 
-        private long mId;
-        private String mCode;
-        private String mDescription;
-        private AcademicTermContract.AcademicTermEntry mAcademicTerm;
-        private Integer mYear; // nullable
-        private PastCurrentEnum mPastCurrent;
-        private Date mDateCreated;
+        private long mId; // 0
+        private String mCode; // 1
+        private String mDescription; // 2 nullable
+        private AcademicTermContract.AcademicTermEntry mAcademicTerm; // 3, 4, 5 nullable
+        private Long mYear; // 6 nullable
+        private PastCurrentEnum mPastCurrent; // 7
+        private Date mDateCreated; // 8 nullable
 
-        public ClassEntry(long id, String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Integer year, PastCurrentEnum pastCurrent, Date dateCreated) {
+        public ClassEntry(long id, String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Long year, PastCurrentEnum pastCurrent, Date dateCreated) {
             mId = id;
             mCode = code;
             mDescription = description;
@@ -121,11 +242,11 @@ public class ClassContract {
             mAcademicTerm = academicTerm;
         }
 
-        public Integer getYear() {
+        public Long getYear() {
             return mYear;
         }
 
-        public void setYear(Integer year) {
+        public void setYear(Long year) {
             mYear = year;
         }
 

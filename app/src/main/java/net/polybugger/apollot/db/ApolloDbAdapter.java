@@ -5,6 +5,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.Date;
+
 import net.polybugger.apollot.R;
 
 public class ApolloDbAdapter {
@@ -68,6 +70,7 @@ public class ApolloDbAdapter {
             _insertDefaultAcademicTerms(db);
             _insertDefaultClassItemTypes(db);
 
+            long id = _insertDummyClass1(db);
         }
 
         @Override
@@ -105,4 +108,10 @@ public class ApolloDbAdapter {
         ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_9), sAppContext.getString(R.string.default_class_item_type_color_9));
         ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_10), sAppContext.getString(R.string.default_class_item_type_color_10));
     }
+
+    private static long _insertDummyClass1(SQLiteDatabase db) {
+        AcademicTermContract.AcademicTermEntry academicTerm = AcademicTermContract._getEntry(db, sAppContext.getString(R.string.default_academic_term_0));
+        return ClassContract._insert(db, "Math 311", "Abstract Algebra", academicTerm, 2014, PastCurrentEnum.CURRENT, new Date());
+    }
+
 }

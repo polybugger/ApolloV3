@@ -110,7 +110,9 @@ public class AcademicTermContract {
 
     public static ArrayList<AcademicTermEntry> _getEntries(SQLiteDatabase db) {
         ArrayList<AcademicTermEntry> entries = new ArrayList<>();
-        Cursor cursor = db.rawQuery(SELECT_TABLE_SQL, null);
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{AcademicTermEntry._ID, AcademicTermEntry.DESCRIPTION, AcademicTermEntry.COLOR},
+                null, null, null, null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
             entries.add(new AcademicTermEntry(cursor.getLong(0), cursor.getString(1), cursor.getString(2)));
