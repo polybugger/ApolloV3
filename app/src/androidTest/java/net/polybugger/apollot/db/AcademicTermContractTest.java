@@ -44,13 +44,13 @@ public class AcademicTermContractTest {
 
         mDb.setForeignKeyConstraintsEnabled(false);
         mDb.execSQL(AcademicTermContract.DELETE_ALL_SQL);
-        _insertDefaultAcademicTerms(mDb);
+        _insertDefaultAcademicTerms();
     }
 
     @After
     public void tearDown() throws Exception {
         mDb.execSQL(AcademicTermContract.DELETE_ALL_SQL);
-        _insertDefaultAcademicTerms(mDb);
+        _insertDefaultAcademicTerms();
         ApolloDbAdapter.close();
     }
 
@@ -236,19 +236,19 @@ public class AcademicTermContractTest {
         assertEquals(color, entry.getColor());
     }
 
-    private void _insertDefaultAcademicTerms(SQLiteDatabase db) {
-        AcademicTermContract._insert(db, mContext.getString(R.string.default_academic_term_0), mContext.getString(R.string.default_academic_term_color_0));
-        AcademicTermContract._insert(db, mContext.getString(R.string.default_academic_term_1), mContext.getString(R.string.default_academic_term_color_1));
-        AcademicTermContract._insert(db, mContext.getString(R.string.default_academic_term_2), mContext.getString(R.string.default_academic_term_color_2));
-        AcademicTermContract._insert(db, mContext.getString(R.string.default_academic_term_3), mContext.getString(R.string.default_academic_term_color_3));
-        AcademicTermContract._insert(db, mContext.getString(R.string.default_academic_term_4), mContext.getString(R.string.default_academic_term_color_4));
-        AcademicTermContract._insert(db, mContext.getString(R.string.default_academic_term_5), mContext.getString(R.string.default_academic_term_color_5));
-        AcademicTermContract._insert(db, mContext.getString(R.string.default_academic_term_6), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(db, mContext.getString(R.string.default_academic_term_7), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(db, mContext.getString(R.string.default_academic_term_8), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(db, mContext.getString(R.string.default_academic_term_9), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(db, mContext.getString(R.string.default_academic_term_10), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(db, mContext.getString(R.string.default_academic_term_11), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(db, mContext.getString(R.string.default_academic_term_12), ColorEnum.TRANSPARENT.getValue());
+    private void _insertDefaultAcademicTerms() {
+        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_0), mContext.getString(R.string.default_academic_term_color_0));
+        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_1), mContext.getString(R.string.default_academic_term_color_1));
+        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_2), mContext.getString(R.string.default_academic_term_color_2));
+        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_3), mContext.getString(R.string.default_academic_term_color_3));
+        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_4), mContext.getString(R.string.default_academic_term_color_4));
+        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_5), mContext.getString(R.string.default_academic_term_color_5));
+        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_6), ColorEnum.TRANSPARENT.getValue());
+        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_7), ColorEnum.TRANSPARENT.getValue());
+        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_8), ColorEnum.TRANSPARENT.getValue());
+        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_9), ColorEnum.TRANSPARENT.getValue());
+        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_10), ColorEnum.TRANSPARENT.getValue());
+        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_11), ColorEnum.TRANSPARENT.getValue());
+        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_12), ColorEnum.TRANSPARENT.getValue());
     }
 }

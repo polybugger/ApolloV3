@@ -46,4 +46,14 @@
     <string name="default_class_item_type_color_9">fffed17e</string> <!-- midterm exam. -->
     <string name="default_class_item_type_color_10">ffff8a80</string> <!-- final exam. -->
 
+    <string name="default_class_0_code">Math 311</string>
+    <string name="default_class_0_description">Abstract Algebra</string>
+    <string name="default_class_0_academic_term">@string/default_academic_term_0</string>
+    <integer name="default_class_0_year">2016</integer>
+
+    <string name="default_class_1_code">IT 116</string>
+    <string name="default_class_1_description">Advanced Programming</string>
+    <string name="default_class_1_academic_term">@string/default_academic_term_1</string>
+    <integer name="default_class_1_year">2017</integer>
+
 </resources>

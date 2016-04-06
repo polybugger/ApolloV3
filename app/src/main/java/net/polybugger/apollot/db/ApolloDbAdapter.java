@@ -70,7 +70,9 @@ public class ApolloDbAdapter {
             _insertDefaultAcademicTerms(db);
             _insertDefaultClassItemTypes(db);
 
-            long id = _insertDummyClass1(db);
+            long class0Id = _insertDummyClass0(db);
+
+            long class1Id = _insertDummyClass1(db);
         }
 
         @Override
@@ -109,9 +111,14 @@ public class ApolloDbAdapter {
         ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_10), sAppContext.getString(R.string.default_class_item_type_color_10));
     }
 
+    private static long _insertDummyClass0(SQLiteDatabase db) {
+        AcademicTermContract.AcademicTermEntry academicTerm = AcademicTermContract._getEntry(db, sAppContext.getString(R.string.default_class_0_academic_term));
+        return ClassContract._insert(db, sAppContext.getString(R.string.default_class_0_code), sAppContext.getString(R.string.default_class_0_description), academicTerm, (long) sAppContext.getResources().getInteger(R.integer.default_class_0_year), PastCurrentEnum.CURRENT, new Date());
+    }
+
     private static long _insertDummyClass1(SQLiteDatabase db) {
-        AcademicTermContract.AcademicTermEntry academicTerm = AcademicTermContract._getEntry(db, sAppContext.getString(R.string.default_academic_term_0));
-        return ClassContract._insert(db, "Math 311", "Abstract Algebra", academicTerm, 2014, PastCurrentEnum.CURRENT, new Date());
+        AcademicTermContract.AcademicTermEntry academicTerm = AcademicTermContract._getEntry(db, sAppContext.getString(R.string.default_class_1_academic_term));
+        return ClassContract._insert(db, sAppContext.getString(R.string.default_class_1_code), sAppContext.getString(R.string.default_class_1_description), academicTerm, (long) sAppContext.getResources().getInteger(R.integer.default_class_1_year), PastCurrentEnum.PAST, new Date());
     }
 
 }

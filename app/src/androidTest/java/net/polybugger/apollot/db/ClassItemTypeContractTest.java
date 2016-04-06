@@ -44,13 +44,13 @@ public class ClassItemTypeContractTest {
 
         mDb.setForeignKeyConstraintsEnabled(false);
         mDb.execSQL(ClassItemTypeContract.DELETE_ALL_SQL);
-        _insertDefaultClassItemTypes(mDb);
+        _insertDefaultClassItemTypes();
     }
 
     @After
     public void tearDown() throws Exception {
         mDb.execSQL(ClassItemTypeContract.DELETE_ALL_SQL);
-        _insertDefaultClassItemTypes(mDb);
+        _insertDefaultClassItemTypes();
         ApolloDbAdapter.close();
     }
 
@@ -230,17 +230,17 @@ public class ClassItemTypeContractTest {
         assertEquals(color, entry.getColor());
     }
 
-    private void _insertDefaultClassItemTypes(SQLiteDatabase db) {
-        ClassItemTypeContract._insert(db, mContext.getString(R.string.default_class_item_type_0), mContext.getString(R.string.default_class_item_type_color_0));
-        ClassItemTypeContract._insert(db, mContext.getString(R.string.default_class_item_type_1), mContext.getString(R.string.default_class_item_type_color_1));
-        ClassItemTypeContract._insert(db, mContext.getString(R.string.default_class_item_type_2), mContext.getString(R.string.default_class_item_type_color_2));
-        ClassItemTypeContract._insert(db, mContext.getString(R.string.default_class_item_type_3), mContext.getString(R.string.default_class_item_type_color_3));
-        ClassItemTypeContract._insert(db, mContext.getString(R.string.default_class_item_type_4), mContext.getString(R.string.default_class_item_type_color_4));
-        ClassItemTypeContract._insert(db, mContext.getString(R.string.default_class_item_type_5), mContext.getString(R.string.default_class_item_type_color_5));
-        ClassItemTypeContract._insert(db, mContext.getString(R.string.default_class_item_type_6), mContext.getString(R.string.default_class_item_type_color_6));
-        ClassItemTypeContract._insert(db, mContext.getString(R.string.default_class_item_type_7), mContext.getString(R.string.default_class_item_type_color_7));
-        ClassItemTypeContract._insert(db, mContext.getString(R.string.default_class_item_type_8), mContext.getString(R.string.default_class_item_type_color_8));
-        ClassItemTypeContract._insert(db, mContext.getString(R.string.default_class_item_type_9), mContext.getString(R.string.default_class_item_type_color_9));
-        ClassItemTypeContract._insert(db, mContext.getString(R.string.default_class_item_type_10), mContext.getString(R.string.default_class_item_type_color_10));
+    private void _insertDefaultClassItemTypes() {
+        ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_0), mContext.getString(R.string.default_class_item_type_color_0));
+        ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_1), mContext.getString(R.string.default_class_item_type_color_1));
+        ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_2), mContext.getString(R.string.default_class_item_type_color_2));
+        ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_3), mContext.getString(R.string.default_class_item_type_color_3));
+        ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_4), mContext.getString(R.string.default_class_item_type_color_4));
+        ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_5), mContext.getString(R.string.default_class_item_type_color_5));
+        ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_6), mContext.getString(R.string.default_class_item_type_color_6));
+        ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_7), mContext.getString(R.string.default_class_item_type_color_7));
+        ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_8), mContext.getString(R.string.default_class_item_type_color_8));
+        ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_9), mContext.getString(R.string.default_class_item_type_color_9));
+        ClassItemTypeContract._insert(mDb, mContext.getString(R.string.default_class_item_type_10), mContext.getString(R.string.default_class_item_type_color_10));
     }
 }

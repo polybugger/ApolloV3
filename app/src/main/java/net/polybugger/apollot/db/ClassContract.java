@@ -41,7 +41,7 @@ public class ClassContract {
 
     private ClassContract() { }
 
-    public static long _insert(SQLiteDatabase db, String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Integer year, PastCurrentEnum pastCurrent, Date dateCreated) {
+    public static long _insert(SQLiteDatabase db, String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Long year, PastCurrentEnum pastCurrent, Date dateCreated) {
         ContentValues values = new ContentValues();
         values.put(ClassEntry.CODE, code);
         values.put(ClassEntry.DESCRIPTION, description);
@@ -53,14 +53,14 @@ public class ClassContract {
         return db.insert(TABLE_NAME, null, values);
     }
 
-    public static long insert(String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Integer year, PastCurrentEnum pastCurrent, Date dateCreated) {
+    public static long insert(String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Long year, PastCurrentEnum pastCurrent, Date dateCreated) {
         SQLiteDatabase db = ApolloDbAdapter.open();
         long id = _insert(db, code, description, academicTerm, year, pastCurrent, dateCreated);
         ApolloDbAdapter.close();
         return id;
     }
 
-    public static int _update(SQLiteDatabase db, long id, String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Integer year, PastCurrentEnum pastCurrent, Date dateCreated) {
+    public static int _update(SQLiteDatabase db, long id, String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Long year, PastCurrentEnum pastCurrent, Date dateCreated) {
         ContentValues values = new ContentValues();
         values.put(ClassEntry.CODE, code);
         values.put(ClassEntry.DESCRIPTION, description);
@@ -72,7 +72,7 @@ public class ClassContract {
         return db.update(TABLE_NAME, values, ClassEntry._ID + "=?", new String[]{String.valueOf(id)});
     }
 
-    public static int update(long id, String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Integer year, PastCurrentEnum pastCurrent, Date dateCreated) {
+    public static int update(long id, String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Long year, PastCurrentEnum pastCurrent, Date dateCreated) {
         SQLiteDatabase db = ApolloDbAdapter.open();
         int rowsUpdated = _update(db, id, code, description, academicTerm, year, pastCurrent, dateCreated);
         ApolloDbAdapter.close();
