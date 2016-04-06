@@ -8,6 +8,9 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 public class ClassContract {
 
     public static final String TABLE_NAME = "Classes";
@@ -33,6 +36,7 @@ public class ClassContract {
             " FROM " + TABLE_NAME + " AS c LEFT OUTER JOIN " +
                 AcademicTermContract.TABLE_NAME + " AS at ON c." + ClassEntry.ACADEMIC_TERM_ID +
                 "=at." + AcademicTermContract.AcademicTermEntry._ID;
+    public static final String DELETE_ALL_SQL = "DELETE FROM " + TABLE_NAME;
 
     private ClassContract() { }
 
@@ -150,26 +154,20 @@ public class ClassContract {
             return mCode + " - " + mDescription;
         }
 
-        public boolean equals(ClassEntry entry) {
-            if(entry != null && entry.mId == mId)
+        @Override
+        public boolean equals(Object object) {
+            if(!(object instanceof ClassEntry))
+                return false;
+            if(object == this)
                 return true;
-            return false;
+            ClassEntry entry = (ClassEntry) object;
+            return new EqualsBuilder().append(mId, entry.mId).isEquals();
         }
 
         @Override
-        public boolean equals(Object object) {
-            ClassEntry entry;
-            if(object != null) {
-                try {
-                    entry = (ClassEntry) object;
-                    if(entry.mId == mId)
-                        return true;
-                }
-                catch(ClassCastException e) {
-                    throw new ClassCastException(object.toString() + " must be an instance of " + ClassEntry.class.toString());
-                }
-            }
-            return false;
+        public int hashCode() {
+            // TODO use next hash 17,19
+            return new HashCodeBuilder(11, 13).append(mId).toHashCode();
         }
     }
 }

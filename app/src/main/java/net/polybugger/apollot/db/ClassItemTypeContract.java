@@ -8,6 +8,9 @@ import android.provider.BaseColumns;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 public class ClassItemTypeContract {
 
     public static final String TABLE_NAME = "ClassItemTypes";
@@ -172,24 +175,20 @@ public class ClassItemTypeContract {
             return mDescription;
         }
 
-        public boolean equals(ClassItemTypeEntry entry) {
-            return (entry != null && entry.mId == mId);
+        @Override
+        public boolean equals(Object object) {
+            if(!(object instanceof ClassItemTypeEntry))
+                return false;
+            if(object == this)
+                return true;
+            ClassItemTypeEntry entry = (ClassItemTypeEntry) object;
+            return new EqualsBuilder().append(mId, entry.mId).isEquals();
         }
 
         @Override
-        public boolean equals(Object object) {
-            ClassItemTypeEntry entry;
-            if(object != null) {
-                try {
-                    entry = (ClassItemTypeEntry) object;
-                    if(entry.mId == mId)
-                        return true;
-                }
-                catch(ClassCastException e) {
-                    throw new ClassCastException(object.toString() + " must be an instance of " + ClassItemTypeEntry.class.toString());
-                }
-            }
-            return false;
+        public int hashCode() {
+            // TODO use next hash 11,13
+            return new HashCodeBuilder(5, 7).append(mId).toHashCode();
         }
     }
 }
