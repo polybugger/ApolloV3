@@ -15,13 +15,6 @@
     <string name="default_academic_term_11">三学期</string>
     <string name="default_academic_term_12">四学期</string>
 
-    <string name="default_academic_term_color_0">fffed17e</string> <!-- fall. -->
-    <string name="default_academic_term_color_1">ffcbff90</string> <!-- spring. -->
-    <string name="default_academic_term_color_2">ffff8a80</string> <!-- summer. -->
-    <string name="default_academic_term_color_3">ff7ed8fd</string> <!-- winter. -->
-    <string name="default_academic_term_color_4">ffced8da</string> <!-- 1st semester. -->
-    <string name="default_academic_term_color_5">ffa6ffe9</string> <!-- 2nd semester. -->
-
     <string name="default_class_item_type_0">講義</string>
     <string name="default_class_item_type_0a">授業</string>
     <string name="default_class_item_type_1">宿題</string>
@@ -35,29 +28,5 @@
     <string name="default_class_item_type_8">学期試験</string>
     <string name="default_class_item_type_9">中間試験</string>
     <string name="default_class_item_type_10">期末試験</string>
-
-    <string name="default_class_item_type_color_0">ffffff8d</string> <!-- lecture. -->
-    <string name="default_class_item_type_color_0a">ffffff8d</string> <!-- lesson. -->
-    <string name="default_class_item_type_color_1">ff7ed8fd</string> <!-- homework. -->
-    <string name="default_class_item_type_color_1a">ff7ed8fd</string> <!-- assignment. -->
-    <string name="default_class_item_type_color_2">ffa6ffe9</string> <!-- exercise. -->
-    <string name="default_class_item_type_color_3">ffcbff90</string> <!-- short quiz. -->
-    <string name="default_class_item_type_color_4">ffced8da</string> <!-- long exam. -->
-    <string name="default_class_item_type_color_5">00ffffff</string>
-    <string name="default_class_item_type_color_6">00ffffff</string>
-    <string name="default_class_item_type_color_7">00ffffff</string>
-    <string name="default_class_item_type_color_8">ffff8a80</string> <!-- quarter exam. -->
-    <string name="default_class_item_type_color_9">fffed17e</string> <!-- midterm exam. -->
-    <string name="default_class_item_type_color_10">ffff8a80</string> <!-- final exam. -->
-
-    <string name="default_class_0_code">Math 311</string>
-    <string name="default_class_0_description">Abstract Algebra</string>
-    <string name="default_class_0_academic_term">@string/default_academic_term_0</string>
-    <integer name="default_class_0_year">2016</integer>
-
-    <string name="default_class_1_code">IT 116</string>
-    <string name="default_class_1_description">Advanced Programming</string>
-    <string name="default_class_1_academic_term">@string/default_academic_term_1</string>
-    <integer name="default_class_1_year">2017</integer>
 
 </resources>

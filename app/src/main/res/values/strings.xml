@@ -1,8 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ApolloV3</string>
 
     <string name="past">Past</string>
     <string name="current">Current</string>
+
+    <string name="unknown">Unknown</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 
     <string name="days_mf">M-F</string>
     <string name="days_mwf">MWF</string>

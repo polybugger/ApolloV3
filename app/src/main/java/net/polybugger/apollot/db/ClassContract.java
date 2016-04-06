@@ -92,7 +92,6 @@ public class ClassContract {
 
     public static ClassEntry _getEntry(SQLiteDatabase db, long id) {
         ClassEntry entry = null;
-        AcademicTermContract.AcademicTermEntry academicTerm;
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
         Date dateCreated;
         Cursor cursor = db.query(TABLE_NAME + " AS c LEFT OUTER JOIN " +
@@ -111,7 +110,6 @@ public class ClassContract {
                 null, null, null);
         cursor.moveToFirst();
         if(!cursor.isAfterLast()) {
-            academicTerm = cursor.isNull(3) ? null : new AcademicTermContract.AcademicTermEntry(cursor.getLong(3), cursor.getString(4), cursor.getString(5));
             try {
                 dateCreated = sdf.parse(cursor.getString(8));
             }
@@ -120,8 +118,8 @@ public class ClassContract {
             }
             entry = new ClassEntry(cursor.getLong(0),
                     cursor.getString(1),
-                    cursor.getString(2),
-                    academicTerm, // 3, 4, 5
+                    cursor.isNull(2) ? null : cursor.getString(2),
+                    cursor.isNull(3) ? null : new AcademicTermContract.AcademicTermEntry(cursor.getLong(3), cursor.getString(4), cursor.getString(5)),
                     cursor.isNull(6) ? null : cursor.getLong(6),
                     PastCurrentEnum.fromInt(cursor.getInt(7)),
                     dateCreated); // 8
@@ -139,7 +137,6 @@ public class ClassContract {
 
     public static ArrayList<ClassEntry> _getEntries(SQLiteDatabase db) {
         ArrayList<ClassEntry> entries = new ArrayList<>();
-        AcademicTermContract.AcademicTermEntry academicTerm;
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
         Date dateCreated;
         Cursor cursor = db.query(TABLE_NAME + " AS c LEFT OUTER JOIN " +
@@ -156,7 +153,6 @@ public class ClassContract {
                 null, null, null, null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
-            academicTerm = cursor.isNull(3) ? null : new AcademicTermContract.AcademicTermEntry(cursor.getLong(3), cursor.getString(4), cursor.getString(5));
             try {
                 dateCreated = sdf.parse(cursor.getString(8));
             }
@@ -165,8 +161,8 @@ public class ClassContract {
             }
             entries.add(new ClassEntry(cursor.getLong(0),
                     cursor.getString(1),
-                    cursor.getString(2),
-                    academicTerm, // 3, 4, 5
+                    cursor.isNull(2) ? null : cursor.getString(2),
+                    cursor.isNull(3) ? null : new AcademicTermContract.AcademicTermEntry(cursor.getLong(3), cursor.getString(4), cursor.getString(5)),
                     cursor.isNull(6) ? null : cursor.getLong(6),
                     PastCurrentEnum.fromInt(cursor.getInt(7)),
                     dateCreated)); // 8

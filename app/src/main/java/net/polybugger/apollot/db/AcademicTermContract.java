@@ -75,7 +75,8 @@ public class AcademicTermContract {
                 null, null, null);
         cursor.moveToFirst();
         if(!cursor.isAfterLast())
-            entry = new AcademicTermEntry(cursor.getLong(0), cursor.getString(1), cursor.getString(2));
+            entry = new AcademicTermEntry(cursor.getLong(0), cursor.getString(1),
+                    cursor.isNull(2) ? null : cursor.getString(2));
         cursor.close();
         return entry;
     }
@@ -96,7 +97,8 @@ public class AcademicTermContract {
                 null, null, null);
         cursor.moveToFirst();
         if(!cursor.isAfterLast())
-            entry = new AcademicTermEntry(cursor.getLong(0), cursor.getString(1), cursor.getString(2));
+            entry = new AcademicTermEntry(cursor.getLong(0), cursor.getString(1),
+                    cursor.isNull(2) ? null : cursor.getString(2));
         cursor.close();
         return entry;
     }
@@ -115,7 +117,8 @@ public class AcademicTermContract {
                 null, null, null, null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
-            entries.add(new AcademicTermEntry(cursor.getLong(0), cursor.getString(1), cursor.getString(2)));
+            entries.add(new AcademicTermEntry(cursor.getLong(0), cursor.getString(1),
+                    cursor.isNull(2) ? null : cursor.getString(2)));
             cursor.moveToNext();
         }
         cursor.close();

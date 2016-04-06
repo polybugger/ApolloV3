@@ -55,13 +55,13 @@ public class ClassContractTest {
         mClass0Description = mContext.getString(R.string.default_class_0_description);
         mClass0AcademicTerm = null;
         mClass0Year = (long) mContext.getResources().getInteger(R.integer.default_class_0_year);
-        mClass0PastCurrent = PastCurrentEnum.CURRENT;
+        mClass0PastCurrent = PastCurrentEnum.fromInt(mContext.getResources().getInteger(R.integer.default_class_0_past_current));
         mClass0DateCreated = new Date();
         mClass1Code = mContext.getString(R.string.default_class_1_code);
         mClass1Description = mContext.getString(R.string.default_class_1_description);
         mClass1AcademicTerm = null;
         mClass1Year = (long) mContext.getResources().getInteger(R.integer.default_class_1_year);
-        mClass1PastCurrent = PastCurrentEnum.PAST;
+        mClass1PastCurrent = PastCurrentEnum.fromInt(mContext.getResources().getInteger(R.integer.default_class_1_past_current));;
         Thread.sleep(1);
         mClass1DateCreated = new Date();
         mDb.setForeignKeyConstraintsEnabled(false);
