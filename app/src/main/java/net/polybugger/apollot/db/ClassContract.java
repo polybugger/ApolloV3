@@ -278,13 +278,15 @@ public class ClassContract {
             if(object == this)
                 return true;
             ClassEntry entry = (ClassEntry) object;
-            return new EqualsBuilder().append(mId, entry.mId).isEquals();
+            return new EqualsBuilder()
+                    .append(mId, entry.mId).isEquals();
         }
 
         @Override
         public int hashCode() {
             // TODO use next hash 17,19
-            return new HashCodeBuilder(11, 13).append(mId).toHashCode();
+            return new HashCodeBuilder(11, 13)
+                    .append(mId).toHashCode();
         }
     }
 }
