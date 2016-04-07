@@ -8,6 +8,7 @@ import org.junit.runners.Suite;
         ApolloDbAdapterTest.class,
         AcademicTermContractTest.class,
         ClassItemTypeContractTest.class,
-        ClassContractTest.class
+        ClassContractTest.class,
+        StudentContractTest.class
 })
 public class DbTestSuite { }

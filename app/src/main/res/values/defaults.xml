@@ -65,28 +65,28 @@
     <integer name="default_class_1_year">2017</integer>
     <integer name="default_class_1_past_current">@integer/past</integer>
 
-    <integer name="unknown">-1</integer>
     <integer name="male">0</integer>
     <integer name="female">1</integer>
+    <integer name="unknown">2</integer>
 
     <string name="default_student_0_last_name">Knute</string>
     <string name="default_student_0_first_name">Deunan</string>
-    <string name="default_student_0_middle_name"></string>
+    <string name="default_student_0_middle_name">K</string>
     <integer name="default_student_0_gender">@integer/female</integer>
-    <string name="default_student_0_email_address"></string>
-    <string name="default_student_0_contact_number"></string>
+    <string name="default_student_0_email_address">d.knute@eswat.org</string>
+    <string name="default_student_0_contact_number">2105&#8211;17&#8211;2125</string>
 
-    <string name="default_student_1_last_name">Ibanez</string>
-    <string name="default_student_1_first_name">Carmen</string>
-    <string name="default_student_1_middle_name"></string>
-    <integer name="default_student_1_gender">@integer/female</integer>
-    <string name="default_student_1_email_address"></string>
+    <string name="default_student_1_last_name">Jenkins</string>
+    <string name="default_student_1_first_name">Carl</string>
+    <string name="default_student_1_middle_name">W</string>
+    <integer name="default_student_1_gender">@integer/male</integer>
+    <string name="default_student_1_email_address">info@rainbowcity.co</string>
     <string name="default_student_1_contact_number"></string>
 
-    <string name="default_student_2_last_name">Jenkins</string>
-    <string name="default_student_2_first_name">Carl</string>
+    <string name="default_student_2_last_name">Ibanez</string>
+    <string name="default_student_2_first_name">Carmen</string>
     <string name="default_student_2_middle_name"></string>
-    <integer name="default_student_2_gender">@integer/male</integer>
+    <integer name="default_student_2_gender">@integer/female</integer>
     <string name="default_student_2_email_address"></string>
     <string name="default_student_2_contact_number"></string>
 
