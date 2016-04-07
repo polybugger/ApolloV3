@@ -110,39 +110,36 @@ public class StudentContractTest {
         assertEquals(mStudent1ContactNumber, entry.getContactNumber());
     }
 
-    /*
     @Test
     public void test_getEntryId() throws Exception {
-        ClassContract.ClassEntry _entry = ClassContract._getEntry(mDb, mClass0Id);
+        StudentContract.StudentEntry _entry = StudentContract._getEntry(mDb, mStudent0Id);
         assertNotNull(_entry);
-        assertEquals(mClass0Id, _entry.getId());
-        assertEquals(mClass0Code, _entry.getCode());
-        assertEquals(mClass0Description, _entry.getDescription());
-        assertNotNull(mClass0AcademicTerm);
-        assertTrue(mClass0AcademicTerm.equals(_entry.getAcademicTerm()));
-        assertEquals(mClass0Year, _entry.getYear());
-        assertEquals(mClass0PastCurrent, _entry.getPastCurrent());
-        assertEquals(mClass0DateCreated, _entry.getDateCreated());
+        assertEquals(mStudent0Id, _entry.getId());
+        assertEquals(mStudent0LastName, _entry.getLastName());
+        assertEquals(mStudent0FirstName, _entry.getFirstName());
+        assertEquals(mStudent0MiddleName, _entry.getMiddleName());
+        assertEquals(mStudent0Gender, _entry.getGender());
+        assertEquals(mStudent0EmailAddress, _entry.getEmailAddress());
+        assertEquals(mStudent0ContactNumber, _entry.getContactNumber());
 
-        ClassContract.ClassEntry entry = ClassContract.getEntry(mClass0Id);
+        StudentContract.StudentEntry entry = StudentContract.getEntry(mStudent0Id);
         assertNotNull(entry);
-        assertEquals(mClass0Id, entry.getId());
-        assertEquals(mClass0Code, entry.getCode());
-        assertEquals(mClass0Description, entry.getDescription());
-        assertNotNull(mClass0AcademicTerm);
-        assertTrue(mClass0AcademicTerm.equals(entry.getAcademicTerm()));
-        assertEquals(mClass0Year, entry.getYear());
-        assertEquals(mClass0PastCurrent, entry.getPastCurrent());
-        assertEquals(mClass0DateCreated, entry.getDateCreated());
+        assertEquals(mStudent0Id, entry.getId());
+        assertEquals(mStudent0LastName, entry.getLastName());
+        assertEquals(mStudent0FirstName, entry.getFirstName());
+        assertEquals(mStudent0MiddleName, entry.getMiddleName());
+        assertEquals(mStudent0Gender, entry.getGender());
+        assertEquals(mStudent0EmailAddress, entry.getEmailAddress());
+        assertEquals(mStudent0ContactNumber, entry.getContactNumber());
 
         assertTrue(_entry.equals(entry));
     }
 
     @Test
     public void test_getEntries() throws Exception {
-        ArrayList<ClassContract.ClassEntry> _entries = ClassContract._getEntries(mDb);
-        ClassContract.ClassEntry _entry0 = ClassContract._getEntry(mDb, mClass0Id);
-        ClassContract.ClassEntry _entry1 = ClassContract._getEntry(mDb, mClass1Id);
+        ArrayList<StudentContract.StudentEntry> _entries = StudentContract._getEntries(mDb);
+        StudentContract.StudentEntry _entry0 = StudentContract._getEntry(mDb, mStudent0Id);
+        StudentContract.StudentEntry _entry1 = StudentContract._getEntry(mDb, mStudent1Id);
 
         assertNotNull(_entries);
         assertNotNull(_entry0);
@@ -150,95 +147,94 @@ public class StudentContractTest {
         assertNotNull(_entry1);
         assertTrue(_entries.contains(_entry1));
 
-        ArrayList<ClassContract.ClassEntry> entries = ClassContract.getEntries();
+        ArrayList<StudentContract.StudentEntry> entries = StudentContract.getEntries();
         assertNotNull(entries);
         assertArrayEquals(_entries.toArray(), entries.toArray());
     }
 
     @Test
     public void test_delete() throws Exception {
-        int rowsDeleted = ClassContract._delete(mDb, mClass0Id);
+        int rowsDeleted = StudentContract._delete(mDb, mStudent0Id);
         assertEquals(1, rowsDeleted);
-        rowsDeleted = ClassContract._delete(mDb, mClass0Id);
+        rowsDeleted = StudentContract._delete(mDb, mStudent0Id);
         assertEquals(0, rowsDeleted);
-        ClassContract.ClassEntry _entry = ClassContract._getEntry(mDb, mClass0Id);
+        StudentContract.StudentEntry _entry = StudentContract._getEntry(mDb, mStudent0Id);
         assertNull(_entry);
 
-        rowsDeleted = ClassContract.delete(mClass1Id);
+        rowsDeleted = StudentContract.delete(mStudent1Id);
         assertEquals(1, rowsDeleted);
-        rowsDeleted = ClassContract.delete(mClass1Id);
+        rowsDeleted = StudentContract.delete(mStudent1Id);
         assertEquals(0, rowsDeleted);
-        ClassContract.ClassEntry entry = ClassContract.getEntry(mClass1Id);
+        StudentContract.StudentEntry entry = StudentContract.getEntry(mStudent0Id);
         assertNull(entry);
     }
 
     @Test
     public void test_update() throws Exception {
-        ClassContract.ClassEntry _entry0 = ClassContract._getEntry(mDb, mClass0Id);
+        StudentContract.StudentEntry _entry0 = StudentContract._getEntry(mDb, mStudent0Id);
         assertNotNull(_entry0);
-        assertNotEquals(mClass1Code, _entry0.getCode());
-        assertNotEquals(mClass1Description, _entry0.getDescription());
-        assertNotNull(mClass1AcademicTerm);
-        assertFalse(mClass1AcademicTerm.equals(_entry0.getAcademicTerm()));
-        assertNotEquals(mClass1Year, _entry0.getYear());
-        assertNotEquals(mClass1PastCurrent, _entry0.getPastCurrent());
-        assertNotEquals(mClass1DateCreated, _entry0.getDateCreated());
+        assertNotEquals(mStudent1Id, _entry0.getId());
+        assertNotEquals(mStudent1LastName, _entry0.getLastName());
+        assertNotEquals(mStudent1FirstName, _entry0.getFirstName());
+        assertNotEquals(mStudent1MiddleName, _entry0.getMiddleName());
+        assertNotEquals(mStudent1Gender, _entry0.getGender());
+        assertNotEquals(mStudent1EmailAddress, _entry0.getEmailAddress());
+        assertNotEquals(mStudent1ContactNumber, _entry0.getContactNumber());
 
-        int rowsUpdated = ClassContract._update(mDb, mClass0Id, mClass1Code, mClass1Description, mClass1AcademicTerm, mClass1Year, mClass1PastCurrent, mClass1DateCreated);
+        int rowsUpdated = StudentContract._update(mDb, mStudent0Id, mStudent1LastName, mStudent1FirstName, mStudent1MiddleName, mStudent1Gender, mStudent1EmailAddress, mStudent1ContactNumber);
         assertEquals(1, rowsUpdated);
-        ClassContract.ClassEntry _entry0Updated = ClassContract._getEntry(mDb, mClass0Id);
+        StudentContract.StudentEntry _entry0Updated = StudentContract._getEntry(mDb, mStudent0Id);
         assertNotNull(_entry0Updated);
-        assertEquals(mClass1Code, _entry0Updated.getCode());
-        assertEquals(mClass1Description, _entry0Updated.getDescription());
-        assertTrue(mClass1AcademicTerm.equals(_entry0Updated.getAcademicTerm()));
-        assertEquals(mClass1Year, _entry0Updated.getYear());
-        assertEquals(mClass1PastCurrent, _entry0Updated.getPastCurrent());
-        assertEquals(mClass1DateCreated, _entry0Updated.getDateCreated());
+        assertEquals(mStudent0Id, _entry0Updated.getId());
+        assertEquals(mStudent1LastName, _entry0Updated.getLastName());
+        assertEquals(mStudent1FirstName, _entry0Updated.getFirstName());
+        assertEquals(mStudent1MiddleName, _entry0Updated.getMiddleName());
+        assertEquals(mStudent1Gender, _entry0Updated.getGender());
+        assertEquals(mStudent1EmailAddress, _entry0Updated.getEmailAddress());
+        assertEquals(mStudent1ContactNumber, _entry0Updated.getContactNumber());
 
-        assertNotEquals(mClass0Code, _entry0Updated.getCode());
-        assertNotEquals(mClass0Description, _entry0Updated.getDescription());
-        assertNotNull(mClass0AcademicTerm);
-        assertFalse(mClass0AcademicTerm.equals(_entry0Updated.getAcademicTerm()));
-        assertNotEquals(mClass0Year, _entry0Updated.getYear());
-        assertNotEquals(mClass0PastCurrent, _entry0Updated.getPastCurrent());
-        assertNotEquals(mClass0DateCreated, _entry0Updated.getDateCreated());
+        assertNotEquals(mStudent0LastName, _entry0Updated.getLastName());
+        assertNotEquals(mStudent0FirstName, _entry0Updated.getFirstName());
+        assertNotEquals(mStudent0MiddleName, _entry0Updated.getMiddleName());
+        assertNotEquals(mStudent0Gender, _entry0Updated.getGender());
+        assertNotEquals(mStudent0EmailAddress, _entry0Updated.getEmailAddress());
+        assertNotEquals(mStudent0ContactNumber, _entry0Updated.getContactNumber());
 
-        rowsUpdated = ClassContract.update(mClass0Id, mClass0Code, mClass0Description, mClass0AcademicTerm, mClass0Year, mClass0PastCurrent, mClass0DateCreated);
+        rowsUpdated = StudentContract.update(mStudent0Id, mStudent0LastName, mStudent0FirstName, mStudent0MiddleName, mStudent0Gender, mStudent0EmailAddress, mStudent0ContactNumber);
         assertEquals(1, rowsUpdated);
-        _entry0Updated = ClassContract.getEntry(mClass0Id);
+        _entry0Updated = StudentContract.getEntry(mStudent0Id);
         assertNotNull(_entry0Updated);
-        assertEquals(mClass0Code, _entry0Updated.getCode());
-        assertEquals(mClass0Description, _entry0Updated.getDescription());
-        assertTrue(mClass0AcademicTerm.equals(_entry0Updated.getAcademicTerm()));
-        assertEquals(mClass0Year, _entry0Updated.getYear());
-        assertEquals(mClass0PastCurrent, _entry0Updated.getPastCurrent());
-        assertEquals(mClass0DateCreated, _entry0Updated.getDateCreated());
+        assertEquals(mStudent0Id, _entry0Updated.getId());
+        assertEquals(mStudent0LastName, _entry0Updated.getLastName());
+        assertEquals(mStudent0FirstName, _entry0Updated.getFirstName());
+        assertEquals(mStudent0MiddleName, _entry0Updated.getMiddleName());
+        assertEquals(mStudent0Gender, _entry0Updated.getGender());
+        assertEquals(mStudent0EmailAddress, _entry0Updated.getEmailAddress());
+        assertEquals(mStudent0ContactNumber, _entry0Updated.getContactNumber());
     }
 
     @Test
     public void test_insert() throws Exception {
-        ClassContract.ClassEntry _entry0 = ClassContract._getEntry(mDb, mClass0Id);
+        StudentContract.StudentEntry _entry0 = StudentContract._getEntry(mDb, mStudent0Id);
         assertNotNull(_entry0);
-        assertEquals(mClass0Id, _entry0.getId());
+        assertEquals(mStudent0Id, _entry0.getId());
 
-        int rowsDeleted = ClassContract._delete(mDb, mClass0Id);
+        int rowsDeleted = StudentContract._delete(mDb, mStudent0Id);
         assertEquals(1, rowsDeleted);
-        _entry0 = ClassContract._getEntry(mDb, mClass0Id);
+        _entry0 = StudentContract._getEntry(mDb, mStudent0Id);
         assertNull(_entry0);
 
-        long class2Id = ClassContract._insert(mDb, mClass0Code, mClass0Description, mClass0AcademicTerm, mClass0Year, mClass0PastCurrent, mClass0DateCreated);
-        ClassContract.ClassEntry _entry2 = ClassContract._getEntry(mDb, class2Id);
+        long student2Id = StudentContract._insert(mDb, mStudent0LastName, mStudent0FirstName, mStudent0MiddleName, mStudent0Gender, mStudent0EmailAddress, mStudent0ContactNumber);
+        StudentContract.StudentEntry _entry2 = StudentContract._getEntry(mDb, student2Id);
         assertNotNull(_entry2);
-        assertEquals(class2Id, _entry2.getId());
-        assertEquals(mClass0Code, _entry2.getCode());
-        assertEquals(mClass0Description, _entry2.getDescription());
-        assertNotNull(mClass0AcademicTerm);
-        assertTrue(mClass0AcademicTerm.equals(_entry2.getAcademicTerm()));
-        assertEquals(mClass0Year, _entry2.getYear());
-        assertEquals(mClass0PastCurrent, _entry2.getPastCurrent());
-        assertEquals(mClass0DateCreated, _entry2.getDateCreated());
+        assertEquals(student2Id, _entry2.getId());
+        assertEquals(mStudent0LastName, _entry2.getLastName());
+        assertEquals(mStudent0FirstName, _entry2.getFirstName());
+        assertEquals(mStudent0MiddleName, _entry2.getMiddleName());
+        assertEquals(mStudent0Gender, _entry2.getGender());
+        assertEquals(mStudent0EmailAddress, _entry2.getEmailAddress());
+        assertEquals(mStudent0ContactNumber, _entry2.getContactNumber());
     }
-    */
 
     private void _insertDummyStudents() {
         mStudent0Id = StudentContract._insert(mDb, mStudent0LastName, mStudent0FirstName, mStudent0MiddleName, mStudent0Gender, mStudent0EmailAddress, mStudent0ContactNumber);
