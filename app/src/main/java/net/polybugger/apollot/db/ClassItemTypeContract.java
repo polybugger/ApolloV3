@@ -192,7 +192,6 @@ public class ClassItemTypeContract {
 
         @Override
         public int hashCode() {
-            // TODO use next hash 11,13
             return new HashCodeBuilder(5, 7).append(mId).toHashCode();
         }
     }

@@ -208,10 +208,8 @@ public class ClassNoteContract {
 
         @Override
         public int hashCode() {
-            // TODO use next hash 41,43
             return new HashCodeBuilder(31, 37)
                     .append(mId).toHashCode();
         }
     }
-
 }

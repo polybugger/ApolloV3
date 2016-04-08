@@ -297,7 +297,6 @@ public class ClassScheduleContract {
 
         @Override
         public int hashCode() {
-            // TODO use next hash 31,37
             return new HashCodeBuilder(23, 29)
                     .append(mId).toHashCode();
         }

@@ -329,7 +329,6 @@ public class ClassContract {
 
         @Override
         public int hashCode() {
-            // TODO use next hash 17,19
             return new HashCodeBuilder(11, 13)
                     .append(mId).toHashCode();
         }

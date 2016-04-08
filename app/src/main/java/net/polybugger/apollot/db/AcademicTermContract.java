@@ -192,7 +192,6 @@ public class AcademicTermContract {
 
         @Override
         public int hashCode() {
-            // TODO use next hash 5,7
             return new HashCodeBuilder(2, 3).append(mId).toHashCode();
         }
     }

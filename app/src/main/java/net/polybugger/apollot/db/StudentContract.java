@@ -245,7 +245,6 @@ public class StudentContract {
 
         @Override
         public int hashCode() {
-            // TODO use next hash 23,29
             return new HashCodeBuilder(17, 19)
                     .append(mId).toHashCode();
         }
