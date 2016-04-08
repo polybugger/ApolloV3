@@ -66,17 +66,18 @@
     <integer name="default_class_1_past_current">@integer/past</integer>
 
     <integer name="days_mwf">21</integer>
+    <integer name="days_tth">10</integer>
 
     <string name="default_class_0_class_schedule_0_time_start">8:45 AM</string>
     <string name="default_class_0_class_schedule_0_time_end">9:45 AM</string>
     <integer name="default_class_0_class_schedule_0_days">@integer/days_mwf</integer>
     <string name="default_class_0_class_schedule_0_room">214</string>
     <string name="default_class_0_class_schedule_0_building">Arts &amp; Sciences</string>
-    <string name="default_class_0_class_schedule_0_campus">TC</string>
+    <string name="default_class_0_class_schedule_0_campus">Main</string>
 
     <string name="default_class_1_class_schedule_0_time_start">7:45 AM</string>
     <string name="default_class_1_class_schedule_0_time_end">8:45 AM</string>
-    <integer name="default_class_1_class_schedule_0_days">@integer/days_mwf</integer>
+    <integer name="default_class_1_class_schedule_0_days">@integer/days_tth</integer>
     <string name="default_class_1_class_schedule_0_room">202</string>
     <string name="default_class_1_class_schedule_0_building">AS</string>
     <string name="default_class_1_class_schedule_0_campus">TC</string>
