@@ -82,6 +82,11 @@
     <string name="default_class_1_class_schedule_0_building">AS</string>
     <string name="default_class_1_class_schedule_0_campus">TC</string>
 
+    <string name="default_class_0_class_note_0_note">Textbook - A First Course in Abstract Algebra, 7th Edition by John B. Fraleigh</string>
+    <string name="default_class_0_class_note_0_date_created">June 11, 2016</string>
+    <string name="default_class_0_class_note_1_note">Syllabus - http://www.extension.harvard.edu/sites/default/files/openlearning/math222/files/OLI_MathE222_Syllabus.pdf</string>
+    <string name="default_class_0_class_note_1_date_created">June 12, 2016</string>
+
     <integer name="gender_male">0</integer>
     <integer name="gender_female">1</integer>
     <integer name="gender_unknown">2</integer>
