@@ -195,7 +195,7 @@ public class ClassScheduleContractTest {
         assertEquals(1, rowsDeleted);
         rowsDeleted = ClassScheduleContract.delete(mClassSchedule1Id);
         assertEquals(0, rowsDeleted);
-        ClassScheduleContract.ClassScheduleEntry entry = ClassScheduleContract._getEntry(mDb, mClassSchedule1Id);
+        ClassScheduleContract.ClassScheduleEntry entry = ClassScheduleContract.getEntry(mClassSchedule1Id);
         assertNull(entry);
     }
 
