@@ -2,7 +2,7 @@ package net.polybugger.apollot.db;
 
 public enum ColorEnum {
 
-    TRANSPARENT("00ffffff");
+    TRANSPARENT("#00000000");
 
     private String mValue;
 

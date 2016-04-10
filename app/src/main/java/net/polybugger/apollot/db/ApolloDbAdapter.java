@@ -64,27 +64,26 @@ public class ApolloDbAdapter {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-
-            /*
             db.execSQL(AcademicTermContract.CREATE_TABLE_SQL);
-            db.execSQL(ClassItemTypeContract.CREATE_TABLE_SQL);
-            db.execSQL(StudentContract.CREATE_TABLE_SQL);
-            db.execSQL(ClassContract.CREATE_TABLE_SQL);
-            db.execSQL(ClassScheduleContract.CREATE_TABLE_SQL);
-            db.execSQL(ClassNoteContract.CREATE_TABLE_SQL);
-            db.execSQL(ClassPasswordContract.CREATE_TABLE_SQL);
-
             _insertDefaultAcademicTerms(db);
-            _insertDefaultClassItemTypes(db);
 
-            _insertDummyStudents(db);
+            // db.execSQL(ClassItemTypeContract.CREATE_TABLE_SQL);
+            // db.execSQL(StudentContract.CREATE_TABLE_SQL);
+            // db.execSQL(ClassContract.CREATE_TABLE_SQL);
+            // db.execSQL(ClassScheduleContract.CREATE_TABLE_SQL);
+            // db.execSQL(ClassNoteContract.CREATE_TABLE_SQL);
+            // db.execSQL(ClassPasswordContract.CREATE_TABLE_SQL);
 
-            long class0Id = _insertDummyClass0(db);
-            _insertDummyClass0Schedules(db, class0Id);
-            _insertDummyClass0Notes(db, class0Id);
-            long class1Id = _insertDummyClass1(db);
-            _insertDummyClass1Schedules(db, class1Id);
-            */
+
+            // _insertDefaultClassItemTypes(db);
+
+            // _insertDummyStudents(db);
+
+            // long class0Id = _insertDummyClass0(db);
+            // _insertDummyClass0Schedules(db, class0Id);
+            // _insertDummyClass0Notes(db, class0Id);
+            // long class1Id = _insertDummyClass1(db);
+            // _insertDummyClass1Schedules(db, class1Id);
         }
 
         @Override
@@ -95,22 +94,23 @@ public class ApolloDbAdapter {
 
     // helper methods for populating dummy data
 
-    private static void _insertDefaultAcademicTerms(SQLiteDatabase db) {
+    public static void _insertDefaultAcademicTerms(SQLiteDatabase db) {
         AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_0), sAppContext.getString(R.string.default_academic_term_color_0));
         AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_1), sAppContext.getString(R.string.default_academic_term_color_1));
         AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_2), sAppContext.getString(R.string.default_academic_term_color_2));
         AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_3), sAppContext.getString(R.string.default_academic_term_color_3));
         AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_4), sAppContext.getString(R.string.default_academic_term_color_4));
         AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_5), sAppContext.getString(R.string.default_academic_term_color_5));
-        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_6), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_7), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_8), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_9), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_10), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_11), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_12), ColorEnum.TRANSPARENT.getValue());
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_6), sAppContext.getString(R.string.default_academic_term_color_6));
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_7), sAppContext.getString(R.string.default_academic_term_color_7));
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_8), sAppContext.getString(R.string.default_academic_term_color_8));
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_9), sAppContext.getString(R.string.default_academic_term_color_9));
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_10), sAppContext.getString(R.string.default_academic_term_color_10));
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_11), sAppContext.getString(R.string.default_academic_term_color_11));
+        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_12), sAppContext.getString(R.string.default_academic_term_color_12));
     }
 
+    /*
     private static void _insertDefaultClassItemTypes(SQLiteDatabase db) {
         ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_0), sAppContext.getString(R.string.default_class_item_type_color_0));
         ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_0a), sAppContext.getString(R.string.default_class_item_type_color_0a));
@@ -128,7 +128,7 @@ public class ApolloDbAdapter {
     }
 
     private static long _insertDummyClass0(SQLiteDatabase db) {
-        AcademicTermContract.AcademicTermEntry academicTerm = AcademicTermContract._getEntry(db, sAppContext.getString(R.string.default_class_0_academic_term));
+        AcademicTermContract.AcademicTermEntry academicTerm = AcademicTermContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_academic_term));
         return ClassContract._insert(db, sAppContext.getString(R.string.default_class_0_code),
                 sAppContext.getString(R.string.default_class_0_description),
                 academicTerm,
@@ -182,7 +182,7 @@ public class ApolloDbAdapter {
     }
 
     private static long _insertDummyClass1(SQLiteDatabase db) {
-        AcademicTermContract.AcademicTermEntry academicTerm = AcademicTermContract._getEntry(db, sAppContext.getString(R.string.default_class_1_academic_term));
+        AcademicTermContract.AcademicTermEntry academicTerm = AcademicTermContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_1_academic_term));
         return ClassContract._insert(db, sAppContext.getString(R.string.default_class_1_code),
                 sAppContext.getString(R.string.default_class_1_description),
                 academicTerm,
@@ -514,5 +514,6 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_student_42_email_address),
                 sAppContext.getString(R.string.default_student_42_contact_number));
     }
+    */
 
 }

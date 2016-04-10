@@ -69,13 +69,16 @@ public class AcademicTermContract {
     public static AcademicTermEntry _getEntry(SQLiteDatabase db, long id) {
         AcademicTermEntry entry = null;
         Cursor cursor = db.query(TABLE_NAME,
-                new String[]{AcademicTermEntry._ID, AcademicTermEntry.DESCRIPTION, AcademicTermEntry.COLOR},
+                new String[]{AcademicTermEntry._ID, // 0
+                        AcademicTermEntry.DESCRIPTION, // 1
+                        AcademicTermEntry.COLOR}, // 2
                 AcademicTermEntry._ID + "=?",
                 new String[]{String.valueOf(id)},
                 null, null, null);
         cursor.moveToFirst();
         if(!cursor.isAfterLast())
-            entry = new AcademicTermEntry(cursor.getLong(0), cursor.getString(1),
+            entry = new AcademicTermEntry(cursor.getLong(0),
+                    cursor.getString(1),
                     cursor.isNull(2) ? null : cursor.getString(2));
         cursor.close();
         return entry;
@@ -88,24 +91,27 @@ public class AcademicTermContract {
         return entry;
     }
 
-    public static AcademicTermEntry _getEntry(SQLiteDatabase db, String description) {
+    public static AcademicTermEntry _getEntryByDescription(SQLiteDatabase db, String description) {
         AcademicTermEntry entry = null;
         Cursor cursor = db.query(TABLE_NAME,
-                new String[]{AcademicTermEntry._ID, AcademicTermEntry.DESCRIPTION, AcademicTermEntry.COLOR},
+                new String[]{AcademicTermEntry._ID, // 0
+                        AcademicTermEntry.DESCRIPTION, // 1
+                        AcademicTermEntry.COLOR}, // 2
                 AcademicTermEntry.DESCRIPTION + "=?",
                 new String[]{description},
                 null, null, null);
         cursor.moveToFirst();
         if(!cursor.isAfterLast())
-            entry = new AcademicTermEntry(cursor.getLong(0), cursor.getString(1),
+            entry = new AcademicTermEntry(cursor.getLong(0),
+                    cursor.getString(1),
                     cursor.isNull(2) ? null : cursor.getString(2));
         cursor.close();
         return entry;
     }
 
-    public static AcademicTermEntry getEntry(String description) {
+    public static AcademicTermEntry getEntryByDescription(String description) {
         SQLiteDatabase db = ApolloDbAdapter.open();
-        AcademicTermEntry entry = _getEntry(db, description);
+        AcademicTermEntry entry = _getEntryByDescription(db, description);
         ApolloDbAdapter.close();
         return entry;
     }
@@ -113,11 +119,14 @@ public class AcademicTermContract {
     public static ArrayList<AcademicTermEntry> _getEntries(SQLiteDatabase db) {
         ArrayList<AcademicTermEntry> entries = new ArrayList<>();
         Cursor cursor = db.query(TABLE_NAME,
-                new String[]{AcademicTermEntry._ID, AcademicTermEntry.DESCRIPTION, AcademicTermEntry.COLOR},
+                new String[]{AcademicTermEntry._ID, // 0
+                        AcademicTermEntry.DESCRIPTION, // 1
+                        AcademicTermEntry.COLOR}, // 2
                 null, null, null, null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
-            entries.add(new AcademicTermEntry(cursor.getLong(0), cursor.getString(1),
+            entries.add(new AcademicTermEntry(cursor.getLong(0),
+                    cursor.getString(1),
                     cursor.isNull(2) ? null : cursor.getString(2)));
             cursor.moveToNext();
         }
@@ -137,9 +146,9 @@ public class AcademicTermContract {
         public static final String DESCRIPTION = "Description";
         public static final String COLOR = "Color";
 
-        private long mId;
-        private String mDescription;
-        private String mColor;
+        private long mId; // 0
+        private String mDescription; // 1
+        private String mColor; // 2 nullable
 
         public AcademicTermEntry(long id, String description, String color) {
             mId = id;
@@ -171,10 +180,6 @@ public class AcademicTermContract {
             this.mColor = color;
         }
 
-        public int getColorInt() {
-            return (int) Long.parseLong(mColor != null ? mColor : ColorEnum.TRANSPARENT.getValue(), 16);
-        }
-
         @Override
         public String toString() {
             return mDescription;
@@ -187,12 +192,14 @@ public class AcademicTermContract {
             if(object == this)
                 return true;
             AcademicTermEntry entry = (AcademicTermEntry) object;
-            return new EqualsBuilder().append(mId, entry.mId).isEquals();
+            return new EqualsBuilder()
+                    .append(mId, entry.mId).isEquals();
         }
 
         @Override
         public int hashCode() {
-            return new HashCodeBuilder(2, 3).append(mId).toHashCode();
+            return new HashCodeBuilder(2, 3)
+                    .append(mId).toHashCode();
         }
     }
 }

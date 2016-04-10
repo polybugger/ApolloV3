@@ -242,10 +242,10 @@ public class ClassContractTest {
     }
 
     private void _insertDummyClasses() {
-        mClass0AcademicTerm = AcademicTermContract._getEntry(mDb, mContext.getString(R.string.default_class_0_academic_term));
+        mClass0AcademicTerm = AcademicTermContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_0_academic_term));
         mClass0Id = ClassContract._insert(mDb, mClass0Code, mClass0Description, mClass0AcademicTerm, mClass0Year, mClass0PastCurrent, mClass0DateCreated);
 
-        mClass1AcademicTerm = AcademicTermContract._getEntry(mDb, mContext.getString(R.string.default_class_1_academic_term));
+        mClass1AcademicTerm = AcademicTermContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_1_academic_term));
         mClass1Id = ClassContract._insert(mDb, mClass1Code, mClass1Description, mClass1AcademicTerm, mClass1Year, mClass1PastCurrent, mClass1DateCreated);
     }
 }

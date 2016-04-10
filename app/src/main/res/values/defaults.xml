@@ -15,12 +15,19 @@
     <string name="default_academic_term_11">3rd Quarter</string>
     <string name="default_academic_term_12">4th Quarter</string>
 
-    <string name="default_academic_term_color_0">fffed17e</string> <!-- fall. -->
-    <string name="default_academic_term_color_1">ffcbff90</string> <!-- spring. -->
-    <string name="default_academic_term_color_2">ffff8a80</string> <!-- summer. -->
-    <string name="default_academic_term_color_3">ff7ed8fd</string> <!-- winter. -->
-    <string name="default_academic_term_color_4">ffced8da</string> <!-- 1st semester. -->
-    <string name="default_academic_term_color_5">ffa6ffe9</string> <!-- 2nd semester. -->
+    <string name="default_academic_term_color_0">#FFFED17E</string> <!-- fall. -->
+    <string name="default_academic_term_color_1">#FFCBFF90</string> <!-- spring. -->
+    <string name="default_academic_term_color_2">#FFFF8A80</string> <!-- summer. -->
+    <string name="default_academic_term_color_3">#FF7ED8FD</string> <!-- winter. -->
+    <string name="default_academic_term_color_4">#FFCED8DA</string> <!-- 1st semester. -->
+    <string name="default_academic_term_color_5">#FFA6FFE9</string> <!-- 2nd semester. -->
+    <string name="default_academic_term_color_6">#00000000</string> <!-- 2nd semester. -->
+    <string name="default_academic_term_color_7">#00000000</string> <!-- 2nd semester. -->
+    <string name="default_academic_term_color_8">#00000000</string> <!-- 2nd semester. -->
+    <string name="default_academic_term_color_9">#00000000</string> <!-- 2nd semester. -->
+    <string name="default_academic_term_color_10">#00000000</string> <!-- 2nd semester. -->
+    <string name="default_academic_term_color_11">#00000000</string> <!-- 2nd semester. -->
+    <string name="default_academic_term_color_12">#00000000</string> <!-- 2nd semester. -->
 
     <string name="default_class_item_type_0">Lecture</string>
     <string name="default_class_item_type_0a">Lesson</string>
@@ -36,19 +43,19 @@
     <string name="default_class_item_type_9">Midterm Exam</string>
     <string name="default_class_item_type_10">Final Exam</string>
 
-    <string name="default_class_item_type_color_0">ffffff8d</string> <!-- lecture. -->
-    <string name="default_class_item_type_color_0a">ffffff8d</string> <!-- lesson. -->
-    <string name="default_class_item_type_color_1">ff7ed8fd</string> <!-- homework. -->
-    <string name="default_class_item_type_color_1a">ff7ed8fd</string> <!-- assignment. -->
-    <string name="default_class_item_type_color_2">ffa6ffe9</string> <!-- exercise. -->
-    <string name="default_class_item_type_color_3">ffcbff90</string> <!-- short quiz. -->
-    <string name="default_class_item_type_color_4">ffced8da</string> <!-- long exam. -->
-    <string name="default_class_item_type_color_5">00ffffff</string>
-    <string name="default_class_item_type_color_6">00ffffff</string>
-    <string name="default_class_item_type_color_7">00ffffff</string>
-    <string name="default_class_item_type_color_8">ffff8a80</string> <!-- quarter exam. -->
-    <string name="default_class_item_type_color_9">fffed17e</string> <!-- midterm exam. -->
-    <string name="default_class_item_type_color_10">ffff8a80</string> <!-- final exam. -->
+    <string name="default_class_item_type_color_0">#FFFFFF8D</string> <!-- lecture. -->
+    <string name="default_class_item_type_color_0a">#FFFFFF8D</string> <!-- lesson. -->
+    <string name="default_class_item_type_color_1">#FF7ED8FD</string> <!-- homework. -->
+    <string name="default_class_item_type_color_1a">#FF7ED8FD</string> <!-- assignment. -->
+    <string name="default_class_item_type_color_2">#FFA6FFE9</string> <!-- exercise. -->
+    <string name="default_class_item_type_color_3">#FFCBFF90</string> <!-- short quiz. -->
+    <string name="default_class_item_type_color_4">#FFCED8DA</string> <!-- long exam. -->
+    <string name="default_class_item_type_color_5">#00000000</string>
+    <string name="default_class_item_type_color_6">#00000000</string>
+    <string name="default_class_item_type_color_7">#00000000</string>
+    <string name="default_class_item_type_color_8">#FFFF8A80</string> <!-- quarter exam. -->
+    <string name="default_class_item_type_color_9">#FFFED17E</string> <!-- midterm exam. -->
+    <string name="default_class_item_type_color_10">#FFFF8A80</string> <!-- final exam. -->
 
     <integer name="past">0</integer>
     <integer name="current">1</integer>

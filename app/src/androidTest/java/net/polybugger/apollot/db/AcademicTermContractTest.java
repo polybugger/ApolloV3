@@ -1,6 +1,5 @@
 package net.polybugger.apollot.db;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -27,228 +26,143 @@ import org.junit.runner.RunWith;
 @MediumTest
 public class AcademicTermContractTest {
 
-    private SQLiteDatabase mDb;
     private Context mContext;
-    private long mId;
-    private String mDescription;
-    private String mColor;
+    private long mAcademicTerm0Id;
+    private String mAcademicTerm0Description;
+    private String mAcademicTerm0Color;
+    private long mAcademicTerm1Id;
+    private String mAcademicTerm1Description;
+    private String mAcademicTerm1Color;
 
     @Before
     public void setUp() throws Exception {
         mContext = new RenamingDelegatingContext(InstrumentationRegistry.getTargetContext(), "test_");
         ApolloDbAdapter.setAppContext(mContext);
-        mDb = ApolloDbAdapter.open();
-        mId = 1;
-        mDescription = mContext.getString(R.string.default_academic_term_0);
-        mColor = mContext.getString(R.string.default_academic_term_color_0);
-
-        mDb.setForeignKeyConstraintsEnabled(false);
-        mDb.execSQL(AcademicTermContract.DELETE_ALL_SQL);
-        _insertDefaultAcademicTerms();
+        SQLiteDatabase db = ApolloDbAdapter.open();
+        db.setForeignKeyConstraintsEnabled(false);
+        db.execSQL(AcademicTermContract.DELETE_ALL_SQL);
+        ApolloDbAdapter._insertDefaultAcademicTerms(db);
+        mAcademicTerm0Description = mContext.getString(R.string.default_academic_term_0);
+        mAcademicTerm0Color = mContext.getString(R.string.default_academic_term_color_0);
+        mAcademicTerm0Id = AcademicTermContract.getEntryByDescription(mAcademicTerm0Description).getId();
+        mAcademicTerm1Description = mContext.getString(R.string.default_academic_term_1);
+        mAcademicTerm1Color = mContext.getString(R.string.default_academic_term_color_1);
+        mAcademicTerm1Id = AcademicTermContract.getEntryByDescription(mAcademicTerm1Description).getId();
+        ApolloDbAdapter.close();
     }
 
     @After
     public void tearDown() throws Exception {
-        mDb.execSQL(AcademicTermContract.DELETE_ALL_SQL);
-        _insertDefaultAcademicTerms();
+        SQLiteDatabase db = ApolloDbAdapter.open();
+        db.setForeignKeyConstraintsEnabled(false);
+        db.execSQL(AcademicTermContract.DELETE_ALL_SQL);
+        ApolloDbAdapter._insertDefaultAcademicTerms(db);
         ApolloDbAdapter.close();
     }
 
     @Test
-    public void testEntryConstructorAndMethods() throws Exception {
-        AcademicTermContract.AcademicTermEntry entry = new AcademicTermContract.AcademicTermEntry(mId, mDescription, mColor);
-        assertEquals(mId, entry.getId());
-        assertEquals(mDescription, entry.getDescription());
-        assertEquals(mColor, entry.getColor());
+    public void test_getMethods() throws Exception {
+        ApolloDbAdapter.open();
+        AcademicTermContract.AcademicTermEntry entry = AcademicTermContract.getEntry(mAcademicTerm0Id);
+        assertEquals(mAcademicTerm0Id, entry.getId());
+        assertEquals(mAcademicTerm0Description, entry.getDescription());
+        assertEquals(mAcademicTerm0Color, entry.getColor());
 
-        long id = 2;
-        String description = mContext.getString(R.string.default_academic_term_1);
-        String color = mContext.getString(R.string.default_academic_term_color_1);
-        assertNotEquals(mId, id);
-        assertNotEquals(mDescription, description);
-        assertNotEquals(mColor, color);
+        assertNotEquals(mAcademicTerm0Id, mAcademicTerm1Id);
+        assertNotEquals(mAcademicTerm0Description, mAcademicTerm1Description);
+        assertNotEquals(mAcademicTerm0Color, mAcademicTerm1Color);
 
-        entry.setId(id);
-        assertEquals(id, entry.getId());
-        entry.setDescription(description);
-        assertEquals(description, entry.getDescription());
-        entry.setColor(color);
-        assertEquals(color, entry.getColor());
+        entry.setId(mAcademicTerm1Id);
+        entry.setDescription(mAcademicTerm1Description);
+        entry.setColor(mAcademicTerm1Color);
+        assertEquals(mAcademicTerm1Id, entry.getId());
+        assertEquals(mAcademicTerm1Description, entry.getDescription());
+        assertEquals(mAcademicTerm1Color, entry.getColor());
+        ApolloDbAdapter.close();
     }
 
     @Test
-    public void test_getEntryId() throws Exception {
-        AcademicTermContract.AcademicTermEntry _entry = AcademicTermContract._getEntry(mDb, mId);
-        assertNotNull(_entry);
-        assertEquals(mId, _entry.getId());
-        assertEquals(mDescription, _entry.getDescription());
-        assertEquals(mColor, _entry.getColor());
+    public void test_getEntry() throws Exception {
+        ApolloDbAdapter.open();
+        AcademicTermContract.AcademicTermEntry entry = AcademicTermContract.getEntry(mAcademicTerm0Id);
+        assertEquals(mAcademicTerm0Id, entry.getId());
+        assertEquals(mAcademicTerm0Description, entry.getDescription());
+        assertEquals(mAcademicTerm0Color, entry.getColor());
 
-        AcademicTermContract.AcademicTermEntry entry = AcademicTermContract.getEntry(mId);
-        assertNotNull(entry);
-        assertEquals(mId, entry.getId());
-        assertEquals(mDescription, entry.getDescription());
-        assertEquals(mColor, entry.getColor());
-
-        assertTrue(_entry.equals(entry));
-    }
-
-    @Test
-    public void test_getEntryDescription() throws Exception {
-        AcademicTermContract.AcademicTermEntry _entry = AcademicTermContract._getEntry(mDb, mDescription);
-        assertNotNull(_entry);
-        assertEquals(mId, _entry.getId());
-        assertEquals(mDescription, _entry.getDescription());
-        assertEquals(mColor, _entry.getColor());
-
-        AcademicTermContract.AcademicTermEntry entry = AcademicTermContract.getEntry(mDescription);
-        assertNotNull(entry);
-        assertEquals(mId, entry.getId());
-        assertEquals(mDescription, entry.getDescription());
-        assertEquals(mColor, entry.getColor());
-
-        assertTrue(_entry.equals(entry));
+        AcademicTermContract.AcademicTermEntry entryByDescription = AcademicTermContract.getEntryByDescription(mAcademicTerm0Description);
+        assertEquals(mAcademicTerm0Id, entryByDescription.getId());
+        assertEquals(mAcademicTerm0Description, entryByDescription.getDescription());
+        assertEquals(mAcademicTerm0Color, entryByDescription.getColor());
+        ApolloDbAdapter.close();
     }
 
     @Test
     public void test_getEntries() throws Exception {
-        ArrayList<AcademicTermContract.AcademicTermEntry> _entries = AcademicTermContract._getEntries(mDb);
-        AcademicTermContract.AcademicTermEntry _entry0 = AcademicTermContract._getEntry(mDb, mContext.getString(R.string.default_academic_term_0));
-        AcademicTermContract.AcademicTermEntry _entry1 = AcademicTermContract._getEntry(mDb, mContext.getString(R.string.default_academic_term_1));
-        AcademicTermContract.AcademicTermEntry _entry2 = AcademicTermContract._getEntry(mDb, mContext.getString(R.string.default_academic_term_2));
-        AcademicTermContract.AcademicTermEntry _entry3 = AcademicTermContract._getEntry(mDb, mContext.getString(R.string.default_academic_term_3));
-        AcademicTermContract.AcademicTermEntry _entry4 = AcademicTermContract._getEntry(mDb, mContext.getString(R.string.default_academic_term_4));
-        AcademicTermContract.AcademicTermEntry _entry5 = AcademicTermContract._getEntry(mDb, mContext.getString(R.string.default_academic_term_5));
-        AcademicTermContract.AcademicTermEntry _entry6 = AcademicTermContract._getEntry(mDb, mContext.getString(R.string.default_academic_term_6));
-        AcademicTermContract.AcademicTermEntry _entry7 = AcademicTermContract._getEntry(mDb, mContext.getString(R.string.default_academic_term_7));
-        AcademicTermContract.AcademicTermEntry _entry8 = AcademicTermContract._getEntry(mDb, mContext.getString(R.string.default_academic_term_8));
-        AcademicTermContract.AcademicTermEntry _entry9 = AcademicTermContract._getEntry(mDb, mContext.getString(R.string.default_academic_term_9));
-        AcademicTermContract.AcademicTermEntry _entry10 = AcademicTermContract._getEntry(mDb, mContext.getString(R.string.default_academic_term_10));
-        AcademicTermContract.AcademicTermEntry _entry11 = AcademicTermContract._getEntry(mDb, mContext.getString(R.string.default_academic_term_11));
-        AcademicTermContract.AcademicTermEntry _entry12 = AcademicTermContract._getEntry(mDb, mContext.getString(R.string.default_academic_term_12));
-
-        assertNotNull(_entries);
-        assertNotNull(_entry0);
-        assertTrue(_entries.contains(_entry0));
-        assertNotNull(_entry1);
-        assertTrue(_entries.contains(_entry1));
-        assertNotNull(_entry2);
-        assertTrue(_entries.contains(_entry2));
-        assertNotNull(_entry3);
-        assertTrue(_entries.contains(_entry3));
-        assertNotNull(_entry4);
-        assertTrue(_entries.contains(_entry4));
-        assertNotNull(_entry5);
-        assertTrue(_entries.contains(_entry5));
-        assertNotNull(_entry6);
-        assertTrue(_entries.contains(_entry6));
-        assertNotNull(_entry7);
-        assertTrue(_entries.contains(_entry7));
-        assertNotNull(_entry8);
-        assertTrue(_entries.contains(_entry8));
-        assertNotNull(_entry9);
-        assertTrue(_entries.contains(_entry9));
-        assertNotNull(_entry10);
-        assertTrue(_entries.contains(_entry10));
-        assertNotNull(_entry11);
-        assertTrue(_entries.contains(_entry11));
-        assertNotNull(_entry12);
-        assertTrue(_entries.contains(_entry12));
-
+        ApolloDbAdapter.open();
         ArrayList<AcademicTermContract.AcademicTermEntry> entries = AcademicTermContract.getEntries();
+        AcademicTermContract.AcademicTermEntry entry0 = AcademicTermContract.getEntryByDescription(mContext.getString(R.string.default_academic_term_0));
+        AcademicTermContract.AcademicTermEntry entry1 = AcademicTermContract.getEntryByDescription(mContext.getString(R.string.default_academic_term_1));
+        AcademicTermContract.AcademicTermEntry entry2 = AcademicTermContract.getEntryByDescription(mContext.getString(R.string.default_academic_term_2));
+        AcademicTermContract.AcademicTermEntry entry3 = AcademicTermContract.getEntryByDescription(mContext.getString(R.string.default_academic_term_3));
+        AcademicTermContract.AcademicTermEntry entry4 = AcademicTermContract.getEntryByDescription(mContext.getString(R.string.default_academic_term_4));
+        AcademicTermContract.AcademicTermEntry entry5 = AcademicTermContract.getEntryByDescription(mContext.getString(R.string.default_academic_term_5));
+        AcademicTermContract.AcademicTermEntry entry6 = AcademicTermContract.getEntryByDescription(mContext.getString(R.string.default_academic_term_6));
+        AcademicTermContract.AcademicTermEntry entry7 = AcademicTermContract.getEntryByDescription(mContext.getString(R.string.default_academic_term_7));
+        AcademicTermContract.AcademicTermEntry entry8 = AcademicTermContract.getEntryByDescription(mContext.getString(R.string.default_academic_term_8));
+        AcademicTermContract.AcademicTermEntry entry9 = AcademicTermContract.getEntryByDescription(mContext.getString(R.string.default_academic_term_9));
+        AcademicTermContract.AcademicTermEntry entry10 = AcademicTermContract.getEntryByDescription(mContext.getString(R.string.default_academic_term_10));
+        AcademicTermContract.AcademicTermEntry entry11 = AcademicTermContract.getEntryByDescription(mContext.getString(R.string.default_academic_term_11));
+        AcademicTermContract.AcademicTermEntry entry12 = AcademicTermContract.getEntryByDescription(mContext.getString(R.string.default_academic_term_12));
+
         assertNotNull(entries);
-        assertArrayEquals(_entries.toArray(), entries.toArray());
+        assertNotNull(entry0);
+        assertTrue(entries.contains(entry0));
+        assertNotNull(entry1);
+        assertTrue(entries.contains(entry1));
+        assertNotNull(entry2);
+        assertTrue(entries.contains(entry2));
+        assertNotNull(entry3);
+        assertTrue(entries.contains(entry3));
+        assertNotNull(entry4);
+        assertTrue(entries.contains(entry4));
+        assertNotNull(entry5);
+        assertTrue(entries.contains(entry5));
+        assertNotNull(entry6);
+        assertTrue(entries.contains(entry6));
+        assertNotNull(entry7);
+        assertTrue(entries.contains(entry7));
+        assertNotNull(entry8);
+        assertTrue(entries.contains(entry8));
+        assertNotNull(entry9);
+        assertTrue(entries.contains(entry9));
+        assertNotNull(entry10);
+        assertTrue(entries.contains(entry10));
+        assertNotNull(entry11);
+        assertTrue(entries.contains(entry11));
+        assertNotNull(entry12);
+        assertTrue(entries.contains(entry12));
+        ApolloDbAdapter.close();
     }
 
     @Test
     public void test_delete() throws Exception {
-        int rowsDeleted = AcademicTermContract._delete(mDb, mId);
+        int rowsDeleted = AcademicTermContract.delete(mAcademicTerm0Id);
         assertEquals(1, rowsDeleted);
-        rowsDeleted = AcademicTermContract._delete(mDb, mId);
+        rowsDeleted = AcademicTermContract.delete(mAcademicTerm0Id);
         assertEquals(0, rowsDeleted);
-        AcademicTermContract.AcademicTermEntry _entry = AcademicTermContract._getEntry(mDb, mId);
-        assertNull(_entry);
-
-        long id = 2;
-        rowsDeleted = AcademicTermContract.delete(id);
-        assertEquals(1, rowsDeleted);
-        rowsDeleted = AcademicTermContract.delete(id);
-        assertEquals(0, rowsDeleted);
-        AcademicTermContract.AcademicTermEntry entry = AcademicTermContract.getEntry(id);
+        AcademicTermContract.AcademicTermEntry entry = AcademicTermContract.getEntry(mAcademicTerm0Id);
         assertNull(entry);
     }
 
     @Test
     public void test_update() throws Exception {
-        String description = mContext.getString(R.string.default_academic_term_1);
-        String color = mContext.getString(R.string.default_academic_term_color_1);
-        int rowsUpdated = AcademicTermContract._update(mDb, mId, description, color);
+        int rowsUpdated = AcademicTermContract.update(mAcademicTerm0Id, mAcademicTerm1Description, mAcademicTerm1Color);
         assertEquals(1, rowsUpdated);
 
-        AcademicTermContract.AcademicTermEntry _entry = AcademicTermContract._getEntry(mDb, mId);
-        assertNotNull(_entry);
-        assertEquals(mId, _entry.getId());
-        assertEquals(description, _entry.getDescription());
-        assertEquals(color, _entry.getColor());
-
-        rowsUpdated = AcademicTermContract.update(mId, mDescription, mColor);
-        assertEquals(1, rowsUpdated);
-        AcademicTermContract.AcademicTermEntry entry = AcademicTermContract.getEntry(mId);
+        AcademicTermContract.AcademicTermEntry entry = AcademicTermContract.getEntry(mAcademicTerm0Id);
         assertNotNull(entry);
-        assertEquals(mId, entry.getId());
-        assertEquals(mDescription, entry.getDescription());
-        assertEquals(mColor, entry.getColor());
-    }
-
-    @Test
-    public void test_insert() throws Exception {
-        AcademicTermContract.AcademicTermEntry _entry = AcademicTermContract._getEntry(mDb, mId);
-        assertNotNull(_entry);
-        assertEquals(mId, _entry.getId());
-        String description = _entry.getDescription();
-        String color = _entry.getColor();
-
-        int rowsDeleted = AcademicTermContract._delete(mDb, mId);
-        assertEquals(1, rowsDeleted);
-        _entry = AcademicTermContract._getEntry(mDb, mId);
-        assertNull(_entry);
-
-        long id = AcademicTermContract._insert(mDb, description, color);
-        _entry = AcademicTermContract._getEntry(mDb, id);
-        assertNotNull(_entry);
-        assertEquals(id, _entry.getId());
-        assertEquals(description, _entry.getDescription());
-        assertEquals(color, _entry.getColor());
-
-        AcademicTermContract.AcademicTermEntry entry = AcademicTermContract.getEntry(id);
-        assertNotNull(entry);
-        assertTrue(_entry.equals(entry));
-
-        rowsDeleted = AcademicTermContract.delete(id);
-        assertEquals(1, rowsDeleted);
-        entry = AcademicTermContract.getEntry(id);
-        assertNull(entry);
-        id = AcademicTermContract.insert(description, color);
-        entry = AcademicTermContract.getEntry(id);
-        assertNotNull(entry);
-        assertEquals(id, entry.getId());
-        assertEquals(description, entry.getDescription());
-        assertEquals(color, entry.getColor());
-    }
-
-    private void _insertDefaultAcademicTerms() {
-        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_0), mContext.getString(R.string.default_academic_term_color_0));
-        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_1), mContext.getString(R.string.default_academic_term_color_1));
-        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_2), mContext.getString(R.string.default_academic_term_color_2));
-        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_3), mContext.getString(R.string.default_academic_term_color_3));
-        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_4), mContext.getString(R.string.default_academic_term_color_4));
-        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_5), mContext.getString(R.string.default_academic_term_color_5));
-        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_6), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_7), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_8), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_9), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_10), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_11), ColorEnum.TRANSPARENT.getValue());
-        AcademicTermContract._insert(mDb, mContext.getString(R.string.default_academic_term_12), ColorEnum.TRANSPARENT.getValue());
+        assertEquals(mAcademicTerm0Id, entry.getId());
+        assertEquals(mAcademicTerm1Description, entry.getDescription());
+        assertEquals(mAcademicTerm1Color, entry.getColor());
     }
 }
