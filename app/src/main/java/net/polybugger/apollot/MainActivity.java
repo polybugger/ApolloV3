@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        ((TextView) findViewById(R.id.text_view)).setText(ClassScheduleContract.SELECT_TABLE_SQL);
-        Log.d("SQLITE", ClassScheduleContract.SELECT_TABLE_SQL);
+        //((TextView) findViewById(R.id.text_view)).setText(ClassScheduleContract.SELECT_TABLE_SQL);
+        //Log.d("SQLITE", ClassScheduleContract.SELECT_TABLE_SQL);
     }
 }

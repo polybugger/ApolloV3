@@ -1,5 +1,8 @@
 package net.polybugger.apollot.db;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -13,9 +16,65 @@ public class ClassPasswordContract {
             ClassPasswordEntry.CLASS_ID + " INTEGER NOT NULL UNIQUE REFERENCES " +
                 ClassContract.TABLE_NAME + " (" + ClassContract.ClassEntry._ID + "), " +
             ClassPasswordEntry.PASSWORD + " TEXT NOT NULL)";
+    public static final String SELECT_TABLE_SQL = "SELECT " +
+            ClassPasswordEntry._ID + ", " + // 0
+            ClassPasswordEntry.CLASS_ID + ", " + // 1
+            ClassPasswordEntry.PASSWORD + // 2
+            " FROM " + TABLE_NAME;
     public static final String DELETE_ALL_SQL = "DELETE FROM " + TABLE_NAME;
 
     private ClassPasswordContract() { }
+
+    public static long _insert(SQLiteDatabase db, long classId, String password) {
+        ContentValues values = new ContentValues();
+        values.put(ClassPasswordEntry.CLASS_ID, classId);
+        values.put(ClassPasswordEntry.PASSWORD, password);
+        return db.insert(TABLE_NAME, null, values);
+    }
+
+    public static int _delete(SQLiteDatabase db, long id) {
+        return db.delete(TABLE_NAME, ClassPasswordEntry._ID + "=?", new String[]{String.valueOf(id)});
+    }
+
+    public static int _deleteByClassId(SQLiteDatabase db, long classId) {
+        return db.delete(TABLE_NAME, ClassPasswordEntry.CLASS_ID + "=?", new String[]{String.valueOf(classId)});
+    }
+
+    public static ClassPasswordEntry _getEntry(SQLiteDatabase db, long id) {
+        ClassPasswordEntry entry = null;
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{ClassPasswordEntry._ID, // 0
+                        ClassPasswordEntry.CLASS_ID, // 1
+                        ClassPasswordEntry.PASSWORD}, // 2
+                ClassPasswordEntry._ID + "=?",
+                new String[]{String.valueOf(id)},
+                null, null, null);
+        cursor.moveToFirst();
+        if(!cursor.isAfterLast())
+            entry = new ClassPasswordEntry(cursor.getLong(0),
+                    cursor.getLong(1),
+                    cursor.getString(2));
+        cursor.close();
+        return entry;
+    }
+
+    public static ClassPasswordEntry _getEntryByClassId(SQLiteDatabase db, long classId) {
+        ClassPasswordEntry entry = null;
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{ClassPasswordEntry._ID, // 0
+                        ClassPasswordEntry.CLASS_ID, // 1
+                        ClassPasswordEntry.PASSWORD}, // 2
+                ClassPasswordEntry.CLASS_ID + "=?",
+                new String[]{String.valueOf(classId)},
+                null, null, null);
+        cursor.moveToFirst();
+        if(!cursor.isAfterLast())
+            entry = new ClassPasswordEntry(cursor.getLong(0),
+                    cursor.getLong(1),
+                    cursor.getString(2));
+        cursor.close();
+        return entry;
+    }
 
     public static class ClassPasswordEntry implements BaseColumns {
 

@@ -96,6 +96,8 @@
     <string name="default_class_0_class_note_1_note">Syllabus - http://www.extension.harvard.edu/sites/default/files/openlearning/math222/files/OLI_MathE222_Syllabus.pdf</string>
     <string name="default_class_0_class_note_1_date_created">June 12, 2016</string>
 
+    <string name="default_class_1_password"></string>
+
     <integer name="gender_male">0</integer>
     <integer name="gender_female">1</integer>
     <integer name="gender_unknown">2</integer>

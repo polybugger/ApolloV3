@@ -84,8 +84,8 @@ public class ApolloDbAdapter {
             db.execSQL(ClassNoteContract.CREATE_TABLE_SQL);
             _insertDummyClass0Notes(db, class0Id);
 
-            // db.execSQL(ClassPasswordContract.CREATE_TABLE_SQL);
-
+            db.execSQL(ClassPasswordContract.CREATE_TABLE_SQL);
+            _insertDummyClass1Password(db, class1Id);
         }
 
         @Override
@@ -530,5 +530,9 @@ public class ApolloDbAdapter {
         ClassNoteContract._insert(db, classId,
                 sAppContext.getString(R.string.default_class_0_class_note_1_note),
                 dateCreated);
+    }
+
+    public static long _insertDummyClass1Password(SQLiteDatabase db, long classId) {
+        return ClassPasswordContract._insert(db, classId, sAppContext.getString(R.string.default_class_1_password));
     }
 }
