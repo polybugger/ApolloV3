@@ -9,8 +9,8 @@ import org.junit.runners.Suite;
         AcademicTermContractTest.class,
         ClassItemTypeContractTest.class,
         ClassContractTest.class,
-        StudentContractTest.class
-        //ClassScheduleContractTest.class,
+        StudentContractTest.class,
+        ClassScheduleContractTest.class
         //ClassNoteContractTest.class
 })
 public class DbTestSuite { }

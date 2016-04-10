@@ -70,7 +70,7 @@ public class ClassContractTest {
         mClass1Description = mContext.getString(R.string.default_class_1_description);
         mClass1AcademicTerm = AcademicTermContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_1_academic_term));
         mClass1Year = (long) mContext.getResources().getInteger(R.integer.default_class_1_year);
-        mClass1PastCurrent = PastCurrentEnum.fromInt(mContext.getResources().getInteger(R.integer.default_class_1_past_current));;
+        mClass1PastCurrent = PastCurrentEnum.fromInt(mContext.getResources().getInteger(R.integer.default_class_1_past_current));
         try {
             mClass1DateCreated = sdf.parse(mContext.getString(R.string.default_class_1_date_created));
         }

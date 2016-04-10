@@ -1,6 +1,5 @@
 package net.polybugger.apollot.db;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -32,7 +31,6 @@ public class ClassScheduleContractTest {
     private SQLiteDatabase mDb;
     private Context mContext;
     private ClassContract.ClassEntry mClass0;
-    private ClassContract.ClassEntry mClass1;
     private long mClassSchedule0Id;
     private Date mTimeStart0;
     private Date mTimeEnd0;
@@ -40,6 +38,7 @@ public class ClassScheduleContractTest {
     private String mRoom0;
     private String mBuilding0;
     private String mCampus0;
+    private ClassContract.ClassEntry mClass1;
     private long mClassSchedule1Id;
     private Date mTimeStart1;
     private Date mTimeEnd1;
@@ -53,6 +52,8 @@ public class ClassScheduleContractTest {
         mContext = new RenamingDelegatingContext(InstrumentationRegistry.getTargetContext(), "test_");
         ApolloDbAdapter.setAppContext(mContext);
         mDb = ApolloDbAdapter.open();
+        mDb.setForeignKeyConstraintsEnabled(false);
+        mDb.execSQL(ClassScheduleContract.DELETE_ALL_SQL);
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DISPLAY_TEMPLATE, mContext.getResources().getConfiguration().locale);
         try {
             mTimeStart0 = sdf.parse(mContext.getString(R.string.default_class_0_class_schedule_0_time_start));
@@ -70,6 +71,9 @@ public class ClassScheduleContractTest {
         mRoom0 = mContext.getString(R.string.default_class_0_class_schedule_0_room);
         mBuilding0 = mContext.getString(R.string.default_class_0_class_schedule_0_building);
         mCampus0 = mContext.getString(R.string.default_class_0_class_schedule_0_campus);
+        mClass0 = ClassContract._getEntryByCode(mDb, mContext.getString(R.string.default_class_0_code));
+        ApolloDbAdapter._insertDummyClass0Schedules(mDb, mClass0.getId());
+        mClassSchedule0Id = ClassScheduleContract._getEntriesByClassId(mDb, mClass0.getId()).get(0).getId();
         try {
             mTimeStart1 = sdf.parse(mContext.getString(R.string.default_class_1_class_schedule_0_time_start));
         }
@@ -86,22 +90,22 @@ public class ClassScheduleContractTest {
         mRoom1 = mContext.getString(R.string.default_class_1_class_schedule_0_room);
         mBuilding1 = mContext.getString(R.string.default_class_1_class_schedule_0_building);
         mCampus1 = mContext.getString(R.string.default_class_1_class_schedule_0_campus);
-
-        mDb.setForeignKeyConstraintsEnabled(false);
-        mDb.execSQL(ClassScheduleContract.DELETE_ALL_SQL);
-        _insertDummyClassSchedules();
+        mClass1 = ClassContract._getEntryByCode(mDb, mContext.getString(R.string.default_class_1_code));
+        ApolloDbAdapter._insertDummyClass0Schedules(mDb, mClass1.getId());
+        mClassSchedule1Id = ClassScheduleContract._getEntriesByClassId(mDb, mClass1.getId()).get(0).getId();
     }
 
     @After
     public void tearDown() throws Exception {
         mDb.execSQL(ClassScheduleContract.DELETE_ALL_SQL);
-        _insertDummyClassSchedules();
+        ApolloDbAdapter._insertDummyClass0Schedules(mDb, mClass0.getId());
+        ApolloDbAdapter._insertDummyClass0Schedules(mDb, mClass1.getId());
         ApolloDbAdapter.close();
     }
 
     @Test
-    public void testEntryConstructorAndMethods() throws Exception {
-        ClassScheduleContract.ClassScheduleEntry entry = new ClassScheduleContract.ClassScheduleEntry(mClassSchedule0Id, mClass0.getId(), mTimeStart0, mTimeEnd0, mDays0, mRoom0, mBuilding0, mCampus0);
+    public void test_methods() throws Exception {
+        ClassScheduleContract.ClassScheduleEntry entry = ClassScheduleContract._getEntry(mDb, mClassSchedule0Id);
         assertEquals(mClassSchedule0Id, entry.getId());
         assertEquals(mClass0.getId(), entry.getClassId());
         assertEquals(mTimeStart0, entry.getTimeStart());
@@ -121,37 +125,26 @@ public class ClassScheduleContractTest {
         assertNotEquals(mCampus0, mCampus1);
 
         entry.setId(mClassSchedule1Id);
-        assertEquals(mClassSchedule1Id, entry.getId());
         entry.setClassId(mClass1.getId());
-        assertEquals(mClass1.getId(), entry.getClassId());
         entry.setTimeStart(mTimeStart1);
-        assertEquals(mTimeStart1, entry.getTimeStart());
         entry.setTimeEnd(mTimeEnd1);
-        assertEquals(mTimeEnd1, entry.getTimeEnd());
         entry.setDays(mDays1);
-        assertEquals(mDays1, entry.getDays());
         entry.setRoom(mRoom1);
-        assertEquals(mRoom1, entry.getRoom());
         entry.setBuilding(mBuilding1);
-        assertEquals(mBuilding1, entry.getBuilding());
         entry.setCampus(mCampus1);
+        assertEquals(mClassSchedule1Id, entry.getId());
+        assertEquals(mClass1.getId(), entry.getClassId());
+        assertEquals(mTimeStart1, entry.getTimeStart());
+        assertEquals(mTimeEnd1, entry.getTimeEnd());
+        assertEquals(mDays1, entry.getDays());
+        assertEquals(mRoom1, entry.getRoom());
+        assertEquals(mBuilding1, entry.getBuilding());
         assertEquals(mCampus1, entry.getCampus());
     }
 
     @Test
-    public void test_getEntryId() throws Exception {
-        ClassScheduleContract.ClassScheduleEntry _entry = ClassScheduleContract._getEntry(mDb, mClassSchedule0Id);
-        assertNotNull(_entry);
-        assertEquals(mClassSchedule0Id, _entry.getId());
-        assertEquals(mClass0.getId(), _entry.getClassId());
-        assertEquals(mTimeStart0, _entry.getTimeStart());
-        assertEquals(mTimeEnd0, _entry.getTimeEnd());
-        assertEquals(mDays0, _entry.getDays());
-        assertEquals(mRoom0, _entry.getRoom());
-        assertEquals(mBuilding0, _entry.getBuilding());
-        assertEquals(mCampus0, _entry.getCampus());
-
-        ClassScheduleContract.ClassScheduleEntry entry = ClassScheduleContract.getEntry(mClassSchedule0Id);
+    public void test_getEntry() throws Exception {
+        ClassScheduleContract.ClassScheduleEntry entry = ClassScheduleContract._getEntry(mDb, mClassSchedule0Id);
         assertNotNull(entry);
         assertEquals(mClassSchedule0Id, entry.getId());
         assertEquals(mClass0.getId(), entry.getClassId());
@@ -162,24 +155,29 @@ public class ClassScheduleContractTest {
         assertEquals(mBuilding0, entry.getBuilding());
         assertEquals(mCampus0, entry.getCampus());
 
-        assertTrue(_entry.equals(entry));
+        ClassScheduleContract.ClassScheduleEntry entryByClassId = ClassScheduleContract._getEntriesByClassId(mDb, mClass0.getId()).get(0);
+        assertNotNull(entryByClassId);
+        assertEquals(mClassSchedule0Id, entryByClassId.getId());
+        assertEquals(mClass0.getId(), entryByClassId.getClassId());
+        assertEquals(mTimeStart0, entryByClassId.getTimeStart());
+        assertEquals(mTimeEnd0, entryByClassId.getTimeEnd());
+        assertEquals(mDays0, entryByClassId.getDays());
+        assertEquals(mRoom0, entryByClassId.getRoom());
+        assertEquals(mBuilding0, entryByClassId.getBuilding());
+        assertEquals(mCampus0, entryByClassId.getCampus());
     }
 
     @Test
     public void test_getEntries() throws Exception {
-        ArrayList<ClassScheduleContract.ClassScheduleEntry> _entries = ClassScheduleContract._getEntries(mDb);
-        ClassScheduleContract.ClassScheduleEntry _entry0 = ClassScheduleContract._getEntry(mDb, mClassSchedule0Id);
-        ClassScheduleContract.ClassScheduleEntry _entry1 = ClassScheduleContract._getEntry(mDb, mClassSchedule1Id);
+        ArrayList<ClassScheduleContract.ClassScheduleEntry> entries = ClassScheduleContract._getEntries(mDb);
+        ClassScheduleContract.ClassScheduleEntry entry0 = ClassScheduleContract._getEntry(mDb, mClassSchedule0Id);
+        ClassScheduleContract.ClassScheduleEntry entry1 = ClassScheduleContract._getEntry(mDb, mClassSchedule1Id);
 
-        assertNotNull(_entries);
-        assertNotNull(_entry0);
-        assertTrue(_entries.contains(_entry0));
-        assertNotNull(_entry1);
-        assertTrue(_entries.contains(_entry1));
-
-        ArrayList<ClassScheduleContract.ClassScheduleEntry> entries = ClassScheduleContract.getEntries();
         assertNotNull(entries);
-        assertArrayEquals(_entries.toArray(), entries.toArray());
+        assertNotNull(entry0);
+        assertTrue(entries.contains(entry0));
+        assertNotNull(entry1);
+        assertTrue(entries.contains(entry1));
     }
 
     @Test
@@ -188,90 +186,24 @@ public class ClassScheduleContractTest {
         assertEquals(1, rowsDeleted);
         rowsDeleted = ClassScheduleContract._delete(mDb, mClassSchedule0Id);
         assertEquals(0, rowsDeleted);
-        ClassScheduleContract.ClassScheduleEntry _entry = ClassScheduleContract._getEntry(mDb, mClassSchedule0Id);
-        assertNull(_entry);
-
-        rowsDeleted = ClassScheduleContract.delete(mClassSchedule1Id);
-        assertEquals(1, rowsDeleted);
-        rowsDeleted = ClassScheduleContract.delete(mClassSchedule1Id);
-        assertEquals(0, rowsDeleted);
-        ClassScheduleContract.ClassScheduleEntry entry = ClassScheduleContract.getEntry(mClassSchedule1Id);
+        ClassScheduleContract.ClassScheduleEntry entry = ClassScheduleContract._getEntry(mDb, mClassSchedule0Id);
         assertNull(entry);
     }
 
     @Test
     public void test_update() throws Exception {
-        ClassScheduleContract.ClassScheduleEntry _entry0 = ClassScheduleContract._getEntry(mDb, mClassSchedule0Id);
-        assertNotNull(_entry0);
-        assertNotEquals(mClass1.getId(), _entry0.getClassId());
-        assertNotEquals(mTimeStart1, _entry0.getTimeStart());
-        assertNotEquals(mTimeEnd1, _entry0.getTimeEnd());
-        assertNotEquals(mDays1, _entry0.getDays());
-        assertNotEquals(mRoom1, _entry0.getRoom());
-        assertNotEquals(mBuilding1, _entry0.getBuilding());
-        assertNotEquals(mCampus1, _entry0.getCampus());
-
         int rowsUpdated = ClassScheduleContract._update(mDb, mClassSchedule0Id, mClass1.getId(), mTimeStart1, mTimeEnd1, mDays1, mRoom1, mBuilding1, mCampus1);
         assertEquals(1, rowsUpdated);
-        ClassScheduleContract.ClassScheduleEntry _entry0Updated = ClassScheduleContract._getEntry(mDb, mClassSchedule0Id);
-        assertNotNull(_entry0Updated);
-        assertEquals(mClass1.getId(), _entry0Updated.getClassId());
-        assertEquals(mTimeStart1, _entry0Updated.getTimeStart());
-        assertEquals(mTimeEnd1, _entry0Updated.getTimeEnd());
-        assertEquals(mDays1, _entry0Updated.getDays());
-        assertEquals(mRoom1, _entry0Updated.getRoom());
-        assertEquals(mBuilding1, _entry0Updated.getBuilding());
-        assertEquals(mCampus1, _entry0Updated.getCampus());
 
-        assertNotEquals(mClass0.getId(), _entry0Updated.getClassId());
-        assertNotEquals(mTimeStart0, _entry0Updated.getTimeStart());
-        assertNotEquals(mTimeEnd0, _entry0Updated.getTimeEnd());
-        assertNotEquals(mDays0, _entry0Updated.getDays());
-        assertNotEquals(mRoom0, _entry0Updated.getRoom());
-        assertNotEquals(mBuilding0, _entry0Updated.getBuilding());
-        assertNotEquals(mCampus0, _entry0Updated.getCampus());
-
-        rowsUpdated = ClassScheduleContract.update(mClassSchedule0Id, mClass0.getId(), mTimeStart0, mTimeEnd0, mDays0, mRoom0, mBuilding0, mCampus0);
-        assertEquals(1, rowsUpdated);
-        _entry0Updated = ClassScheduleContract.getEntry(mClassSchedule0Id);
-        assertNotNull(_entry0Updated);
-        assertEquals(mClass0.getId(), _entry0Updated.getClassId());
-        assertEquals(mTimeStart0, _entry0Updated.getTimeStart());
-        assertEquals(mTimeEnd0, _entry0Updated.getTimeEnd());
-        assertEquals(mDays0, _entry0Updated.getDays());
-        assertEquals(mRoom0, _entry0Updated.getRoom());
-        assertEquals(mBuilding0, _entry0Updated.getBuilding());
-        assertEquals(mCampus0, _entry0Updated.getCampus());
-    }
-
-    @Test
-    public void test_insert() throws Exception {
-        ClassScheduleContract.ClassScheduleEntry _entry0 = ClassScheduleContract._getEntry(mDb, mClassSchedule0Id);
-        assertNotNull(_entry0);
-        assertEquals(mClassSchedule0Id, _entry0.getId());
-
-        int rowsDeleted = ClassScheduleContract._delete(mDb, mClassSchedule0Id);
-        assertEquals(1, rowsDeleted);
-        _entry0 = ClassScheduleContract._getEntry(mDb, mClassSchedule0Id);
-        assertNull(_entry0);
-
-        long classSchedule2Id = ClassScheduleContract._insert(mDb, mClass0.getId(), mTimeStart0, mTimeEnd0, mDays0, mRoom0, mBuilding0, mCampus0);
-        ClassScheduleContract.ClassScheduleEntry _entry2 = ClassScheduleContract._getEntry(mDb, classSchedule2Id);
-        assertNotNull(_entry2);
-        assertEquals(classSchedule2Id, _entry2.getId());
-        assertEquals(mClass0.getId(), _entry2.getClassId());
-        assertEquals(mTimeStart0, _entry2.getTimeStart());
-        assertEquals(mTimeEnd0, _entry2.getTimeEnd());
-        assertEquals(mDays0, _entry2.getDays());
-        assertEquals(mRoom0, _entry2.getRoom());
-        assertEquals(mBuilding0, _entry2.getBuilding());
-        assertEquals(mCampus0, _entry2.getCampus());
-    }
-
-    private void _insertDummyClassSchedules() {
-        mClass0 = ClassContract._getEntryByCode(mDb, mContext.getString(R.string.default_class_0_code));
-        mClass1 = ClassContract._getEntryByCode(mDb, mContext.getString(R.string.default_class_1_code));
-        mClassSchedule0Id = ClassScheduleContract._insert(mDb, mClass0.getId(), mTimeStart0, mTimeEnd0, mDays0, mRoom0, mBuilding0, mCampus0);
-        mClassSchedule1Id = ClassScheduleContract._insert(mDb, mClass1.getId(), mTimeStart1, mTimeEnd1, mDays1, mRoom1, mBuilding1, mCampus1);
+        ClassScheduleContract.ClassScheduleEntry entry = ClassScheduleContract._getEntry(mDb, mClassSchedule0Id);
+        assertNotNull(entry);
+        assertEquals(mClassSchedule0Id, entry.getId());
+        assertEquals(mClass1.getId(), entry.getClassId());
+        assertEquals(mTimeStart1, entry.getTimeStart());
+        assertEquals(mTimeEnd1, entry.getTimeEnd());
+        assertEquals(mDays1, entry.getDays());
+        assertEquals(mRoom1, entry.getRoom());
+        assertEquals(mBuilding1, entry.getBuilding());
+        assertEquals(mCampus1, entry.getCampus());
     }
 }
