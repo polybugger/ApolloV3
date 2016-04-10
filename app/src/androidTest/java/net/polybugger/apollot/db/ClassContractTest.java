@@ -48,8 +48,8 @@ public class ClassContractTest {
 
     @Before
     public void setUp() throws Exception {
-        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DISPLAY_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
         mContext = new RenamingDelegatingContext(InstrumentationRegistry.getTargetContext(), "test_");
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DISPLAY_TEMPLATE, mContext.getResources().getConfiguration().locale);
         ApolloDbAdapter.setAppContext(mContext);
         mDb = ApolloDbAdapter.open();
         mDb.setForeignKeyConstraintsEnabled(false);

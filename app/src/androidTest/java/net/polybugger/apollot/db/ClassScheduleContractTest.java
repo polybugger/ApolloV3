@@ -50,11 +50,11 @@ public class ClassScheduleContractTest {
     @Before
     public void setUp() throws Exception {
         mContext = new RenamingDelegatingContext(InstrumentationRegistry.getTargetContext(), "test_");
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DISPLAY_TEMPLATE, mContext.getResources().getConfiguration().locale);
         ApolloDbAdapter.setAppContext(mContext);
         mDb = ApolloDbAdapter.open();
         mDb.setForeignKeyConstraintsEnabled(false);
         mDb.execSQL(ClassScheduleContract.DELETE_ALL_SQL);
-        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DISPLAY_TEMPLATE, mContext.getResources().getConfiguration().locale);
         try {
             mTimeStart0 = sdf.parse(mContext.getString(R.string.default_class_0_class_schedule_0_time_start));
         }

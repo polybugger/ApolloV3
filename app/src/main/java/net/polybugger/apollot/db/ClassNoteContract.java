@@ -40,13 +40,6 @@ public class ClassNoteContract {
         return db.insert(TABLE_NAME, null, values);
     }
 
-    public static long insert(long classId, String note, Date dateCreated) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        long id = _insert(db, classId, note, dateCreated);
-        ApolloDbAdapter.close();
-        return id;
-    }
-
     public static int _update(SQLiteDatabase db, long id, long classId, String note, Date dateCreated) {
         ContentValues values = new ContentValues();
         values.put(ClassNoteEntry.CLASS_ID, classId);
@@ -56,22 +49,8 @@ public class ClassNoteContract {
         return db.update(TABLE_NAME, values, ClassNoteEntry._ID + "=?", new String[]{String.valueOf(id)});
     }
 
-    public static int update(long id, long classId, String note, Date dateCreated) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        int rowsUpdated = _update(db, id, classId, note, dateCreated);
-        ApolloDbAdapter.close();
-        return rowsUpdated;
-    }
-
     public static int _delete(SQLiteDatabase db, long id) {
         return db.delete(TABLE_NAME, ClassNoteEntry._ID + "=?", new String[]{String.valueOf(id)});
-    }
-
-    public static int delete(long id) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        int rowsDeleted = _delete(db, id);
-        ApolloDbAdapter.close();
-        return rowsDeleted;
     }
 
     public static ClassNoteEntry _getEntry(SQLiteDatabase db, long id) {
@@ -103,13 +82,6 @@ public class ClassNoteContract {
         return entry;
     }
 
-    public static ClassNoteEntry getEntry(long id) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        ClassNoteEntry entry = _getEntry(db, id);
-        ApolloDbAdapter.close();
-        return entry;
-    }
-
     public static ArrayList<ClassNoteEntry> _getEntries(SQLiteDatabase db) {
         ArrayList<ClassNoteEntry> entries = new ArrayList<>();
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
@@ -138,10 +110,33 @@ public class ClassNoteContract {
         return entries;
     }
 
-    public static ArrayList<ClassNoteEntry> getEntries() {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        ArrayList<ClassNoteEntry> entries = _getEntries(db);
-        ApolloDbAdapter.close();
+    public static ArrayList<ClassNoteEntry> _getEntriesByClassId(SQLiteDatabase db, long classId) {
+        ArrayList<ClassNoteEntry> entries = new ArrayList<>();
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
+        Date dateCreated;
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{ClassNoteEntry._ID, // 0
+                        ClassNoteEntry.CLASS_ID, // 1
+                        ClassNoteEntry.NOTE, // 2
+                        ClassNoteEntry.DATE_CREATED}, // 3
+                ClassNoteEntry.CLASS_ID + "=?",
+                new String[]{String.valueOf(classId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            try {
+                dateCreated = sdf.parse(cursor.getString(3));
+            }
+            catch(Exception e) {
+                dateCreated = null;
+            }
+            entries.add(new ClassNoteEntry(cursor.getLong(0),
+                    cursor.getLong(1),
+                    cursor.getString(2),
+                    dateCreated));
+            cursor.moveToNext();
+        }
+        cursor.close();
         return entries;
     }
 

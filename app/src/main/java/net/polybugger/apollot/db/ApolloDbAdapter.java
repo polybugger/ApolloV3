@@ -81,14 +81,10 @@ public class ApolloDbAdapter {
             _insertDummyClass0Schedules(db, class0Id);
             _insertDummyClass1Schedules(db, class1Id);
 
-            // db.execSQL(ClassNoteContract.CREATE_TABLE_SQL);
+            db.execSQL(ClassNoteContract.CREATE_TABLE_SQL);
+            _insertDummyClass0Notes(db, class0Id);
+
             // db.execSQL(ClassPasswordContract.CREATE_TABLE_SQL);
-
-
-
-
-            // _insertDummyClass0Notes(db, class0Id);
-
 
         }
 
@@ -513,8 +509,7 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_1_class_schedule_0_campus));
     }
 
-    /*
-    private static void _insertDummyClass0Notes(SQLiteDatabase db, long classId) {
+    public static void _insertDummyClass0Notes(SQLiteDatabase db, long classId) {
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
         Date dateCreated;
         try {
@@ -536,7 +531,4 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_note_1_note),
                 dateCreated);
     }
-
-    */
-
 }
