@@ -26,6 +26,7 @@ import org.junit.runner.RunWith;
 @MediumTest
 public class ClassItemTypeContractTest {
 
+    private SQLiteDatabase mDb;
     private Context mContext;
     private long mItemTyp0Id;
     private String mItemTyp0Description;
@@ -38,31 +39,28 @@ public class ClassItemTypeContractTest {
     public void setUp() throws Exception {
         mContext = new RenamingDelegatingContext(InstrumentationRegistry.getTargetContext(), "test_");
         ApolloDbAdapter.setAppContext(mContext);
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        db.setForeignKeyConstraintsEnabled(false);
-        db.execSQL(ClassItemTypeContract.DELETE_ALL_SQL);
-        ApolloDbAdapter._insertDefaultClassItemTypes(db);
+        mDb = ApolloDbAdapter.open();
+        mDb.setForeignKeyConstraintsEnabled(false);
+        mDb.execSQL(ClassItemTypeContract.DELETE_ALL_SQL);
+        ApolloDbAdapter._insertDefaultClassItemTypes(mDb);
         mItemTyp0Description = mContext.getString(R.string.default_class_item_type_0);
         mItemTyp0Color = mContext.getString(R.string.default_class_item_type_color_0);
-        mItemTyp0Id = ClassItemTypeContract.getEntryByDescription(mItemTyp0Description).getId();
+        mItemTyp0Id = ClassItemTypeContract._getEntryByDescription(mDb, mItemTyp0Description).getId();
         mItemTyp1Description = mContext.getString(R.string.default_class_item_type_1);
         mItemTyp1Color = mContext.getString(R.string.default_class_item_type_color_1);
-        mItemTyp1Id = ClassItemTypeContract.getEntryByDescription(mItemTyp1Description).getId();
-        ApolloDbAdapter.close();
+        mItemTyp1Id = ClassItemTypeContract._getEntryByDescription(mDb, mItemTyp1Description).getId();
     }
 
     @After
     public void tearDown() throws Exception {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        db.setForeignKeyConstraintsEnabled(false);
-        db.execSQL(ClassItemTypeContract.DELETE_ALL_SQL);
-        ApolloDbAdapter._insertDefaultClassItemTypes(db);
+        mDb.execSQL(ClassItemTypeContract.DELETE_ALL_SQL);
+        ApolloDbAdapter._insertDefaultClassItemTypes(mDb);
         ApolloDbAdapter.close();
     }
 
     @Test
     public void test_methods() throws Exception {
-        ClassItemTypeContract.ClassItemTypeEntry entry = ClassItemTypeContract.getEntry(mItemTyp0Id);
+        ClassItemTypeContract.ClassItemTypeEntry entry = ClassItemTypeContract._getEntry(mDb, mItemTyp0Id);
         assertEquals(mItemTyp0Id, entry.getId());
         assertEquals(mItemTyp0Description, entry.getDescription());
         assertEquals(mItemTyp0Color, entry.getColor());
@@ -81,12 +79,12 @@ public class ClassItemTypeContractTest {
 
     @Test
     public void test_getEntry() throws Exception {
-        ClassItemTypeContract.ClassItemTypeEntry entry = ClassItemTypeContract.getEntry(mItemTyp0Id);
+        ClassItemTypeContract.ClassItemTypeEntry entry = ClassItemTypeContract._getEntry(mDb, mItemTyp0Id);
         assertEquals(mItemTyp0Id, entry.getId());
         assertEquals(mItemTyp0Description, entry.getDescription());
         assertEquals(mItemTyp0Color, entry.getColor());
 
-        ClassItemTypeContract.ClassItemTypeEntry entryByDescription = ClassItemTypeContract.getEntryByDescription(mItemTyp0Description);
+        ClassItemTypeContract.ClassItemTypeEntry entryByDescription = ClassItemTypeContract._getEntryByDescription(mDb, mItemTyp0Description);
         assertEquals(mItemTyp0Id, entryByDescription.getId());
         assertEquals(mItemTyp0Description, entryByDescription.getDescription());
         assertEquals(mItemTyp0Color, entryByDescription.getColor());
@@ -94,20 +92,20 @@ public class ClassItemTypeContractTest {
 
     @Test
     public void test_getEntries() throws Exception {
-        ArrayList<ClassItemTypeContract.ClassItemTypeEntry> entries = ClassItemTypeContract.getEntries();
-        ClassItemTypeContract.ClassItemTypeEntry entry0 = ClassItemTypeContract.getEntryByDescription(mContext.getString(R.string.default_class_item_type_0));
-        ClassItemTypeContract.ClassItemTypeEntry entry0a = ClassItemTypeContract.getEntryByDescription(mContext.getString(R.string.default_class_item_type_0a));
-        ClassItemTypeContract.ClassItemTypeEntry entry1 = ClassItemTypeContract.getEntryByDescription(mContext.getString(R.string.default_class_item_type_1));
-        ClassItemTypeContract.ClassItemTypeEntry entry1a = ClassItemTypeContract.getEntryByDescription(mContext.getString(R.string.default_class_item_type_1a));
-        ClassItemTypeContract.ClassItemTypeEntry entry2 = ClassItemTypeContract.getEntryByDescription(mContext.getString(R.string.default_class_item_type_2));
-        ClassItemTypeContract.ClassItemTypeEntry entry3 = ClassItemTypeContract.getEntryByDescription(mContext.getString(R.string.default_class_item_type_3));
-        ClassItemTypeContract.ClassItemTypeEntry entry4 = ClassItemTypeContract.getEntryByDescription(mContext.getString(R.string.default_class_item_type_4));
-        ClassItemTypeContract.ClassItemTypeEntry entry5 = ClassItemTypeContract.getEntryByDescription(mContext.getString(R.string.default_class_item_type_5));
-        ClassItemTypeContract.ClassItemTypeEntry entry6 = ClassItemTypeContract.getEntryByDescription(mContext.getString(R.string.default_class_item_type_6));
-        ClassItemTypeContract.ClassItemTypeEntry entry7 = ClassItemTypeContract.getEntryByDescription(mContext.getString(R.string.default_class_item_type_7));
-        ClassItemTypeContract.ClassItemTypeEntry entry8 = ClassItemTypeContract.getEntryByDescription(mContext.getString(R.string.default_class_item_type_8));
-        ClassItemTypeContract.ClassItemTypeEntry entry9 = ClassItemTypeContract.getEntryByDescription(mContext.getString(R.string.default_class_item_type_9));
-        ClassItemTypeContract.ClassItemTypeEntry entry10 = ClassItemTypeContract.getEntryByDescription(mContext.getString(R.string.default_class_item_type_10));
+        ArrayList<ClassItemTypeContract.ClassItemTypeEntry> entries = ClassItemTypeContract._getEntries(mDb);
+        ClassItemTypeContract.ClassItemTypeEntry entry0 = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_item_type_0));
+        ClassItemTypeContract.ClassItemTypeEntry entry0a = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_item_type_0a));
+        ClassItemTypeContract.ClassItemTypeEntry entry1 = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_item_type_1));
+        ClassItemTypeContract.ClassItemTypeEntry entry1a = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_item_type_1a));
+        ClassItemTypeContract.ClassItemTypeEntry entry2 = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_item_type_2));
+        ClassItemTypeContract.ClassItemTypeEntry entry3 = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_item_type_3));
+        ClassItemTypeContract.ClassItemTypeEntry entry4 = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_item_type_4));
+        ClassItemTypeContract.ClassItemTypeEntry entry5 = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_item_type_5));
+        ClassItemTypeContract.ClassItemTypeEntry entry6 = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_item_type_6));
+        ClassItemTypeContract.ClassItemTypeEntry entry7 = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_item_type_7));
+        ClassItemTypeContract.ClassItemTypeEntry entry8 = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_item_type_8));
+        ClassItemTypeContract.ClassItemTypeEntry entry9 = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_item_type_9));
+        ClassItemTypeContract.ClassItemTypeEntry entry10 = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_item_type_10));
 
         assertNotNull(entries);
         assertNotNull(entry0);
@@ -140,20 +138,20 @@ public class ClassItemTypeContractTest {
 
     @Test
     public void test_delete() throws Exception {
-        int rowsDeleted = ClassItemTypeContract.delete(mItemTyp0Id);
+        int rowsDeleted = ClassItemTypeContract._delete(mDb, mItemTyp0Id);
         assertEquals(1, rowsDeleted);
-        rowsDeleted = ClassItemTypeContract.delete(mItemTyp0Id);
+        rowsDeleted = ClassItemTypeContract._delete(mDb, mItemTyp0Id);
         assertEquals(0, rowsDeleted);
-        ClassItemTypeContract.ClassItemTypeEntry entry = ClassItemTypeContract.getEntry(mItemTyp0Id);
+        ClassItemTypeContract.ClassItemTypeEntry entry = ClassItemTypeContract._getEntry(mDb, mItemTyp0Id);
         assertNull(entry);
     }
 
     @Test
     public void test_update() throws Exception {
-        int rowsUpdated = ClassItemTypeContract.update(mItemTyp0Id, mItemTyp1Description, mItemTyp1Color);
+        int rowsUpdated = ClassItemTypeContract._update(mDb, mItemTyp0Id, mItemTyp1Description, mItemTyp1Color);
         assertEquals(1, rowsUpdated);
 
-        ClassItemTypeContract.ClassItemTypeEntry entry = ClassItemTypeContract.getEntry(mItemTyp0Id);
+        ClassItemTypeContract.ClassItemTypeEntry entry = ClassItemTypeContract._getEntry(mDb, mItemTyp0Id);
         assertNotNull(entry);
         assertEquals(mItemTyp0Id, entry.getId());
         assertEquals(mItemTyp1Description, entry.getDescription());

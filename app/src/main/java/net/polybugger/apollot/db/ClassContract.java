@@ -25,16 +25,16 @@ public class ClassContract {
             ClassEntry.YEAR + " INTEGER NULL, " +
             ClassEntry.CURRENT + " INTEGER NOT NULL DEFAULT 1, " +
             ClassEntry.DATE_CREATED + " TEXT NULL)";
-    public static final String SELECT_TABLE_SQL = "SELECT c." +
-            ClassEntry._ID + ", c." + // 0
-            ClassEntry.CODE + ", c." + // 1
-            ClassEntry.DESCRIPTION + ", c." + // 2
-            ClassEntry.ACADEMIC_TERM_ID + ", at." + // 3
-                AcademicTermContract.AcademicTermEntry.DESCRIPTION + ", at." + // 4
-                AcademicTermContract.AcademicTermEntry.COLOR + ", c." + // 5
-            ClassEntry.YEAR + ", c." + // 6
-            ClassEntry.CURRENT + ", c." + // 7
-            ClassEntry.DATE_CREATED + // 8
+    public static final String SELECT_TABLE_SQL = "SELECT " +
+            "c." + ClassEntry._ID + ", " + // 0
+            "c." + ClassEntry.CODE + ", " + // 1
+            "c." + ClassEntry.DESCRIPTION + ", " + // 2 nullable
+            "c." + ClassEntry.ACADEMIC_TERM_ID + ", " + // 3 nullable
+                "at." + AcademicTermContract.AcademicTermEntry.DESCRIPTION + ", " + // 4
+                "at." + AcademicTermContract.AcademicTermEntry.COLOR + ", " + // 5
+            "c." + ClassEntry.YEAR + ", " + // 6 nullable
+            "c." + ClassEntry.CURRENT + ", " + // 7
+            "c." + ClassEntry.DATE_CREATED + // 8 nullable
             " FROM " + TABLE_NAME + " AS c LEFT OUTER JOIN " +
                 AcademicTermContract.TABLE_NAME + " AS at ON c." + ClassEntry.ACADEMIC_TERM_ID + "=at." + AcademicTermContract.AcademicTermEntry._ID;
     public static final String DELETE_ALL_SQL = "DELETE FROM " + TABLE_NAME;
@@ -53,13 +53,6 @@ public class ClassContract {
         return db.insert(TABLE_NAME, null, values);
     }
 
-    public static long insert(String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Long year, PastCurrentEnum pastCurrent, Date dateCreated) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        long id = _insert(db, code, description, academicTerm, year, pastCurrent, dateCreated);
-        ApolloDbAdapter.close();
-        return id;
-    }
-
     public static int _update(SQLiteDatabase db, long id, String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Long year, PastCurrentEnum pastCurrent, Date dateCreated) {
         ContentValues values = new ContentValues();
         values.put(ClassEntry.CODE, code);
@@ -72,22 +65,8 @@ public class ClassContract {
         return db.update(TABLE_NAME, values, ClassEntry._ID + "=?", new String[]{String.valueOf(id)});
     }
 
-    public static int update(long id, String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Long year, PastCurrentEnum pastCurrent, Date dateCreated) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        int rowsUpdated = _update(db, id, code, description, academicTerm, year, pastCurrent, dateCreated);
-        ApolloDbAdapter.close();
-        return rowsUpdated;
-    }
-
     public static int _delete(SQLiteDatabase db, long id) {
         return db.delete(TABLE_NAME, ClassEntry._ID + "=?", new String[]{String.valueOf(id)});
-    }
-
-    public static int delete(long id) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        int rowsDeleted = _delete(db, id);
-        ApolloDbAdapter.close();
-        return rowsDeleted;
     }
 
     public static ClassEntry _getEntry(SQLiteDatabase db, long id) {
@@ -98,13 +77,13 @@ public class ClassContract {
                         AcademicTermContract.TABLE_NAME + " AS at ON c." + ClassEntry.ACADEMIC_TERM_ID + "=at." + AcademicTermContract.AcademicTermEntry._ID,
                 new String[]{"c." + ClassEntry._ID, // 0
                         "c." + ClassEntry.CODE, // 1
-                        "c." + ClassEntry.DESCRIPTION, // 2
-                        "c." + ClassEntry.ACADEMIC_TERM_ID, // 3
+                        "c." + ClassEntry.DESCRIPTION, // 2 nullable
+                        "c." + ClassEntry.ACADEMIC_TERM_ID, // 3 nullable
                         "at." + AcademicTermContract.AcademicTermEntry.DESCRIPTION, // 4
                         "at." + AcademicTermContract.AcademicTermEntry.COLOR, // 5
-                        "c." + ClassEntry.YEAR, // 6
+                        "c." + ClassEntry.YEAR, // 6 nullable
                         "c." + ClassEntry.CURRENT, // 7
-                        "c." + ClassEntry.DATE_CREATED}, // 8
+                        "c." + ClassEntry.DATE_CREATED}, // 8 nullable
                 "c." + ClassEntry._ID + "=?",
                 new String[]{String.valueOf(id)},
                 null, null, null);
@@ -128,14 +107,7 @@ public class ClassContract {
         return entry;
     }
 
-    public static ClassEntry getEntry(long id) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        ClassEntry entry = _getEntry(db, id);
-        ApolloDbAdapter.close();
-        return entry;
-    }
-
-    public static ClassEntry _getEntry(SQLiteDatabase db, String code) {
+    public static ClassEntry _getEntryByCode(SQLiteDatabase db, String code) {
         ClassEntry entry = null;
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
         Date dateCreated;
@@ -143,13 +115,13 @@ public class ClassContract {
                         AcademicTermContract.TABLE_NAME + " AS at ON c." + ClassEntry.ACADEMIC_TERM_ID + "=at." + AcademicTermContract.AcademicTermEntry._ID,
                 new String[]{"c." + ClassEntry._ID, // 0
                         "c." + ClassEntry.CODE, // 1
-                        "c." + ClassEntry.DESCRIPTION, // 2
-                        "c." + ClassEntry.ACADEMIC_TERM_ID, // 3
+                        "c." + ClassEntry.DESCRIPTION, // 2 nullable
+                        "c." + ClassEntry.ACADEMIC_TERM_ID, // 3 nullable
                         "at." + AcademicTermContract.AcademicTermEntry.DESCRIPTION, // 4
                         "at." + AcademicTermContract.AcademicTermEntry.COLOR, // 5
-                        "c." + ClassEntry.YEAR, // 6
+                        "c." + ClassEntry.YEAR, // 6 nullable
                         "c." + ClassEntry.CURRENT, // 7
-                        "c." + ClassEntry.DATE_CREATED}, // 8
+                        "c." + ClassEntry.DATE_CREATED}, // 8 nullable
                 "c." + ClassEntry.CODE + "=?",
                 new String[]{String.valueOf(code)},
                 null, null, null);
@@ -173,13 +145,6 @@ public class ClassContract {
         return entry;
     }
 
-    public static ClassEntry getEntry(String code) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        ClassEntry entry = _getEntry(db, code);
-        ApolloDbAdapter.close();
-        return entry;
-    }
-
     public static ArrayList<ClassEntry> _getEntries(SQLiteDatabase db) {
         ArrayList<ClassEntry> entries = new ArrayList<>();
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
@@ -188,13 +153,13 @@ public class ClassContract {
                         AcademicTermContract.TABLE_NAME + " AS at ON c." + ClassEntry.ACADEMIC_TERM_ID + "=at." + AcademicTermContract.AcademicTermEntry._ID,
                 new String[]{"c." + ClassEntry._ID, // 0
                         "c." + ClassEntry.CODE, // 1
-                        "c." + ClassEntry.DESCRIPTION, // 2
-                        "c." + ClassEntry.ACADEMIC_TERM_ID, // 3
+                        "c." + ClassEntry.DESCRIPTION, // 2 nullable
+                        "c." + ClassEntry.ACADEMIC_TERM_ID, // 3 nullable
                         "at." + AcademicTermContract.AcademicTermEntry.DESCRIPTION, // 4
                         "at." + AcademicTermContract.AcademicTermEntry.COLOR, // 5
-                        "c." + ClassEntry.YEAR, // 6
+                        "c." + ClassEntry.YEAR, // 6 nullable
                         "c." + ClassEntry.CURRENT, // 7
-                        "c." + ClassEntry.DATE_CREATED}, // 8
+                        "c." + ClassEntry.DATE_CREATED}, // 8 nullable
                 null, null, null, null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
@@ -214,13 +179,6 @@ public class ClassContract {
             cursor.moveToNext();
         }
         cursor.close();
-        return entries;
-    }
-
-    public static ArrayList<ClassEntry> getEntries() {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        ArrayList<ClassEntry> entries = _getEntries(db);
-        ApolloDbAdapter.close();
         return entries;
     }
 

@@ -7,8 +7,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         ApolloDbAdapterTest.class,
         AcademicTermContractTest.class,
-        ClassItemTypeContractTest.class
-        //ClassContractTest.class,
+        ClassItemTypeContractTest.class,
+        ClassContractTest.class
         //StudentContractTest.class,
         //ClassScheduleContractTest.class,
         //ClassNoteContractTest.class

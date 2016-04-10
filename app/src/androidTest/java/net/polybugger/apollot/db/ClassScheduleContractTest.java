@@ -269,8 +269,8 @@ public class ClassScheduleContractTest {
     }
 
     private void _insertDummyClassSchedules() {
-        mClass0 = ClassContract._getEntry(mDb, mContext.getString(R.string.default_class_0_code));
-        mClass1 = ClassContract._getEntry(mDb, mContext.getString(R.string.default_class_1_code));
+        mClass0 = ClassContract._getEntryByCode(mDb, mContext.getString(R.string.default_class_0_code));
+        mClass1 = ClassContract._getEntryByCode(mDb, mContext.getString(R.string.default_class_1_code));
         mClassSchedule0Id = ClassScheduleContract._insert(mDb, mClass0.getId(), mTimeStart0, mTimeEnd0, mDays0, mRoom0, mBuilding0, mCampus0);
         mClassSchedule1Id = ClassScheduleContract._insert(mDb, mClass1.getId(), mTimeStart1, mTimeEnd1, mDays1, mRoom1, mBuilding1, mCampus1);
     }

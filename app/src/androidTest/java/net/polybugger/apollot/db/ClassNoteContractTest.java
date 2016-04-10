@@ -169,8 +169,8 @@ public class ClassNoteContractTest {
     }
 
     private void _insertDummyClassNotes() {
-        mClass0 = ClassContract._getEntry(mDb, mContext.getString(R.string.default_class_0_code));
-        mClass1 = ClassContract._getEntry(mDb, mContext.getString(R.string.default_class_1_code));
+        mClass0 = ClassContract._getEntryByCode(mDb, mContext.getString(R.string.default_class_0_code));
+        mClass1 = ClassContract._getEntryByCode(mDb, mContext.getString(R.string.default_class_1_code));
         mClassNote0Id = ClassNoteContract._insert(mDb, mClass0.getId(), mNote0, mDateCreated0);
         mClassNote1Id = ClassNoteContract._insert(mDb, mClass0.getId(), mNote1, mDateCreated1);
     }

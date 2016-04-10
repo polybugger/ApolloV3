@@ -65,12 +65,14 @@
     <string name="default_class_0_academic_term">@string/default_academic_term_0</string>
     <integer name="default_class_0_year">2016</integer>
     <integer name="default_class_0_past_current">@integer/current</integer>
+    <string name="default_class_0_date_created">Apr 8, 2016 00:00 AM</string>
 
     <string name="default_class_1_code">IT 116</string>
     <string name="default_class_1_description">Advanced Programming</string>
     <string name="default_class_1_academic_term">@string/default_academic_term_1</string>
     <integer name="default_class_1_year">2017</integer>
     <integer name="default_class_1_past_current">@integer/past</integer>
+    <string name="default_class_1_date_created">Apr 9, 2016 00:00 AM</string>
 
     <integer name="days_mwf">21</integer>
     <integer name="days_tth">10</integer>

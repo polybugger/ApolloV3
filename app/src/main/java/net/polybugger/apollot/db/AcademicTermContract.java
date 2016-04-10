@@ -21,7 +21,7 @@ public class AcademicTermContract {
     public static final String SELECT_TABLE_SQL = "SELECT " +
             AcademicTermEntry._ID + ", " + // 0
             AcademicTermEntry.DESCRIPTION + ", " + // 1
-            AcademicTermEntry.COLOR + // 2
+            AcademicTermEntry.COLOR + // 2 nullable
             " FROM " + TABLE_NAME;
     public static final String DELETE_ALL_SQL = "DELETE FROM " + TABLE_NAME;
 
@@ -34,13 +34,6 @@ public class AcademicTermContract {
         return db.insert(TABLE_NAME, null, values);
     }
 
-    public static long insert(String description, String color) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        long id = _insert(db, description, color);
-        ApolloDbAdapter.close();
-        return id;
-    }
-
     public static int _update(SQLiteDatabase db, long id, String description, String color) {
         ContentValues values = new ContentValues();
         values.put(AcademicTermEntry.DESCRIPTION, description);
@@ -48,22 +41,8 @@ public class AcademicTermContract {
         return db.update(TABLE_NAME, values, AcademicTermEntry._ID + "=?", new String[]{String.valueOf(id)});
     }
 
-    public static int update(long id, String description, String color) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        int rowsUpdated = _update(db, id, description, color);
-        ApolloDbAdapter.close();
-        return rowsUpdated;
-    }
-
     public static int _delete(SQLiteDatabase db, long id) {
         return db.delete(TABLE_NAME, AcademicTermEntry._ID + "=?", new String[]{String.valueOf(id)});
-    }
-
-    public static int delete(long id) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        int rowsDeleted = _delete(db, id);
-        ApolloDbAdapter.close();
-        return rowsDeleted;
     }
 
     public static AcademicTermEntry _getEntry(SQLiteDatabase db, long id) {
@@ -81,13 +60,6 @@ public class AcademicTermContract {
                     cursor.getString(1),
                     cursor.isNull(2) ? null : cursor.getString(2));
         cursor.close();
-        return entry;
-    }
-
-    public static AcademicTermEntry getEntry(long id) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        AcademicTermEntry entry = _getEntry(db, id);
-        ApolloDbAdapter.close();
         return entry;
     }
 
@@ -109,13 +81,6 @@ public class AcademicTermContract {
         return entry;
     }
 
-    public static AcademicTermEntry getEntryByDescription(String description) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        AcademicTermEntry entry = _getEntryByDescription(db, description);
-        ApolloDbAdapter.close();
-        return entry;
-    }
-
     public static ArrayList<AcademicTermEntry> _getEntries(SQLiteDatabase db) {
         ArrayList<AcademicTermEntry> entries = new ArrayList<>();
         Cursor cursor = db.query(TABLE_NAME,
@@ -131,13 +96,6 @@ public class AcademicTermContract {
             cursor.moveToNext();
         }
         cursor.close();
-        return entries;
-    }
-
-    public static ArrayList<AcademicTermEntry> getEntries() {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        ArrayList<AcademicTermEntry> entries = _getEntries(db);
-        ApolloDbAdapter.close();
         return entries;
     }
 
