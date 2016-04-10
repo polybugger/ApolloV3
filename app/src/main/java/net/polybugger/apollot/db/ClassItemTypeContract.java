@@ -69,13 +69,16 @@ public class ClassItemTypeContract {
     public static ClassItemTypeEntry _getEntry(SQLiteDatabase db, long id) {
         ClassItemTypeEntry entry = null;
         Cursor cursor = db.query(TABLE_NAME,
-                new String[]{ClassItemTypeEntry._ID, ClassItemTypeEntry.DESCRIPTION, ClassItemTypeEntry.COLOR},
+                new String[]{ClassItemTypeEntry._ID, // 0
+                        ClassItemTypeEntry.DESCRIPTION, // 1
+                        ClassItemTypeEntry.COLOR}, // 2
                 ClassItemTypeEntry._ID + "=?",
                 new String[]{String.valueOf(id)},
                 null, null, null);
         cursor.moveToFirst();
         if(!cursor.isAfterLast())
-            entry = new ClassItemTypeEntry(cursor.getLong(0), cursor.getString(1),
+            entry = new ClassItemTypeEntry(cursor.getLong(0),
+                    cursor.getString(1),
                     cursor.isNull(2) ? null : cursor.getString(2));
         cursor.close();
         return entry;
@@ -88,24 +91,27 @@ public class ClassItemTypeContract {
         return entry;
     }
 
-    public static ClassItemTypeEntry _getEntry(SQLiteDatabase db, String description) {
+    public static ClassItemTypeEntry _getEntryByDescription(SQLiteDatabase db, String description) {
         ClassItemTypeEntry entry = null;
         Cursor cursor = db.query(TABLE_NAME,
-                new String[]{ClassItemTypeEntry._ID, ClassItemTypeEntry.DESCRIPTION, ClassItemTypeEntry.COLOR},
+                new String[]{ClassItemTypeEntry._ID, // 0
+                        ClassItemTypeEntry.DESCRIPTION, // 1
+                        ClassItemTypeEntry.COLOR}, // 2
                 ClassItemTypeEntry.DESCRIPTION + "=?",
                 new String[]{description},
                 null, null, null);
         cursor.moveToFirst();
         if(!cursor.isAfterLast())
-            entry = new ClassItemTypeEntry(cursor.getLong(0), cursor.getString(1),
+            entry = new ClassItemTypeEntry(cursor.getLong(0),
+                    cursor.getString(1),
                     cursor.isNull(2) ? null : cursor.getString(2));
         cursor.close();
         return entry;
     }
 
-    public static ClassItemTypeEntry getEntry(String description) {
+    public static ClassItemTypeEntry getEntryByDescription(String description) {
         SQLiteDatabase db = ApolloDbAdapter.open();
-        ClassItemTypeEntry entry = _getEntry(db, description);
+        ClassItemTypeEntry entry = _getEntryByDescription(db, description);
         ApolloDbAdapter.close();
         return entry;
     }
@@ -113,11 +119,14 @@ public class ClassItemTypeContract {
     public static ArrayList<ClassItemTypeEntry> _getEntries(SQLiteDatabase db) {
         ArrayList<ClassItemTypeEntry> entries = new ArrayList<>();
         Cursor cursor = db.query(TABLE_NAME,
-                new String[]{ClassItemTypeEntry._ID, ClassItemTypeEntry.DESCRIPTION, ClassItemTypeEntry.COLOR},
+                new String[]{ClassItemTypeEntry._ID, // 0
+                        ClassItemTypeEntry.DESCRIPTION, // 1
+                        ClassItemTypeEntry.COLOR}, // 2
                 null, null, null, null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
-            entries.add(new ClassItemTypeEntry(cursor.getLong(0), cursor.getString(1),
+            entries.add(new ClassItemTypeEntry(cursor.getLong(0),
+                    cursor.getString(1),
                     cursor.isNull(2) ? null : cursor.getString(2)));
             cursor.moveToNext();
         }
@@ -137,9 +146,9 @@ public class ClassItemTypeContract {
         public static final String DESCRIPTION = "Description";
         public static final String COLOR = "Color";
 
-        private long mId;
-        private String mDescription;
-        private String mColor;
+        private long mId; // 0
+        private String mDescription; // 1
+        private String mColor; // 2 nullable
 
         public ClassItemTypeEntry(long id, String description, String color) {
             mId = id;
@@ -171,10 +180,6 @@ public class ClassItemTypeContract {
             this.mColor = color;
         }
 
-        public int getColorInt() {
-            return (int) Long.parseLong(mColor != null ? mColor : ColorEnum.TRANSPARENT.getValue(), 16);
-        }
-
         @Override
         public String toString() {
             return mDescription;
@@ -187,12 +192,14 @@ public class ClassItemTypeContract {
             if(object == this)
                 return true;
             ClassItemTypeEntry entry = (ClassItemTypeEntry) object;
-            return new EqualsBuilder().append(mId, entry.mId).isEquals();
+            return new EqualsBuilder()
+                    .append(mId, entry.mId).isEquals();
         }
 
         @Override
         public int hashCode() {
-            return new HashCodeBuilder(5, 7).append(mId).toHashCode();
+            return new HashCodeBuilder(5, 7)
+                    .append(mId).toHashCode();
         }
     }
 }

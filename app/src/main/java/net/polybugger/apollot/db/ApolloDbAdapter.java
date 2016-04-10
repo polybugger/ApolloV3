@@ -67,7 +67,9 @@ public class ApolloDbAdapter {
             db.execSQL(AcademicTermContract.CREATE_TABLE_SQL);
             _insertDefaultAcademicTerms(db);
 
-            // db.execSQL(ClassItemTypeContract.CREATE_TABLE_SQL);
+            db.execSQL(ClassItemTypeContract.CREATE_TABLE_SQL);
+            _insertDefaultClassItemTypes(db);
+
             // db.execSQL(StudentContract.CREATE_TABLE_SQL);
             // db.execSQL(ClassContract.CREATE_TABLE_SQL);
             // db.execSQL(ClassScheduleContract.CREATE_TABLE_SQL);
@@ -75,7 +77,6 @@ public class ApolloDbAdapter {
             // db.execSQL(ClassPasswordContract.CREATE_TABLE_SQL);
 
 
-            // _insertDefaultClassItemTypes(db);
 
             // _insertDummyStudents(db);
 
@@ -92,7 +93,7 @@ public class ApolloDbAdapter {
         }
     }
 
-    // helper methods for populating dummy data
+    // helper methods for populating dummy data, public for test use
 
     public static void _insertDefaultAcademicTerms(SQLiteDatabase db) {
         AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_0), sAppContext.getString(R.string.default_academic_term_color_0));
@@ -110,8 +111,7 @@ public class ApolloDbAdapter {
         AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_12), sAppContext.getString(R.string.default_academic_term_color_12));
     }
 
-    /*
-    private static void _insertDefaultClassItemTypes(SQLiteDatabase db) {
+    public static void _insertDefaultClassItemTypes(SQLiteDatabase db) {
         ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_0), sAppContext.getString(R.string.default_class_item_type_color_0));
         ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_0a), sAppContext.getString(R.string.default_class_item_type_color_0a));
         ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_1), sAppContext.getString(R.string.default_class_item_type_color_1));
@@ -126,6 +126,8 @@ public class ApolloDbAdapter {
         ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_9), sAppContext.getString(R.string.default_class_item_type_color_9));
         ClassItemTypeContract._insert(db, sAppContext.getString(R.string.default_class_item_type_10), sAppContext.getString(R.string.default_class_item_type_color_10));
     }
+
+    /*
 
     private static long _insertDummyClass0(SQLiteDatabase db) {
         AcademicTermContract.AcademicTermEntry academicTerm = AcademicTermContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_academic_term));

@@ -61,8 +61,7 @@ public class AcademicTermContractTest {
     }
 
     @Test
-    public void test_getMethods() throws Exception {
-        ApolloDbAdapter.open();
+    public void test_methods() throws Exception {
         AcademicTermContract.AcademicTermEntry entry = AcademicTermContract.getEntry(mAcademicTerm0Id);
         assertEquals(mAcademicTerm0Id, entry.getId());
         assertEquals(mAcademicTerm0Description, entry.getDescription());
@@ -78,12 +77,10 @@ public class AcademicTermContractTest {
         assertEquals(mAcademicTerm1Id, entry.getId());
         assertEquals(mAcademicTerm1Description, entry.getDescription());
         assertEquals(mAcademicTerm1Color, entry.getColor());
-        ApolloDbAdapter.close();
     }
 
     @Test
     public void test_getEntry() throws Exception {
-        ApolloDbAdapter.open();
         AcademicTermContract.AcademicTermEntry entry = AcademicTermContract.getEntry(mAcademicTerm0Id);
         assertEquals(mAcademicTerm0Id, entry.getId());
         assertEquals(mAcademicTerm0Description, entry.getDescription());
@@ -93,12 +90,10 @@ public class AcademicTermContractTest {
         assertEquals(mAcademicTerm0Id, entryByDescription.getId());
         assertEquals(mAcademicTerm0Description, entryByDescription.getDescription());
         assertEquals(mAcademicTerm0Color, entryByDescription.getColor());
-        ApolloDbAdapter.close();
     }
 
     @Test
     public void test_getEntries() throws Exception {
-        ApolloDbAdapter.open();
         ArrayList<AcademicTermContract.AcademicTermEntry> entries = AcademicTermContract.getEntries();
         AcademicTermContract.AcademicTermEntry entry0 = AcademicTermContract.getEntryByDescription(mContext.getString(R.string.default_academic_term_0));
         AcademicTermContract.AcademicTermEntry entry1 = AcademicTermContract.getEntryByDescription(mContext.getString(R.string.default_academic_term_1));
@@ -141,7 +136,6 @@ public class AcademicTermContractTest {
         assertTrue(entries.contains(entry11));
         assertNotNull(entry12);
         assertTrue(entries.contains(entry12));
-        ApolloDbAdapter.close();
     }
 
     @Test
