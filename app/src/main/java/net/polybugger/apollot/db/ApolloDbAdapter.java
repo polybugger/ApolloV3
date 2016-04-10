@@ -44,10 +44,11 @@ public class ApolloDbAdapter {
     }
 
     public static synchronized void close() {
-        if(sOpenCounter == 1)
-            sDb.close();
-        if(sOpenCounter > 0)
+        if(sOpenCounter > 0) {
+            if(sOpenCounter == 1)
+                sDb.close();
             sOpenCounter--;
+        }
     }
 
     private static class ApolloDbHelper extends SQLiteOpenHelper {
@@ -63,6 +64,8 @@ public class ApolloDbAdapter {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
+
+            /*
             db.execSQL(AcademicTermContract.CREATE_TABLE_SQL);
             db.execSQL(ClassItemTypeContract.CREATE_TABLE_SQL);
             db.execSQL(StudentContract.CREATE_TABLE_SQL);
@@ -81,6 +84,7 @@ public class ApolloDbAdapter {
             _insertDummyClass0Notes(db, class0Id);
             long class1Id = _insertDummyClass1(db);
             _insertDummyClass1Schedules(db, class1Id);
+            */
         }
 
         @Override
@@ -88,6 +92,8 @@ public class ApolloDbAdapter {
 
         }
     }
+
+    // helper methods for populating dummy data
 
     private static void _insertDefaultAcademicTerms(SQLiteDatabase db) {
         AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_0), sAppContext.getString(R.string.default_academic_term_color_0));
