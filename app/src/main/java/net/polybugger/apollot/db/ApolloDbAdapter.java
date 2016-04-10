@@ -74,14 +74,16 @@ public class ApolloDbAdapter {
             long class0Id = _insertDummyClass0(db);
             long class1Id = _insertDummyClass1(db);
 
-            // db.execSQL(StudentContract.CREATE_TABLE_SQL);
+            db.execSQL(StudentContract.CREATE_TABLE_SQL);
+            _insertDummyStudents(db);
+
+
             // db.execSQL(ClassScheduleContract.CREATE_TABLE_SQL);
             // db.execSQL(ClassNoteContract.CREATE_TABLE_SQL);
             // db.execSQL(ClassPasswordContract.CREATE_TABLE_SQL);
 
 
 
-            // _insertDummyStudents(db);
 
             // _insertDummyClass0Schedules(db, class0Id);
             // _insertDummyClass0Notes(db, class0Id);
@@ -163,76 +165,7 @@ public class ApolloDbAdapter {
                 dateCreated);
     }
 
-    /*
-
-    private static void _insertDummyClass0Schedules(SQLiteDatabase db, long classId) {
-        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DISPLAY_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
-        Date timeStart, timeEnd;
-        try {
-            timeStart = sdf.parse(sAppContext.getString(R.string.default_class_0_class_schedule_0_time_start));
-        }
-        catch(Exception e) {
-            timeStart = null;
-        }
-        try {
-            timeEnd = sdf.parse(sAppContext.getString(R.string.default_class_0_class_schedule_0_time_end));
-        }
-        catch(Exception e) {
-            timeEnd = null;
-        }
-        ClassScheduleContract._insert(db, classId, timeStart, timeEnd,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_schedule_0_days),
-                sAppContext.getString(R.string.default_class_0_class_schedule_0_room),
-                sAppContext.getString(R.string.default_class_0_class_schedule_0_building),
-                sAppContext.getString(R.string.default_class_0_class_schedule_0_campus));
-    }
-
-    private static void _insertDummyClass0Notes(SQLiteDatabase db, long classId) {
-        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
-        Date dateCreated;
-        try {
-            dateCreated = sdf.parse(sAppContext.getString(R.string.default_class_0_class_note_0_date_created));
-        }
-        catch(Exception e) {
-            dateCreated = null;
-        }
-        ClassNoteContract._insert(db, classId,
-                sAppContext.getString(R.string.default_class_0_class_note_0_note),
-                dateCreated);
-        try {
-            dateCreated = sdf.parse(sAppContext.getString(R.string.default_class_0_class_note_1_date_created));
-        }
-        catch(Exception e) {
-            dateCreated = null;
-        }
-        ClassNoteContract._insert(db, classId,
-                sAppContext.getString(R.string.default_class_0_class_note_1_note),
-                dateCreated);
-    }
-
-    private static void _insertDummyClass1Schedules(SQLiteDatabase db, long classId) {
-        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DISPLAY_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
-        Date timeStart, timeEnd;
-        try {
-            timeStart = sdf.parse(sAppContext.getString(R.string.default_class_1_class_schedule_0_time_start));
-        }
-        catch(Exception e) {
-            timeStart = null;
-        }
-        try {
-            timeEnd = sdf.parse(sAppContext.getString(R.string.default_class_1_class_schedule_0_time_end));
-        }
-        catch(Exception e) {
-            timeEnd = null;
-        }
-        ClassScheduleContract._insert(db, classId, timeStart, timeEnd,
-                sAppContext.getResources().getInteger(R.integer.default_class_1_class_schedule_0_days),
-                sAppContext.getString(R.string.default_class_1_class_schedule_0_room),
-                sAppContext.getString(R.string.default_class_1_class_schedule_0_building),
-                sAppContext.getString(R.string.default_class_1_class_schedule_0_campus));
-    }
-
-    private static void _insertDummyStudents(SQLiteDatabase db) {
+    public static void _insertDummyStudents(SQLiteDatabase db) {
         StudentContract._insert(db, sAppContext.getString(R.string.default_student_0_last_name),
                 sAppContext.getString(R.string.default_student_0_first_name),
                 sAppContext.getString(R.string.default_student_0_middle_name),
@@ -534,6 +467,76 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_student_42_email_address),
                 sAppContext.getString(R.string.default_student_42_contact_number));
     }
+
+    /*
+
+    private static void _insertDummyClass0Schedules(SQLiteDatabase db, long classId) {
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DISPLAY_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
+        Date timeStart, timeEnd;
+        try {
+            timeStart = sdf.parse(sAppContext.getString(R.string.default_class_0_class_schedule_0_time_start));
+        }
+        catch(Exception e) {
+            timeStart = null;
+        }
+        try {
+            timeEnd = sdf.parse(sAppContext.getString(R.string.default_class_0_class_schedule_0_time_end));
+        }
+        catch(Exception e) {
+            timeEnd = null;
+        }
+        ClassScheduleContract._insert(db, classId, timeStart, timeEnd,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_schedule_0_days),
+                sAppContext.getString(R.string.default_class_0_class_schedule_0_room),
+                sAppContext.getString(R.string.default_class_0_class_schedule_0_building),
+                sAppContext.getString(R.string.default_class_0_class_schedule_0_campus));
+    }
+
+    private static void _insertDummyClass0Notes(SQLiteDatabase db, long classId) {
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
+        Date dateCreated;
+        try {
+            dateCreated = sdf.parse(sAppContext.getString(R.string.default_class_0_class_note_0_date_created));
+        }
+        catch(Exception e) {
+            dateCreated = null;
+        }
+        ClassNoteContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_note_0_note),
+                dateCreated);
+        try {
+            dateCreated = sdf.parse(sAppContext.getString(R.string.default_class_0_class_note_1_date_created));
+        }
+        catch(Exception e) {
+            dateCreated = null;
+        }
+        ClassNoteContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_note_1_note),
+                dateCreated);
+    }
+
+    private static void _insertDummyClass1Schedules(SQLiteDatabase db, long classId) {
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DISPLAY_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
+        Date timeStart, timeEnd;
+        try {
+            timeStart = sdf.parse(sAppContext.getString(R.string.default_class_1_class_schedule_0_time_start));
+        }
+        catch(Exception e) {
+            timeStart = null;
+        }
+        try {
+            timeEnd = sdf.parse(sAppContext.getString(R.string.default_class_1_class_schedule_0_time_end));
+        }
+        catch(Exception e) {
+            timeEnd = null;
+        }
+        ClassScheduleContract._insert(db, classId, timeStart, timeEnd,
+                sAppContext.getResources().getInteger(R.integer.default_class_1_class_schedule_0_days),
+                sAppContext.getString(R.string.default_class_1_class_schedule_0_room),
+                sAppContext.getString(R.string.default_class_1_class_schedule_0_building),
+                sAppContext.getString(R.string.default_class_1_class_schedule_0_campus));
+    }
+
     */
 
 }

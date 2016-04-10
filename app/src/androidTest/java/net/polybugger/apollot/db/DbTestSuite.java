@@ -8,8 +8,8 @@ import org.junit.runners.Suite;
         ApolloDbAdapterTest.class,
         AcademicTermContractTest.class,
         ClassItemTypeContractTest.class,
-        ClassContractTest.class
-        //StudentContractTest.class,
+        ClassContractTest.class,
+        StudentContractTest.class
         //ClassScheduleContractTest.class,
         //ClassNoteContractTest.class
 })

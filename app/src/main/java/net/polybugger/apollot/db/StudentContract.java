@@ -25,11 +25,11 @@ public class StudentContract {
     public static final String SELECT_TABLE_SQL = "SELECT " +
             StudentEntry._ID + ", " + // 0
             StudentEntry.LAST_NAME + ", " + // 1
-            StudentEntry.FIRST_NAME + ", " + // 2
-            StudentEntry.MIDDLE_NAME + ", " + // 3
-            StudentEntry.GENDER + ", " + // 4
-            StudentEntry.EMAIL_ADDRESS + ", " + // 5
-            StudentEntry.CONTACT_NUMBER + // 6
+            StudentEntry.FIRST_NAME + ", " + // 2 nullable
+            StudentEntry.MIDDLE_NAME + ", " + // 3 nullable
+            StudentEntry.GENDER + ", " + // 4 nullable
+            StudentEntry.EMAIL_ADDRESS + ", " + // 5 nullable
+            StudentEntry.CONTACT_NUMBER + // 6 nullable
             " FROM " + TABLE_NAME;
     public static final String DELETE_ALL_SQL = "DELETE FROM " + TABLE_NAME;
 
@@ -46,13 +46,6 @@ public class StudentContract {
         return db.insert(TABLE_NAME, null, values);
     }
 
-    public static long insert(String lastName, String firstName, String middleName, GenderEnum gender, String emailAddress, String contactNumber) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        long id = _insert(db, lastName, firstName, middleName, gender, emailAddress, contactNumber);
-        ApolloDbAdapter.close();
-        return id;
-    }
-
     public static int _update(SQLiteDatabase db, long id, String lastName, String firstName, String middleName, GenderEnum gender, String emailAddress, String contactNumber) {
         ContentValues values = new ContentValues();
         values.put(StudentEntry.LAST_NAME, lastName);
@@ -64,22 +57,8 @@ public class StudentContract {
         return db.update(TABLE_NAME, values, StudentEntry._ID + "=?", new String[]{String.valueOf(id)});
     }
 
-    public static int update(long id, String lastName, String firstName, String middleName, GenderEnum gender, String emailAddress, String contactNumber) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        int rowsUpdated = _update(db, id, lastName, firstName, middleName, gender, emailAddress, contactNumber);
-        ApolloDbAdapter.close();
-        return rowsUpdated;
-    }
-
     public static int _delete(SQLiteDatabase db, long id) {
         return db.delete(TABLE_NAME, StudentEntry._ID + "=?", new String[]{String.valueOf(id)});
-    }
-
-    public static int delete(long id) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        int rowsDeleted = _delete(db, id);
-        ApolloDbAdapter.close();
-        return rowsDeleted;
     }
 
     public static StudentEntry _getEntry(SQLiteDatabase db, long id) {
@@ -87,11 +66,11 @@ public class StudentContract {
         Cursor cursor = db.query(TABLE_NAME,
                 new String[]{StudentEntry._ID, // 0
                         StudentEntry.LAST_NAME, // 1
-                        StudentEntry.FIRST_NAME, // 2
-                        StudentEntry.MIDDLE_NAME, // 3
-                        StudentEntry.GENDER, // 4
-                        StudentEntry.EMAIL_ADDRESS, // 5
-                        StudentEntry.CONTACT_NUMBER}, // 6
+                        StudentEntry.FIRST_NAME, // 2 nullable
+                        StudentEntry.MIDDLE_NAME, // 3 nullable
+                        StudentEntry.GENDER, // 4 nullable
+                        StudentEntry.EMAIL_ADDRESS, // 5 nullable
+                        StudentEntry.CONTACT_NUMBER}, // 6 nullable
                 StudentEntry._ID + "=?",
                 new String[]{String.valueOf(id)},
                 null, null, null);
@@ -109,10 +88,30 @@ public class StudentContract {
         return entry;
     }
 
-    public static StudentEntry getEntry(long id) {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        StudentEntry entry = _getEntry(db, id);
-        ApolloDbAdapter.close();
+    public static StudentEntry _getEntryByLastName(SQLiteDatabase db, String lastName) {
+        StudentEntry entry = null;
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{StudentEntry._ID, // 0
+                        StudentEntry.LAST_NAME, // 1
+                        StudentEntry.FIRST_NAME, // 2 nullable
+                        StudentEntry.MIDDLE_NAME, // 3 nullable
+                        StudentEntry.GENDER, // 4 nullable
+                        StudentEntry.EMAIL_ADDRESS, // 5 nullable
+                        StudentEntry.CONTACT_NUMBER}, // 6 nullable
+                StudentEntry.LAST_NAME + "=?",
+                new String[]{String.valueOf(lastName)},
+                null, null, null);
+        cursor.moveToFirst();
+        if(!cursor.isAfterLast()) {
+            entry = new StudentEntry(cursor.getLong(0),
+                    cursor.getString(1),
+                    cursor.isNull(2) ? null : cursor.getString(2),
+                    cursor.isNull(3) ? null : cursor.getString(3),
+                    cursor.isNull(4) ? null : GenderEnum.fromInt(cursor.getInt(4)),
+                    cursor.isNull(5) ? null : cursor.getString(5),
+                    cursor.isNull(6) ? null : cursor.getString(6));
+        }
+        cursor.close();
         return entry;
     }
 
@@ -121,11 +120,11 @@ public class StudentContract {
         Cursor cursor = db.query(TABLE_NAME,
                 new String[]{StudentEntry._ID, // 0
                         StudentEntry.LAST_NAME, // 1
-                        StudentEntry.FIRST_NAME, // 2
-                        StudentEntry.MIDDLE_NAME, // 3
-                        StudentEntry.GENDER, // 4
-                        StudentEntry.EMAIL_ADDRESS, // 5
-                        StudentEntry.CONTACT_NUMBER}, // 6
+                        StudentEntry.FIRST_NAME, // 2 nullable
+                        StudentEntry.MIDDLE_NAME, // 3 nullable
+                        StudentEntry.GENDER, // 4 nullable
+                        StudentEntry.EMAIL_ADDRESS, // 5 nullable
+                        StudentEntry.CONTACT_NUMBER}, // 6 nullable
                 null, null, null, null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
@@ -139,13 +138,6 @@ public class StudentContract {
             cursor.moveToNext();
         }
         cursor.close();
-        return entries;
-    }
-
-    public static ArrayList<StudentEntry> getEntries() {
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        ArrayList<StudentEntry> entries = _getEntries(db);
-        ApolloDbAdapter.close();
         return entries;
     }
 
