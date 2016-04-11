@@ -12,6 +12,7 @@ import org.junit.runners.Suite;
         StudentContractTest.class,
         ClassScheduleContractTest.class,
         ClassNoteContractTest.class,
-        ClassPasswordContractTest.class
+        ClassPasswordContractTest.class,
+        ClassItemContractTest.class
 })
 public class DbTestSuite { }

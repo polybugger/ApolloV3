@@ -5,6 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -302,6 +305,30 @@ public class ClassItemContract {
 
         public void setSubmissionDueDate(Date submissionDueDate) {
             mSubmissionDueDate = submissionDueDate;
+        }
+
+        @Override
+        public String toString() {
+            return mDescription;
+        }
+
+        @Override
+        public boolean equals(Object object) {
+            if(!(object instanceof ClassItemEntry))
+                return false;
+            if(object == this)
+                return true;
+            ClassItemEntry entry = (ClassItemEntry) object;
+            return new EqualsBuilder()
+                    .append(mId, entry.mId)
+                    .append(mClassId, entry.mClassId).isEquals();
+        }
+
+        @Override
+        public int hashCode() {
+            return new HashCodeBuilder(11, 13)
+                    .append(mId)
+                    .append(mClassId).toHashCode();
         }
     }
 }

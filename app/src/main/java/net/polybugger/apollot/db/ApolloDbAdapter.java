@@ -565,10 +565,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_0_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_0_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_0_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_0_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_0_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_0_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_0_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_0_record_submissions),
                 submissionDueDate);
 
         try {
@@ -593,10 +593,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_1_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_1_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_1_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_1_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_1_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_1_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_1_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_1_record_submissions),
                 submissionDueDate);
 
         try {
@@ -621,10 +621,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_2_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_2_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_2_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_2_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_2_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_2_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_2_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_2_record_submissions),
                 submissionDueDate);
 
         try {
@@ -649,10 +649,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_3_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_3_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_3_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_3_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_3_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_3_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_3_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_3_record_submissions),
                 submissionDueDate);
 
         try {
@@ -677,10 +677,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_4_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_4_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_4_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_4_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_4_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_4_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_4_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_4_record_submissions),
                 submissionDueDate);
 
         try {
@@ -705,10 +705,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_5_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_5_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_5_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_5_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_5_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_5_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_5_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_5_record_submissions),
                 submissionDueDate);
 
         try {
@@ -733,10 +733,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_6_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_6_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_6_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_6_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_6_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_6_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_6_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_6_record_submissions),
                 submissionDueDate);
 
         try {
@@ -761,10 +761,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_7_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_7_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_7_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_7_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_7_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_7_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_7_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_7_record_submissions),
                 submissionDueDate);
 
         try {
@@ -789,10 +789,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_8_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_8_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_8_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_8_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_8_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_8_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_8_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_8_record_submissions),
                 submissionDueDate);
 
         try {
@@ -817,10 +817,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_9_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_9_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_9_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_9_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_9_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_9_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_9_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_9_record_submissions),
                 submissionDueDate);
 
         try {
@@ -845,10 +845,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_10_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_10_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_10_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_10_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_10_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_10_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_10_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_10_record_submissions),
                 submissionDueDate);
 
         try {
@@ -873,10 +873,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_11_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_11_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_11_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_11_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_11_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_11_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_11_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_11_record_submissions),
                 submissionDueDate);
 
         try {
@@ -901,10 +901,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_12_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_12_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_12_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_12_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_12_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_12_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_12_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_12_record_submissions),
                 submissionDueDate);
 
         try {
@@ -929,10 +929,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_13_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_13_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_13_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_13_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_13_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_13_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_13_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_13_record_submissions),
                 submissionDueDate);
 
         try {
@@ -957,10 +957,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_14_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_14_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_14_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_14_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_14_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_14_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_14_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_14_record_submissions),
                 submissionDueDate);
 
         try {
@@ -985,10 +985,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_15_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_15_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_15_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_15_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_15_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_15_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_15_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_15_record_submissions),
                 submissionDueDate);
 
         try {
@@ -1013,10 +1013,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_16_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_16_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_16_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_16_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_16_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_16_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_16_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_16_record_submissions),
                 submissionDueDate);
 
         try {
@@ -1041,10 +1041,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_17_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_17_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_17_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_17_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_17_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_17_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_17_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_17_record_submissions),
                 submissionDueDate);
 
         try {
@@ -1069,10 +1069,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_18_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_18_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_18_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_18_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_18_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_18_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_18_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_18_record_submissions),
                 submissionDueDate);
 
         try {
@@ -1097,10 +1097,10 @@ public class ApolloDbAdapter {
                 sAppContext.getString(R.string.default_class_0_class_item_19_description),
                 ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_19_item_type)),
                 itemDate,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_19_check_attendance) != 0,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_19_record_scores) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_19_check_attendance),
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_19_record_scores),
                 perfectScore,
-                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_19_record_submissions) != 0,
+                sAppContext.getResources().getBoolean(R.bool.default_class_0_class_item_19_record_submissions),
                 submissionDueDate);
 
     }
