@@ -86,6 +86,8 @@ public class ApolloDbAdapter {
 
             db.execSQL(ClassPasswordContract.CREATE_TABLE_SQL);
             _insertDummyClass1Password(db, class1Id);
+
+            _insertDummyClass0Items(db, class0Id);
         }
 
         @Override
@@ -534,5 +536,572 @@ public class ApolloDbAdapter {
 
     public static long _insertDummyClass1Password(SQLiteDatabase db, long classId) {
         return ClassPasswordContract._insert(db, classId, sAppContext.getString(R.string.default_class_1_password));
+    }
+
+    public static void _insertDummyClass0Items(SQLiteDatabase db, long classId) {
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
+        Date itemDate, submissionDueDate;
+        Float perfectScore;
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_0_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_0_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_0_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_0_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_0_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_0_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_0_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_0_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_1_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_1_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_1_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_1_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_1_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_1_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_1_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_1_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_2_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_2_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_2_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_2_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_2_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_2_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_2_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_2_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_3_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_3_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_3_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_3_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_3_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_3_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_3_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_3_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_4_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_4_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_4_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_4_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_4_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_4_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_4_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_4_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_5_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_5_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_5_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_5_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_5_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_5_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_5_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_5_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_6_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_6_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_6_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_6_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_6_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_6_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_6_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_6_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_7_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_7_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_7_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_7_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_7_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_7_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_7_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_7_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_8_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_8_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_8_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_8_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_8_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_8_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_8_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_8_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_9_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_9_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_9_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_9_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_9_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_9_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_9_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_9_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_10_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_10_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_10_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_10_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_10_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_10_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_10_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_10_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_11_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_11_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_11_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_11_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_11_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_11_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_11_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_11_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_12_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_12_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_12_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_12_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_12_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_12_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_12_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_12_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_13_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_13_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_13_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_13_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_13_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_13_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_13_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_13_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_14_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_14_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_14_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_14_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_14_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_14_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_14_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_14_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_15_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_15_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_15_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_15_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_15_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_15_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_15_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_15_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_16_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_16_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_16_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_16_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_16_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_16_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_16_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_16_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_17_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_17_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_17_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_17_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_17_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_17_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_17_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_17_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_18_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_18_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_18_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_18_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_18_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_18_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_18_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_18_record_submissions) != 0,
+                submissionDueDate);
+
+        try {
+            itemDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_19_item_date));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        try {
+            submissionDueDate = sdf.parse(sAppContext.getString(R.string.default_class_0_class_item_19_submission_due_date));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        try {
+            perfectScore = Float.parseFloat(sAppContext.getString(R.string.default_class_0_class_item_19_perfect_score));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        ClassItemContract._insert(db, classId,
+                sAppContext.getString(R.string.default_class_0_class_item_19_description),
+                ClassItemTypeContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_class_item_19_item_type)),
+                itemDate,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_19_check_attendance) != 0,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_19_record_scores) != 0,
+                perfectScore,
+                sAppContext.getResources().getInteger(R.integer.default_class_0_class_item_19_record_submissions) != 0,
+                submissionDueDate);
+
     }
 }

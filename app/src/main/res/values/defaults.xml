@@ -62,14 +62,14 @@
 
     <string name="default_class_0_code">Math 311</string>
     <string name="default_class_0_description">Abstract Algebra</string>
-    <string name="default_class_0_academic_term">@string/default_academic_term_0</string>
+    <string name="default_class_0_academic_term">@string/default_academic_term_0</string> <!-- fall -->
     <integer name="default_class_0_year">2016</integer>
     <integer name="default_class_0_past_current">@integer/current</integer>
     <string name="default_class_0_date_created">Apr 8, 2016 00:00 AM</string>
 
     <string name="default_class_1_code">IT 116</string>
     <string name="default_class_1_description">Advanced Programming</string>
-    <string name="default_class_1_academic_term">@string/default_academic_term_1</string>
+    <string name="default_class_1_academic_term">@string/default_academic_term_1</string> <!-- spring -->
     <integer name="default_class_1_year">2017</integer>
     <integer name="default_class_1_past_current">@integer/past</integer>
     <string name="default_class_1_date_created">Apr 9, 2016 00:00 AM</string>
@@ -114,293 +114,476 @@
     <string name="default_student_1_middle_name">W</string>
     <integer name="default_student_1_gender">@integer/gender_male</integer>
     <string name="default_student_1_email_address">info@rainbowcity.co</string>
-    <string name="default_student_1_contact_number"></string>
+    <string name="default_student_1_contact_number">@null</string>
 
     <string name="default_student_2_last_name">Ibanez</string>
     <string name="default_student_2_first_name">Carmen</string>
-    <string name="default_student_2_middle_name"></string>
+    <string name="default_student_2_middle_name">@null</string>
     <integer name="default_student_2_gender">@integer/gender_female</integer>
-    <string name="default_student_2_email_address"></string>
-    <string name="default_student_2_contact_number"></string>
+    <string name="default_student_2_email_address">@null</string>
+    <string name="default_student_2_contact_number">@null</string>
 
     <string name="default_student_3_last_name">Durer</string>
     <string name="default_student_3_first_name">Tia "Trig"</string>
-    <string name="default_student_3_middle_name"></string>
+    <string name="default_student_3_middle_name">@null</string>
     <integer name="default_student_3_gender">@integer/gender_female</integer>
-    <string name="default_student_3_email_address"></string>
-    <string name="default_student_3_contact_number"></string>
+    <string name="default_student_3_email_address">@null</string>
+    <string name="default_student_3_contact_number">@null</string>
 
     <string name="default_student_4_last_name">Rico</string>
     <string name="default_student_4_first_name">Johnny</string>
-    <string name="default_student_4_middle_name"></string>
+    <string name="default_student_4_middle_name">@null</string>
     <integer name="default_student_4_gender">@integer/gender_male</integer>
-    <string name="default_student_4_email_address"></string>
-    <string name="default_student_4_contact_number"></string>
+    <string name="default_student_4_email_address">@null</string>
+    <string name="default_student_4_contact_number">@null</string>
 
     <string name="default_student_5_last_name">Kusanagi</string>
     <string name="default_student_5_first_name">Motoko</string>
-    <string name="default_student_5_middle_name"></string>
+    <string name="default_student_5_middle_name">@null</string>
     <integer name="default_student_5_gender">@integer/gender_female</integer>
-    <string name="default_student_5_email_address"></string>
-    <string name="default_student_5_contact_number"></string>
+    <string name="default_student_5_email_address">@null</string>
+    <string name="default_student_5_contact_number">@null</string>
 
     <string name="default_student_6_last_name">Cage</string>
     <string name="default_student_6_first_name">William</string>
-    <string name="default_student_6_middle_name"></string>
+    <string name="default_student_6_middle_name">@null</string>
     <integer name="default_student_6_gender">@integer/gender_male</integer>
-    <string name="default_student_6_email_address"></string>
-    <string name="default_student_6_contact_number"></string>
+    <string name="default_student_6_email_address">@null</string>
+    <string name="default_student_6_contact_number">@null</string>
 
     <string name="default_student_7_last_name">Vrataski</string>
     <string name="default_student_7_first_name">Rita</string>
-    <string name="default_student_7_middle_name"></string>
+    <string name="default_student_7_middle_name">@null</string>
     <integer name="default_student_7_gender">@integer/gender_female</integer>
-    <string name="default_student_7_email_address"></string>
-    <string name="default_student_7_contact_number"></string>
+    <string name="default_student_7_email_address">@null</string>
+    <string name="default_student_7_contact_number">@null</string>
 
     <string name="default_student_8_last_name">Wayne</string>
     <string name="default_student_8_first_name">Bruce</string>
-    <string name="default_student_8_middle_name"></string>
+    <string name="default_student_8_middle_name">@null</string>
     <integer name="default_student_8_gender">@integer/gender_male</integer>
-    <string name="default_student_8_email_address"></string>
-    <string name="default_student_8_contact_number"></string>
+    <string name="default_student_8_email_address">@null</string>
+    <string name="default_student_8_contact_number">@null</string>
 
     <string name="default_student_9_last_name">Kent</string>
     <string name="default_student_9_first_name">Clark</string>
-    <string name="default_student_9_middle_name"></string>
+    <string name="default_student_9_middle_name">@null</string>
     <integer name="default_student_9_gender">@integer/gender_male</integer>
-    <string name="default_student_9_email_address"></string>
-    <string name="default_student_9_contact_number"></string>
+    <string name="default_student_9_email_address">@null</string>
+    <string name="default_student_9_contact_number">@null</string>
 
     <string name="default_student_10_last_name">Allen</string>
     <string name="default_student_10_first_name">Barry</string>
-    <string name="default_student_10_middle_name"></string>
+    <string name="default_student_10_middle_name">@null</string>
     <integer name="default_student_10_gender">@integer/gender_male</integer>
-    <string name="default_student_10_email_address"></string>
-    <string name="default_student_10_contact_number"></string>
+    <string name="default_student_10_email_address">@null</string>
+    <string name="default_student_10_contact_number">@null</string>
 
     <string name="default_student_11_last_name">Stark</string>
     <string name="default_student_11_first_name">Tony</string>
-    <string name="default_student_11_middle_name"></string>
+    <string name="default_student_11_middle_name">@null</string>
     <integer name="default_student_11_gender">@integer/gender_male</integer>
-    <string name="default_student_11_email_address"></string>
-    <string name="default_student_11_contact_number"></string>
+    <string name="default_student_11_email_address">@null</string>
+    <string name="default_student_11_contact_number">@null</string>
 
     <string name="default_student_12_last_name">Rogers</string>
     <string name="default_student_12_first_name">Steve</string>
-    <string name="default_student_12_middle_name"></string>
+    <string name="default_student_12_middle_name">@null</string>
     <integer name="default_student_12_gender">@integer/gender_male</integer>
-    <string name="default_student_12_email_address"></string>
-    <string name="default_student_12_contact_number"></string>
+    <string name="default_student_12_email_address">@null</string>
+    <string name="default_student_12_contact_number">@null</string>
 
     <string name="default_student_13_last_name">Romanoff</string>
     <string name="default_student_13_first_name">Natasha</string>
-    <string name="default_student_13_middle_name"></string>
+    <string name="default_student_13_middle_name">@null</string>
     <integer name="default_student_13_gender">@integer/gender_female</integer>
-    <string name="default_student_13_email_address"></string>
-    <string name="default_student_13_contact_number"></string>
+    <string name="default_student_13_email_address">@null</string>
+    <string name="default_student_13_contact_number">@null</string>
 
     <string name="default_student_14_last_name">Banner</string>
     <string name="default_student_14_first_name">Bruce</string>
-    <string name="default_student_14_middle_name"></string>
+    <string name="default_student_14_middle_name">@null</string>
     <integer name="default_student_14_gender">@integer/gender_male</integer>
-    <string name="default_student_14_email_address"></string>
-    <string name="default_student_14_contact_number"></string>
+    <string name="default_student_14_email_address">@null</string>
+    <string name="default_student_14_contact_number">@null</string>
 
     <string name="default_student_15_last_name">Barton</string>
     <string name="default_student_15_first_name">Clint</string>
-    <string name="default_student_15_middle_name"></string>
+    <string name="default_student_15_middle_name">@null</string>
     <integer name="default_student_15_gender">@integer/gender_male</integer>
-    <string name="default_student_15_email_address"></string>
-    <string name="default_student_15_contact_number"></string>
+    <string name="default_student_15_email_address">@null</string>
+    <string name="default_student_15_contact_number">@null</string>
 
     <string name="default_student_16_last_name">Coulson</string>
     <string name="default_student_16_first_name">Phil</string>
-    <string name="default_student_16_middle_name"></string>
+    <string name="default_student_16_middle_name">@null</string>
     <integer name="default_student_16_gender">@integer/gender_male</integer>
-    <string name="default_student_16_email_address"></string>
-    <string name="default_student_16_contact_number"></string>
+    <string name="default_student_16_email_address">@null</string>
+    <string name="default_student_16_contact_number">@null</string>
 
     <string name="default_student_17_last_name">Fury</string>
     <string name="default_student_17_first_name">Nick</string>
-    <string name="default_student_17_middle_name"></string>
+    <string name="default_student_17_middle_name">@null</string>
     <integer name="default_student_17_gender">@integer/gender_male</integer>
-    <string name="default_student_17_email_address"></string>
-    <string name="default_student_17_contact_number"></string>
+    <string name="default_student_17_email_address">@null</string>
+    <string name="default_student_17_contact_number">@null</string>
 
     <string name="default_student_18_last_name">Parker</string>
     <string name="default_student_18_first_name">Peter</string>
-    <string name="default_student_18_middle_name"></string>
+    <string name="default_student_18_middle_name">@null</string>
     <integer name="default_student_18_gender">@integer/gender_male</integer>
-    <string name="default_student_18_email_address"></string>
-    <string name="default_student_18_contact_number"></string>
+    <string name="default_student_18_email_address">@null</string>
+    <string name="default_student_18_contact_number">@null</string>
 
     <string name="default_student_19_last_name">Hattori</string>
     <string name="default_student_19_first_name">Hanzo</string>
-    <string name="default_student_19_middle_name"></string>
+    <string name="default_student_19_middle_name">@null</string>
     <integer name="default_student_19_gender">@integer/gender_male</integer>
-    <string name="default_student_19_email_address"></string>
-    <string name="default_student_19_contact_number"></string>
+    <string name="default_student_19_email_address">@null</string>
+    <string name="default_student_19_contact_number">@null</string>
 
     <string name="default_student_20_last_name">Tachibana</string>
     <string name="default_student_20_first_name">Ukyo</string>
-    <string name="default_student_20_middle_name"></string>
+    <string name="default_student_20_middle_name">@null</string>
     <integer name="default_student_20_gender">@integer/gender_male</integer>
-    <string name="default_student_20_email_address"></string>
-    <string name="default_student_20_contact_number"></string>
+    <string name="default_student_20_email_address">@null</string>
+    <string name="default_student_20_contact_number">@null</string>
 
     <string name="default_student_21_last_name">Nakoruru</string>
-    <string name="default_student_21_first_name"></string>
-    <string name="default_student_21_middle_name"></string>
+    <string name="default_student_21_first_name">@null</string>
+    <string name="default_student_21_middle_name">@null</string>
     <integer name="default_student_21_gender">@integer/gender_female</integer>
-    <string name="default_student_21_email_address"></string>
-    <string name="default_student_21_contact_number"></string>
+    <string name="default_student_21_email_address">@null</string>
+    <string name="default_student_21_contact_number">@null</string>
 
     <string name="default_student_22_last_name">Haohmaru</string>
-    <string name="default_student_22_first_name"></string>
-    <string name="default_student_22_middle_name"></string>
+    <string name="default_student_22_first_name">@null</string>
+    <string name="default_student_22_middle_name">@null</string>
     <integer name="default_student_22_gender">@integer/gender_male</integer>
-    <string name="default_student_22_email_address"></string>
-    <string name="default_student_22_contact_number"></string>
+    <string name="default_student_22_email_address">@null</string>
+    <string name="default_student_22_contact_number">@null</string>
 
     <string name="default_student_23_last_name">Weller</string>
     <string name="default_student_23_first_name">Galford</string>
     <string name="default_student_23_middle_name">D</string>
     <integer name="default_student_23_gender">@integer/gender_male</integer>
-    <string name="default_student_23_email_address"></string>
-    <string name="default_student_23_contact_number"></string>
+    <string name="default_student_23_email_address">@null</string>
+    <string name="default_student_23_contact_number">@null</string>
 
     <string name="default_student_24_last_name">de Colde</string>
     <string name="default_student_24_first_name">Charlotte Christine</string>
-    <string name="default_student_24_middle_name"></string>
+    <string name="default_student_24_middle_name">@null</string>
     <integer name="default_student_24_gender">@integer/gender_female</integer>
-    <string name="default_student_24_email_address"></string>
-    <string name="default_student_24_contact_number"></string>
+    <string name="default_student_24_email_address">@null</string>
+    <string name="default_student_24_contact_number">@null</string>
 
     <string name="default_student_25_last_name">Neinhalt</string>
     <string name="default_student_25_first_name">Sieger</string>
-    <string name="default_student_25_middle_name"></string>
+    <string name="default_student_25_middle_name">@null</string>
     <integer name="default_student_25_gender">@integer/gender_male</integer>
-    <string name="default_student_25_email_address"></string>
-    <string name="default_student_25_contact_number"></string>
+    <string name="default_student_25_email_address">@null</string>
+    <string name="default_student_25_contact_number">@null</string>
 
     <string name="default_student_26_last_name">Cham Cham</string>
-    <string name="default_student_26_first_name"></string>
-    <string name="default_student_26_middle_name"></string>
+    <string name="default_student_26_first_name">@null</string>
+    <string name="default_student_26_middle_name">@null</string>
     <integer name="default_student_26_gender">@integer/gender_female</integer>
-    <string name="default_student_26_email_address"></string>
-    <string name="default_student_26_contact_number"></string>
+    <string name="default_student_26_email_address">@null</string>
+    <string name="default_student_26_contact_number">@null</string>
 
     <string name="default_student_27_last_name">Descartes</string>
     <string name="default_student_27_first_name">René</string>
-    <string name="default_student_27_middle_name"></string>
+    <string name="default_student_27_middle_name">@null</string>
     <integer name="default_student_27_gender">@integer/gender_male</integer>
-    <string name="default_student_27_email_address"></string>
-    <string name="default_student_27_contact_number"></string>
+    <string name="default_student_27_email_address">@null</string>
+    <string name="default_student_27_contact_number">@null</string>
 
     <string name="default_student_28_last_name">Euclid</string>
-    <string name="default_student_28_first_name"></string>
-    <string name="default_student_28_middle_name"></string>
+    <string name="default_student_28_first_name">@null</string>
+    <string name="default_student_28_middle_name">@null</string>
     <integer name="default_student_28_gender">@integer/gender_male</integer>
-    <string name="default_student_28_email_address"></string>
-    <string name="default_student_28_contact_number"></string>
+    <string name="default_student_28_email_address">@null</string>
+    <string name="default_student_28_contact_number">@null</string>
 
     <string name="default_student_29_last_name">Leibniz</string>
     <string name="default_student_29_first_name">Gottfried Wilhelm</string>
-    <string name="default_student_29_middle_name"></string>
+    <string name="default_student_29_middle_name">@null</string>
     <integer name="default_student_29_gender">@integer/gender_male</integer>
-    <string name="default_student_29_email_address"></string>
-    <string name="default_student_29_contact_number"></string>
+    <string name="default_student_29_email_address">@null</string>
+    <string name="default_student_29_contact_number">@null</string>
 
     <string name="default_student_30_last_name">Gauss</string>
     <string name="default_student_30_first_name">Carl Friedrich</string>
-    <string name="default_student_30_middle_name"></string>
+    <string name="default_student_30_middle_name">@null</string>
     <integer name="default_student_30_gender">@integer/gender_male</integer>
-    <string name="default_student_30_email_address"></string>
-    <string name="default_student_30_contact_number"></string>
+    <string name="default_student_30_email_address">@null</string>
+    <string name="default_student_30_contact_number">@null</string>
 
     <string name="default_student_31_last_name">Boole</string>
     <string name="default_student_31_first_name">George</string>
-    <string name="default_student_31_middle_name"></string>
+    <string name="default_student_31_middle_name">@null</string>
     <integer name="default_student_31_gender">@integer/gender_male</integer>
-    <string name="default_student_31_email_address"></string>
-    <string name="default_student_31_contact_number"></string>
+    <string name="default_student_31_email_address">@null</string>
+    <string name="default_student_31_contact_number">@null</string>
 
     <string name="default_student_32_last_name">Pythagoras</string>
-    <string name="default_student_32_first_name"></string>
-    <string name="default_student_32_middle_name"></string>
+    <string name="default_student_32_first_name">@null</string>
+    <string name="default_student_32_middle_name">@null</string>
     <integer name="default_student_32_gender">@integer/gender_male</integer>
-    <string name="default_student_32_email_address"></string>
-    <string name="default_student_32_contact_number"></string>
+    <string name="default_student_32_email_address">@null</string>
+    <string name="default_student_32_contact_number">@null</string>
 
     <string name="default_student_33_last_name">Kepler</string>
     <string name="default_student_33_first_name">Johannes</string>
-    <string name="default_student_33_middle_name"></string>
+    <string name="default_student_33_middle_name">@null</string>
     <integer name="default_student_33_gender">@integer/gender_male</integer>
-    <string name="default_student_33_email_address"></string>
-    <string name="default_student_33_contact_number"></string>
+    <string name="default_student_33_email_address">@null</string>
+    <string name="default_student_33_contact_number">@null</string>
 
     <string name="default_student_34_last_name">Pascal</string>
     <string name="default_student_34_first_name">Blaise</string>
-    <string name="default_student_34_middle_name"></string>
+    <string name="default_student_34_middle_name">@null</string>
     <integer name="default_student_34_gender">@integer/gender_male</integer>
-    <string name="default_student_34_email_address"></string>
-    <string name="default_student_34_contact_number"></string>
+    <string name="default_student_34_email_address">@null</string>
+    <string name="default_student_34_contact_number">@null</string>
 
     <string name="default_student_35_last_name">Dedekind</string>
     <string name="default_student_35_first_name">Julius Wilhelm Richard</string>
-    <string name="default_student_35_middle_name"></string>
+    <string name="default_student_35_middle_name">@null</string>
     <integer name="default_student_35_gender">@integer/gender_male</integer>
-    <string name="default_student_35_email_address"></string>
-    <string name="default_student_35_contact_number"></string>
+    <string name="default_student_35_email_address">@null</string>
+    <string name="default_student_35_contact_number">@null</string>
 
     <string name="default_student_36_last_name">Cantor</string>
     <string name="default_student_36_first_name">Georg</string>
-    <string name="default_student_36_middle_name"></string>
+    <string name="default_student_36_middle_name">@null</string>
     <integer name="default_student_36_gender">@integer/gender_male</integer>
-    <string name="default_student_36_email_address"></string>
-    <string name="default_student_36_contact_number"></string>
+    <string name="default_student_36_email_address">@null</string>
+    <string name="default_student_36_contact_number">@null</string>
 
     <string name="default_student_37_last_name">Wesker</string>
     <string name="default_student_37_first_name">Albert</string>
-    <string name="default_student_37_middle_name"></string>
+    <string name="default_student_37_middle_name">@null</string>
     <integer name="default_student_37_gender">@integer/gender_male</integer>
-    <string name="default_student_37_email_address"></string>
-    <string name="default_student_37_contact_number"></string>
+    <string name="default_student_37_email_address">@null</string>
+    <string name="default_student_37_contact_number">@null</string>
 
     <string name="default_student_38_last_name">Redfield</string>
     <string name="default_student_38_first_name">Cris</string>
-    <string name="default_student_38_middle_name"></string>
+    <string name="default_student_38_middle_name">@null</string>
     <integer name="default_student_38_gender">@integer/gender_male</integer>
-    <string name="default_student_38_email_address"></string>
-    <string name="default_student_38_contact_number"></string>
+    <string name="default_student_38_email_address">@null</string>
+    <string name="default_student_38_contact_number">@null</string>
 
     <string name="default_student_39_last_name">Wong</string>
     <string name="default_student_39_first_name">Ada</string>
-    <string name="default_student_39_middle_name"></string>
+    <string name="default_student_39_middle_name">@null</string>
     <integer name="default_student_39_gender">@integer/gender_female</integer>
-    <string name="default_student_39_email_address"></string>
-    <string name="default_student_39_contact_number"></string>
+    <string name="default_student_39_email_address">@null</string>
+    <string name="default_student_39_contact_number">@null</string>
 
     <string name="default_student_40_last_name">Valentine</string>
     <string name="default_student_40_first_name">Jill</string>
-    <string name="default_student_40_middle_name"></string>
+    <string name="default_student_40_middle_name">@null</string>
     <integer name="default_student_40_gender">@integer/gender_female</integer>
-    <string name="default_student_40_email_address"></string>
-    <string name="default_student_40_contact_number"></string>
+    <string name="default_student_40_email_address">@null</string>
+    <string name="default_student_40_contact_number">@null</string>
 
     <string name="default_student_41_last_name">Redfield</string>
     <string name="default_student_41_first_name">Claire</string>
-    <string name="default_student_41_middle_name"></string>
+    <string name="default_student_41_middle_name">@null</string>
     <integer name="default_student_41_gender">@integer/gender_female</integer>
-    <string name="default_student_41_email_address"></string>
-    <string name="default_student_41_contact_number"></string>
+    <string name="default_student_41_email_address">@null</string>
+    <string name="default_student_41_contact_number">@null</string>
 
     <string name="default_student_42_last_name">Kennedy</string>
     <string name="default_student_42_first_name">Leon</string>
     <string name="default_student_42_middle_name">S</string>
     <integer name="default_student_42_gender">@integer/gender_male</integer>
-    <string name="default_student_42_email_address"></string>
-    <string name="default_student_42_contact_number"></string>
+    <string name="default_student_42_email_address">@null</string>
+    <string name="default_student_42_contact_number">@null</string>
+
+    <integer name="boolean_false">0</integer>
+    <integer name="boolean_true">1</integer>
+
+    <string name="default_class_0_class_item_0_description">Review of Linear Algebra</string>
+    <string name="default_class_0_class_item_0_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
+    <string name="default_class_0_class_item_0_item_date">Oct 17, 2016</string>
+    <integer name="default_class_0_class_item_0_check_attendance">@integer/boolean_true</integer>
+    <integer name="default_class_0_class_item_0_record_scores">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_0_perfect_score">@null</string>
+    <integer name="default_class_0_class_item_0_record_submissions">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_0_submission_due_date">@null</string>
+
+    <string name="default_class_0_class_item_1_description">Arithmetic in Z</string>
+    <string name="default_class_0_class_item_1_item_type">@string/default_class_item_type_1</string> <!-- homework -->
+    <string name="default_class_0_class_item_1_item_date">Oct 17, 2016</string>
+    <integer name="default_class_0_class_item_1_check_attendance">@integer/boolean_false</integer>
+    <integer name="default_class_0_class_item_1_record_scores">@integer/boolean_true</integer>
+    <string name="default_class_0_class_item_1_perfect_score">100.0</string>
+    <integer name="default_class_0_class_item_1_record_submissions">@integer/boolean_true</integer>
+    <string name="default_class_0_class_item_1_submission_due_date">Oct 21, 2016</string>
+
+    <string name="default_class_0_class_item_2_description">Permutations</string>
+    <string name="default_class_0_class_item_2_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
+    <string name="default_class_0_class_item_2_item_date">Oct 21, 2016</string>
+    <integer name="default_class_0_class_item_2_check_attendance">@integer/boolean_true</integer>
+    <integer name="default_class_0_class_item_2_record_scores">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_2_perfect_score">@null</string>
+    <integer name="default_class_0_class_item_2_record_submissions">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_2_submission_due_date">@null</string>
+
+    <string name="default_class_0_class_item_3_description">Quotient Groups, First Isomorphism Theorem</string>
+    <string name="default_class_0_class_item_3_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
+    <string name="default_class_0_class_item_3_item_date">Oct 26, 2016</string>
+    <integer name="default_class_0_class_item_3_check_attendance">@integer/boolean_true</integer>
+    <integer name="default_class_0_class_item_3_record_scores">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_3_perfect_score">@null</string>
+    <integer name="default_class_0_class_item_3_record_submissions">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_3_submission_due_date">@null</string>
+
+    <string name="default_class_0_class_item_4_description">Groups 1</string>
+    <string name="default_class_0_class_item_4_item_type">@string/default_class_item_type_1</string> <!-- homework -->
+    <string name="default_class_0_class_item_4_item_date">Oct 26, 2016</string>
+    <integer name="default_class_0_class_item_4_check_attendance">@integer/boolean_false</integer>
+    <integer name="default_class_0_class_item_4_record_scores">@integer/boolean_true</integer>
+    <string name="default_class_0_class_item_4_perfect_score">100.0</string>
+    <integer name="default_class_0_class_item_4_record_submissions">@integer/boolean_true</integer>
+    <string name="default_class_0_class_item_4_submission_due_date">Oct 31, 2016</string>
+
+    <string name="default_class_0_class_item_5_description">Abstract Linear Operators and How to Calculate with Them</string>
+    <string name="default_class_0_class_item_5_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
+    <string name="default_class_0_class_item_5_item_date">Oct 31, 2016</string>
+    <integer name="default_class_0_class_item_5_check_attendance">@integer/boolean_true</integer>
+    <integer name="default_class_0_class_item_5_record_scores">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_5_perfect_score">@null</string>
+    <integer name="default_class_0_class_item_5_record_submissions">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_5_submission_due_date">@null</string>
+
+    <string name="default_class_0_class_item_6_description">Orthogonal Groups</string>
+    <string name="default_class_0_class_item_6_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
+    <string name="default_class_0_class_item_6_item_date">Nov 4, 2016</string>
+    <integer name="default_class_0_class_item_6_check_attendance">@integer/boolean_true</integer>
+    <integer name="default_class_0_class_item_6_record_scores">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_6_perfect_score">@null</string>
+    <integer name="default_class_0_class_item_6_record_submissions">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_6_submission_due_date">@null</string>
+
+    <string name="default_class_0_class_item_7_description">Groups 2</string>
+    <string name="default_class_0_class_item_7_item_type">@string/default_class_item_type_1</string> <!-- homework -->
+    <string name="default_class_0_class_item_7_item_date">Nov 4, 2016</string>
+    <integer name="default_class_0_class_item_7_check_attendance">@integer/boolean_false</integer>
+    <integer name="default_class_0_class_item_7_record_scores">@integer/boolean_true</integer>
+    <string name="default_class_0_class_item_7_perfect_score">100.0</string>
+    <integer name="default_class_0_class_item_7_record_submissions">@integer/boolean_true</integer>
+    <string name="default_class_0_class_item_7_submission_due_date">Nov 9, 2016</string>
+
+    <string name="default_class_0_class_item_8_description">Midterm Exam</string>
+    <string name="default_class_0_class_item_8_item_type">@string/default_class_item_type_9</string> <!-- midterm exam -->
+    <string name="default_class_0_class_item_8_item_date">Nov 9, 2016</string>
+    <integer name="default_class_0_class_item_8_check_attendance">@integer/boolean_false</integer>
+    <integer name="default_class_0_class_item_8_record_scores">@integer/boolean_true</integer>
+    <string name="default_class_0_class_item_8_perfect_score">200.0</string>
+    <integer name="default_class_0_class_item_8_record_submissions">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_8_submission_due_date">@null</string>
+
+    <string name="default_class_0_class_item_9_description">Practical Applications</string>
+    <string name="default_class_0_class_item_9_item_type">@string/default_class_item_type_7</string> <!-- report -->
+    <string name="default_class_0_class_item_9_item_date">Nov 14, 2016</string>
+    <integer name="default_class_0_class_item_9_check_attendance">@integer/boolean_false</integer>
+    <integer name="default_class_0_class_item_9_record_scores">@integer/boolean_true</integer>
+    <string name="default_class_0_class_item_9_perfect_score">200.0</string>
+    <integer name="default_class_0_class_item_9_record_submissions">@integer/boolean_true</integer>
+    <string name="default_class_0_class_item_9_submission_due_date">Dec 16, 2016</string>
+
+    <string name="default_class_0_class_item_10_description">Isometrics of Plane Figures</string>
+    <string name="default_class_0_class_item_10_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
+    <string name="default_class_0_class_item_10_item_date">Nov 14, 2016</string>
+    <integer name="default_class_0_class_item_10_check_attendance">@integer/boolean_true</integer>
+    <integer name="default_class_0_class_item_10_record_scores">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_10_perfect_score">@null</string>
+    <integer name="default_class_0_class_item_10_record_submissions">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_10_submission_due_date">@null</string>
+
+    <string name="default_class_0_class_item_11_description">Group Actions</string>
+    <string name="default_class_0_class_item_11_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
+    <string name="default_class_0_class_item_11_item_date">Nov 18, 2016</string>
+    <integer name="default_class_0_class_item_11_check_attendance">@integer/boolean_true</integer>
+    <integer name="default_class_0_class_item_11_record_scores">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_11_perfect_score">@null</string>
+    <integer name="default_class_0_class_item_11_record_submissions">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_11_submission_due_date">@null</string>
+
+    <string name="default_class_0_class_item_12_description">A5 and the Symmetries of an Icosahedron</string>
+    <string name="default_class_0_class_item_12_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
+    <string name="default_class_0_class_item_12_item_date">Nov 23, 2016</string>
+    <integer name="default_class_0_class_item_12_check_attendance">@integer/boolean_true</integer>
+    <integer name="default_class_0_class_item_12_record_scores">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_12_perfect_score">@null</string>
+    <integer name="default_class_0_class_item_12_record_submissions">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_12_submission_due_date">@null</string>
+
+    <string name="default_class_0_class_item_13_description">Rings</string>
+    <string name="default_class_0_class_item_13_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
+    <string name="default_class_0_class_item_13_item_date">Nov 28, 2016</string>
+    <integer name="default_class_0_class_item_13_check_attendance">@integer/boolean_true</integer>
+    <integer name="default_class_0_class_item_13_record_scores">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_13_perfect_score">@null</string>
+    <integer name="default_class_0_class_item_13_record_submissions">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_13_submission_due_date">@null</string>
+
+    <string name="default_class_0_class_item_14_description">Rings</string>
+    <string name="default_class_0_class_item_14_item_type">@string/default_class_item_type_1</string> <!-- homework -->
+    <string name="default_class_0_class_item_14_item_date">Nov 28, 2016</string>
+    <integer name="default_class_0_class_item_14_check_attendance">@integer/boolean_false</integer>
+    <integer name="default_class_0_class_item_14_record_scores">@integer/boolean_true</integer>
+    <string name="default_class_0_class_item_14_perfect_score">100.0</string>
+    <integer name="default_class_0_class_item_14_record_submissions">@integer/boolean_true</integer>
+    <string name="default_class_0_class_item_14_submission_due_date">Dec 2, 2016</string>
+
+    <string name="default_class_0_class_item_15_description">Extensions of Rings</string>
+    <string name="default_class_0_class_item_15_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
+    <string name="default_class_0_class_item_15_item_date">Dec 2, 2016</string>
+    <integer name="default_class_0_class_item_15_check_attendance">@integer/boolean_true</integer>
+    <integer name="default_class_0_class_item_15_record_scores">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_15_perfect_score">@null</string>
+    <integer name="default_class_0_class_item_15_record_submissions">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_15_submission_due_date">@null</string>
+
+    <string name="default_class_0_class_item_16_description">Special Lecture</string>
+    <string name="default_class_0_class_item_16_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
+    <string name="default_class_0_class_item_16_item_date">Dec 7, 2016</string>
+    <integer name="default_class_0_class_item_16_check_attendance">@integer/boolean_true</integer>
+    <integer name="default_class_0_class_item_16_record_scores">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_16_perfect_score">@null</string>
+    <integer name="default_class_0_class_item_16_record_submissions">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_16_submission_due_date">@null</string>
+
+    <string name="default_class_0_class_item_17_description">Euclidean Domains, PIDs, UFDs</string>
+    <string name="default_class_0_class_item_17_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
+    <string name="default_class_0_class_item_17_item_date">Dec 12, 2016</string>
+    <integer name="default_class_0_class_item_17_check_attendance">@integer/boolean_true</integer>
+    <integer name="default_class_0_class_item_17_record_scores">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_17_perfect_score">@null</string>
+    <integer name="default_class_0_class_item_17_record_submissions">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_17_submission_due_date">@null</string>
+
+    <string name="default_class_0_class_item_18_description">Structure of Ring of Integers in a Quadratic Field</string>
+    <string name="default_class_0_class_item_18_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
+    <string name="default_class_0_class_item_18_item_date">Dec 16, 2016</string>
+    <integer name="default_class_0_class_item_18_check_attendance">@integer/boolean_true</integer>
+    <integer name="default_class_0_class_item_18_record_scores">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_18_perfect_score">@null</string>
+    <integer name="default_class_0_class_item_18_record_submissions">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_18_submission_due_date">@null</string>
+
+    <string name="default_class_0_class_item_19_description">Final Exam</string>
+    <string name="default_class_0_class_item_19_item_type">@string/default_class_item_type_10</string> <!-- final exam -->
+    <string name="default_class_0_class_item_19_item_date">Dec 21, 2016</string>
+    <integer name="default_class_0_class_item_19_check_attendance">@integer/boolean_false</integer>
+    <integer name="default_class_0_class_item_19_record_scores">@integer/boolean_true</integer>
+    <string name="default_class_0_class_item_19_perfect_score">200.0</string>
+    <integer name="default_class_0_class_item_19_record_submissions">@integer/boolean_false</integer>
+    <string name="default_class_0_class_item_19_submission_due_date">@null</string>
 
 </resources>

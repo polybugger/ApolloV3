@@ -98,7 +98,7 @@ public class ClassContract {
             entry = new ClassEntry(cursor.getLong(0),
                     cursor.getString(1),
                     cursor.isNull(2) ? null : cursor.getString(2),
-                    cursor.isNull(3) ? null : new AcademicTermContract.AcademicTermEntry(cursor.getLong(3), cursor.getString(4), cursor.getString(5)),
+                    cursor.isNull(3) ? null : new AcademicTermContract.AcademicTermEntry(cursor.getLong(3), cursor.getString(4), cursor.isNull(5) ? null : cursor.getString(5)),
                     cursor.isNull(6) ? null : cursor.getLong(6),
                     PastCurrentEnum.fromInt(cursor.getInt(7)),
                     dateCreated); // 8
@@ -136,7 +136,7 @@ public class ClassContract {
             entry = new ClassEntry(cursor.getLong(0),
                     cursor.getString(1),
                     cursor.isNull(2) ? null : cursor.getString(2),
-                    cursor.isNull(3) ? null : new AcademicTermContract.AcademicTermEntry(cursor.getLong(3), cursor.getString(4), cursor.getString(5)),
+                    cursor.isNull(3) ? null : new AcademicTermContract.AcademicTermEntry(cursor.getLong(3), cursor.getString(4), cursor.isNull(5) ? null : cursor.getString(5)),
                     cursor.isNull(6) ? null : cursor.getLong(6),
                     PastCurrentEnum.fromInt(cursor.getInt(7)),
                     dateCreated); // 8
@@ -172,7 +172,7 @@ public class ClassContract {
             entries.add(new ClassEntry(cursor.getLong(0),
                     cursor.getString(1),
                     cursor.isNull(2) ? null : cursor.getString(2),
-                    cursor.isNull(3) ? null : new AcademicTermContract.AcademicTermEntry(cursor.getLong(3), cursor.getString(4), cursor.getString(5)),
+                    cursor.isNull(3) ? null : new AcademicTermContract.AcademicTermEntry(cursor.getLong(3), cursor.getString(4), cursor.isNull(5) ? null : cursor.getString(5)),
                     cursor.isNull(6) ? null : cursor.getLong(6),
                     PastCurrentEnum.fromInt(cursor.getInt(7)),
                     dateCreated)); // 8

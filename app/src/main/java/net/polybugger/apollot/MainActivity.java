@@ -6,8 +6,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import net.polybugger.apollot.db.ApolloDbAdapter;
-import net.polybugger.apollot.db.ClassContract;
-import net.polybugger.apollot.db.ClassScheduleContract;
+import net.polybugger.apollot.db.ClassItemContract;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        //((TextView) findViewById(R.id.text_view)).setText(ClassScheduleContract.SELECT_TABLE_SQL);
-        //Log.d("SQLITE", ClassScheduleContract.SELECT_TABLE_SQL);
+        ((TextView) findViewById(R.id.text_view)).setText(ClassItemContract.SELECT_TABLE_SQL1 + ClassItemContract.SELECT_TABLE_SQL2);
+        Log.d("SQLITE", ClassItemContract.SELECT_TABLE_SQL1 + ClassItemContract.SELECT_TABLE_SQL2);
     }
 }
