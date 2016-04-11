@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        ((TextView) findViewById(R.id.text_view)).setText(ClassItemContract.SELECT_TABLE_SQL1 + ClassItemContract.SELECT_TABLE_SQL2);
-        Log.d("SQLITE", ClassItemContract.SELECT_TABLE_SQL1 + ClassItemContract.SELECT_TABLE_SQL2);
+        //((TextView) findViewById(R.id.text_view)).setText(ClassItemContract.SELECT_TABLE_SQL1 + ClassItemContract.SELECT_TABLE_SQL2);
+        //Log.d("SQLITE", ClassItemContract.SELECT_TABLE_SQL1 + ClassItemContract.SELECT_TABLE_SQL2);
     }
 }

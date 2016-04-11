@@ -326,7 +326,7 @@ public class ClassItemContract {
 
         @Override
         public int hashCode() {
-            return new HashCodeBuilder(11, 13)
+            return new HashCodeBuilder(47, 53)
                     .append(mId)
                     .append(mClassId).toHashCode();
         }
