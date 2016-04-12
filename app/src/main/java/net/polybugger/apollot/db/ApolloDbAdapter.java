@@ -1,7 +1,7 @@
 package net.polybugger.apollot.db;
 
-// TODO primes used: academicTerm 2,3, itemType 5,7, class 11,13, student 17,19, schedule 23,29, note 31,37, password 41,43, classItem 47,53
-// TODO use next hash 59,61
+// TODO primes used: academicTerm 2,3, itemType 5,7, class 11,13, student 17,19, schedule 23,29, note 31,37, password 41,43, classItem 47,53, classStudent 59,61
+// TODO use next hash 67,71
 
 import android.content.Context;
 import android.database.SQLException;
