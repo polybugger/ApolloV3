@@ -36,5 +36,11 @@
     <string name="days_friday">Friday</string>
     <string name="days_saturday">Saturday</string>
     <string name="days_sunday">Sunday</string>
+    <string name="title_activity_class">ClassActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 
 </resources>
