@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ApolloV3</string>
+    <string name="app_name">Apollo 教授のための学生評価システム</string>
+    <string name="app_name_title">Apollo</string>
+    <string name="app_name_sub_title">教授のための学生評価システム</string>
+    <string name="app_version">バージョン﻿ 3.0</string>
 
     <string name="past">過去</string>
     <string name="current">現在</string>
@@ -36,5 +39,13 @@
     <string name="days_friday">金</string>
     <string name="days_saturday">土</string>
     <string name="days_sunday">日</string>
+
+    <string name="action_settings">設定</string>
+
+    <string name="day_activities">今日のアクティビティー</string>
+    <string name="week_activities">今週のアクティビティー</string>
+    <string name="current_classes">現在の授業</string>
+    <string name="students">学生</string>
+    <string name="past_classes">過去の授業</string>
 
 </resources>
