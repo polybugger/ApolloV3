@@ -41,12 +41,34 @@
     <string name="days_sunday">日</string>
 
     <string name="action_settings">設定</string>
-    <string name="title_activity_settings">設定</string>
 
     <string name="day_activities">今日のアクティビティー</string>
     <string name="week_activities">今週のアクティビティー</string>
     <string name="current_classes">現在の授業</string>
     <string name="students">学生</string>
     <string name="past_classes">過去の授業</string>
+
+    <string name="title_activity_settings">設定</string>
+    <string name="application_data">アプリケーションデータ</string>
+    <string name="academic_terms">学期</string>
+    <string name="academic_terms_details">科目の学期</string>
+    <string name="class_activities">アクティビティー</string>
+    <string name="class_activities_details">科目のアクティビティー</string>
+    <string name="default_time_start">デフォルト時間開始</string>
+    <string name="default_time_start_details">スケジュールのデフォルト時間開始</string>
+    <string name="final_grade_calculation">最終成績計算</string>
+    <string name="final_grade_calculation_details">最終成績を評価</string>
+    <string name="student_name_display_format">学生氏名並び替えフォーマット</string>
+    <string name="student_name_display_format_details">学生名はこのように表示</string>
+
+    <string name="security">セキュリティー</string>
+    <string name="lock_enabled">ロック機能</string>
+    <string name="lock_enabled_details">開始にはパスワードが必要</string>
+    <string name="unlock_password">パスワードを解除</string>
+    <string name="unlock_password_details">パスワード変更</string>
+
+    <string name="details">情報</string>
+    <string name="about_this_app">このアプリについて</string>
+
 
 </resources>

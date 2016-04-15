@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="default_nav_drawer_menu_item_index">default_nav_drawer_menu_item_index</string>
+    <string name="default_nav_drawer_menu_item_index_key">net.polybugger.apollot.default_nav_drawer_menu_item_index</string>
+    <string name="lock_enabled_key">net.polybugger.apollot.lock_enabled</string>
 
 </resources>

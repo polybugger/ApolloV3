@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        int defaultNavDrawerMenuItemIndex = sharedPref.getInt(getString(R.string.default_nav_drawer_menu_item_index), 0);
+        int defaultNavDrawerMenuItemIndex = sharedPref.getInt(getString(R.string.default_nav_drawer_menu_item_index_key), 0);
         MenuItem defaultNavDrawerMenuItem = navigationView.getMenu().getItem(defaultNavDrawerMenuItemIndex);
         defaultNavDrawerMenuItem.setChecked(true);
     }
@@ -98,23 +98,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(id == R.id.nav_day_activities) {
 
-            sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index), 0).apply();
+            sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 0).apply();
         }
         else if(id == R.id.nav_week_activities) {
 
-            sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index), 1).apply();
+            sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 1).apply();
         }
         else if(id == R.id.nav_current_classes) {
 
-            sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index), 2).apply();
+            sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 2).apply();
         }
         else if(id == R.id.nav_students) {
 
-            sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index), 3).apply();
+            sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 3).apply();
         }
         else if(id == R.id.nav_past_classes) {
 
-            sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index), 4).apply();
+            sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 4).apply();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
