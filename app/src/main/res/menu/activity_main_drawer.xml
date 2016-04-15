@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group
         android:id="@+id/group_activities"
@@ -7,13 +8,13 @@
 
         <item
             android:id="@+id/nav_day_activities"
-            android:title="@string/day_activities"
-            android:icon="@drawable/ic_today_black_36dp"/>
+            android:icon="@drawable/ic_today_black_36dp"
+            android:title="@string/day_activities" />
 
         <item
             android:id="@+id/nav_week_activities"
-            android:title="@string/week_activities"
-            android:icon="@drawable/ic_view_week_black_36dp"/>
+            android:icon="@drawable/ic_view_week_black_36dp"
+            android:title="@string/week_activities" />
 
     </group>
 
@@ -23,13 +24,13 @@
 
         <item
             android:id="@+id/nav_current_classes"
-            android:title="@string/current_classes"
-            android:icon="@drawable/ic_class_black_36dp"/>
+            android:icon="@drawable/ic_class_black_36dp"
+            android:title="@string/current_classes" />
 
         <item
             android:id="@+id/nav_past_classes"
-            android:title="@string/past_classes"
-            android:icon="@drawable/ic_archive_black_36dp"/>
+            android:icon="@drawable/ic_archive_black_36dp"
+            android:title="@string/past_classes" />
 
     </group>
 
@@ -39,8 +40,8 @@
 
         <item
             android:id="@+id/nav_students"
-            android:title="@string/students"
-            android:icon="@drawable/ic_people_black_36dp"/>
+            android:icon="@drawable/ic_people_black_36dp"
+            android:title="@string/students" />
 
     </group>
 

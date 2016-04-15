@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ApolloDbAdapter.setAppContext(this);
+        ApolloDbAdapter.setAppContext(getApplicationContext());
 
         setContentView(R.layout.activity_main);
 
@@ -41,15 +41,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int defaultNavDrawerMenuItemIndex = sharedPref.getInt(getString(R.string.default_nav_drawer_menu_item_index_key), 0);
         MenuItem defaultNavDrawerMenuItem = navigationView.getMenu().getItem(defaultNavDrawerMenuItemIndex);
         defaultNavDrawerMenuItem.setChecked(true);
@@ -75,15 +74,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if(id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
-            return true;
+        switch(id) {
+            case R.id.action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -92,33 +88,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-
-        int id = item.getItemId();
-
-        if(id == R.id.nav_day_activities) {
-
-            sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 0).apply();
-        }
-        else if(id == R.id.nav_week_activities) {
-
-            sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 1).apply();
-        }
-        else if(id == R.id.nav_current_classes) {
-
-            sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 2).apply();
-        }
-        else if(id == R.id.nav_students) {
-
-            sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 3).apply();
-        }
-        else if(id == R.id.nav_past_classes) {
-
-            sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 4).apply();
-        }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        int id = item.getItemId();
+
+        switch(id) {
+            case R.id.nav_day_activities:
+                sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 0).apply();
+
+                break;
+            case R.id.nav_week_activities:
+                sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 1).apply();
+
+                break;
+            case R.id.nav_current_classes:
+                sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 2).apply();
+
+                break;
+            case R.id.nav_past_classes:
+                sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 3).apply();
+
+                break;
+            case R.id.nav_students:
+                sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 4).apply();
+
+                break;
+        }
+
         return true;
     }
 }

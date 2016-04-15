@@ -2,15 +2,88 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:scrollbars="none"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:scrollbars="none"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingTop="@dimen/activity_padding_top"
+            android:paddingRight="@dimen/activity_padding_right"
+            android:paddingLeft="@dimen/activity_padding_left"
+            android:text="@string/application_data"
+            android:textSize="@dimen/normal_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/academic_terms_settings_item"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="@dimen/settings_item_padding"
+            android:text="@string/academic_terms"
+            android:textSize="@dimen/large_text_size" />
+
+        <View style="@style/AppListDivider" />
+
+        <TextView
+            android:id="@+id/class_activities_settings_item"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="@dimen/settings_item_padding"
+            android:text="@string/class_activities"
+            android:textSize="@dimen/large_text_size" />
+
+        <View style="@style/AppListDivider" />
+
+        <TextView
+            android:id="@+id/default_time_start_settings_item"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="@dimen/settings_item_padding"
+            android:text="@string/default_time_start"
+            android:textSize="@dimen/large_text_size" />
+
+        <View style="@style/AppListDivider" />
+
+        <TextView
+            android:id="@+id/final_grade_calculation_settings_item"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="@dimen/settings_item_padding"
+            android:text="@string/final_grade_calculation"
+            android:textSize="@dimen/large_text_size" />
+
+        <View style="@style/AppListDivider" />
+
+        <TextView
+            android:id="@+id/student_name_display_format_settings_item"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="@dimen/settings_item_padding"
+            android:text="@string/student_name_display_format"
+            android:textSize="@dimen/large_text_size" />
 
         <TextView
             android:layout_height="wrap_content"
@@ -18,208 +91,47 @@
             android:paddingTop="@dimen/activity_padding_top"
             android:paddingRight="@dimen/activity_padding_right"
             android:paddingLeft="@dimen/activity_padding_left"
+            android:text="@string/security"
             android:textSize="@dimen/normal_text_size"
-            android:text="@string/application_data"/>
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:id="@+id/academic_terms_settings_item_layout"
-            android:orientation="vertical"
+            android:id="@+id/lock_enabled_settings_item"
+            android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:padding="@dimen/settings_list_item_padding"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textSize="@dimen/large_text_size"
-                android:text="@string/academic_terms"/>
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textSize="@dimen/normal_text_size"
-                android:text="@string/academic_terms_details"/>
-
-        </LinearLayout>
-
-        <View style="@style/AppListDivider" />
-
-        <LinearLayout
-            android:id="@+id/class_activities_settings_item_layout"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:padding="@dimen/settings_list_item_padding"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textSize="@dimen/large_text_size"
-                android:text="@string/class_activities"/>
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textSize="@dimen/normal_text_size"
-                android:text="@string/class_activities_details"/>
-
-        </LinearLayout>
-
-        <View style="@style/AppListDivider" />
-
-        <LinearLayout
-            android:id="@+id/default_time_start_settings_item_layout"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:padding="@dimen/settings_list_item_padding"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textSize="@dimen/large_text_size"
-                android:text="@string/default_time_start"/>
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textSize="@dimen/normal_text_size"
-                android:text="@string/default_time_start_details"/>
-
-        </LinearLayout>
-
-        <View style="@style/AppListDivider" />
-
-        <LinearLayout
-            android:id="@+id/final_grade_calculation_settings_item_layout"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:padding="@dimen/settings_list_item_padding"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textSize="@dimen/large_text_size"
-                android:text="@string/final_grade_calculation"/>
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textSize="@dimen/normal_text_size"
-                android:text="@string/final_grade_calculation_details"/>
-
-        </LinearLayout>
-
-        <View style="@style/AppListDivider" />
-
-        <LinearLayout
-            android:id="@+id/student_name_display_format_settings_item_layout"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:padding="@dimen/settings_list_item_padding"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textSize="@dimen/large_text_size"
-                android:text="@string/student_name_display_format"/>
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textSize="@dimen/normal_text_size"
-                android:text="@string/student_name_display_format_details"/>
-
-        </LinearLayout>
-
-        <TextView
+            android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:paddingTop="@dimen/activity_padding_top"
-            android:paddingRight="@dimen/activity_padding_right"
-            android:paddingLeft="@dimen/activity_padding_left"
-            android:textSize="@dimen/normal_text_size"
-            android:text="@string/security"/>
-
-        <LinearLayout
-            android:id="@+id/lock_enabled_settings_item_layout"
+            android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:padding="@dimen/settings_list_item_padding"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:padding="@dimen/settings_item_padding">
 
-            <LinearLayout
+            <TextView
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:textSize="@dimen/large_text_size"
-                    android:text="@string/lock_enabled"/>
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
-                    android:text="@string/lock_enabled_details"/>
-
-            </LinearLayout>
+                android:text="@string/lock_enabled"
+                android:textSize="@dimen/large_text_size" />
 
             <Switch
                 android:id="@+id/lock_enabled_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content" />
 
         </LinearLayout>
 
         <View style="@style/AppListDivider" />
 
-        <LinearLayout
-            android:id="@+id/unlock_password_settings_item_layout"
-            android:orientation="vertical"
+        <TextView
+            android:id="@+id/unlock_password_settings_item"
+            android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:padding="@dimen/settings_list_item_padding"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textSize="@dimen/large_text_size"
-                android:text="@string/unlock_password"/>
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textSize="@dimen/normal_text_size"
-                android:text="@string/unlock_password_details"/>
-
-        </LinearLayout>
+            android:padding="@dimen/settings_item_padding"
+            android:text="@string/unlock_password"
+            android:textSize="@dimen/large_text_size" />
 
         <TextView
             android:layout_height="wrap_content"
@@ -227,26 +139,20 @@
             android:paddingTop="@dimen/activity_padding_top"
             android:paddingRight="@dimen/activity_padding_right"
             android:paddingLeft="@dimen/activity_padding_left"
+            android:text="@string/details"
             android:textSize="@dimen/normal_text_size"
-            android:text="@string/details"/>
+            android:textStyle="bold" />
 
-        <LinearLayout
-            android:id="@+id/about_settings_item_layout"
-            android:orientation="vertical"
+        <TextView
+            android:id="@+id/about_this_app_settings_item"
+            android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:padding="@dimen/settings_list_item_padding"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textSize="@dimen/large_text_size"
-                android:text="@string/about_this_app"/>
-
-        </LinearLayout>
+            android:padding="@dimen/settings_item_padding"
+            android:text="@string/about_this_app"
+            android:textSize="@dimen/large_text_size" />
 
     </LinearLayout>
 

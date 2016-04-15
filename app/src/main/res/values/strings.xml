@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Apollo Professor\'s Grade Book</string>
     <string name="app_name_title">Apollo</string>
     <string name="app_name_sub_title">Professor\'s Grade Book</string>
@@ -43,33 +44,26 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
-
     <string name="day_activities">Today\'s Activities</string>
     <string name="week_activities">This Week\'s Activities</string>
     <string name="current_classes">Current Classes</string>
     <string name="students">Students</string>
     <string name="past_classes">Past Classes</string>
 
+    <string name="action_settings">Settings</string>
+
     <string name="title_activity_settings">Settings</string>
 
     <string name="application_data">Application Data</string>
     <string name="academic_terms">Academic Terms</string>
-    <string name="academic_terms_details">Academic terms for classes.</string>
     <string name="class_activities">Class Activities</string>
-    <string name="class_activities_details">Activities for classes.</string>
     <string name="default_time_start">Default Time Start</string>
-    <string name="default_time_start_details">Default time start for schedules.</string>
     <string name="final_grade_calculation">Final Grade Calculation</string>
-    <string name="final_grade_calculation_details">Grade system for the final grade.</string>
     <string name="student_name_display_format">Student Name Display Format</string>
-    <string name="student_name_display_format_details">How student names are displayed.</string>
 
     <string name="security">Security</string>
     <string name="lock_enabled">Lock Enabled</string>
-    <string name="lock_enabled_details">Require a password to unlock on startup.</string>
     <string name="unlock_password">Unlock Password</string>
-    <string name="unlock_password_details">Change unlock password.</string>
 
     <string name="details">Details</string>
     <string name="about_this_app">About This App</string>
