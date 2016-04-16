@@ -2,6 +2,7 @@ package net.polybugger.apollot;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -134,6 +135,12 @@ public class SettingsActivity extends AppCompatActivity implements UnlockPasswor
     }
 
     @Override
-    public void onChangePassword(String message) {
+    public void onChangePassword(final String message) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Snackbar.make(findViewById(R.id.coordinator_layout), message, Snackbar.LENGTH_SHORT).show();
+            }
+        }, 500);
     }
 }

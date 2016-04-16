@@ -22,7 +22,6 @@
     <dimen name="dialog_fragment_padding_left">24dp</dimen>
     <dimen name="dialog_fragment_padding_bottom">24dp</dimen>
 
-    <dimen name="edit_text_text_view_padding_left">4dp</dimen>
-    <dimen name="edit_text_spacer_top">8dp</dimen>
+    <dimen name="edit_text_spacer_top">16dp</dimen>
 
 </resources>
