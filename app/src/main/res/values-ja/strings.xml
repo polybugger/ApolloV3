@@ -63,6 +63,15 @@
     <string name="unlock_password">パスワードを解除</string>
 
     <string name="details">情報</string>
-    <string name="about_this_app">Apolloリについて</string>
+    <string name="about_this_app">Apolloについて</string>
+
+    <string name="change_unlock_password">パスワード変更</string>
+    <string name="current_password">現在のパスワード</string>
+    <string name="new_password">新パスワード</string>
+    <string name="cancel">キャンセル</string>
+    <string name="change">変更</string>
+    <string name="incorrect_current_password">現在のパスワードが間違っています！</string>
+    <string name="unlock_password_changed">ロック解除パスワード変更済み。</string>
+    <string name="unlock_password_cleared">ロック解除パスワードが取り消されました。</string>
 
 </resources>

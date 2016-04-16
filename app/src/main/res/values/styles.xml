@@ -12,6 +12,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
+        <item name="android:editTextStyle">@style/AppEditTextStyle</item>
         <item name="android:textViewStyle">@style/AppTextViewStyle</item>
         <item name="buttonStyle">@style/AppButtonStyle</item>
 
@@ -21,11 +22,16 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="AppTextViewStyle">
+    <style name="AppEditTextStyle" parent="android:Widget.EditText">
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
-    <style name="AppButtonStyle">
+    <style name="AppTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="AppButtonStyle" parent="android:Widget.Button">
         <item name="android:fontFamily">sans-serif</item>
     </style>
 

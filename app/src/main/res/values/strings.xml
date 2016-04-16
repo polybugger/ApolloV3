@@ -68,4 +68,13 @@
     <string name="details">Details</string>
     <string name="about_this_app">About Apollo</string>
 
+    <string name="change_unlock_password">Change Unlock Password</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="cancel">Cancel</string>
+    <string name="change">Change</string>
+    <string name="incorrect_current_password">Incorrect current password!</string>
+    <string name="unlock_password_changed">Unlock password changed.</string>
+    <string name="unlock_password_cleared">Unlock password cleared.</string>
+
 </resources>

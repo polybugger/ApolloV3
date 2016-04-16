@@ -2,6 +2,8 @@ package net.polybugger.apollot;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
@@ -10,7 +12,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity implements UnlockPasswordChangeDialogFragment.Listener {
 
     private Switch mLockEnabledSwitch;
 
@@ -85,7 +87,12 @@ public class SettingsActivity extends AppCompatActivity {
         unlockPasswordSettingsItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FragmentManager fm = getSupportFragmentManager();
+                UnlockPasswordChangeDialogFragment df = (UnlockPasswordChangeDialogFragment) fm.findFragmentByTag(UnlockPasswordChangeDialogFragment.TAG);
+                if(df == null) {
+                    df = UnlockPasswordChangeDialogFragment.newInstance();
+                    df.show(fm, UnlockPasswordChangeDialogFragment.TAG);
+                }
             }
         });
 
@@ -126,4 +133,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    @Override
+    public void onChangePassword(String message) {
+    }
 }
