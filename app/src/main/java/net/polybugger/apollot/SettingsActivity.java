@@ -73,11 +73,13 @@ public class SettingsActivity extends AppCompatActivity implements UnlockPasswor
             }
         });
 
+        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        boolean lockEnabled = sharedPref.getBoolean(getString(R.string.lock_enabled_key), getResources().getBoolean(R.bool.default_lock_enabled));
         mLockEnabledSwitch = (Switch) findViewById(R.id.lock_enabled_switch);
+        mLockEnabledSwitch.setChecked(lockEnabled);
         mLockEnabledSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 sharedPref.edit().putBoolean(getString(R.string.lock_enabled_key), isChecked).apply();
             }
         });
@@ -110,16 +112,6 @@ public class SettingsActivity extends AppCompatActivity implements UnlockPasswor
 
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        boolean lockEnabled = sharedPref.getBoolean(getString(R.string.lock_enabled_key), getResources().getBoolean(R.bool.default_lock_enabled));
-
-        mLockEnabledSwitch.setChecked(lockEnabled);
     }
 
     @Override
