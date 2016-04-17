@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.polybugger.apollot"
     android:installLocation="auto">
 
@@ -13,11 +14,23 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".SettingsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".SettingsAcademicTermsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/academic_terms"
+            android:screenOrientation="portrait" />
 
         <!--
         <uses-library android:name="android.test.runner" />
@@ -25,11 +38,6 @@
                          android:targetPackage="net.polybugger.apollot" android:label="Apollo Tests" />
         -->
 
-        <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

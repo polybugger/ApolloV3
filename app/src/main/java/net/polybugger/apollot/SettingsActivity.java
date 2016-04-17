@@ -1,5 +1,6 @@
 package net.polybugger.apollot;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,12 +29,13 @@ public class SettingsActivity extends AppCompatActivity implements UnlockPasswor
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
 
         View academicTermsSettingsItem = findViewById(R.id.academic_terms_settings_item);
         academicTermsSettingsItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(SettingsActivity.this, SettingsAcademicTermsActivity.class));
             }
         });
 
