@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import net.polybugger.apollot.db.StudentContract;
 import net.polybugger.apollot.db.StudentNameDisplayEnum;
 
 public class StudentNameDisplayDialogFragment extends AppCompatDialogFragment {
@@ -47,7 +48,9 @@ public class StudentNameDisplayDialogFragment extends AppCompatDialogFragment {
         ((RadioGroup) view.findViewById(R.id.student_name_display_radio_group)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                sharedPref.edit().putInt(getString(R.string.student_name_display_key), ((StudentNameDisplayEnum) group.findViewById(checkedId).getTag()).getValue()).apply();
+                StudentNameDisplayEnum studentNameDisplay = (StudentNameDisplayEnum) group.findViewById(checkedId).getTag();
+                sharedPref.edit().putInt(getString(R.string.student_name_display_key), studentNameDisplay.getValue()).apply();
+                StudentContract.STUDENT_NAME_DISPLAY = studentNameDisplay;
                 mListener.onChangeStudentNameDisplay(getString(R.string.student_name_display_changed));
                 dismiss();
             }

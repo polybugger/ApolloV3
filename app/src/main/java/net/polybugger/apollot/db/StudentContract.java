@@ -13,6 +13,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class StudentContract {
 
+    public static StudentNameDisplayEnum STUDENT_NAME_DISPLAY = StudentNameDisplayEnum.LAST_NAME_FIRST_NAME;
+
     public static final String TABLE_NAME = "Students";
     public static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + " (" +
             StudentEntry._ID + " INTEGER PRIMARY KEY, " +

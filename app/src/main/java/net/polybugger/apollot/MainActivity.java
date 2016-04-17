@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import net.polybugger.apollot.db.ApolloDbAdapter;
+import net.polybugger.apollot.db.StudentContract;
+import net.polybugger.apollot.db.StudentNameDisplayEnum;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -24,7 +26,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         ApolloDbAdapter.setAppContext(getApplicationContext());
+        StudentContract.STUDENT_NAME_DISPLAY = StudentNameDisplayEnum.fromInt(sharedPref.getInt(getString(R.string.student_name_display_key), getResources().getInteger(R.integer.default_student_name_display)));
 
         setContentView(R.layout.activity_main);
 
@@ -48,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int defaultNavDrawerMenuItemIndex = sharedPref.getInt(getString(R.string.default_nav_drawer_menu_item_index_key), 0);
         MenuItem defaultNavDrawerMenuItem = navigationView.getMenu().getItem(defaultNavDrawerMenuItemIndex);
         defaultNavDrawerMenuItem.setChecked(true);
