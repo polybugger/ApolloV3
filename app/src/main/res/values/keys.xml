@@ -5,5 +5,6 @@
     <string name="lock_enabled_key">net.polybugger.apollot.lock_enabled</string>
     <string name="unlock_password_key">net.polybugger.apollot.unlock_password</string>
     <string name="student_name_display_key">net.polybugger.apollot.student_name_display</string>
+    <string name="default_time_start_key">net.polybugger.apollot.default_time_start</string>
 
 </resources>

@@ -76,5 +76,6 @@
     <string name="last_name_first_name">「姓」「名」</string>
     <string name="first_name_last_name">「名」「姓」</string>
     <string name="student_name_display_changed">学生氏名並び替え変更済み。</string>
+    <string name="default_time_start_changed">デフォルト時間開始変更済み。</string>
 
 </resources>

@@ -79,5 +79,6 @@
     <string name="last_name_first_name">[Last Name], [First Name] [Middle Initial].</string>
     <string name="first_name_last_name">[First Name] [Middle Initial]. [Last Name]</string>
     <string name="student_name_display_changed">Student name display changed.</string>
+    <string name="default_time_start_changed">Default time start changed.</string>
 
 </resources>

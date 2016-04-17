@@ -14,7 +14,8 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 public class SettingsActivity extends AppCompatActivity implements UnlockPasswordChangeDialogFragment.Listener,
-        StudentNameDisplayDialogFragment.Listener {
+        StudentNameDisplayDialogFragment.Listener,
+        DefaultTimeStartDialogFragment.Listener {
 
     private Switch mLockEnabledSwitch;
 
@@ -48,7 +49,12 @@ public class SettingsActivity extends AppCompatActivity implements UnlockPasswor
         defaultTimeStartSettingsItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FragmentManager fm = getSupportFragmentManager();
+                DefaultTimeStartDialogFragment df = (DefaultTimeStartDialogFragment) fm.findFragmentByTag(DefaultTimeStartDialogFragment.TAG);
+                if(df == null) {
+                    df = DefaultTimeStartDialogFragment.newInstance();
+                    df.show(fm, DefaultTimeStartDialogFragment.TAG);
+                }
             }
         });
 
@@ -144,6 +150,16 @@ public class SettingsActivity extends AppCompatActivity implements UnlockPasswor
 
     @Override
     public void onChangeStudentNameDisplay(final String message) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Snackbar.make(findViewById(R.id.coordinator_layout), message, Snackbar.LENGTH_SHORT).show();
+            }
+        }, 500);
+    }
+
+    @Override
+    public void onChangeDefaultTimeStart(final String message) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
