@@ -13,7 +13,8 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-public class SettingsActivity extends AppCompatActivity implements UnlockPasswordChangeDialogFragment.Listener {
+public class SettingsActivity extends AppCompatActivity implements UnlockPasswordChangeDialogFragment.Listener,
+        StudentNameDisplayDialogFragment.Listener {
 
     private Switch mLockEnabledSwitch;
 
@@ -59,11 +60,16 @@ public class SettingsActivity extends AppCompatActivity implements UnlockPasswor
             }
         });
 
-        View studentNameDisplayFormatSettingsItem = findViewById(R.id.student_name_display_format_settings_item);
-        studentNameDisplayFormatSettingsItem.setOnClickListener(new View.OnClickListener() {
+        View studentNameDisplaySettingsItem = findViewById(R.id.student_name_display_settings_item);
+        studentNameDisplaySettingsItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FragmentManager fm = getSupportFragmentManager();
+                StudentNameDisplayDialogFragment df = (StudentNameDisplayDialogFragment) fm.findFragmentByTag(StudentNameDisplayDialogFragment.TAG);
+                if(df == null) {
+                    df = StudentNameDisplayDialogFragment.newInstance();
+                    df.show(fm, StudentNameDisplayDialogFragment.TAG);
+                }
             }
         });
 
@@ -111,7 +117,7 @@ public class SettingsActivity extends AppCompatActivity implements UnlockPasswor
         super.onResume();
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        boolean lockEnabled = sharedPref.getBoolean(getString(R.string.lock_enabled_key), false);
+        boolean lockEnabled = sharedPref.getBoolean(getString(R.string.lock_enabled_key), getResources().getBoolean(R.bool.default_lock_enabled));
 
         mLockEnabledSwitch.setChecked(lockEnabled);
     }
@@ -135,7 +141,17 @@ public class SettingsActivity extends AppCompatActivity implements UnlockPasswor
     }
 
     @Override
-    public void onChangePassword(final String message) {
+    public void onChangeUnlockPassword(final String message) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Snackbar.make(findViewById(R.id.coordinator_layout), message, Snackbar.LENGTH_SHORT).show();
+            }
+        }, 500);
+    }
+
+    @Override
+    public void onChangeStudentNameDisplay(final String message) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

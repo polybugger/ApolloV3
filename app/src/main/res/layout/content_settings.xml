@@ -8,7 +8,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="vertical">
 
@@ -75,14 +75,14 @@
         <View style="@style/AppListDivider" />
 
         <TextView
-            android:id="@+id/student_name_display_format_settings_item"
+            android:id="@+id/student_name_display_settings_item"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:padding="@dimen/settings_item_padding"
-            android:text="@string/student_name_display_format"
+            android:text="@string/student_name_display"
             android:textSize="@dimen/normal_text_size" />
 
         <TextView

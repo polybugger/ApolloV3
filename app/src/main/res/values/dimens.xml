@@ -24,5 +24,6 @@
 
     <dimen name="edit_text_text_view_padding_left">4dp</dimen>
     <dimen name="edit_text_spacer_top">16dp</dimen>
+    <dimen name="radio_button_spacer_top">16dp</dimen>
 
 </resources>

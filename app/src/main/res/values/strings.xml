@@ -47,8 +47,8 @@
     <string name="day_activities">Today\'s Activities</string>
     <string name="week_activities">This Week\'s Activities</string>
     <string name="current_classes">Current Classes</string>
-    <string name="students">Students</string>
     <string name="past_classes">Past Classes</string>
+    <string name="students">Students</string>
 
     <string name="action_settings">Settings</string>
 
@@ -59,7 +59,7 @@
     <string name="class_activities">Class Activities</string>
     <string name="default_time_start">Default Time Start</string>
     <string name="final_grade_calculation">Final Grade Calculation</string>
-    <string name="student_name_display_format">Student Name Display Format</string>
+    <string name="student_name_display">Student Name Display</string>
 
     <string name="security">Security</string>
     <string name="lock_enabled">Lock Enabled</string>
@@ -68,13 +68,16 @@
     <string name="details">Details</string>
     <string name="about_this_app">About Apollo</string>
 
-    <string name="change_unlock_password">Change Unlock Password</string>
-    <string name="current_password">Current Password</string>
+    <string name="password">Password</string>
     <string name="new_password">New Password</string>
     <string name="cancel">Cancel</string>
     <string name="change">Change</string>
-    <string name="incorrect_current_password">Incorrect current password!</string>
+    <string name="incorrect_password">Incorrect password!</string>
     <string name="unlock_password_changed">Unlock password changed.</string>
     <string name="unlock_password_cleared">Unlock password cleared.</string>
+
+    <string name="last_name_first_name">[Last Name], [First Name] [Middle Initial].</string>
+    <string name="first_name_last_name">[First Name] [Middle Initial]. [Last Name]</string>
+    <string name="student_name_display_changed">Student name display changed.</string>
 
 </resources>

@@ -44,8 +44,8 @@
     <string name="day_activities">今日のアクティビティー</string>
     <string name="week_activities">今週のアクティビティー</string>
     <string name="current_classes">現在の授業</string>
-    <string name="students">学生</string>
     <string name="past_classes">過去の授業</string>
+    <string name="students">学生</string>
 
     <string name="action_settings">設定</string>
 
@@ -56,7 +56,7 @@
     <string name="class_activities">アクティビティー</string>
     <string name="default_time_start">デフォルト時間開始</string>
     <string name="final_grade_calculation">最終成績計算</string>
-    <string name="student_name_display_format">学生氏名並び替えフォーマット</string>
+    <string name="student_name_display">学生氏名並び替え</string>
 
     <string name="security">セキュリティー</string>
     <string name="lock_enabled">ロック機能</string>
@@ -65,13 +65,16 @@
     <string name="details">情報</string>
     <string name="about_this_app">Apolloについて</string>
 
-    <string name="change_unlock_password">パスワード変更</string>
-    <string name="current_password">現在のパスワード</string>
+    <string name="password">パスワード</string>
     <string name="new_password">新パスワード</string>
     <string name="cancel">キャンセル</string>
     <string name="change">変更</string>
-    <string name="incorrect_current_password">現在のパスワードが間違っています！</string>
+    <string name="incorrect_password">パスワードが間違っています！</string>
     <string name="unlock_password_changed">ロック解除パスワード変更済み。</string>
     <string name="unlock_password_cleared">ロック解除パスワードが取り消されました。</string>
+
+    <string name="last_name_first_name">「姓」「名」</string>
+    <string name="first_name_last_name">「名」「姓」</string>
+    <string name="student_name_display_changed">学生氏名並び替え変更済み。</string>
 
 </resources>

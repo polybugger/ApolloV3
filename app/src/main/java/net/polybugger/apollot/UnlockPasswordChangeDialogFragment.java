@@ -20,14 +20,14 @@ import org.apache.commons.lang3.StringUtils;
 public class UnlockPasswordChangeDialogFragment extends AppCompatDialogFragment {
 
     public interface Listener {
-        public void onChangePassword(final String message);
+        void onChangeUnlockPassword(final String message);
     }
 
     public static final String TAG = "net.polybugger.apollot.change_unlock_password_dialog_fragment";
 
     private Listener mListener;
-    private EditText mCurrentPasswordEditText;
-    private TextView mCurrentPasswordErrorTextView;
+    private EditText mPasswordEditText;
+    private TextView mPasswordErrorTextView;
     private EditText mNewPasswordEditText;
 
     public static UnlockPasswordChangeDialogFragment newInstance() {
@@ -37,22 +37,21 @@ public class UnlockPasswordChangeDialogFragment extends AppCompatDialogFragment 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_unlock_password_change, null);
-        mCurrentPasswordEditText = (EditText) view.findViewById(R.id.current_password_edit_text);
-        mCurrentPasswordErrorTextView = (TextView) view.findViewById(R.id.current_password_error_text_view);
+        mPasswordEditText = (EditText) view.findViewById(R.id.password_edit_text);
+        mPasswordErrorTextView = (TextView) view.findViewById(R.id.password_error_text_view);
         mNewPasswordEditText = (EditText) view.findViewById(R.id.new_password_edit_text);
-        mCurrentPasswordEditText.addTextChangedListener(new TextWatcher() {
+        mPasswordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override
             public void afterTextChanged(Editable s) {
-                mCurrentPasswordErrorTextView.setText(" ");
+                mPasswordErrorTextView.setText(" ");
             }
         });
-
         final AlertDialog d = new AlertDialog.Builder(getActivity())
-                .setTitle(R.string.change_unlock_password)
+                .setTitle(R.string.unlock_password)
                 .setView(view)
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(R.string.change, null)
@@ -65,17 +64,17 @@ public class UnlockPasswordChangeDialogFragment extends AppCompatDialogFragment 
                     @Override
                     public void onClick(View view) {
                         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-                        String savedPassword = sharedPref.getString(getString(R.string.unlock_password_key), "");
-                        String currentPassword = mCurrentPasswordEditText.getText().toString();
-                        String newPassword = mNewPasswordEditText.getText().toString();
-                        if(!savedPassword.equals(currentPassword)) {
-                            mCurrentPasswordErrorTextView.setText(getString(R.string.incorrect_current_password));
-                            mCurrentPasswordEditText.requestFocus();
+                        String savedPassword = sharedPref.getString(getString(R.string.unlock_password_key), getString(R.string.default_unlock_password));
+                        String password = mPasswordEditText.getText().toString();
+                        if(!StringUtils.equals(savedPassword, password)) {
+                            mPasswordErrorTextView.setText(getString(R.string.incorrect_password));
+                            mPasswordEditText.requestFocus();
                         }
                         else {
+                            String newPassword = mNewPasswordEditText.getText().toString();
                             sharedPref.edit().putString(getString(R.string.unlock_password_key), newPassword).apply();
                             String message = StringUtils.isEmpty(newPassword) ? getString(R.string.unlock_password_cleared) : getString(R.string.unlock_password_changed);
-                            mListener.onChangePassword(message);
+                            mListener.onChangeUnlockPassword(message);
                             dismiss();
                         }
                     }
