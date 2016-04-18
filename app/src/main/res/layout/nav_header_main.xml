@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/nav_header_image_spacing"
         android:layout_width="wrap_content"
-        android:src="@drawable/ic_nav_header" />
+        android:src="@drawable/img_nav_header" />
 
     <TextView
         android:layout_height="wrap_content"

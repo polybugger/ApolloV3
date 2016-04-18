@@ -13,8 +13,11 @@ import java.util.Date;
 
 import net.polybugger.apollot.R;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class ApolloDbAdapter {
 
+    public static final String JA_LANGUAGE = "ja";
     public static final String DATABASE_NAME = "ApolloDb.sqlite3";
     public static final int DATABASE_VERSION = 3;
 
@@ -98,11 +101,20 @@ public class ApolloDbAdapter {
 
     // helper methods for populating dummy data, public for test use
 
+    // TODO reorder terms for "ja", Spring, Summer, Fall, Winter
     public static void _insertDefaultAcademicTerms(SQLiteDatabase db) {
-        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_0), sAppContext.getString(R.string.default_academic_term_color_0));
-        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_1), sAppContext.getString(R.string.default_academic_term_color_1));
-        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_2), sAppContext.getString(R.string.default_academic_term_color_2));
-        AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_3), sAppContext.getString(R.string.default_academic_term_color_3));
+        if(StringUtils.equalsIgnoreCase(sAppContext.getResources().getConfiguration().locale.getLanguage(), JA_LANGUAGE)) {
+            AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_1), sAppContext.getString(R.string.default_academic_term_color_1));
+            AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_2), sAppContext.getString(R.string.default_academic_term_color_2));
+            AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_0), sAppContext.getString(R.string.default_academic_term_color_0));
+            AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_3), sAppContext.getString(R.string.default_academic_term_color_3));
+        }
+        else {
+            AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_0), sAppContext.getString(R.string.default_academic_term_color_0));
+            AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_1), sAppContext.getString(R.string.default_academic_term_color_1));
+            AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_2), sAppContext.getString(R.string.default_academic_term_color_2));
+            AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_3), sAppContext.getString(R.string.default_academic_term_color_3));
+        }
         AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_4), sAppContext.getString(R.string.default_academic_term_color_4));
         AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_5), sAppContext.getString(R.string.default_academic_term_color_5));
         AcademicTermContract._insert(db, sAppContext.getString(R.string.default_academic_term_6), sAppContext.getString(R.string.default_academic_term_color_6));
@@ -131,7 +143,7 @@ public class ApolloDbAdapter {
     }
 
     public static long _insertDummyClass0(SQLiteDatabase db) {
-        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DISPLAY_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DISPLAY_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
         Date dateCreated;
         try {
             dateCreated = sdf.parse(sAppContext.getString(R.string.default_class_0_date_created));
