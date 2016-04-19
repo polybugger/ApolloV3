@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="default_academic_term_0">秋</string> <!-- fall -->
+    <string name="default_academic_term_1">春</string> <!-- spring -->
+    <string name="default_academic_term_2">夏</string> <!-- summer -->
+    <string name="default_academic_term_3">冬</string> <!-- winter -->
+    <string name="default_academic_term_4">前期</string> <!-- 1st semester -->
+    <string name="default_academic_term_5">後期</string> <!-- 2nd semester -->
+    <string name="default_academic_term_6">一学期</string> <!-- 1st trimester -->
+    <string name="default_academic_term_7">二学期</string> <!-- 2nd trimester -->
+    <string name="default_academic_term_8">三学期</string> <!-- 3rd trimester -->
+    <string name="default_academic_term_9">一学期</string> <!-- 1st quarter -->
+    <string name="default_academic_term_10">二学期</string> <!-- 2nd quarter -->
+    <string name="default_academic_term_11">三学期</string> <!-- 3rd quarter -->
+    <string name="default_academic_term_12">四学期</string> <!-- 4th quarter -->
+
+</resources>

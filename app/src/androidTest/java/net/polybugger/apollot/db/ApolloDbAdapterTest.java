@@ -34,7 +34,7 @@ public class ApolloDbAdapterTest {
     }
 
     @Test
-    public void testForeignKeyConstraintsEnabled() throws Exception {
+    public void test_foreignKeyConstraintsEnabled() throws Exception {
         final String FOREIGN_KEYS_CONSTRAINTS_SQL = "PRAGMA foreign_keys";
         long foreignKeyConstraintsResult = 0;
         Cursor cursor = mDb.rawQuery(FOREIGN_KEYS_CONSTRAINTS_SQL, null);
@@ -46,7 +46,7 @@ public class ApolloDbAdapterTest {
     }
 
     @Test
-    public void testOpenClose() throws Exception {
+    public void test_openClose() throws Exception {
         ApolloDbAdapter.close();
         assertFalse(mDb.isOpen());
 

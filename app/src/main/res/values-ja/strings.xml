@@ -47,9 +47,7 @@
     <string name="past_classes">過去の授業</string>
     <string name="students">学生</string>
 
-    <string name="action_settings">設定</string>
-
-    <string name="title_activity_settings">設定</string>
+    <string name="settings">設定</string>
 
     <string name="application_data">アプリケーションデータ</string>
     <string name="academic_terms">学期</string>

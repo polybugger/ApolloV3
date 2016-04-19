@@ -42,7 +42,7 @@ public class AcademicTermContractTest {
         mDb = ApolloDbAdapter.open();
         mDb.setForeignKeyConstraintsEnabled(false);
         mDb.execSQL(AcademicTermContract.DELETE_ALL_SQL);
-        ApolloDbAdapter._insertDefaultAcademicTerms(mDb);
+        AcademicTermContract._insertDefaultAcademicTerms(mDb, mContext);
         mAcademicTerm0Description = mContext.getString(R.string.default_academic_term_0);
         mAcademicTerm0Color = mContext.getString(R.string.default_academic_term_color_0);
         mAcademicTerm0Id = AcademicTermContract._getEntryByDescription(mDb, mAcademicTerm0Description).getId();
@@ -54,7 +54,7 @@ public class AcademicTermContractTest {
     @After
     public void tearDown() throws Exception {
         mDb.execSQL(AcademicTermContract.DELETE_ALL_SQL);
-        ApolloDbAdapter._insertDefaultAcademicTerms(mDb);
+        AcademicTermContract._insertDefaultAcademicTerms(mDb, mContext);
         ApolloDbAdapter.close();
     }
 
@@ -78,12 +78,7 @@ public class AcademicTermContractTest {
     }
 
     @Test
-    public void test_getEntry() throws Exception {
-        AcademicTermContract.AcademicTermEntry entry = AcademicTermContract._getEntry(mDb, mAcademicTerm0Id);
-        assertEquals(mAcademicTerm0Id, entry.getId());
-        assertEquals(mAcademicTerm0Description, entry.getDescription());
-        assertEquals(mAcademicTerm0Color, entry.getColor());
-
+    public void test_getEntryByDescription() throws Exception {
         AcademicTermContract.AcademicTermEntry entryByDescription = AcademicTermContract._getEntryByDescription(mDb, mAcademicTerm0Description);
         assertEquals(mAcademicTerm0Id, entryByDescription.getId());
         assertEquals(mAcademicTerm0Description, entryByDescription.getDescription());

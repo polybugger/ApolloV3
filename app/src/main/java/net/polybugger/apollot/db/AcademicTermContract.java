@@ -1,6 +1,7 @@
 package net.polybugger.apollot.db;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
@@ -8,6 +9,9 @@ import android.provider.BaseColumns;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import net.polybugger.apollot.R;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -97,6 +101,31 @@ public class AcademicTermContract {
         }
         cursor.close();
         return entries;
+    }
+
+    // TODO reorder terms for "ja", Spring, Summer, Fall, Winter
+    public static void _insertDefaultAcademicTerms(SQLiteDatabase db, Context context) {
+        if(StringUtils.equalsIgnoreCase(context.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE)) {
+            _insert(db, context.getString(R.string.default_academic_term_1), context.getString(R.string.default_academic_term_color_1));
+            _insert(db, context.getString(R.string.default_academic_term_2), context.getString(R.string.default_academic_term_color_2));
+            _insert(db, context.getString(R.string.default_academic_term_0), context.getString(R.string.default_academic_term_color_0));
+            _insert(db, context.getString(R.string.default_academic_term_3), context.getString(R.string.default_academic_term_color_3));
+        }
+        else {
+            _insert(db, context.getString(R.string.default_academic_term_0), context.getString(R.string.default_academic_term_color_0));
+            _insert(db, context.getString(R.string.default_academic_term_1), context.getString(R.string.default_academic_term_color_1));
+            _insert(db, context.getString(R.string.default_academic_term_2), context.getString(R.string.default_academic_term_color_2));
+            _insert(db, context.getString(R.string.default_academic_term_3), context.getString(R.string.default_academic_term_color_3));
+        }
+        _insert(db, context.getString(R.string.default_academic_term_4), context.getString(R.string.default_academic_term_color_4));
+        _insert(db, context.getString(R.string.default_academic_term_5), context.getString(R.string.default_academic_term_color_5));
+        _insert(db, context.getString(R.string.default_academic_term_6), context.getString(R.string.default_academic_term_color_6));
+        _insert(db, context.getString(R.string.default_academic_term_7), context.getString(R.string.default_academic_term_color_7));
+        _insert(db, context.getString(R.string.default_academic_term_8), context.getString(R.string.default_academic_term_color_8));
+        _insert(db, context.getString(R.string.default_academic_term_9), context.getString(R.string.default_academic_term_color_9));
+        _insert(db, context.getString(R.string.default_academic_term_10), context.getString(R.string.default_academic_term_color_10));
+        _insert(db, context.getString(R.string.default_academic_term_11), context.getString(R.string.default_academic_term_color_11));
+        _insert(db, context.getString(R.string.default_academic_term_12), context.getString(R.string.default_academic_term_color_12));
     }
 
     public static class AcademicTermEntry implements BaseColumns, Serializable {

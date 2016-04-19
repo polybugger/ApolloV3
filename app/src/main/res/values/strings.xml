@@ -50,9 +50,7 @@
     <string name="past_classes">Past Classes</string>
     <string name="students">Students</string>
 
-    <string name="action_settings">Settings</string>
-
-    <string name="title_activity_settings">Settings</string>
+    <string name="settings">Settings</string>
 
     <string name="application_data">Application Data</string>
     <string name="academic_terms">Academic Terms</string>

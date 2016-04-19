@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="default_academic_term_0">Fall</string>
+    <string name="default_academic_term_1">Spring</string>
+    <string name="default_academic_term_2">Summer</string>
+    <string name="default_academic_term_3">Winter</string>
+    <string name="default_academic_term_4">1st Semester</string>
+    <string name="default_academic_term_5">2nd Semester</string>
+    <string name="default_academic_term_6">1st Trimester</string>
+    <string name="default_academic_term_7">2nd Trimester</string>
+    <string name="default_academic_term_8">3rd Trimester</string>
+    <string name="default_academic_term_9">1st Quarter</string>
+    <string name="default_academic_term_10">2nd Quarter</string>
+    <string name="default_academic_term_11">3rd Quarter</string>
+    <string name="default_academic_term_12">4th Quarter</string>
+
+    <string name="default_academic_term_color_0">#FFFED17E</string> <!-- fall. -->
+    <string name="default_academic_term_color_1">#FFCBFF90</string> <!-- spring. -->
+    <string name="default_academic_term_color_2">#FFFF8A80</string> <!-- summer. -->
+    <string name="default_academic_term_color_3">#FF7ED8FD</string> <!-- winter. -->
+    <string name="default_academic_term_color_4">#FFCED8DA</string> <!-- 1st semester. -->
+    <string name="default_academic_term_color_5">#FFA6FFE9</string> <!-- 2nd semester. -->
+    <string name="default_academic_term_color_6">#00000000</string> <!-- 1st trimester transparent -->
+    <string name="default_academic_term_color_7">#00000000</string> <!-- 2nd trimester -->
+    <string name="default_academic_term_color_8">#00000000</string> <!-- 3rd trimester -->
+    <string name="default_academic_term_color_9">#00000000</string> <!-- 1st quarter -->
+    <string name="default_academic_term_color_10">#00000000</string> <!-- 2nd quarter -->
+    <string name="default_academic_term_color_11">#00000000</string> <!-- 3rd quarter -->
+    <string name="default_academic_term_color_12">#00000000</string> <!-- 4th quarter -->
+
+</resources>

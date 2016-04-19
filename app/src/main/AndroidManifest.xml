@@ -23,7 +23,7 @@
         <activity
             android:name=".SettingsActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:label="@string/title_activity_settings"
+            android:label="@string/settings"
             android:screenOrientation="portrait" />
 
         <activity

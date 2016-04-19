@@ -42,7 +42,7 @@ public class ClassItemTypeContractTest {
         mDb = ApolloDbAdapter.open();
         mDb.setForeignKeyConstraintsEnabled(false);
         mDb.execSQL(ClassItemTypeContract.DELETE_ALL_SQL);
-        ApolloDbAdapter._insertDefaultClassItemTypes(mDb);
+        ClassItemTypeContract._insertDefaultClassItemTypes(mDb, mContext);
         mItemTyp0Description = mContext.getString(R.string.default_class_item_type_0);
         mItemTyp0Color = mContext.getString(R.string.default_class_item_type_color_0);
         mItemTyp0Id = ClassItemTypeContract._getEntryByDescription(mDb, mItemTyp0Description).getId();
@@ -54,7 +54,7 @@ public class ClassItemTypeContractTest {
     @After
     public void tearDown() throws Exception {
         mDb.execSQL(ClassItemTypeContract.DELETE_ALL_SQL);
-        ApolloDbAdapter._insertDefaultClassItemTypes(mDb);
+        ClassItemTypeContract._insertDefaultClassItemTypes(mDb, mContext);
         ApolloDbAdapter.close();
     }
 
@@ -78,12 +78,7 @@ public class ClassItemTypeContractTest {
     }
 
     @Test
-    public void test_getEntry() throws Exception {
-        ClassItemTypeContract.ClassItemTypeEntry entry = ClassItemTypeContract._getEntry(mDb, mItemTyp0Id);
-        assertEquals(mItemTyp0Id, entry.getId());
-        assertEquals(mItemTyp0Description, entry.getDescription());
-        assertEquals(mItemTyp0Color, entry.getColor());
-
+    public void test_getEntryByDescription() throws Exception {
         ClassItemTypeContract.ClassItemTypeEntry entryByDescription = ClassItemTypeContract._getEntryByDescription(mDb, mItemTyp0Description);
         assertEquals(mItemTyp0Id, entryByDescription.getId());
         assertEquals(mItemTyp0Description, entryByDescription.getDescription());
