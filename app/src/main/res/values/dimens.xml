@@ -32,6 +32,7 @@
     <dimen name="dialog_fragment_half_padding_left">12dp</dimen>
 
     <dimen name="edit_text_text_view_padding_left">4dp</dimen>
+    <dimen name="edit_text_text_view_padding_right">4dp</dimen>
     <dimen name="edit_text_spacer_top">16dp</dimen>
     <dimen name="radio_button_spacer_top">16dp</dimen>
 
@@ -46,4 +47,5 @@
     <dimen name="recycler_view_content_padding_left">8dp</dimen>
 
     <dimen name="button_padding">8dp</dimen>
+
 </resources>

@@ -58,17 +58,17 @@ public class DefaultTimeStartDialogFragment extends AppCompatDialogFragment {
             mTimePicker.setCurrentHour(cal.get(Calendar.HOUR_OF_DAY));
             mTimePicker.setCurrentMinute(cal.get(Calendar.MINUTE));
         }
-        final AlertDialog d = new AlertDialog.Builder(getActivity())
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.default_time_start)
                 .setView(view)
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(R.string.change, null)
                 .create();
-        d.setOnShowListener(new DialogInterface.OnShowListener() {
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                Button b = d.getButton(AlertDialog.BUTTON_POSITIVE);
-                b.setOnClickListener(new View.OnClickListener() {
+                Button button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Calendar cal = Calendar.getInstance();
@@ -87,7 +87,7 @@ public class DefaultTimeStartDialogFragment extends AppCompatDialogFragment {
                 });
             }
         });
-        return d;
+        return alertDialog;
     }
 
     @Override

@@ -1,12 +1,14 @@
 package net.polybugger.apollot;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +26,8 @@ import net.polybugger.apollot.db.ApolloDbAdapter;
 
 import java.util.ArrayList;
 
-public class SettingsAcademicTermsActivity extends AppCompatActivity {
+public class SettingsAcademicTermsActivity extends AppCompatActivity implements
+        LoaderManager.LoaderCallbacks<ArrayList<AcademicTermContract.AcademicTermEntry>> {
 
     private RecyclerView mRecyclerView;
     private Adapter mAdapter;
@@ -34,7 +37,7 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ApolloDbAdapter.setAppContext(getApplicationContext());
+        // ApolloDbAdapter.setAppContext(getApplicationContext());
 
         setContentView(R.layout.activity_settings_academic_terms);
 
@@ -48,10 +51,7 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity {
         mLinearLayoutManager = new LinearLayoutManager(this);
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-
-        SQLiteDatabase db = ApolloDbAdapter.open();
-        mAdapter = new Adapter(AcademicTermContract._getEntries(db));
-        ApolloDbAdapter.close();
+        mAdapter = new Adapter();
         mRecyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -61,6 +61,8 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
+
+        getSupportLoaderManager().initLoader(1, null, this).forceLoad();
     }
 
     @Override
@@ -69,7 +71,7 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity {
 
         switch(id) {
             case android.R.id.home:
-                onBackPressed();
+                super.onBackPressed();
                 return true;
         }
 
@@ -77,23 +79,36 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    public android.support.v4.content.Loader<ArrayList<AcademicTermContract.AcademicTermEntry>> onCreateLoader(int id, Bundle args) {
+        return new Loader(SettingsAcademicTermsActivity.this);
     }
 
+    @Override
+    public void onLoadFinished(android.support.v4.content.Loader<ArrayList<AcademicTermContract.AcademicTermEntry>> loader, ArrayList<AcademicTermContract.AcademicTermEntry> data) {
+        mAdapter.setData(data);
+    }
 
-    public static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+    @Override
+    public void onLoaderReset(android.support.v4.content.Loader<ArrayList<AcademicTermContract.AcademicTermEntry>> loader) {
+        mAdapter.setData(new ArrayList<AcademicTermContract.AcademicTermEntry>());
+    }
+
+    private static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         private ArrayList<AcademicTermContract.AcademicTermEntry> mArrayList;
 
-        public Adapter(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList) {
+        public Adapter() {
+            mArrayList = new ArrayList<>();
+        }
+
+        public void setData(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList) {
             mArrayList = arrayList;
+            notifyDataSetChanged();
         }
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_settings_academic_terms, parent, false);
-            return new ViewHolder(itemView);
+            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_settings_academic_terms, parent, false));
         }
 
         @Override
@@ -130,6 +145,24 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity {
                 mTextView =  (TextView) itemView.findViewById(R.id.text_view);
                 mImageButton = (ImageButton) itemView.findViewById(R.id.image_button);
             }
+        }
+    }
+
+    private static class Loader extends AsyncTaskLoader<ArrayList<AcademicTermContract.AcademicTermEntry>> {
+
+        private ArrayList<AcademicTermContract.AcademicTermEntry> mArrayList;
+
+        public Loader(Context context) {
+            super(context);
+        }
+
+        @Override
+        public ArrayList<AcademicTermContract.AcademicTermEntry> loadInBackground() {
+            ApolloDbAdapter.setAppContext(getContext());
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            mArrayList = AcademicTermContract._getEntries(db);
+            ApolloDbAdapter.close();
+            return mArrayList;
         }
     }
 }

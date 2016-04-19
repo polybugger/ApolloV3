@@ -50,17 +50,17 @@ public class UnlockPasswordChangeDialogFragment extends AppCompatDialogFragment 
                 mPasswordErrorTextView.setText(" ");
             }
         });
-        final AlertDialog d = new AlertDialog.Builder(getActivity())
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.unlock_password)
                 .setView(view)
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(R.string.change, null)
                 .create();
-        d.setOnShowListener(new DialogInterface.OnShowListener() {
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                Button b = d.getButton(AlertDialog.BUTTON_POSITIVE);
-                b.setOnClickListener(new View.OnClickListener() {
+                Button button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
@@ -81,7 +81,7 @@ public class UnlockPasswordChangeDialogFragment extends AppCompatDialogFragment 
                 });
             }
         });
-        return d;
+        return alertDialog;
     }
 
     @Override

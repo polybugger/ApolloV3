@@ -14,15 +14,19 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-public class SettingsActivity extends AppCompatActivity implements UnlockPasswordChangeDialogFragment.Listener,
+import net.polybugger.apollot.db.ApolloDbAdapter;
+
+public class SettingsActivity extends AppCompatActivity implements DefaultTimeStartDialogFragment.Listener,
         StudentNameDisplayDialogFragment.Listener,
-        DefaultTimeStartDialogFragment.Listener {
+        UnlockPasswordChangeDialogFragment.Listener {
 
     private Switch mLockEnabledSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // ApolloDbAdapter.setAppContext(getApplicationContext());
 
         setContentView(R.layout.activity_settings);
 
@@ -128,7 +132,7 @@ public class SettingsActivity extends AppCompatActivity implements UnlockPasswor
 
         switch(id) {
             case android.R.id.home:
-                onBackPressed();
+                super.onBackPressed();
                 return true;
         }
 
@@ -136,12 +140,7 @@ public class SettingsActivity extends AppCompatActivity implements UnlockPasswor
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onChangeUnlockPassword(final String message) {
+    public void onChangeDefaultTimeStart(final String message) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -161,7 +160,7 @@ public class SettingsActivity extends AppCompatActivity implements UnlockPasswor
     }
 
     @Override
-    public void onChangeDefaultTimeStart(final String message) {
+    public void onChangeUnlockPassword(final String message) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
