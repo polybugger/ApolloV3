@@ -8,7 +8,7 @@
     <integer name="student_name_display_first_name_last_name">1</integer>
     <integer name="default_student_name_display">@integer/student_name_display_last_name_first_name</integer>
 
-    <string name="default_time_start_time">7:30 AM</string>
+    <string name="default_time_start_time">07:30:00.000+0800</string>
 
     <string name="default_academic_term_0">Fall</string>
     <string name="default_academic_term_1">Spring</string>
@@ -74,36 +74,36 @@
     <string name="default_class_0_academic_term">@string/default_academic_term_0</string> <!-- fall -->
     <integer name="default_class_0_year">2016</integer>
     <integer name="default_class_0_past_current">@integer/current</integer>
-    <string name="default_class_0_date_created">Apr 8, 2016 00:00 AM</string>
+    <string name="default_class_0_date_created">2016&#8211;04&#8211;08T00:00:00.000+0800</string>
 
     <string name="default_class_1_code">IT 116</string>
     <string name="default_class_1_description">Advanced Programming</string>
     <string name="default_class_1_academic_term">@string/default_academic_term_1</string> <!-- spring -->
     <integer name="default_class_1_year">2017</integer>
     <integer name="default_class_1_past_current">@integer/past</integer>
-    <string name="default_class_1_date_created">Apr 9, 2016 00:00 AM</string>
+    <string name="default_class_1_date_created">2016&#8211;04&#8211;09T00:00:00.000+0800</string>
 
     <integer name="days_mwf">21</integer>
     <integer name="days_tth">10</integer>
 
-    <string name="default_class_0_class_schedule_0_time_start">8:45 AM</string>
-    <string name="default_class_0_class_schedule_0_time_end">9:45 AM</string>
+    <string name="default_class_0_class_schedule_0_time_start">08:45:00.000+0800</string>
+    <string name="default_class_0_class_schedule_0_time_end">09:45:00.000+0800</string>
     <integer name="default_class_0_class_schedule_0_days">@integer/days_mwf</integer>
     <string name="default_class_0_class_schedule_0_room">214</string>
     <string name="default_class_0_class_schedule_0_building">Arts &amp; Sciences</string>
     <string name="default_class_0_class_schedule_0_campus">Main</string>
 
-    <string name="default_class_1_class_schedule_0_time_start">7:45 AM</string>
-    <string name="default_class_1_class_schedule_0_time_end">8:45 AM</string>
+    <string name="default_class_1_class_schedule_0_time_start">07:45:00.000+0800</string>
+    <string name="default_class_1_class_schedule_0_time_end">08:45:00.000+0800</string>
     <integer name="default_class_1_class_schedule_0_days">@integer/days_tth</integer>
     <string name="default_class_1_class_schedule_0_room">202</string>
     <string name="default_class_1_class_schedule_0_building">AS</string>
     <string name="default_class_1_class_schedule_0_campus">TC</string>
 
     <string name="default_class_0_class_note_0_note">Textbook - A First Course in Abstract Algebra, 7th Edition by John B. Fraleigh</string>
-    <string name="default_class_0_class_note_0_date_created">June 11, 2016</string>
+    <string name="default_class_0_class_note_0_date_created">2016&#8211;06&#8211;11T00:00:00.000+0800</string>
     <string name="default_class_0_class_note_1_note">Syllabus - http://www.extension.harvard.edu/sites/default/files/openlearning/math222/files/OLI_MathE222_Syllabus.pdf</string>
-    <string name="default_class_0_class_note_1_date_created">June 12, 2016</string>
+    <string name="default_class_0_class_note_1_date_created">2016&#8211;06&#8211;12T00:00:00.000+0800</string>
 
     <string name="default_class_1_password"></string>
 
@@ -414,7 +414,7 @@
 
     <string name="default_class_0_class_item_0_description">Review of Linear Algebra</string>
     <string name="default_class_0_class_item_0_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
-    <string name="default_class_0_class_item_0_item_date">Oct 17, 2016</string>
+    <string name="default_class_0_class_item_0_item_date">2016&#8211;10&#8211;17</string>
     <bool name="default_class_0_class_item_0_check_attendance">true</bool>
     <bool name="default_class_0_class_item_0_record_scores">false</bool>
     <string name="default_class_0_class_item_0_perfect_score"></string>
@@ -423,16 +423,16 @@
 
     <string name="default_class_0_class_item_1_description">Arithmetic in Z</string>
     <string name="default_class_0_class_item_1_item_type">@string/default_class_item_type_1</string> <!-- homework -->
-    <string name="default_class_0_class_item_1_item_date">Oct 17, 2016</string>
+    <string name="default_class_0_class_item_1_item_date">2016&#8211;10&#8211;17</string>
     <bool name="default_class_0_class_item_1_check_attendance">false</bool>
     <bool name="default_class_0_class_item_1_record_scores">true</bool>
     <string name="default_class_0_class_item_1_perfect_score">100.0</string>
     <bool name="default_class_0_class_item_1_record_submissions">true</bool>
-    <string name="default_class_0_class_item_1_submission_due_date">Oct 21, 2016</string>
+    <string name="default_class_0_class_item_1_submission_due_date">2016&#8211;10&#8211;21</string>
 
     <string name="default_class_0_class_item_2_description">Permutations</string>
     <string name="default_class_0_class_item_2_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
-    <string name="default_class_0_class_item_2_item_date">Oct 21, 2016</string>
+    <string name="default_class_0_class_item_2_item_date">2016&#8211;10&#8211;21</string>
     <bool name="default_class_0_class_item_2_check_attendance">true</bool>
     <bool name="default_class_0_class_item_2_record_scores">false</bool>
     <string name="default_class_0_class_item_2_perfect_score"></string>
@@ -441,7 +441,7 @@
 
     <string name="default_class_0_class_item_3_description">Quotient Groups, First Isomorphism Theorem</string>
     <string name="default_class_0_class_item_3_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
-    <string name="default_class_0_class_item_3_item_date">Oct 26, 2016</string>
+    <string name="default_class_0_class_item_3_item_date">2016&#8211;10&#8211;26</string>
     <bool name="default_class_0_class_item_3_check_attendance">true</bool>
     <bool name="default_class_0_class_item_3_record_scores">false</bool>
     <string name="default_class_0_class_item_3_perfect_score"></string>
@@ -450,16 +450,16 @@
 
     <string name="default_class_0_class_item_4_description">Groups 1</string>
     <string name="default_class_0_class_item_4_item_type">@string/default_class_item_type_1</string> <!-- homework -->
-    <string name="default_class_0_class_item_4_item_date">Oct 26, 2016</string>
+    <string name="default_class_0_class_item_4_item_date">2016&#8211;10&#8211;26</string>
     <bool name="default_class_0_class_item_4_check_attendance">false</bool>
     <bool name="default_class_0_class_item_4_record_scores">true</bool>
     <string name="default_class_0_class_item_4_perfect_score">100.0</string>
     <bool name="default_class_0_class_item_4_record_submissions">true</bool>
-    <string name="default_class_0_class_item_4_submission_due_date">Oct 31, 2016</string>
+    <string name="default_class_0_class_item_4_submission_due_date">2016&#8211;10&#8211;31</string>
 
     <string name="default_class_0_class_item_5_description">Abstract Linear Operators and How to Calculate with Them</string>
     <string name="default_class_0_class_item_5_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
-    <string name="default_class_0_class_item_5_item_date">Oct 31, 2016</string>
+    <string name="default_class_0_class_item_5_item_date">2016&#8211;10&#8211;31</string>
     <bool name="default_class_0_class_item_5_check_attendance">true</bool>
     <bool name="default_class_0_class_item_5_record_scores">false</bool>
     <string name="default_class_0_class_item_5_perfect_score"></string>
@@ -468,7 +468,7 @@
 
     <string name="default_class_0_class_item_6_description">Orthogonal Groups</string>
     <string name="default_class_0_class_item_6_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
-    <string name="default_class_0_class_item_6_item_date">Nov 4, 2016</string>
+    <string name="default_class_0_class_item_6_item_date">2016&#8211;11&#8211;04</string>
     <bool name="default_class_0_class_item_6_check_attendance">true</bool>
     <bool name="default_class_0_class_item_6_record_scores">false</bool>
     <string name="default_class_0_class_item_6_perfect_score"></string>
@@ -477,16 +477,16 @@
 
     <string name="default_class_0_class_item_7_description">Groups 2</string>
     <string name="default_class_0_class_item_7_item_type">@string/default_class_item_type_1</string> <!-- homework -->
-    <string name="default_class_0_class_item_7_item_date">Nov 4, 2016</string>
+    <string name="default_class_0_class_item_7_item_date">2016&#8211;11&#8211;04</string>
     <bool name="default_class_0_class_item_7_check_attendance">false</bool>
     <bool name="default_class_0_class_item_7_record_scores">true</bool>
     <string name="default_class_0_class_item_7_perfect_score">100.0</string>
     <bool name="default_class_0_class_item_7_record_submissions">true</bool>
-    <string name="default_class_0_class_item_7_submission_due_date">Nov 9, 2016</string>
+    <string name="default_class_0_class_item_7_submission_due_date">2016&#8211;11&#8211;09</string>
 
     <string name="default_class_0_class_item_8_description">Midterm Exam</string>
     <string name="default_class_0_class_item_8_item_type">@string/default_class_item_type_9</string> <!-- midterm exam -->
-    <string name="default_class_0_class_item_8_item_date">Nov 9, 2016</string>
+    <string name="default_class_0_class_item_8_item_date">2016&#8211;11&#8211;09</string>
     <bool name="default_class_0_class_item_8_check_attendance">false</bool>
     <bool name="default_class_0_class_item_8_record_scores">true</bool>
     <string name="default_class_0_class_item_8_perfect_score">200.0</string>
@@ -495,16 +495,16 @@
 
     <string name="default_class_0_class_item_9_description">Practical Applications</string>
     <string name="default_class_0_class_item_9_item_type">@string/default_class_item_type_7</string> <!-- report -->
-    <string name="default_class_0_class_item_9_item_date">Nov 14, 2016</string>
+    <string name="default_class_0_class_item_9_item_date">2016&#8211;11&#8211;14</string>
     <bool name="default_class_0_class_item_9_check_attendance">false</bool>
     <bool name="default_class_0_class_item_9_record_scores">true</bool>
     <string name="default_class_0_class_item_9_perfect_score">200.0</string>
     <bool name="default_class_0_class_item_9_record_submissions">true</bool>
-    <string name="default_class_0_class_item_9_submission_due_date">Dec 16, 2016</string>
+    <string name="default_class_0_class_item_9_submission_due_date">2016&#8211;12&#8211;16</string>
 
     <string name="default_class_0_class_item_10_description">Isometrics of Plane Figures</string>
     <string name="default_class_0_class_item_10_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
-    <string name="default_class_0_class_item_10_item_date">Nov 14, 2016</string>
+    <string name="default_class_0_class_item_10_item_date">2016&#8211;11&#8211;14</string>
     <bool name="default_class_0_class_item_10_check_attendance">true</bool>
     <bool name="default_class_0_class_item_10_record_scores">false</bool>
     <string name="default_class_0_class_item_10_perfect_score"></string>
@@ -513,7 +513,7 @@
 
     <string name="default_class_0_class_item_11_description">Group Actions</string>
     <string name="default_class_0_class_item_11_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
-    <string name="default_class_0_class_item_11_item_date">Nov 18, 2016</string>
+    <string name="default_class_0_class_item_11_item_date">2016&#8211;11&#8211;18</string>
     <bool name="default_class_0_class_item_11_check_attendance">true</bool>
     <bool name="default_class_0_class_item_11_record_scores">false</bool>
     <string name="default_class_0_class_item_11_perfect_score"></string>
@@ -522,7 +522,7 @@
 
     <string name="default_class_0_class_item_12_description">A5 and the Symmetries of an Icosahedron</string>
     <string name="default_class_0_class_item_12_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
-    <string name="default_class_0_class_item_12_item_date">Nov 23, 2016</string>
+    <string name="default_class_0_class_item_12_item_date">2016&#8211;11&#8211;23</string>
     <bool name="default_class_0_class_item_12_check_attendance">true</bool>
     <bool name="default_class_0_class_item_12_record_scores">false</bool>
     <string name="default_class_0_class_item_12_perfect_score"></string>
@@ -531,7 +531,7 @@
 
     <string name="default_class_0_class_item_13_description">Rings</string>
     <string name="default_class_0_class_item_13_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
-    <string name="default_class_0_class_item_13_item_date">Nov 28, 2016</string>
+    <string name="default_class_0_class_item_13_item_date">2016&#8211;11&#8211;28</string>
     <bool name="default_class_0_class_item_13_check_attendance">true</bool>
     <bool name="default_class_0_class_item_13_record_scores">false</bool>
     <string name="default_class_0_class_item_13_perfect_score"></string>
@@ -540,16 +540,16 @@
 
     <string name="default_class_0_class_item_14_description">Rings</string>
     <string name="default_class_0_class_item_14_item_type">@string/default_class_item_type_1</string> <!-- homework -->
-    <string name="default_class_0_class_item_14_item_date">Nov 28, 2016</string>
+    <string name="default_class_0_class_item_14_item_date">2016&#8211;11&#8211;28</string>
     <bool name="default_class_0_class_item_14_check_attendance">false</bool>
     <bool name="default_class_0_class_item_14_record_scores">true</bool>
     <string name="default_class_0_class_item_14_perfect_score">100.0</string>
     <bool name="default_class_0_class_item_14_record_submissions">true</bool>
-    <string name="default_class_0_class_item_14_submission_due_date">Dec 2, 2016</string>
+    <string name="default_class_0_class_item_14_submission_due_date">2016&#8211;12&#8211;02</string>
 
     <string name="default_class_0_class_item_15_description">Extensions of Rings</string>
     <string name="default_class_0_class_item_15_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
-    <string name="default_class_0_class_item_15_item_date">Dec 2, 2016</string>
+    <string name="default_class_0_class_item_15_item_date">2016&#8211;12&#8211;02</string>
     <bool name="default_class_0_class_item_15_check_attendance">true</bool>
     <bool name="default_class_0_class_item_15_record_scores">false</bool>
     <string name="default_class_0_class_item_15_perfect_score"></string>
@@ -558,7 +558,7 @@
 
     <string name="default_class_0_class_item_16_description">Special Lecture</string>
     <string name="default_class_0_class_item_16_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
-    <string name="default_class_0_class_item_16_item_date">Dec 7, 2016</string>
+    <string name="default_class_0_class_item_16_item_date">2016&#8211;12&#8211;07</string>
     <bool name="default_class_0_class_item_16_check_attendance">true</bool>
     <bool name="default_class_0_class_item_16_record_scores">false</bool>
     <string name="default_class_0_class_item_16_perfect_score"></string>
@@ -567,7 +567,7 @@
 
     <string name="default_class_0_class_item_17_description">Euclidean Domains, PIDs, UFDs</string>
     <string name="default_class_0_class_item_17_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
-    <string name="default_class_0_class_item_17_item_date">Dec 12, 2016</string>
+    <string name="default_class_0_class_item_17_item_date">2016&#8211;12&#8211;12</string>
     <bool name="default_class_0_class_item_17_check_attendance">true</bool>
     <bool name="default_class_0_class_item_17_record_scores">false</bool>
     <string name="default_class_0_class_item_17_perfect_score"></string>
@@ -576,7 +576,7 @@
 
     <string name="default_class_0_class_item_18_description">Structure of Ring of Integers in a Quadratic Field</string>
     <string name="default_class_0_class_item_18_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
-    <string name="default_class_0_class_item_18_item_date">Dec 16, 2016</string>
+    <string name="default_class_0_class_item_18_item_date">2016&#8211;12&#8211;16</string>
     <bool name="default_class_0_class_item_18_check_attendance">true</bool>
     <bool name="default_class_0_class_item_18_record_scores">false</bool>
     <string name="default_class_0_class_item_18_perfect_score"></string>
@@ -585,7 +585,7 @@
 
     <string name="default_class_0_class_item_19_description">Final Exam</string>
     <string name="default_class_0_class_item_19_item_type">@string/default_class_item_type_10</string> <!-- final exam -->
-    <string name="default_class_0_class_item_19_item_date">Dec 21, 2016</string>
+    <string name="default_class_0_class_item_19_item_date">2016&#8211;12&#8211;21</string>
     <bool name="default_class_0_class_item_19_check_attendance">false</bool>
     <bool name="default_class_0_class_item_19_record_scores">true</bool>
     <string name="default_class_0_class_item_19_perfect_score">200.0</string>

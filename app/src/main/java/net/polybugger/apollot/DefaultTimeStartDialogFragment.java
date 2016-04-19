@@ -39,7 +39,7 @@ public class DefaultTimeStartDialogFragment extends AppCompatDialogFragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_default_time_start, null);
         mTimePicker = (TimePicker) view.findViewById(R.id.time_picker);
         mTimePicker.setIs24HourView(false);
-        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DISPLAY_TEMPLATE, getResources().getConfiguration().locale);
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DB_TEMPLATE, getResources().getConfiguration().locale);
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         Date defaultTimeStart;
         try {

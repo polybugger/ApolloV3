@@ -143,7 +143,7 @@ public class ApolloDbAdapter {
     }
 
     public static long _insertDummyClass0(SQLiteDatabase db) {
-        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DISPLAY_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
         Date dateCreated;
         try {
             dateCreated = sdf.parse(sAppContext.getString(R.string.default_class_0_date_created));
@@ -160,7 +160,7 @@ public class ApolloDbAdapter {
     }
 
     public static long _insertDummyClass1(SQLiteDatabase db) {
-        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DISPLAY_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
         Date dateCreated;
         try {
             dateCreated = sdf.parse(sAppContext.getString(R.string.default_class_1_date_created));
@@ -480,7 +480,7 @@ public class ApolloDbAdapter {
     }
 
     public static void _insertDummyClass0Schedules(SQLiteDatabase db, long classId) {
-        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DISPLAY_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DB_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
         Date timeStart, timeEnd;
         try {
             timeStart = sdf.parse(sAppContext.getString(R.string.default_class_0_class_schedule_0_time_start));
@@ -502,7 +502,7 @@ public class ApolloDbAdapter {
     }
 
     public static void _insertDummyClass1Schedules(SQLiteDatabase db, long classId) {
-        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DISPLAY_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DB_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
         Date timeStart, timeEnd;
         try {
             timeStart = sdf.parse(sAppContext.getString(R.string.default_class_1_class_schedule_0_time_start));
@@ -524,7 +524,7 @@ public class ApolloDbAdapter {
     }
 
     public static void _insertDummyClass0Notes(SQLiteDatabase db, long classId) {
-        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_DB_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
         Date dateCreated;
         try {
             dateCreated = sdf.parse(sAppContext.getString(R.string.default_class_0_class_note_0_date_created));
@@ -551,7 +551,7 @@ public class ApolloDbAdapter {
     }
 
     public static void _insertDummyClass0Items(SQLiteDatabase db, long classId) {
-        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_DB_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
         Date itemDate, submissionDueDate;
         Float perfectScore;
 
