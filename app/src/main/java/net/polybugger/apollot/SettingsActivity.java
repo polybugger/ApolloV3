@@ -26,7 +26,7 @@ public class SettingsActivity extends AppCompatActivity implements DefaultTimeSt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // ApolloDbAdapter.setAppContext(getApplicationContext());
+        ApolloDbAdapter.setAppContext(getApplicationContext());
 
         setContentView(R.layout.activity_settings);
 
