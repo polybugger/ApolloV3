@@ -29,6 +29,8 @@ import java.util.ArrayList;
 public class SettingsAcademicTermsActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<ArrayList<AcademicTermContract.AcademicTermEntry>> {
 
+    private final static int GET_ID = 1;
+
     private RecyclerView mRecyclerView;
     private Adapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
@@ -37,7 +39,7 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // ApolloDbAdapter.setAppContext(getApplicationContext());
+        ApolloDbAdapter.setAppContext(getApplicationContext());
 
         setContentView(R.layout.activity_settings_academic_terms);
 
@@ -62,7 +64,7 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements
             }
         });
 
-        getSupportLoaderManager().initLoader(1, null, this).forceLoad();
+        getSupportLoaderManager().initLoader(GET_ID, null, this);
     }
 
     @Override
@@ -80,20 +82,24 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements
 
     @Override
     public android.support.v4.content.Loader<ArrayList<AcademicTermContract.AcademicTermEntry>> onCreateLoader(int id, Bundle args) {
-        return new Loader(SettingsAcademicTermsActivity.this);
+        switch(id) {
+            case GET_ID:
+                return new GetLoader(SettingsAcademicTermsActivity.this);
+        }
+        return null;
     }
 
     @Override
-    public void onLoadFinished(android.support.v4.content.Loader<ArrayList<AcademicTermContract.AcademicTermEntry>> loader, ArrayList<AcademicTermContract.AcademicTermEntry> data) {
-        mAdapter.setData(data);
+    public void onLoadFinished(android.support.v4.content.Loader<ArrayList<AcademicTermContract.AcademicTermEntry>> loader, ArrayList<AcademicTermContract.AcademicTermEntry> arrayList) {
+        mAdapter.setArrayList(arrayList);
     }
 
     @Override
     public void onLoaderReset(android.support.v4.content.Loader<ArrayList<AcademicTermContract.AcademicTermEntry>> loader) {
-        mAdapter.setData(new ArrayList<AcademicTermContract.AcademicTermEntry>());
+        mAdapter.setArrayList(new ArrayList<AcademicTermContract.AcademicTermEntry>());
     }
 
-    private static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+    public static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         private ArrayList<AcademicTermContract.AcademicTermEntry> mArrayList;
 
@@ -101,7 +107,7 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements
             mArrayList = new ArrayList<>();
         }
 
-        public void setData(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList) {
+        public void setArrayList(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList) {
             mArrayList = arrayList;
             notifyDataSetChanged();
         }
@@ -124,6 +130,7 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements
             GradientDrawable bg = (GradientDrawable) holder.mBackgroundLayout.getBackground();
             bg.setColor(color);
             holder.mTextView.setText(entry.getDescription());
+            holder.mImageButton.setTag(entry);
         }
 
         @Override
@@ -142,27 +149,84 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements
                 super(itemView);
                 mBackgroundLayout = (LinearLayout) itemView.findViewById(R.id.background_layout);
                 mClickableLayout = (LinearLayout) itemView.findViewById(R.id.clickable_layout);
+                mClickableLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
                 mTextView =  (TextView) itemView.findViewById(R.id.text_view);
                 mImageButton = (ImageButton) itemView.findViewById(R.id.image_button);
+                mImageButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        AcademicTermContract.AcademicTermEntry entry = (AcademicTermContract.AcademicTermEntry) v.getTag();
+                        SQLiteDatabase db = ApolloDbAdapter.open();
+                        AcademicTermContract._delete(db, entry.getId());
+                        ApolloDbAdapter.close();
+
+                    }
+                });
             }
         }
     }
 
-    private static class Loader extends AsyncTaskLoader<ArrayList<AcademicTermContract.AcademicTermEntry>> {
+    public static class GetLoader extends AsyncTaskLoader<ArrayList<AcademicTermContract.AcademicTermEntry>> {
 
         private ArrayList<AcademicTermContract.AcademicTermEntry> mArrayList;
 
-        public Loader(Context context) {
+        public GetLoader(Context context) {
             super(context);
         }
 
         @Override
         public ArrayList<AcademicTermContract.AcademicTermEntry> loadInBackground() {
-            ApolloDbAdapter.setAppContext(getContext());
             SQLiteDatabase db = ApolloDbAdapter.open();
             mArrayList = AcademicTermContract._getEntries(db);
             ApolloDbAdapter.close();
             return mArrayList;
+        }
+
+        // called to deliver result to UI thread, via callbacks
+        @Override
+        public void deliverResult(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList) {
+            if(isReset())
+                return;
+
+            if(isStarted())
+                super.deliverResult(arrayList);
+        }
+
+        // called if task is cancelled, dispose of the result
+        @Override
+        public void onCanceled(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList) {
+            super.onCanceled(arrayList);
+        }
+
+        // called when task is going to be started, forceLoad starts the tasks
+        @Override
+        protected void onStartLoading() {
+            super.onStartLoading();
+            if(mArrayList != null)
+                deliverResult(mArrayList);
+            if(takeContentChanged() || mArrayList == null)
+                forceLoad();
+        }
+
+        // called when task is going to be stopped, maybe after task has done executing
+        @Override
+        public void onStopLoading() {
+            super.onStopLoading();
+            cancelLoad();
+        }
+
+        // called when task is going to be reset, maybe configuration change?
+        @Override
+        protected void onReset() {
+            super.onReset();
+            onStopLoading();
+            mArrayList = null;
         }
     }
 }
