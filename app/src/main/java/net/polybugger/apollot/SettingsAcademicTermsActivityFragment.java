@@ -30,6 +30,7 @@ public class SettingsAcademicTermsActivityFragment extends Fragment {
 
     public interface Listener {
         void onGetAcademicTerms(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList);
+        void onDeleteAcademicTerm(AcademicTermContract.AcademicTermEntry entry, int rowsDeleted);
     }
 
     public static final String TAG = "net.polybugger.apollot.settings_academic_terms_activity_fragment";
@@ -60,6 +61,10 @@ public class SettingsAcademicTermsActivityFragment extends Fragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    public void deleteAcademicTerm(AcademicTermContract.AcademicTermEntry entry) {
+        new DeleteAsyncTask().execute(entry);
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -75,8 +80,8 @@ public class SettingsAcademicTermsActivityFragment extends Fragment {
 
     @Override
     public void onDetach() {
-        super.onDetach();
         mListener = null;
+        super.onDetach();
     }
 
     private class GetAsyncTask extends AsyncTask<Void, Integer, ArrayList<AcademicTermContract.AcademicTermEntry>> {
@@ -96,10 +101,30 @@ public class SettingsAcademicTermsActivityFragment extends Fragment {
         }
     }
 
+    private class DeleteAsyncTask extends AsyncTask<AcademicTermContract.AcademicTermEntry, Integer, Integer> {
+
+        private AcademicTermContract.AcademicTermEntry mEntry;
+
+        @Override
+        protected Integer doInBackground(AcademicTermContract.AcademicTermEntry... entry) {
+            mEntry = entry[0];
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            int rowsDeleted = AcademicTermContract._delete(db, mEntry.getId());
+            ApolloDbAdapter.close();
+            return rowsDeleted;
+        }
+
+        @Override
+        protected void onPostExecute(Integer rowsDeleted) {
+            if(mListener != null)
+                mListener.onDeleteAcademicTerm(mEntry, rowsDeleted);
+        }
+    }
+
     public static class DeleteDialogFragment extends DialogFragment {
 
         public interface Listener {
-            void onDeleteAcademicTerm(AcademicTermContract.AcademicTermEntry entry);
+            void onConfirmDeleteAcademicTerm(AcademicTermContract.AcademicTermEntry entry);
         }
 
         public static final String TAG = "net.polybugger.apollot.academic_term_delete_dialog_fragment";
@@ -146,7 +171,7 @@ public class SettingsAcademicTermsActivityFragment extends Fragment {
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            mListener.onDeleteAcademicTerm(entry);
+                            mListener.onConfirmDeleteAcademicTerm(entry);
                             dismiss();
                         }
                     });

@@ -81,5 +81,6 @@
 
     <string name="remove_this_academic_term">Remove this academic term?</string>
     <string name="remove">Remove</string>
+    <string name="academic_term_removed">Academic term removed.</string>
 
 </resources>

@@ -26,9 +26,7 @@ import java.util.ArrayList;
 public class SettingsAcademicTermsActivity extends AppCompatActivity implements SettingsAcademicTermsActivityFragment.Listener,
         SettingsAcademicTermsActivityFragment.DeleteDialogFragment.Listener {
 
-    private RecyclerView mRecyclerView;
     private Adapter mAdapter;
-    private LinearLayoutManager mLinearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +41,13 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mLinearLayoutManager = new LinearLayoutManager(this);
-        mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new Adapter(this);
-        mRecyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +57,7 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
             }
         });
 
+        // this will initialize the retained fragment and get the academic term entries
         FragmentManager fm = getSupportFragmentManager();
         if(fm.findFragmentByTag(SettingsAcademicTermsActivityFragment.TAG) == null)
             fm.beginTransaction().add(SettingsAcademicTermsActivityFragment.newInstance(), SettingsAcademicTermsActivityFragment.TAG).commit();
@@ -78,22 +77,23 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
     }
 
     @Override
-    public void onPreExecute() { }
-
-    @Override
-    public void onProgressUpdate(int percent) { }
-
-    @Override
-    public void onCancelled() { }
-
-    @Override
-    public void onPostExecute(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList) {
+    public void onGetAcademicTerms(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList) {
         mAdapter.setArrayList(arrayList);
     }
 
     @Override
-    public void onDeleteAcademicTerm(AcademicTermContract.AcademicTermEntry entry) {
+    public void onConfirmDeleteAcademicTerm(AcademicTermContract.AcademicTermEntry entry) {
+        SettingsAcademicTermsActivityFragment rf = (SettingsAcademicTermsActivityFragment) getSupportFragmentManager().findFragmentByTag(SettingsAcademicTermsActivityFragment.TAG);
+        if(rf != null)
+            rf.deleteAcademicTerm(entry);
+    }
 
+    @Override
+    public void onDeleteAcademicTerm(AcademicTermContract.AcademicTermEntry entry, int rowsDeleted) {
+        if(rowsDeleted >= 1) {
+            mAdapter.remove(entry);
+            Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.academic_term_removed), Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     public static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
@@ -108,6 +108,11 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
 
         public void setArrayList(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList) {
             mArrayList = arrayList;
+            notifyDataSetChanged();
+        }
+
+        public void remove(AcademicTermContract.AcademicTermEntry entry) {
+            mArrayList.remove(entry);
             notifyDataSetChanged();
         }
 
