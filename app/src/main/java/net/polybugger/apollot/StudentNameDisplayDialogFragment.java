@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.support.v7.preference.PreferenceManager;
@@ -28,6 +29,7 @@ public class StudentNameDisplayDialogFragment extends AppCompatDialogFragment {
         return new StudentNameDisplayDialogFragment();
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_student_name_display, null);

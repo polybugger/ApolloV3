@@ -1,6 +1,5 @@
 package net.polybugger.apollot;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -24,7 +23,8 @@ import net.polybugger.apollot.db.ApolloDbAdapter;
 
 import java.util.ArrayList;
 
-public class SettingsAcademicTermsActivity extends AppCompatActivity implements SettingsAcademicTermsActivityFragment.Listener {
+public class SettingsAcademicTermsActivity extends AppCompatActivity implements SettingsAcademicTermsActivityFragment.Listener,
+        SettingsAcademicTermsActivityFragment.DeleteDialogFragment.Listener {
 
     private RecyclerView mRecyclerView;
     private Adapter mAdapter;
@@ -48,7 +48,7 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
         mLinearLayoutManager = new LinearLayoutManager(this);
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mAdapter = new Adapter();
+        mAdapter = new Adapter(this);
         mRecyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -78,30 +78,31 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
     }
 
     @Override
-    public void onPreExecute() {
-
-    }
+    public void onPreExecute() { }
 
     @Override
-    public void onProgressUpdate(int percent) {
-
-    }
+    public void onProgressUpdate(int percent) { }
 
     @Override
-    public void onCancelled() {
-
-    }
+    public void onCancelled() { }
 
     @Override
     public void onPostExecute(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList) {
         mAdapter.setArrayList(arrayList);
     }
 
+    @Override
+    public void onDeleteAcademicTerm(AcademicTermContract.AcademicTermEntry entry) {
+
+    }
+
     public static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
+        private AppCompatActivity mActivity;
         private ArrayList<AcademicTermContract.AcademicTermEntry> mArrayList;
 
-        public Adapter() {
+        public Adapter(AppCompatActivity activity) {
+            mActivity = activity;
             mArrayList = new ArrayList<>();
         }
 
@@ -127,8 +128,21 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
             }
             GradientDrawable bg = (GradientDrawable) holder.mBackgroundLayout.getBackground();
             bg.setColor(color);
+            holder.mClickableLayout.setTag(entry);
             holder.mTextView.setText(entry.getDescription());
             holder.mImageButton.setTag(entry);
+            holder.mImageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentManager fm = mActivity.getSupportFragmentManager();
+                    SettingsAcademicTermsActivityFragment.DeleteDialogFragment df = (SettingsAcademicTermsActivityFragment.DeleteDialogFragment) fm.findFragmentByTag(SettingsAcademicTermsActivityFragment.DeleteDialogFragment.TAG);
+                    if(df == null) {
+                        df = SettingsAcademicTermsActivityFragment.DeleteDialogFragment.newInstance((AcademicTermContract.AcademicTermEntry) v.getTag());
+                        df.show(fm, SettingsAcademicTermsActivityFragment.DeleteDialogFragment.TAG);
+                    }
+                }
+            });
+
         }
 
         @Override
@@ -147,25 +161,8 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
                 super(itemView);
                 mBackgroundLayout = (LinearLayout) itemView.findViewById(R.id.background_layout);
                 mClickableLayout = (LinearLayout) itemView.findViewById(R.id.clickable_layout);
-                mClickableLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
                 mTextView =  (TextView) itemView.findViewById(R.id.text_view);
                 mImageButton = (ImageButton) itemView.findViewById(R.id.image_button);
-                mImageButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        AcademicTermContract.AcademicTermEntry entry = (AcademicTermContract.AcademicTermEntry) v.getTag();
-                        SQLiteDatabase db = ApolloDbAdapter.open();
-                        AcademicTermContract._delete(db, entry.getId());
-                        ApolloDbAdapter.close();
-
-                    }
-                });
             }
         }
     }

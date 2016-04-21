@@ -76,4 +76,7 @@
     <string name="student_name_display_changed">学生氏名並び替え変更済み。</string>
     <string name="default_time_start_changed">デフォルト時間開始変更済み。</string>
 
+    <string name="remove_this_academic_term">この学期を削除しますか？</string>
+    <string name="remove">削除</string>
+
 </resources>

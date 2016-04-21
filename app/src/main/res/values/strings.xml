@@ -79,4 +79,7 @@
     <string name="student_name_display_changed">Student name display changed.</string>
     <string name="default_time_start_changed">Default time start changed.</string>
 
+    <string name="remove_this_academic_term">Remove this academic term?</string>
+    <string name="remove">Remove</string>
+
 </resources>

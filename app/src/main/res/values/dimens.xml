@@ -21,6 +21,8 @@
 
     <dimen name="settings_item_padding">16dp</dimen>
 
+    <dimen name="dialog_fragment_margin">24dp</dimen>
+    <dimen name="dialog_fragment_padding">24dp</dimen>
     <dimen name="dialog_fragment_padding_top">24dp</dimen>
     <dimen name="dialog_fragment_padding_right">24dp</dimen>
     <dimen name="dialog_fragment_padding_bottom">24dp</dimen>
