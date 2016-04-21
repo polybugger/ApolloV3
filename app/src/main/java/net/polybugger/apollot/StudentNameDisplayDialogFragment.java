@@ -74,4 +74,10 @@ public class StudentNameDisplayDialogFragment extends AppCompatDialogFragment {
             throw new ClassCastException(activity.toString() + " must implement " + Listener.class.toString());
         }
     }
+
+    @Override
+    public void onDetach() {
+        mListener = null;
+        super.onDetach();
+    }
 }

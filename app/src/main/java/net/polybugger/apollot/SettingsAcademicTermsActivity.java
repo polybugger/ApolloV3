@@ -24,6 +24,7 @@ import net.polybugger.apollot.db.ApolloDbAdapter;
 import java.util.ArrayList;
 
 public class SettingsAcademicTermsActivity extends AppCompatActivity implements SettingsAcademicTermsActivityFragment.Listener,
+        SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment.Listener,
         SettingsAcademicTermsActivityFragment.DeleteDialogFragment.Listener {
 
     private Adapter mAdapter;
@@ -52,8 +53,13 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment df = (SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment) fm.findFragmentByTag(SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment.TAG);
+                if(df == null) {
+                    df = SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment.newInstance(null, getString(R.string.new_academic_term), getString(R.string.add));
+                    df.show(fm, SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment.TAG);
+                }
             }
         });
 
@@ -79,6 +85,16 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
     @Override
     public void onGetAcademicTerms(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList) {
         mAdapter.setArrayList(arrayList);
+    }
+
+    @Override
+    public void onConfirmInsertAcademicTerm(AcademicTermContract.AcademicTermEntry entry) {
+
+    }
+
+    @Override
+    public void onConfirmUpdateAcademicTerm(AcademicTermContract.AcademicTermEntry entry) {
+
     }
 
     @Override
@@ -111,6 +127,11 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
             notifyDataSetChanged();
         }
 
+        public void add(AcademicTermContract.AcademicTermEntry entry) {
+            mArrayList.add(entry);
+            notifyDataSetChanged();
+        }
+
         public void remove(AcademicTermContract.AcademicTermEntry entry) {
             mArrayList.remove(entry);
             notifyDataSetChanged();
@@ -134,6 +155,17 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
             GradientDrawable bg = (GradientDrawable) holder.mBackgroundLayout.getBackground();
             bg.setColor(color);
             holder.mClickableLayout.setTag(entry);
+            holder.mClickableLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentManager fm = mActivity.getSupportFragmentManager();
+                    SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment df = (SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment) fm.findFragmentByTag(SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment.TAG);
+                    if(df == null) {
+                        df = SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment.newInstance((AcademicTermContract.AcademicTermEntry) v.getTag(), mActivity.getString(R.string.update_academic_term), mActivity.getString(R.string.save_changes));
+                        df.show(fm, SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment.TAG);
+                    }
+                }
+            });
             holder.mTextView.setText(entry.getDescription());
             holder.mImageButton.setTag(entry);
             holder.mImageButton.setOnClickListener(new View.OnClickListener() {
@@ -147,7 +179,6 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
                     }
                 }
             });
-
         }
 
         @Override

@@ -47,6 +47,8 @@
     <dimen name="recycler_view_content_padding_right">8dp</dimen>
     <dimen name="recycler_view_content_padding_bottom">6dp</dimen>
     <dimen name="recycler_view_content_padding_left">8dp</dimen>
+    <dimen name="recycler_view_content_half_padding_right">4dp</dimen>
+    <dimen name="recycler_view_content_half_padding_left">4dp</dimen>
 
     <dimen name="button_padding">8dp</dimen>
 

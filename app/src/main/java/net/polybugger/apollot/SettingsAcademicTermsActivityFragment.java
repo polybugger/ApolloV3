@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -121,6 +122,102 @@ public class SettingsAcademicTermsActivityFragment extends Fragment {
         }
     }
 
+    public static class InsertUpdateDialogFragment extends DialogFragment {
+
+        public interface Listener {
+            void onConfirmInsertAcademicTerm(AcademicTermContract.AcademicTermEntry entry);
+            void onConfirmUpdateAcademicTerm(AcademicTermContract.AcademicTermEntry entry);
+        }
+
+        public static final String TAG = "net.polybugger.apollot.academic_term_insert_update_dialog_fragment";
+        public static final String ENTRY_ARG = "net.polybugger.apollot.entry_arg";
+        public static final String TITLE_ARG = "net.polybugger.apollot.title_arg";
+        public static final String BUTTON_TEXT_ARG = "net.polybugger.apollot.button_text_arg";
+
+        private Listener mListener;
+        private AcademicTermContract.AcademicTermEntry mEntry;
+        private EditText mEditText;
+        private TextView mErrorTextView;
+
+        public static InsertUpdateDialogFragment newInstance(AcademicTermContract.AcademicTermEntry entry, String title, String buttonText) {
+            InsertUpdateDialogFragment df = new InsertUpdateDialogFragment();
+            Bundle args = new Bundle();
+            args.putSerializable(ENTRY_ARG, entry);
+            args.putString(TITLE_ARG, title);
+            args.putString(BUTTON_TEXT_ARG, buttonText);
+            df.setArguments(args);
+            return df;
+        }
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            Bundle args = getArguments();
+            mEntry = (AcademicTermContract.AcademicTermEntry) args.getSerializable(ENTRY_ARG);
+            String title = args.getString(TITLE_ARG);
+            String buttonText = args.getString(BUTTON_TEXT_ARG);
+            View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_academic_term_insert_update, null);
+            mEditText = (EditText) view.findViewById(R.id.edit_text);
+            mErrorTextView = (TextView) view.findViewById(R.id.error_text_view);
+            if(mEntry == null)
+                mEntry = new AcademicTermContract.AcademicTermEntry(-1, null, null);
+            mEditText.setText(mEntry.getDescription());
+            LinearLayout backgroundLayout = (LinearLayout) view.findViewById(R.id.background_layout);
+            int color;
+            try {
+                color = Color.parseColor(mEntry.getColor());
+            }
+            catch(Exception e) {
+                color = Color.TRANSPARENT;
+            }
+            GradientDrawable bg = (GradientDrawable) backgroundLayout.getBackground();
+            bg.setColor(color);
+            final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                    .setTitle(title)
+                    .setView(view)
+                    .setNegativeButton(R.string.cancel, null)
+                    .setPositiveButton(buttonText, null)
+                    .create();
+            alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    Button button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mEntry.setColor(mEditText.getText().toString());
+                            if(mEntry.getId() == -1) {
+                                mListener.onConfirmInsertAcademicTerm(mEntry);
+                            }
+                            else {
+                                mListener.onConfirmUpdateAcademicTerm(mEntry);
+                            }
+                            dismiss();
+                        }
+                    });
+                }
+            });
+            return alertDialog;
+        }
+
+        @Override
+        public void onAttach(Activity activity) {
+            super.onAttach(activity);
+            try {
+                mListener = (Listener) activity;
+            }
+            catch(ClassCastException e) {
+                throw new ClassCastException(activity.toString() + " must implement " + Listener.class.toString());
+            }
+        }
+
+        @Override
+        public void onDetach() {
+            mListener = null;
+            super.onDetach();
+        }
+    }
+
     public static class DeleteDialogFragment extends DialogFragment {
 
         public interface Listener {
@@ -159,7 +256,7 @@ public class SettingsAcademicTermsActivityFragment extends Fragment {
             TextView textView = (TextView) view.findViewById(R.id.text_view);
             textView.setText(entry.getDescription());
             final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
-                    .setTitle(R.string.remove_this_academic_term)
+                    .setTitle(R.string.remove_academic_term)
                     .setView(view)
                     .setNegativeButton(R.string.cancel, null)
                     .setPositiveButton(R.string.remove, null)
@@ -189,6 +286,12 @@ public class SettingsAcademicTermsActivityFragment extends Fragment {
             catch(ClassCastException e) {
                 throw new ClassCastException(activity.toString() + " must implement " + Listener.class.toString());
             }
+        }
+
+        @Override
+        public void onDetach() {
+            mListener = null;
+            super.onDetach();
         }
     }
 }
