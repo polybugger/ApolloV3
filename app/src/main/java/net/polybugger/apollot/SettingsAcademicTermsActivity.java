@@ -18,15 +18,16 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import net.polybugger.apollot.db.AcademicTermContract;
 import net.polybugger.apollot.db.ApolloDbAdapter;
 
-import java.util.ArrayList;
-
 public class SettingsAcademicTermsActivity extends AppCompatActivity implements SettingsAcademicTermsActivityFragment.Listener,
-        SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment.Listener,
-        SettingsAcademicTermsActivityFragment.DeleteDialogFragment.Listener {
+        AcademicTermInsertUpdateDialogFragment.Listener,
+        AcademicTermDeleteDialogFragment.Listener {
 
+    private RecyclerView mRecyclerView;
     private Adapter mAdapter;
 
     @Override
@@ -42,23 +43,23 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new Adapter(this);
-        recyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment df = (SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment) fm.findFragmentByTag(SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment.TAG);
+                AcademicTermInsertUpdateDialogFragment df = (AcademicTermInsertUpdateDialogFragment) fm.findFragmentByTag(AcademicTermInsertUpdateDialogFragment.TAG);
                 if(df == null) {
-                    df = SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment.newInstance(null, getString(R.string.new_academic_term), getString(R.string.add));
-                    df.show(fm, SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment.TAG);
+                    df = AcademicTermInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_academic_term), getString(R.string.add));
+                    df.show(fm, AcademicTermInsertUpdateDialogFragment.TAG);
                 }
             }
         });
@@ -88,13 +89,34 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
     }
 
     @Override
-    public void onConfirmInsertAcademicTerm(AcademicTermContract.AcademicTermEntry entry) {
-
+    public void onConfirmInsertUpdateAcademicTerm(AcademicTermContract.AcademicTermEntry entry) {
+        SettingsAcademicTermsActivityFragment rf = (SettingsAcademicTermsActivityFragment) getSupportFragmentManager().findFragmentByTag(SettingsAcademicTermsActivityFragment.TAG);
+        if(rf != null) {
+            if(entry.getId() == -1)
+                rf.insertAcademicTerm(entry);
+            else
+                rf.updateAcademicTerm(entry);
+        }
     }
 
+    // TODO add description text to snackbar
     @Override
-    public void onConfirmUpdateAcademicTerm(AcademicTermContract.AcademicTermEntry entry) {
+    public void onInsertAcademicTerm(AcademicTermContract.AcademicTermEntry entry, long id) {
+        if(entry.getId() == -1) {
+            entry.setId(id);
+            mAdapter.add(entry);
+            mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
+            Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.academic_term_added), Snackbar.LENGTH_SHORT).show();
+        }
+    }
 
+    // TODO add description text to snackbar
+    @Override
+    public void onUpdateAcademicTerm(AcademicTermContract.AcademicTermEntry entry, int rowsUpdated) {
+        if(rowsUpdated >= 1) {
+            mAdapter.update(entry);
+            Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.academic_term_updated), Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -104,6 +126,7 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
             rf.deleteAcademicTerm(entry);
     }
 
+    // TODO add description text to snackbar
     @Override
     public void onDeleteAcademicTerm(AcademicTermContract.AcademicTermEntry entry, int rowsDeleted) {
         if(rowsDeleted >= 1) {
@@ -132,6 +155,13 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
             notifyDataSetChanged();
         }
 
+        public void update(AcademicTermContract.AcademicTermEntry entry) {
+            int pos = mArrayList.indexOf(entry);
+            mArrayList.remove(pos);
+            mArrayList.add(pos, entry);
+            notifyDataSetChanged();
+        }
+
         public void remove(AcademicTermContract.AcademicTermEntry entry) {
             mArrayList.remove(entry);
             notifyDataSetChanged();
@@ -145,24 +175,21 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             AcademicTermContract.AcademicTermEntry entry = mArrayList.get(position);
-            int color;
+            int color = Color.TRANSPARENT;
             try {
                 color = Color.parseColor(entry.getColor());
             }
-            catch(Exception e) {
-                color = Color.TRANSPARENT;
-            }
-            GradientDrawable bg = (GradientDrawable) holder.mBackgroundLayout.getBackground();
-            bg.setColor(color);
+            catch(Exception e) { }
+            ((GradientDrawable) holder.mBackgroundLayout.getBackground()).setColor(color);
             holder.mClickableLayout.setTag(entry);
             holder.mClickableLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     FragmentManager fm = mActivity.getSupportFragmentManager();
-                    SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment df = (SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment) fm.findFragmentByTag(SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment.TAG);
+                    AcademicTermInsertUpdateDialogFragment df = (AcademicTermInsertUpdateDialogFragment) fm.findFragmentByTag(AcademicTermInsertUpdateDialogFragment.TAG);
                     if(df == null) {
-                        df = SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment.newInstance((AcademicTermContract.AcademicTermEntry) v.getTag(), mActivity.getString(R.string.update_academic_term), mActivity.getString(R.string.save_changes));
-                        df.show(fm, SettingsAcademicTermsActivityFragment.InsertUpdateDialogFragment.TAG);
+                        df = AcademicTermInsertUpdateDialogFragment.newInstance((AcademicTermContract.AcademicTermEntry) v.getTag(), mActivity.getString(R.string.update_academic_term), mActivity.getString(R.string.save_changes));
+                        df.show(fm, AcademicTermInsertUpdateDialogFragment.TAG);
                     }
                 }
             });
@@ -172,10 +199,10 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
                 @Override
                 public void onClick(View v) {
                     FragmentManager fm = mActivity.getSupportFragmentManager();
-                    SettingsAcademicTermsActivityFragment.DeleteDialogFragment df = (SettingsAcademicTermsActivityFragment.DeleteDialogFragment) fm.findFragmentByTag(SettingsAcademicTermsActivityFragment.DeleteDialogFragment.TAG);
+                    AcademicTermDeleteDialogFragment df = (AcademicTermDeleteDialogFragment) fm.findFragmentByTag(AcademicTermDeleteDialogFragment.TAG);
                     if(df == null) {
-                        df = SettingsAcademicTermsActivityFragment.DeleteDialogFragment.newInstance((AcademicTermContract.AcademicTermEntry) v.getTag());
-                        df.show(fm, SettingsAcademicTermsActivityFragment.DeleteDialogFragment.TAG);
+                        df = AcademicTermDeleteDialogFragment.newInstance((AcademicTermContract.AcademicTermEntry) v.getTag());
+                        df.show(fm, AcademicTermDeleteDialogFragment.TAG);
                     }
                 }
             });

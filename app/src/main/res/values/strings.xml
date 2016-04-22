@@ -91,4 +91,6 @@
     <string name="save_changes">Save Changes</string>
     <string name="academic_term_updated">Academic term updated.</string>
 
+    <string name="please_enter_an_academic_term">Please enter an academic term!</string>
+
 </resources>

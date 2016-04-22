@@ -16,11 +16,14 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:paddingRight="@dimen/recycler_view_content_half_padding_right"
-        android:paddingLeft="@dimen/recycler_view_content_half_padding_left">
+        android:paddingTop="@dimen/recycler_view_content_padding_top"
+        android:paddingRight="@dimen/recycler_view_content_padding_right"
+        android:paddingBottom="@dimen/recycler_view_content_padding_bottom"
+        android:paddingLeft="@dimen/recycler_view_content_padding_left">
 
         <EditText
             android:id="@+id/edit_text"
+            android:background="@android:color/transparent"
             android:inputType="text"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -29,8 +32,6 @@
             android:id="@+id/error_text_view"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:paddingLeft="@dimen/edit_text_text_view_padding_left"
-            android:paddingRight="@dimen/edit_text_text_view_padding_right"
             android:textColor="@color/colorError"
             android:textSize="@dimen/small_text_size" />
 

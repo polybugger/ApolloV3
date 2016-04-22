@@ -69,16 +69,15 @@ public class UnlockPasswordChangeDialogFragment extends AppCompatDialogFragment 
                         String savedPassword = sharedPref.getString(getString(R.string.unlock_password_key), getString(R.string.default_unlock_password));
                         String password = mPasswordEditText.getText().toString();
                         if(!StringUtils.equals(savedPassword, password)) {
-                            mPasswordErrorTextView.setText(getString(R.string.incorrect_password));
+                            mPasswordErrorTextView.setText(R.string.incorrect_password);
                             mPasswordEditText.requestFocus();
+                            return;
                         }
-                        else {
-                            String newPassword = mNewPasswordEditText.getText().toString();
-                            sharedPref.edit().putString(getString(R.string.unlock_password_key), newPassword).apply();
-                            String message = StringUtils.isEmpty(newPassword) ? getString(R.string.unlock_password_cleared) : getString(R.string.unlock_password_changed);
-                            mListener.onChangeUnlockPassword(message);
-                            dismiss();
-                        }
+                        String newPassword = mNewPasswordEditText.getText().toString();
+                        sharedPref.edit().putString(getString(R.string.unlock_password_key), newPassword).apply();
+                        String message = StringUtils.isEmpty(newPassword) ? getString(R.string.unlock_password_cleared) : getString(R.string.unlock_password_changed);
+                        mListener.onChangeUnlockPassword(message);
+                        dismiss();
                     }
                 });
             }
