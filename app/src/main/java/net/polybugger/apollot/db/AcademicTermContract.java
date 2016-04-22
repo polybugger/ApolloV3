@@ -164,7 +164,7 @@ public class AcademicTermContract {
         }
 
         public void setColor(String color) {
-            this.mColor = color;
+            mColor = color;
         }
 
         @Override

@@ -87,7 +87,7 @@
 
         <TextView
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:paddingTop="@dimen/activity_padding_top"
             android:paddingRight="@dimen/activity_padding_right"
             android:paddingLeft="@dimen/activity_padding_left"
@@ -135,7 +135,7 @@
 
         <TextView
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:paddingTop="@dimen/activity_padding_top"
             android:paddingRight="@dimen/activity_padding_right"
             android:paddingLeft="@dimen/activity_padding_left"

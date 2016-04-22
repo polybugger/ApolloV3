@@ -41,8 +41,8 @@
     <string name="days_saturday">Saturday</string>
     <string name="days_sunday">Sunday</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
     <string name="day_activities">Today\'s Activities</string>
     <string name="week_activities">This Week\'s Activities</string>

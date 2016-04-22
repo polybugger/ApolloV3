@@ -15,18 +15,18 @@
     <string name="default_class_item_type_9">Midterm Exam</string>
     <string name="default_class_item_type_10">Final Exam</string>
 
-    <string name="default_class_item_type_color_0">#FFFFFF8D</string> <!-- lecture. -->
-    <string name="default_class_item_type_color_0a">#FFFFFF8D</string> <!-- lesson. -->
-    <string name="default_class_item_type_color_1">#FF7ED8FD</string> <!-- homework. -->
-    <string name="default_class_item_type_color_1a">#FF7ED8FD</string> <!-- assignment. -->
-    <string name="default_class_item_type_color_2">#FFA6FFE9</string> <!-- exercise. -->
-    <string name="default_class_item_type_color_3">#FFCBFF90</string> <!-- short quiz. -->
-    <string name="default_class_item_type_color_4">#FFCED8DA</string> <!-- long exam. -->
-    <string name="default_class_item_type_color_5">#00000000</string> <!-- project transparent -->
-    <string name="default_class_item_type_color_6">#00000000</string> <!-- essay -->
-    <string name="default_class_item_type_color_7">#00000000</string> <!-- report -->
-    <string name="default_class_item_type_color_8">#FFFF8A80</string> <!-- quarter exam. -->
-    <string name="default_class_item_type_color_9">#FFFED17E</string> <!-- midterm exam. -->
-    <string name="default_class_item_type_color_10">#FFFF8A80</string> <!-- final exam. -->
+    <string name="default_class_item_type_color_0" translatable="false">#FFFFFF8D</string> <!-- lecture. -->
+    <string name="default_class_item_type_color_0a" translatable="false">#FFFFFF8D</string> <!-- lesson. -->
+    <string name="default_class_item_type_color_1" translatable="false">#FF7ED8FD</string> <!-- homework. -->
+    <string name="default_class_item_type_color_1a" translatable="false">#FF7ED8FD</string> <!-- assignment. -->
+    <string name="default_class_item_type_color_2" translatable="false">#FFA6FFE9</string> <!-- exercise. -->
+    <string name="default_class_item_type_color_3" translatable="false">#FFCBFF90</string> <!-- short quiz. -->
+    <string name="default_class_item_type_color_4" translatable="false">#FFCED8DA</string> <!-- long exam. -->
+    <string name="default_class_item_type_color_5" translatable="false">#00000000</string> <!-- project transparent -->
+    <string name="default_class_item_type_color_6" translatable="false">#00000000</string> <!-- essay -->
+    <string name="default_class_item_type_color_7" translatable="false">#00000000</string> <!-- report -->
+    <string name="default_class_item_type_color_8" translatable="false">#FFFF8A80</string> <!-- quarter exam. -->
+    <string name="default_class_item_type_color_9" translatable="false">#FFFED17E</string> <!-- midterm exam. -->
+    <string name="default_class_item_type_color_10" translatable="false">#FFFF8A80</string> <!-- final exam. -->
 
 </resources>

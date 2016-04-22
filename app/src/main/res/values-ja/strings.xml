@@ -33,16 +33,13 @@
     <string name="days_s">土</string>
     <string name="days_su">日</string>
 
-    <string name="days_monday">月</string>
-    <string name="days_tuesday">火</string>
-    <string name="days_wednesday">水</string>
-    <string name="days_thursday">木</string>
-    <string name="days_friday">金</string>
-    <string name="days_saturday">土</string>
-    <string name="days_sunday">日</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="days_monday">月曜日</string>
+    <string name="days_tuesday">火曜日</string>
+    <string name="days_wednesday">水曜日</string>
+    <string name="days_thursday">木曜日</string>
+    <string name="days_friday">金曜日</string>
+    <string name="days_saturday">土曜日</string>
+    <string name="days_sunday">日曜日</string>
 
     <string name="day_activities">今日のアクティビティー</string>
     <string name="week_activities">今週のアクティビティー</string>
@@ -83,14 +80,14 @@
     <string name="remove">削除</string>
     <string name="academic_term_removed">学期削除済み。</string>
 
-    <string name="new_academic_term">New academic term?</string>
-    <string name="add">Add</string>
-    <string name="academic_term_added">Academic term added.</string>
+    <string name="new_academic_term">新しい学期を作りますか？</string>
+    <string name="add">追加</string>
+    <string name="academic_term_added">学期追加済み。</string>
 
-    <string name="update_academic_term">Update academic term?</string>
-    <string name="save_changes">Save Changes</string>
-    <string name="academic_term_updated">Academic term updated.</string>
+    <string name="update_academic_term">学期を更新しますか？</string>
+    <string name="save_changes">変更を保存</string>
+    <string name="academic_term_updated">学期更新済み。</string>
 
-    <string name="please_enter_an_academic_term">Please enter an academic term!</string>
+    <string name="please_enter_an_academic_term">学期を記入してください！</string>
 
 </resources>

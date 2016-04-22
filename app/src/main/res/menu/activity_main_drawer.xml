@@ -40,7 +40,7 @@
 
         <item
             android:id="@+id/nav_students"
-            android:icon="@drawable/ic_people_black_36dp"
+            android:icon="@drawable/ic_people_black_24dp"
             android:title="@string/students" />
 
     </group>
