@@ -56,7 +56,7 @@ public class SettingsAcademicTermsActivityFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof Activity){
+        if(context instanceof Activity) {
             try {
                 mListener = (Listener) context;
             }

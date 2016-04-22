@@ -35,24 +35,21 @@ public class SettingsActivity extends AppCompatActivity implements DefaultTimeSt
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
 
-        View academicTermsSettingsItem = findViewById(R.id.academic_terms_settings_item);
-        academicTermsSettingsItem.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.academic_terms_settings_item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SettingsActivity.this, SettingsAcademicTermsActivity.class));
             }
         });
 
-        View classActivitiesSettingsItem = findViewById(R.id.class_activities_settings_item);
-        classActivitiesSettingsItem.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.class_activities_settings_item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
 
-        View defaultTimeStartSettingsItem = findViewById(R.id.default_time_start_settings_item);
-        defaultTimeStartSettingsItem.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.default_time_start_settings_item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
@@ -64,16 +61,14 @@ public class SettingsActivity extends AppCompatActivity implements DefaultTimeSt
             }
         });
 
-        View finalGradeCalculationSettingsItem = findViewById(R.id.final_grade_calculation_settings_item);
-        finalGradeCalculationSettingsItem.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.final_grade_calculation_settings_item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
 
-        View studentNameDisplaySettingsItem = findViewById(R.id.student_name_display_settings_item);
-        studentNameDisplaySettingsItem.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.student_name_display_settings_item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
@@ -96,16 +91,14 @@ public class SettingsActivity extends AppCompatActivity implements DefaultTimeSt
             }
         });
 
-        View lockEnabledSettingsItem = findViewById(R.id.lock_enabled_settings_item);
-        lockEnabledSettingsItem.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.lock_enabled_settings_item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mLockEnabledSwitch.setChecked(!mLockEnabledSwitch.isChecked());
             }
         });
 
-        View unlockPasswordSettingsItem = findViewById(R.id.unlock_password_settings_item);
-        unlockPasswordSettingsItem.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.unlock_password_settings_item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
@@ -117,8 +110,7 @@ public class SettingsActivity extends AppCompatActivity implements DefaultTimeSt
             }
         });
 
-        View aboutThisAppSettingsItem = findViewById(R.id.about_this_app_settings_item);
-        aboutThisAppSettingsItem.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.about_this_app_settings_item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -146,7 +138,7 @@ public class SettingsActivity extends AppCompatActivity implements DefaultTimeSt
             public void run() {
                 Snackbar.make(findViewById(R.id.coordinator_layout), message, Snackbar.LENGTH_SHORT).show();
             }
-        }, 500);
+        }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
     }
 
     @Override
@@ -156,7 +148,7 @@ public class SettingsActivity extends AppCompatActivity implements DefaultTimeSt
             public void run() {
                 Snackbar.make(findViewById(R.id.coordinator_layout), message, Snackbar.LENGTH_SHORT).show();
             }
-        }, 500);
+        }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
     }
 
     @Override
@@ -166,6 +158,6 @@ public class SettingsActivity extends AppCompatActivity implements DefaultTimeSt
             public void run() {
                 Snackbar.make(findViewById(R.id.coordinator_layout), message, Snackbar.LENGTH_SHORT).show();
             }
-        }, 500);
+        }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
     }
 }

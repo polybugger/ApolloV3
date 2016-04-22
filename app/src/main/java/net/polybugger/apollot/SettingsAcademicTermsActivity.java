@@ -3,7 +3,7 @@ package net.polybugger.apollot;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -51,8 +51,7 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
         mAdapter = new Adapter(this);
         mRecyclerView.setAdapter(mAdapter);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
@@ -106,7 +105,12 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
             entry.setId(id);
             mAdapter.add(entry);
             mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
-            Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.academic_term_added), Snackbar.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.academic_term_added), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
         }
     }
 
@@ -115,7 +119,12 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
     public void onUpdateAcademicTerm(AcademicTermContract.AcademicTermEntry entry, int rowsUpdated) {
         if(rowsUpdated >= 1) {
             mAdapter.update(entry);
-            Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.academic_term_updated), Snackbar.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.academic_term_updated), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
         }
     }
 
@@ -131,7 +140,12 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
     public void onDeleteAcademicTerm(AcademicTermContract.AcademicTermEntry entry, int rowsDeleted) {
         if(rowsDeleted >= 1) {
             mAdapter.remove(entry);
-            Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.academic_term_removed), Snackbar.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.academic_term_removed), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
         }
     }
 

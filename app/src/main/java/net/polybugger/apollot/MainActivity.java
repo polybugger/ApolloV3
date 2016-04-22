@@ -23,6 +23,8 @@ import net.polybugger.apollot.db.StudentNameDisplayEnum;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final long SNACKBAR_POST_DELAYED_MSEC = 500;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

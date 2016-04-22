@@ -21,7 +21,7 @@ public class AcademicTermDeleteDialogFragment extends DialogFragment {
         void onConfirmDeleteAcademicTerm(AcademicTermContract.AcademicTermEntry entry);
     }
 
-    public static final String TAG = "net.polybugger.apollot.academic_term_delete_dialog_fragment";
+    public static final String TAG = "net.polybugger.apollot.delete_academic_term_dialog_fragment";
     public static final String ENTRY_ARG = "net.polybugger.apollot.entry_arg";
 
     private Listener mListener;
@@ -56,8 +56,7 @@ public class AcademicTermDeleteDialogFragment extends DialogFragment {
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                Button button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                button.setOnClickListener(new View.OnClickListener() {
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         mListener.onConfirmDeleteAcademicTerm(entry);

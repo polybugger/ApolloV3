@@ -27,7 +27,7 @@ public class AcademicTermInsertUpdateDialogFragment extends DialogFragment {
         void onConfirmInsertUpdateAcademicTerm(AcademicTermContract.AcademicTermEntry entry);
     }
 
-    public static final String TAG = "net.polybugger.apollot.academic_term_insert_update_dialog_fragment";
+    public static final String TAG = "net.polybugger.apollot.insert_update_academic_term_dialog_fragment";
     public static final String ENTRY_ARG = "net.polybugger.apollot.entry_arg";
     public static final String TITLE_ARG = "net.polybugger.apollot.title_arg";
     public static final String BUTTON_TEXT_ARG = "net.polybugger.apollot.button_text_arg";
@@ -86,8 +86,7 @@ public class AcademicTermInsertUpdateDialogFragment extends DialogFragment {
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                Button button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                button.setOnClickListener(new View.OnClickListener() {
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String description = mEditText.getText().toString();

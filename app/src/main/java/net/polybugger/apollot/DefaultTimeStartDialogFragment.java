@@ -43,13 +43,11 @@ public class DefaultTimeStartDialogFragment extends AppCompatDialogFragment {
         mTimePicker.setIs24HourView(false);
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DB_TEMPLATE, getResources().getConfiguration().locale);
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        Date defaultTimeStart;
+        Date defaultTimeStart = new Date();
         try {
             defaultTimeStart = sdf.parse(sharedPref.getString(getString(R.string.default_time_start_key), getString(R.string.default_time_start_time)));
         }
-        catch(Exception e) {
-            defaultTimeStart = new Date();
-        }
+        catch(Exception e) { }
         Calendar cal = Calendar.getInstance();
         cal.setTime(defaultTimeStart);
         if(Build.VERSION.SDK_INT >= 23 ) {
