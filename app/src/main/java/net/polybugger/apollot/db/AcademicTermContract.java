@@ -2,6 +2,8 @@ package net.polybugger.apollot.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
@@ -103,29 +105,36 @@ public class AcademicTermContract {
         return entries;
     }
 
-    // TODO reorder terms for "ja", Spring, Summer, Fall, Winter
     public static void _insertDefaultAcademicTerms(SQLiteDatabase db, Context context) {
+        ArrayList<AcademicTermEntry> defaultEntries = new ArrayList<>();
+        Resources res = context.getResources();
+        TypedArray ta = res.obtainTypedArray(R.array.default_academic_terms);
+        String[] entry;
+        int n = ta.length();
+        for(int i = 0; i < n; ++i) {
+            int id = ta.getResourceId(i, 0);
+            if(id > 0) {
+                entry = res.getStringArray(id);
+                defaultEntries.add(new AcademicTermEntry(-1, entry[0], entry[1]));
+            }
+        }
+        ta.recycle();
+        // TODO reorder terms for "ja", Spring, Summer, Fall, Winter
         if(StringUtils.equalsIgnoreCase(context.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE)) {
-            _insert(db, context.getString(R.string.default_academic_term_1), context.getString(R.string.default_academic_term_color_1));
-            _insert(db, context.getString(R.string.default_academic_term_2), context.getString(R.string.default_academic_term_color_2));
-            _insert(db, context.getString(R.string.default_academic_term_0), context.getString(R.string.default_academic_term_color_0));
-            _insert(db, context.getString(R.string.default_academic_term_3), context.getString(R.string.default_academic_term_color_3));
+            _insert(db, defaultEntries.get(1).getDescription(), defaultEntries.get(1).getColor());
+            _insert(db, defaultEntries.get(2).getDescription(), defaultEntries.get(2).getColor());
+            _insert(db, defaultEntries.get(0).getDescription(), defaultEntries.get(0).getColor());
+            _insert(db, defaultEntries.get(3).getDescription(), defaultEntries.get(3).getColor());
         }
         else {
-            _insert(db, context.getString(R.string.default_academic_term_0), context.getString(R.string.default_academic_term_color_0));
-            _insert(db, context.getString(R.string.default_academic_term_1), context.getString(R.string.default_academic_term_color_1));
-            _insert(db, context.getString(R.string.default_academic_term_2), context.getString(R.string.default_academic_term_color_2));
-            _insert(db, context.getString(R.string.default_academic_term_3), context.getString(R.string.default_academic_term_color_3));
+            _insert(db, defaultEntries.get(0).getDescription(), defaultEntries.get(0).getColor());
+            _insert(db, defaultEntries.get(1).getDescription(), defaultEntries.get(1).getColor());
+            _insert(db, defaultEntries.get(2).getDescription(), defaultEntries.get(2).getColor());
+            _insert(db, defaultEntries.get(3).getDescription(), defaultEntries.get(3).getColor());
         }
-        _insert(db, context.getString(R.string.default_academic_term_4), context.getString(R.string.default_academic_term_color_4));
-        _insert(db, context.getString(R.string.default_academic_term_5), context.getString(R.string.default_academic_term_color_5));
-        _insert(db, context.getString(R.string.default_academic_term_6), context.getString(R.string.default_academic_term_color_6));
-        _insert(db, context.getString(R.string.default_academic_term_7), context.getString(R.string.default_academic_term_color_7));
-        _insert(db, context.getString(R.string.default_academic_term_8), context.getString(R.string.default_academic_term_color_8));
-        _insert(db, context.getString(R.string.default_academic_term_9), context.getString(R.string.default_academic_term_color_9));
-        _insert(db, context.getString(R.string.default_academic_term_10), context.getString(R.string.default_academic_term_color_10));
-        _insert(db, context.getString(R.string.default_academic_term_11), context.getString(R.string.default_academic_term_color_11));
-        _insert(db, context.getString(R.string.default_academic_term_12), context.getString(R.string.default_academic_term_color_12));
+        n = defaultEntries.size();
+        for(int i = 4; i < n; ++i)
+            _insert(db, defaultEntries.get(i).getDescription(), defaultEntries.get(i).getColor());
     }
 
     public static class AcademicTermEntry implements BaseColumns, Serializable {

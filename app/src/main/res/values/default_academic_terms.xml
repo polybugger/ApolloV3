@@ -15,18 +15,4 @@
     <string name="default_academic_term_11">3rd Quarter</string>
     <string name="default_academic_term_12">4th Quarter</string>
 
-    <string name="default_academic_term_color_0" translatable="false">#FFFED17E</string> <!-- fall. -->
-    <string name="default_academic_term_color_1" translatable="false">#FFCBFF90</string> <!-- spring. -->
-    <string name="default_academic_term_color_2" translatable="false">#FFFF8A80</string> <!-- summer. -->
-    <string name="default_academic_term_color_3" translatable="false">#FF7ED8FD</string> <!-- winter. -->
-    <string name="default_academic_term_color_4" translatable="false">#FFCED8DA</string> <!-- 1st semester. -->
-    <string name="default_academic_term_color_5" translatable="false">#FFA6FFE9</string> <!-- 2nd semester. -->
-    <string name="default_academic_term_color_6" translatable="false">#00000000</string> <!-- 1st trimester transparent -->
-    <string name="default_academic_term_color_7" translatable="false">#00000000</string> <!-- 2nd trimester -->
-    <string name="default_academic_term_color_8" translatable="false">#00000000</string> <!-- 3rd trimester -->
-    <string name="default_academic_term_color_9" translatable="false">#00000000</string> <!-- 1st quarter -->
-    <string name="default_academic_term_color_10" translatable="false">#00000000</string> <!-- 2nd quarter -->
-    <string name="default_academic_term_color_11" translatable="false">#00000000</string> <!-- 3rd quarter -->
-    <string name="default_academic_term_color_12" translatable="false">#00000000</string> <!-- 4th quarter -->
-
 </resources>

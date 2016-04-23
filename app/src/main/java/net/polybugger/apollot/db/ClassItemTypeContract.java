@@ -2,6 +2,8 @@ package net.polybugger.apollot.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
@@ -103,19 +105,18 @@ public class ClassItemTypeContract {
     }
 
     public static void _insertDefaultClassItemTypes(SQLiteDatabase db, Context context) {
-        _insert(db, context.getString(R.string.default_class_item_type_0), context.getString(R.string.default_class_item_type_color_0));
-        _insert(db, context.getString(R.string.default_class_item_type_0a), context.getString(R.string.default_class_item_type_color_0a));
-        _insert(db, context.getString(R.string.default_class_item_type_1), context.getString(R.string.default_class_item_type_color_1));
-        _insert(db, context.getString(R.string.default_class_item_type_1a), context.getString(R.string.default_class_item_type_color_1a));
-        _insert(db, context.getString(R.string.default_class_item_type_2), context.getString(R.string.default_class_item_type_color_2));
-        _insert(db, context.getString(R.string.default_class_item_type_3), context.getString(R.string.default_class_item_type_color_3));
-        _insert(db, context.getString(R.string.default_class_item_type_4), context.getString(R.string.default_class_item_type_color_4));
-        _insert(db, context.getString(R.string.default_class_item_type_5), context.getString(R.string.default_class_item_type_color_5));
-        _insert(db, context.getString(R.string.default_class_item_type_6), context.getString(R.string.default_class_item_type_color_6));
-        _insert(db, context.getString(R.string.default_class_item_type_7), context.getString(R.string.default_class_item_type_color_7));
-        _insert(db, context.getString(R.string.default_class_item_type_8), context.getString(R.string.default_class_item_type_color_8));
-        _insert(db, context.getString(R.string.default_class_item_type_9), context.getString(R.string.default_class_item_type_color_9));
-        _insert(db, context.getString(R.string.default_class_item_type_10), context.getString(R.string.default_class_item_type_color_10));
+        Resources res = context.getResources();
+        TypedArray ta = res.obtainTypedArray(R.array.default_class_item_types);
+        String[] entry;
+        int n = ta.length();
+        for(int i = 0; i < n; ++i) {
+            int id = ta.getResourceId(i, 0);
+            if(id > 0) {
+                entry = res.getStringArray(id);
+                _insert(db, entry[0], entry[1]);
+            }
+        }
+        ta.recycle();
     }
 
     public static class ClassItemTypeEntry implements BaseColumns, Serializable {
