@@ -11,7 +11,7 @@
     <LinearLayout
         android:id="@+id/background_layout"
         android:elevation="@dimen/low_elevation"
-        android:background="@drawable/bg_rounded_rect"
+        android:background="@drawable/bg_rounded_rect_0"
         android:layout_margin="@dimen/dialog_fragment_margin"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"

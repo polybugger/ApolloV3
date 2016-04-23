@@ -40,12 +40,7 @@ public class AcademicTermDeleteDialogFragment extends DialogFragment {
         Bundle args = getArguments();
         final AcademicTermContract.AcademicTermEntry entry = (AcademicTermContract.AcademicTermEntry) args.getSerializable(ENTRY_ARG);
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_academic_term_delete, null);
-        int color = Color.TRANSPARENT;
-        try {
-            color = Color.parseColor(entry.getColor());
-        }
-        catch(Exception e) { }
-        ((GradientDrawable) view.findViewById(R.id.background_layout).getBackground()).setColor(color);
+        view.findViewById(R.id.background_layout).setBackgroundResource(BackgroundRect.getBackgroundResource(entry.getColor(), getActivity()));
         ((TextView) view.findViewById(R.id.text_view)).setText(entry.getDescription());
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.remove_academic_term)

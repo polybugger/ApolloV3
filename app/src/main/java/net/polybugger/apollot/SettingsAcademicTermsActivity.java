@@ -189,12 +189,7 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             AcademicTermContract.AcademicTermEntry entry = mArrayList.get(position);
-            int color = Color.TRANSPARENT;
-            try {
-                color = Color.parseColor(entry.getColor());
-            }
-            catch(Exception e) { }
-            ((GradientDrawable) holder.mBackgroundLayout.getBackground()).setColor(color);
+            holder.mBackgroundLayout.setBackgroundResource(BackgroundRect.getBackgroundResource(entry.getColor(), mActivity));
             holder.mClickableLayout.setTag(entry);
             holder.mClickableLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

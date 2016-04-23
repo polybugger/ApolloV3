@@ -69,14 +69,11 @@ public class AcademicTermInsertUpdateDialogFragment extends DialogFragment {
         });
         if(mEntry == null)
             mEntry = new AcademicTermContract.AcademicTermEntry(-1, "", null);
-        int color = Color.TRANSPARENT;
-        try {
-            color = Color.parseColor(mEntry.getColor());
+        else {
+            mBackgroundLayout.setBackgroundResource(BackgroundRect.getBackgroundResource(mEntry.getColor(), getActivity()));
+            mEditText.setText(mEntry.getDescription());
+            mEditText.setSelection(mEditText.getText().length());
         }
-        catch(Exception e) { }
-        ((GradientDrawable) mBackgroundLayout.getBackground()).setColor(color);
-        mEditText.setText(mEntry.getDescription());
-        mEditText.setSelection(mEditText.getText().length());
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(args.getString(TITLE_ARG))
                 .setView(view)

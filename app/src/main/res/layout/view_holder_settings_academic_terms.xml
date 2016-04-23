@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/background_layout"
         android:elevation="@dimen/low_elevation"
-        android:background="@drawable/bg_rounded_rect"
+        android:background="@drawable/bg_rounded_rect_0"
         android:layout_marginTop="@dimen/recycler_view_item_margin_top"
         android:layout_marginRight="@dimen/recycler_view_item_margin_right"
         android:layout_marginBottom="@dimen/recycler_view_item_margin_bottom"
