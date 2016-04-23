@@ -3,8 +3,6 @@ package net.polybugger.apollot;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -12,11 +10,12 @@ import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import net.polybugger.apollot.db.AcademicTermContract;
 
@@ -38,6 +37,8 @@ public class AcademicTermInsertUpdateDialogFragment extends DialogFragment {
     private LinearLayout mBackgroundLayout;
     private EditText mEditText;
     private TextView mErrorTextView;
+    // private Drawable mForegroundImage;
+    private ArrayList<ImageButton> mImageButtons;
 
     public static AcademicTermInsertUpdateDialogFragment newInstance(AcademicTermContract.AcademicTermEntry entry, String title, String buttonText) {
         AcademicTermInsertUpdateDialogFragment df = new AcademicTermInsertUpdateDialogFragment();
@@ -49,6 +50,7 @@ public class AcademicTermInsertUpdateDialogFragment extends DialogFragment {
         return df;
     }
 
+    // TODO add checked foreground
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -75,32 +77,52 @@ public class AcademicTermInsertUpdateDialogFragment extends DialogFragment {
                 String color = (String) v.getTag();
                 mBackgroundLayout.setBackgroundResource(BackgroundRect.getBackgroundResource(color, getActivity()));
                 mBackgroundLayout.setTag(color);
+                /*
+                for(ImageButton imageButton : mImageButtons) {
+                    if(StringUtils.equalsIgnoreCase(color, (CharSequence) imageButton.getTag())) {
+                        imageButton.setForeground(mForegroundImage);
+                    }
+                    else {
+                        imageButton.setForeground(null);
+                    }
+                }
+                */
             }
         };
+        // mForegroundImage = ContextCompat.getDrawable(getActivity(), R.drawable.ic_bg_on_black_24dp);
+        mImageButtons = new ArrayList<>();
         ImageButton imageButton0 = (ImageButton) view.findViewById(R.id.image_button_0);
         imageButton0.setTag(BackgroundRect.getHexString(0));
         imageButton0.setOnClickListener(bgClickListener);
+        mImageButtons.add(imageButton0);
         ImageButton imageButton1 = (ImageButton) view.findViewById(R.id.image_button_1);
         imageButton1.setTag(BackgroundRect.getHexString(1));
         imageButton1.setOnClickListener(bgClickListener);
+        mImageButtons.add(imageButton1);
         ImageButton imageButton2 = (ImageButton) view.findViewById(R.id.image_button_2);
         imageButton2.setTag(BackgroundRect.getHexString(2));
         imageButton2.setOnClickListener(bgClickListener);
+        mImageButtons.add(imageButton2);
         ImageButton imageButton3 = (ImageButton) view.findViewById(R.id.image_button_3);
         imageButton3.setTag(BackgroundRect.getHexString(3));
         imageButton3.setOnClickListener(bgClickListener);
+        mImageButtons.add(imageButton3);
         ImageButton imageButton4 = (ImageButton) view.findViewById(R.id.image_button_4);
         imageButton4.setTag(BackgroundRect.getHexString(4));
         imageButton4.setOnClickListener(bgClickListener);
+        mImageButtons.add(imageButton4);
         ImageButton imageButton5 = (ImageButton) view.findViewById(R.id.image_button_5);
         imageButton5.setTag(BackgroundRect.getHexString(5));
         imageButton5.setOnClickListener(bgClickListener);
+        mImageButtons.add(imageButton5);
         ImageButton imageButton6 = (ImageButton) view.findViewById(R.id.image_button_6);
         imageButton6.setTag(BackgroundRect.getHexString(6));
         imageButton6.setOnClickListener(bgClickListener);
+        mImageButtons.add(imageButton6);
         ImageButton imageButton7 = (ImageButton) view.findViewById(R.id.image_button_7);
         imageButton7.setTag(BackgroundRect.getHexString(7));
         imageButton7.setOnClickListener(bgClickListener);
+        mImageButtons.add(imageButton7);
 
         if(mEntry == null)
             mEntry = new AcademicTermContract.AcademicTermEntry(-1, "", null);
@@ -109,6 +131,16 @@ public class AcademicTermInsertUpdateDialogFragment extends DialogFragment {
             mBackgroundLayout.setTag(mEntry.getColor());
             mEditText.setText(mEntry.getDescription());
             mEditText.setSelection(mEditText.getText().length());
+            /*
+            for(ImageButton imageButton : mImageButtons) {
+                if(StringUtils.equalsIgnoreCase(mEntry.getColor(), (CharSequence) imageButton.getTag())) {
+                    imageButton.setForeground(mForegroundImage);
+                }
+                else {
+                    imageButton.setForeground(null);
+                }
+            }
+            */
         }
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(args.getString(TITLE_ARG))
