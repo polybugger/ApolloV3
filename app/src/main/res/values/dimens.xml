@@ -55,5 +55,6 @@
     <dimen name="recycler_view_content_half_padding_left">4dp</dimen>
 
     <dimen name="button_padding">8dp</dimen>
+    <dimen name="button_margin">4dp</dimen>
 
 </resources>

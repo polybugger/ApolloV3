@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class BackgroundRect {
 
     private static final HashMap<String, Integer> mBackgroundMap = new HashMap<>();
+    private static final ArrayList<String> mHexStrings = new ArrayList<>();
 
     private BackgroundRect() { }
 
@@ -22,16 +23,19 @@ public class BackgroundRect {
         return R.drawable.bg_rounded_rect_0;
     }
 
+    public static String getHexString(int index) {
+        return mHexStrings.get(index);
+    }
+
     private static void initHashMap(Context context) {
-        ArrayList<String> hexStrings = new ArrayList<>();
-        hexStrings.add(0, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_0)));
-        hexStrings.add(1, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_1)));
-        hexStrings.add(2, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_2)));
-        hexStrings.add(3, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_3)));
-        hexStrings.add(4, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_4)));
-        hexStrings.add(5, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_5)));
-        hexStrings.add(6, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_6)));
-        hexStrings.add(7, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_7)));
+        mHexStrings.add(0, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_0)));
+        mHexStrings.add(1, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_1)));
+        mHexStrings.add(2, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_2)));
+        mHexStrings.add(3, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_3)));
+        mHexStrings.add(4, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_4)));
+        mHexStrings.add(5, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_5)));
+        mHexStrings.add(6, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_6)));
+        mHexStrings.add(7, String.format("#%08X", 0xFFFFFFFF & ContextCompat.getColor(context, R.color.bg_color_7)));
 
         ArrayList<Integer> bgDrawables = new ArrayList<>();
         bgDrawables.add(0, R.drawable.bg_rounded_rect_0);
@@ -45,7 +49,7 @@ public class BackgroundRect {
 
         int i, n = 8;
         for(i = 0; i < n; ++i) {
-            mBackgroundMap.put(hexStrings.get(i), bgDrawables.get(i));
+            mBackgroundMap.put(mHexStrings.get(i), bgDrawables.get(i));
         }
     }
 }

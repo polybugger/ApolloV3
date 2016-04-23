@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -67,10 +68,45 @@ public class AcademicTermInsertUpdateDialogFragment extends DialogFragment {
                 mErrorTextView.setText(" ");
             }
         });
+
+        View.OnClickListener bgClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String color = (String) v.getTag();
+                mBackgroundLayout.setBackgroundResource(BackgroundRect.getBackgroundResource(color, getActivity()));
+                mBackgroundLayout.setTag(color);
+            }
+        };
+        ImageButton imageButton0 = (ImageButton) view.findViewById(R.id.image_button_0);
+        imageButton0.setTag(BackgroundRect.getHexString(0));
+        imageButton0.setOnClickListener(bgClickListener);
+        ImageButton imageButton1 = (ImageButton) view.findViewById(R.id.image_button_1);
+        imageButton1.setTag(BackgroundRect.getHexString(1));
+        imageButton1.setOnClickListener(bgClickListener);
+        ImageButton imageButton2 = (ImageButton) view.findViewById(R.id.image_button_2);
+        imageButton2.setTag(BackgroundRect.getHexString(2));
+        imageButton2.setOnClickListener(bgClickListener);
+        ImageButton imageButton3 = (ImageButton) view.findViewById(R.id.image_button_3);
+        imageButton3.setTag(BackgroundRect.getHexString(3));
+        imageButton3.setOnClickListener(bgClickListener);
+        ImageButton imageButton4 = (ImageButton) view.findViewById(R.id.image_button_4);
+        imageButton4.setTag(BackgroundRect.getHexString(4));
+        imageButton4.setOnClickListener(bgClickListener);
+        ImageButton imageButton5 = (ImageButton) view.findViewById(R.id.image_button_5);
+        imageButton5.setTag(BackgroundRect.getHexString(5));
+        imageButton5.setOnClickListener(bgClickListener);
+        ImageButton imageButton6 = (ImageButton) view.findViewById(R.id.image_button_6);
+        imageButton6.setTag(BackgroundRect.getHexString(6));
+        imageButton6.setOnClickListener(bgClickListener);
+        ImageButton imageButton7 = (ImageButton) view.findViewById(R.id.image_button_7);
+        imageButton7.setTag(BackgroundRect.getHexString(7));
+        imageButton7.setOnClickListener(bgClickListener);
+
         if(mEntry == null)
             mEntry = new AcademicTermContract.AcademicTermEntry(-1, "", null);
         else {
             mBackgroundLayout.setBackgroundResource(BackgroundRect.getBackgroundResource(mEntry.getColor(), getActivity()));
+            mBackgroundLayout.setTag(mEntry.getColor());
             mEditText.setText(mEntry.getDescription());
             mEditText.setSelection(mEditText.getText().length());
         }
@@ -93,6 +129,7 @@ public class AcademicTermInsertUpdateDialogFragment extends DialogFragment {
                             return;
                         }
                         mEntry.setDescription(description);
+                        mEntry.setColor((String) mBackgroundLayout.getTag());
                         mListener.onConfirmInsertUpdateAcademicTerm(mEntry);
                         dismiss();
                     }
