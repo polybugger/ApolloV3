@@ -9,6 +9,10 @@
     <dimen name="normal_text_size">16sp</dimen>
     <dimen name="large_text_size">18sp</dimen>
 
+    <dimen name="small_rounded_rect_radius">2dp</dimen>
+    <dimen name="normal_rounded_rect_radius">4dp</dimen>
+    <dimen name="large_rounded_rect_radius">6dp</dimen>
+
     <dimen name="low_elevation">2dp</dimen>
     <dimen name="normal_elevation">4dp</dimen>
     <dimen name="high_elevation">6dp</dimen>

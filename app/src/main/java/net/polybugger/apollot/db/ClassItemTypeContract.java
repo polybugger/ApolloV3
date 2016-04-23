@@ -7,6 +7,8 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.support.annotation.StyleableRes;
+import android.support.v4.content.ContextCompat;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -105,15 +107,27 @@ public class ClassItemTypeContract {
     }
 
     public static void _insertDefaultClassItemTypes(SQLiteDatabase db, Context context) {
+        @StyleableRes final int DESCRIPTION_INDEX = 0;
+        @StyleableRes final int COLOR_INDEX = 1;
         Resources res = context.getResources();
-        TypedArray ta = res.obtainTypedArray(R.array.default_class_item_types);
-        String[] entry;
-        int n = ta.length();
-        for(int i = 0; i < n; ++i) {
-            int id = ta.getResourceId(i, 0);
+        TypedArray subTa, ta = res.obtainTypedArray(R.array.default_class_item_types);
+        int color, id, i, n = ta.length();
+        String strColor, description;
+        for(i = 0; i < n; ++i) {
+            id = ta.getResourceId(i, 0);
             if(id > 0) {
-                entry = res.getStringArray(id);
-                _insert(db, entry[0], entry[1]);
+                subTa = res.obtainTypedArray(id);
+                try {
+                    description = res.getString(subTa.getResourceId(DESCRIPTION_INDEX, 0));
+                    color = ContextCompat.getColor(context, subTa.getResourceId(COLOR_INDEX, 0));
+                }
+                catch(Exception e) {
+                    description = "";
+                    color = 0;
+                }
+                strColor =  String.format("#%08X", 0xFFFFFFFF & color);
+                _insert(db, description, strColor);
+                subTa.recycle();
             }
         }
         ta.recycle();

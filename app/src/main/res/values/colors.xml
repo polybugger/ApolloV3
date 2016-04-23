@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">@android:color/holo_blue_dark</color>
-    <color name="colorPrimaryDark">@android:color/holo_blue_bright</color>
-    <color name="colorAccent">@android:color/holo_green_dark</color>
+    <color name="color_primary">@android:color/holo_blue_dark</color>
+    <color name="color_primary_dark">@android:color/holo_blue_bright</color>
+    <color name="color_accent">@android:color/holo_green_dark</color>
 
     <color name="colorError">@android:color/holo_red_light</color>
+
+    <color name="bg_color_0">#00000000</color>
+    <color name="bg_color_1">#FF7ED8FD</color>
+    <color name="bg_color_2">#FFA6FFE9</color>
+    <color name="bg_color_3">#FFCBFF90</color>
+    <color name="bg_color_4">#FFCED8DA</color>
+    <color name="bg_color_5">#FFFED17E</color>
+    <color name="bg_color_6">#FFFF8A80</color>
+    <color name="bg_color_7">#FFFFFF8D</color>
+
+    <array name="bg_colors">
+        <item>@color/bg_color_0</item>
+        <item>@color/bg_color_1</item>
+        <item>@color/bg_color_2</item>
+        <item>@color/bg_color_3</item>
+        <item>@color/bg_color_4</item>
+        <item>@color/bg_color_5</item>
+        <item>@color/bg_color_6</item>
+        <item>@color/bg_color_7</item>
+    </array>
+
 
 </resources>

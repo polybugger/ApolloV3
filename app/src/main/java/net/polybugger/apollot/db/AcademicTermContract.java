@@ -7,6 +7,8 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.support.annotation.StyleableRes;
+import android.support.v4.content.ContextCompat;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -106,16 +108,28 @@ public class AcademicTermContract {
     }
 
     public static void _insertDefaultAcademicTerms(SQLiteDatabase db, Context context) {
+        @StyleableRes final int DESCRIPTION_INDEX = 0;
+        @StyleableRes final int COLOR_INDEX = 1;
         ArrayList<AcademicTermEntry> defaultEntries = new ArrayList<>();
         Resources res = context.getResources();
-        TypedArray ta = res.obtainTypedArray(R.array.default_academic_terms);
-        String[] entry;
-        int n = ta.length();
-        for(int i = 0; i < n; ++i) {
-            int id = ta.getResourceId(i, 0);
+        TypedArray subTa, ta = res.obtainTypedArray(R.array.default_academic_terms);
+        int color, id, i, n = ta.length();
+        String strColor, description;
+        for(i = 0; i < n; ++i) {
+            id = ta.getResourceId(i, 0);
             if(id > 0) {
-                entry = res.getStringArray(id);
-                defaultEntries.add(new AcademicTermEntry(-1, entry[0], entry[1]));
+                subTa = res.obtainTypedArray(id);
+                try {
+                    description = res.getString(subTa.getResourceId(DESCRIPTION_INDEX, 0));
+                    color = ContextCompat.getColor(context, subTa.getResourceId(COLOR_INDEX, 0));
+                }
+                catch(Exception e) {
+                    description = "";
+                    color = 0;
+                }
+                strColor =  String.format("#%08X", 0xFFFFFFFF & color);
+                defaultEntries.add(new AcademicTermEntry(-1, description, strColor));
+                subTa.recycle();
             }
         }
         ta.recycle();
@@ -133,7 +147,7 @@ public class AcademicTermContract {
             _insert(db, defaultEntries.get(3).getDescription(), defaultEntries.get(3).getColor());
         }
         n = defaultEntries.size();
-        for(int i = 4; i < n; ++i)
+        for(i = 4; i < n; ++i)
             _insert(db, defaultEntries.get(i).getDescription(), defaultEntries.get(i).getColor());
     }
 
