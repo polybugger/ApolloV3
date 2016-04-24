@@ -25,7 +25,7 @@ public class ClassContract {
             ClassEntry.CODE + " TEXT NOT NULL, " +
             ClassEntry.DESCRIPTION + " TEXT NULL, " +
             ClassEntry.ACADEMIC_TERM_ID + " INTEGER NULL REFERENCES " +
-                AcademicTermContract.TABLE_NAME + " (" + AcademicTermContract.AcademicTermEntry._ID + "), " +
+                AcademicTermContract.TABLE_NAME + " (" + AcademicTermContract.AcademicTermEntry._ID + ") ON DELETE SET NULL, " +
             ClassEntry.YEAR + " INTEGER NULL, " +
             ClassEntry.CURRENT + " INTEGER NOT NULL DEFAULT 1, " +
             ClassEntry.DATE_CREATED + " TEXT NULL)";

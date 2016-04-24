@@ -205,26 +205,42 @@
         <item>@string/default_class_1_date_created</item>
     </array>
 
-
-
-
-
     <integer name="days_mwf">21</integer>
     <integer name="days_tth">10</integer>
 
     <string name="default_class_0_class_schedule_0_time_start">08:45:00.000+0800</string>
     <string name="default_class_0_class_schedule_0_time_end">09:45:00.000+0800</string>
-    <integer name="default_class_0_class_schedule_0_days">@integer/days_mwf</integer>
     <string name="default_class_0_class_schedule_0_room">214</string>
     <string name="default_class_0_class_schedule_0_building">Arts &amp; Sciences</string>
     <string name="default_class_0_class_schedule_0_campus">Main</string>
 
+    <array name="default_class_0_class_schedule_0">
+        <item>@string/default_class_0_class_schedule_0_time_start</item>
+        <item>@string/default_class_0_class_schedule_0_time_end</item>
+        <item>@integer/days_mwf</item>
+        <item>@string/default_class_0_class_schedule_0_room</item>
+        <item>@string/default_class_0_class_schedule_0_building</item>
+        <item>@string/default_class_0_class_schedule_0_campus</item>
+    </array>
+
     <string name="default_class_1_class_schedule_0_time_start">07:45:00.000+0800</string>
     <string name="default_class_1_class_schedule_0_time_end">08:45:00.000+0800</string>
-    <integer name="default_class_1_class_schedule_0_days">@integer/days_tth</integer>
     <string name="default_class_1_class_schedule_0_room">202</string>
     <string name="default_class_1_class_schedule_0_building">AS</string>
     <string name="default_class_1_class_schedule_0_campus">TC</string>
+
+    <array name="default_class_1_class_schedule_0">
+        <item>@string/default_class_1_class_schedule_0_time_start</item>
+        <item>@string/default_class_1_class_schedule_0_time_end</item>
+        <item>@integer/days_tth</item>
+        <item>@string/default_class_1_class_schedule_0_room</item>
+        <item>@string/default_class_1_class_schedule_0_building</item>
+        <item>@string/default_class_1_class_schedule_0_campus</item>
+    </array>
+
+
+
+
 
     <string name="default_class_0_class_note_0_note">Textbook - A First Course in Abstract Algebra, 7th Edition by John B. Fraleigh</string>
     <string name="default_class_0_class_note_0_date_created">2016&#8211;06&#8211;11T00:00:00.000+0800</string>

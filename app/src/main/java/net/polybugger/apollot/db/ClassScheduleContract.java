@@ -1,9 +1,13 @@
 package net.polybugger.apollot.db;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.support.annotation.StyleableRes;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -19,7 +23,7 @@ public class ClassScheduleContract {
     public static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + " (" +
             ClassScheduleEntry._ID + " INTEGER PRIMARY KEY, " +
             ClassScheduleEntry.CLASS_ID + " INTEGER NOT NULL REFERENCES " +
-                ClassContract.TABLE_NAME + " (" + ClassContract.ClassEntry._ID + "), " +
+                ClassContract.TABLE_NAME + " (" + ClassContract.ClassEntry._ID + ") ON DELETE CASCADE, " +
             ClassScheduleEntry.TIME_START + " TEXT NOT NULL, " +
             ClassScheduleEntry.TIME_END + " TEXT NULL, " +
             ClassScheduleEntry.DAYS + " INTEGER NOT NULL DEFAULT 0, " +
@@ -197,6 +201,39 @@ public class ClassScheduleContract {
         }
         cursor.close();
         return entries;
+    }
+
+    public static void _insertDummyClassSchedule(SQLiteDatabase db, long classId, int classScheduleResourceId, Context context) {
+        @StyleableRes final int TIME_START_INDEX = 0;
+        @StyleableRes final int TIME_END_INDEX = 1;
+        @StyleableRes final int DAYS_INDEX = 2;
+        @StyleableRes final int ROOM_INDEX = 3;
+        @StyleableRes final int BUILDING_INDEX = 4;
+        @StyleableRes final int CAMPUS_INDEX = 5;
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DB_TEMPLATE, context.getResources().getConfiguration().locale);
+        Resources res = context.getResources();
+        TypedArray ta = res.obtainTypedArray(classScheduleResourceId);
+        Date timeStart, timeEnd;
+        try {
+            timeStart = sdf.parse(res.getString(ta.getResourceId(TIME_START_INDEX, 0)));
+        }
+        catch(Exception e) {
+            timeStart = null;
+        }
+        try {
+            timeEnd = sdf.parse(res.getString(ta.getResourceId(TIME_END_INDEX, 0)));
+        }
+        catch(Exception e) {
+            timeEnd = null;
+        }
+        int days = res.getInteger(ta.getResourceId(DAYS_INDEX, 0));
+        String room, building, campus;
+        room = res.getString(ta.getResourceId(ROOM_INDEX, 0));
+        building = res.getString(ta.getResourceId(BUILDING_INDEX, 0));
+        campus = res.getString(ta.getResourceId(CAMPUS_INDEX, 0));
+        ta.recycle();
+        ClassScheduleContract._insert(db, classId, timeStart, timeEnd,
+                days, room, building, campus);
     }
 
     public static final class ClassScheduleEntry implements BaseColumns, Serializable {
