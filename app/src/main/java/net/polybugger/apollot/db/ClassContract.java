@@ -1,9 +1,13 @@
 package net.polybugger.apollot.db;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.support.annotation.StyleableRes;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -180,6 +184,44 @@ public class ClassContract {
         }
         cursor.close();
         return entries;
+    }
+
+    public static long _insertDummyClass(SQLiteDatabase db, int classResourceId, Context context) {
+        @StyleableRes final int CODE_INDEX = 0;
+        @StyleableRes final int DESCRIPTION_INDEX = 1;
+        @StyleableRes final int ACADEMIC_TERM_INDEX = 2;
+        @StyleableRes final int YEAR_INDEX = 3;
+        @StyleableRes final int PAST_CURRENT_INDEX = 4;
+        @StyleableRes final int DATE_CREATED_INDEX = 5;
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, context.getResources().getConfiguration().locale);
+        Resources res = context.getResources();
+        TypedArray ta = res.obtainTypedArray(classResourceId);
+        String code, description, academicTerm;
+        code = res.getString(ta.getResourceId(CODE_INDEX, 0));
+        description = res.getString(ta.getResourceId(DESCRIPTION_INDEX, 0));
+        academicTerm = res.getString(ta.getResourceId(ACADEMIC_TERM_INDEX, 0));
+        Long year;
+        try {
+            year = Long.parseLong(res.getString(ta.getResourceId(YEAR_INDEX, 0)));
+        }
+        catch(Exception e) {
+            year = null;
+        }
+        int pastCurrent = res.getInteger(ta.getResourceId(PAST_CURRENT_INDEX, 0));
+        Date dateCreated;
+        try {
+            dateCreated = sdf.parse(res.getString(ta.getResourceId(DATE_CREATED_INDEX, 0)));
+        }
+        catch(Exception e) {
+            dateCreated = null;
+        }
+        ta.recycle();
+        return ClassContract._insert(db, code,
+                description,
+                AcademicTermContract._getEntryByDescription(db, academicTerm),
+                year,
+                PastCurrentEnum.fromInt(pastCurrent),
+                dateCreated);
     }
 
     public static class ClassEntry implements BaseColumns, Serializable {

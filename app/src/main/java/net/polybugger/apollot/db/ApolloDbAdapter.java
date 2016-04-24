@@ -74,11 +74,11 @@ public class ApolloDbAdapter {
             db.execSQL(ClassItemTypeContract.CREATE_TABLE_SQL);
             ClassItemTypeContract._insertDefaultClassItemTypes(db, sAppContext);
 
-            /*
             db.execSQL(ClassContract.CREATE_TABLE_SQL);
-            long class0Id = _insertDummyClass0(db);
-            long class1Id = _insertDummyClass1(db);
+            long class0Id = ClassContract._insertDummyClass(db, R.array.default_class_0, sAppContext);
+            long class1Id = ClassContract._insertDummyClass(db, R.array.default_class_1, sAppContext);
 
+            /*
             db.execSQL(StudentContract.CREATE_TABLE_SQL);
             _insertDummyStudents(db);
 
@@ -100,40 +100,6 @@ public class ApolloDbAdapter {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         }
-    }
-
-    public static long _insertDummyClass0(SQLiteDatabase db) {
-        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
-        Date dateCreated;
-        try {
-            dateCreated = sdf.parse(sAppContext.getString(R.string.default_class_0_date_created));
-        }
-        catch(Exception e) {
-            dateCreated = null;
-        }
-        return ClassContract._insert(db, sAppContext.getString(R.string.default_class_0_code),
-                sAppContext.getString(R.string.default_class_0_description),
-                AcademicTermContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_0_academic_term)),
-                (long) sAppContext.getResources().getInteger(R.integer.default_class_0_year),
-                PastCurrentEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_class_0_past_current)),
-                dateCreated);
-    }
-
-    public static long _insertDummyClass1(SQLiteDatabase db) {
-        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
-        Date dateCreated;
-        try {
-            dateCreated = sdf.parse(sAppContext.getString(R.string.default_class_1_date_created));
-        }
-        catch(Exception e) {
-            dateCreated = null;
-        }
-        return ClassContract._insert(db, sAppContext.getString(R.string.default_class_1_code),
-                sAppContext.getString(R.string.default_class_1_description),
-                AcademicTermContract._getEntryByDescription(db, sAppContext.getString(R.string.default_class_1_academic_term)),
-                (long) sAppContext.getResources().getInteger(R.integer.default_class_1_year),
-                PastCurrentEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_class_1_past_current)),
-                dateCreated);
     }
 
     public static void _insertDummyStudents(SQLiteDatabase db) {

@@ -174,26 +174,40 @@
         <item>@array/default_class_item_type_10</item>
     </array>
 
-
-
-
-
     <integer name="past">0</integer>
     <integer name="current">1</integer>
 
     <string name="default_class_0_code">Math 311</string>
     <string name="default_class_0_description">Abstract Algebra</string>
-    <string name="default_class_0_academic_term">@string/default_academic_term_0</string> <!-- fall -->
-    <integer name="default_class_0_year">2016</integer>
-    <integer name="default_class_0_past_current">@integer/current</integer>
-    <string name="default_class_0_date_created">2016&#8211;04&#8211;08T00:00:00.000+0800</string>
+    <integer name="default_class_0_year">2017</integer>
+    <string name="default_class_0_date_created">2016-04-08T00:00:00.000+0800</string>
+
+    <array name="default_class_0">
+        <item>@string/default_class_0_code</item>
+        <item>@string/default_class_0_description</item>
+        <item>@string/default_academic_term_0</item> <!-- fall -->
+        <item>@integer/default_class_0_year</item>
+        <item>@integer/current</item>
+        <item>@string/default_class_0_date_created</item>
+    </array>
 
     <string name="default_class_1_code">IT 116</string>
     <string name="default_class_1_description">Advanced Programming</string>
-    <string name="default_class_1_academic_term">@string/default_academic_term_1</string> <!-- spring -->
     <integer name="default_class_1_year">2017</integer>
-    <integer name="default_class_1_past_current">@integer/past</integer>
-    <string name="default_class_1_date_created">2016&#8211;04&#8211;09T00:00:00.000+0800</string>
+    <string name="default_class_1_date_created">2016-04-09T00:00:00.000+0800</string>
+
+    <array name="default_class_1">
+        <item>@string/default_class_1_code</item>
+        <item>@string/default_class_1_description</item>
+        <item>@string/default_academic_term_1</item> <!-- spring -->
+        <item>@integer/default_class_1_year</item>
+        <item>@integer/past</item>
+        <item>@string/default_class_1_date_created</item>
+    </array>
+
+
+
+
 
     <integer name="days_mwf">21</integer>
     <integer name="days_tth">10</integer>

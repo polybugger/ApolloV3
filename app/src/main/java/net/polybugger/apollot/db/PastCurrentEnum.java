@@ -25,10 +25,18 @@ public enum PastCurrentEnum {
         return mValue;
     }
 
-    public static String intToString(Context context, int pastCurrent) {
+    public static String intToString(int pastCurrent, Context context) {
         if(pastCurrent == PAST.mValue)
             return context.getString(R.string.past);
         if(pastCurrent == CURRENT.mValue)
+            return context.getString(R.string.current);
+        return context.getString(R.string.past);
+    }
+
+    public static String toString(PastCurrentEnum pastCurrent, Context context) {
+        if(pastCurrent == PAST)
+            return context.getString(R.string.past);
+        if(pastCurrent == CURRENT)
             return context.getString(R.string.current);
         return context.getString(R.string.past);
     }
