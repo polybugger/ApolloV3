@@ -90,4 +90,15 @@
 
     <string name="please_enter_an_academic_term">学期を記入してください！</string>
 
+    <string name="remove_class_activity">アクティビティーを削除しますか？</string>
+    <string name="class_activity_removed">アクティビティー削除済み。</string>
+
+    <string name="new_class_activity">新しいアクティビティーを作りますか？</string>
+    <string name="class_activity_added">アクティビティー追加済み。</string>
+
+    <string name="update_class_activity">アクティビティーを更新しますか？</string>
+    <string name="class_activity_updated">アクティビティー更新済み。</string>
+
+    <string name="please_enter_a_class_activity">アクティビティーを記入してください！</string>
+
 </resources>

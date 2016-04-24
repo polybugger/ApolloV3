@@ -32,6 +32,12 @@
             android:label="@string/academic_terms"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".SettingsClassItemTypesActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/class_activities"
+            android:screenOrientation="portrait" />
+
         <!--
         <uses-library android:name="android.test.runner" />
         <instrumentation android:name="android.test.InstrumentationTestRunner"

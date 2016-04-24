@@ -93,4 +93,15 @@
 
     <string name="please_enter_an_academic_term">Please enter an academic term!</string>
 
+    <string name="remove_class_activity">Remove class activity?</string>
+    <string name="class_activity_removed">Class activity removed.</string>
+
+    <string name="new_class_activity">New class activity?</string>
+    <string name="class_activity_added">Class activity added.</string>
+
+    <string name="update_class_activity">Update class activity?</string>
+    <string name="class_activity_updated">Class activity updated.</string>
+
+    <string name="please_enter_a_class_activity">Please enter a class activity!</string>
+
 </resources>
