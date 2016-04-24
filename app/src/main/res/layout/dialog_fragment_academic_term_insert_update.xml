@@ -25,7 +25,7 @@
         <EditText
             android:id="@+id/edit_text"
             android:background="@android:color/transparent"
-            android:inputType="text"
+            android:inputType="text|textCapSentences"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:textSize="@dimen/normal_text_size" />

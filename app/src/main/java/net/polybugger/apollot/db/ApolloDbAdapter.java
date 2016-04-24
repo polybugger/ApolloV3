@@ -17,6 +17,7 @@ import net.polybugger.apollot.R;
 
 public class ApolloDbAdapter {
 
+    public static final String EN_LANGUAGE = "en";
     public static final String JA_LANGUAGE = "ja";
     public static final String DATABASE_NAME = "ApolloDb.sqlite3";
     public static final int DATABASE_VERSION = 3;

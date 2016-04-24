@@ -39,7 +39,7 @@ public class SettingsClassItemTypesActivity extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
+        // toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -188,6 +188,16 @@ public class SettingsClassItemTypesActivity extends AppCompatActivity implements
         public void onBindViewHolder(ViewHolder holder, int position) {
             ClassItemTypeContract.ClassItemTypeEntry entry = mArrayList.get(position);
             holder.mBackgroundLayout.setBackgroundResource(BackgroundRect.getBackgroundResource(entry.getColor(), mActivity));
+            if(position == 0) {
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mBackgroundLayout.getLayoutParams();
+                layoutParams.setMargins(layoutParams.leftMargin, layoutParams.topMargin * 2, layoutParams.rightMargin, layoutParams.bottomMargin);
+                holder.mBackgroundLayout.setLayoutParams(layoutParams);
+            }
+            else if(position == (mArrayList.size() - 1)) {
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mBackgroundLayout.getLayoutParams();
+                layoutParams.setMargins(layoutParams.leftMargin, layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin * 2);
+                holder.mBackgroundLayout.setLayoutParams(layoutParams);
+            }
             holder.mClickableLayout.setTag(entry);
             holder.mClickableLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

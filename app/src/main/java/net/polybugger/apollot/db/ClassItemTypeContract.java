@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import net.polybugger.apollot.R;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -50,6 +51,10 @@ public class ClassItemTypeContract {
 
     public static int _delete(SQLiteDatabase db, long id) {
         return db.delete(TABLE_NAME, ClassItemTypeEntry._ID + "=?", new String[]{String.valueOf(id)});
+    }
+
+    public static int _deleteByDescription(SQLiteDatabase db, String description) {
+        return db.delete(TABLE_NAME, ClassItemTypeEntry.DESCRIPTION + "=?", new String[]{description});
     }
 
     public static ClassItemTypeEntry _getEntry(SQLiteDatabase db, long id) {
@@ -106,6 +111,7 @@ public class ClassItemTypeContract {
         return entries;
     }
 
+    // TODO do not add lesson and homework in JA language
     public static void _insertDefaultClassItemTypes(SQLiteDatabase db, Context context) {
         @StyleableRes final int DESCRIPTION_INDEX = 0;
         @StyleableRes final int COLOR_INDEX = 1;
@@ -131,6 +137,15 @@ public class ClassItemTypeContract {
             }
         }
         ta.recycle();
+
+        if(StringUtils.equalsIgnoreCase(context.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE)) {
+            _deleteByDescription(db, context.getString(R.string.default_class_item_type_0a));
+            _deleteByDescription(db, context.getString(R.string.default_class_item_type_1));
+        }
+        else if(StringUtils.equalsIgnoreCase(context.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.EN_LANGUAGE)) {
+            _deleteByDescription(db, context.getString(R.string.default_class_item_type_0a));
+            _deleteByDescription(db, context.getString(R.string.default_class_item_type_1a));
+        }
     }
 
     public static class ClassItemTypeEntry implements BaseColumns, Serializable {
