@@ -3,6 +3,7 @@ package net.polybugger.apollot;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -149,10 +150,10 @@ public class SettingsClassItemTypesActivity extends AppCompatActivity implements
 
     public static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
-        private AppCompatActivity mActivity;
+        private FragmentActivity mActivity;
         private ArrayList<ClassItemTypeContract.ClassItemTypeEntry> mArrayList;
 
-        public Adapter(AppCompatActivity activity) {
+        public Adapter(FragmentActivity activity) {
             mActivity = activity;
             mArrayList = new ArrayList<>();
         }
@@ -241,7 +242,7 @@ public class SettingsClassItemTypesActivity extends AppCompatActivity implements
                 super(itemView);
                 mBackgroundLayout = (LinearLayout) itemView.findViewById(R.id.background_layout);
                 mClickableLayout = (LinearLayout) itemView.findViewById(R.id.clickable_layout);
-                mTextView =  (TextView) itemView.findViewById(R.id.text_view);
+                mTextView = (TextView) itemView.findViewById(R.id.text_view);
                 mImageButton = (ImageButton) itemView.findViewById(R.id.image_button);
             }
         }

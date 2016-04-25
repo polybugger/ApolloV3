@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -186,6 +187,45 @@ public class ClassContract {
         return entries;
     }
 
+    public static ArrayList<ClassEntry> _getEntriesByPastCurrent(SQLiteDatabase db, PastCurrentEnum pastCurrent) {
+        ArrayList<ClassEntry> entries = new ArrayList<>();
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
+        Date dateCreated;
+        Cursor cursor = db.query(TABLE_NAME + " AS c LEFT OUTER JOIN " +
+                        AcademicTermContract.TABLE_NAME + " AS at ON c." + ClassEntry.ACADEMIC_TERM_ID + "=at." + AcademicTermContract.AcademicTermEntry._ID,
+                new String[]{"c." + ClassEntry._ID, // 0
+                        "c." + ClassEntry.CODE, // 1
+                        "c." + ClassEntry.DESCRIPTION, // 2 nullable
+                        "c." + ClassEntry.ACADEMIC_TERM_ID, // 3 nullable
+                        "at." + AcademicTermContract.AcademicTermEntry.DESCRIPTION, // 4
+                        "at." + AcademicTermContract.AcademicTermEntry.COLOR, // 5
+                        "c." + ClassEntry.YEAR, // 6 nullable
+                        "c." + ClassEntry.CURRENT, // 7
+                        "c." + ClassEntry.DATE_CREATED}, // 8 nullable
+                "c." + ClassEntry.CURRENT + "=?",
+                new String[]{String.valueOf(pastCurrent.getValue())},
+                null, null, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            try {
+                dateCreated = sdf.parse(cursor.getString(8));
+            }
+            catch(Exception e) {
+                dateCreated = null;
+            }
+            entries.add(new ClassEntry(cursor.getLong(0),
+                    cursor.getString(1),
+                    cursor.isNull(2) ? null : cursor.getString(2),
+                    cursor.isNull(3) ? null : new AcademicTermContract.AcademicTermEntry(cursor.getLong(3), cursor.getString(4), cursor.isNull(5) ? null : cursor.getString(5)),
+                    cursor.isNull(6) ? null : cursor.getLong(6),
+                    PastCurrentEnum.fromInt(cursor.getInt(7)),
+                    dateCreated)); // 8
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return entries;
+    }
+
     public static long _insertDummyClass(SQLiteDatabase db, int classResourceId, Context context) {
         @StyleableRes final int CODE_INDEX = 0;
         @StyleableRes final int DESCRIPTION_INDEX = 1;
@@ -314,6 +354,14 @@ public class ClassContract {
         @Override
         public String toString() {
             return mCode + " - " + mDescription;
+        }
+
+        public String getTitle() {
+            String title = mCode;
+            if(!StringUtils.isBlank(mDescription)) {
+                title = title + " - " + mDescription;
+            }
+            return title;
         }
 
         @Override
