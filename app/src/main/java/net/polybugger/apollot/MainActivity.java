@@ -6,6 +6,7 @@ import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,7 +22,8 @@ import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.StudentContract;
 import net.polybugger.apollot.db.StudentNameDisplayEnum;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        MainActivityFragment.Listener {
 
     public static final long SNACKBAR_POST_DELAYED_MSEC = 500;
 
@@ -46,6 +48,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .setAction("Action", null).show();
             }
         });
+
+        FragmentManager fm = getSupportFragmentManager();
+        if(fm.findFragmentByTag(MainActivityFragment.TAG) == null)
+            fm.beginTransaction().add(MainActivityFragment.newInstance(), MainActivityFragment.TAG).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -125,5 +131,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         return true;
+    }
+
+    @Override
+    public void onGetCurrentClasses() {
+
+    }
+
+    @Override
+    public void onGetPastClasses() {
+
     }
 }

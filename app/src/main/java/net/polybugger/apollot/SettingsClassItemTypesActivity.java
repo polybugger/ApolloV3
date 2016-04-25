@@ -61,7 +61,7 @@ public class SettingsClassItemTypesActivity extends AppCompatActivity implements
             }
         });
 
-        // this will initialize the retained fragment and get the academic term entries
+        // this will initialize the retained fragment and get the class item entries
         FragmentManager fm = getSupportFragmentManager();
         if(fm.findFragmentByTag(SettingsClassItemTypesActivityFragment.TAG) == null)
             fm.beginTransaction().add(SettingsClassItemTypesActivityFragment.newInstance(), SettingsClassItemTypesActivityFragment.TAG).commit();
