@@ -357,11 +357,25 @@ public class ClassContract {
         }
 
         public String getTitle() {
-            String title = mCode;
-            if(!StringUtils.isBlank(mDescription)) {
-                title = title + " - " + mDescription;
+            StringBuilder sb = new StringBuilder(mCode);
+            if(!StringUtils.isBlank(mDescription))
+                sb.append(" - " + mDescription);
+            return sb.toString();
+        }
+
+        public String getAcademicTermYear() {
+            StringBuilder sb = new StringBuilder();
+            if(mAcademicTerm != null) {
+                String academicTerm = mAcademicTerm.getDescription();
+                if(!StringUtils.isBlank(academicTerm))
+                    sb.append(academicTerm);
             }
-            return title;
+            if(mYear != null) {
+                if(sb.length() > 0)
+                    sb.append(" ");
+                sb.append(mYear);
+            }
+            return sb.toString();
         }
 
         @Override

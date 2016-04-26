@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,7 +19,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
+
 import net.polybugger.apollot.db.ApolloDbAdapter;
+import net.polybugger.apollot.db.PastCurrentEnum;
 import net.polybugger.apollot.db.StudentContract;
 import net.polybugger.apollot.db.StudentNameDisplayEnum;
 
@@ -66,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int defaultNavDrawerMenuItemIndex = sharedPref.getInt(getString(R.string.default_nav_drawer_menu_item_index_key), 0);
         MenuItem defaultNavDrawerMenuItem = navigationView.getMenu().getItem(defaultNavDrawerMenuItemIndex);
         defaultNavDrawerMenuItem.setChecked(true);
+        onNavigationItemSelected(defaultNavDrawerMenuItem);
     }
 
     @Override
@@ -104,6 +109,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int id = item.getItemId();
 
@@ -118,10 +126,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_current_classes:
                 sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 2).apply();
+                ft.replace(R.id.fragment_container, ClassesFragment.newInstance(PastCurrentEnum.CURRENT), ClassesFragment.TAG_CURRENT);
 
                 break;
             case R.id.nav_past_classes:
                 sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 3).apply();
+                ft.replace(R.id.fragment_container, ClassesFragment.newInstance(PastCurrentEnum.PAST), ClassesFragment.TAG_PAST);
 
                 break;
             case R.id.nav_students:
@@ -130,16 +140,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
 
+        // ft.addToBackStack(null);
+        ft.commit();
+
         return true;
     }
 
     @Override
-    public void onGetCurrentClasses() {
-
-    }
-
-    @Override
-    public void onGetPastClasses() {
-
+    public void onGetClassesSummary(ArrayList<ClassesFragment.ClassSummary> arrayList, PastCurrentEnum pastCurrent) {
+        String tag = ClassesFragment.TAG_PAST;
+        switch(pastCurrent) {
+            case PAST:
+                tag = ClassesFragment.TAG_PAST;
+                break;
+            case CURRENT:
+                tag = ClassesFragment.TAG_CURRENT;
+                break;
+        }
+        ClassesFragment f = (ClassesFragment) getSupportFragmentManager().findFragmentByTag(tag);
+        f.onGetClassesSummary(arrayList, pastCurrent);
     }
 }
