@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import net.polybugger.apollot.db.AcademicTermContract;
+import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
 import net.polybugger.apollot.db.PastCurrentEnum;
@@ -166,6 +167,26 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
                 holder.mAcademicTermTextView.setText(academicTermYear);
                 holder.mAcademicTermTextView.setVisibility(View.VISIBLE);
             }
+            if(entry.mClassSchedules.size() == 0) {
+                holder.mClassScheduleTimeTextView.setVisibility(View.GONE);
+                holder.mClassScheduleLocationTextView.setVisibility(View.GONE);
+            }
+            else {
+                ClassScheduleContract.ClassScheduleEntry classSchedule = entry.mClassSchedules.get(0);
+                String time = classSchedule.getTime(ApolloDbAdapter.getAppContext());
+                if(entry.mClassSchedules.size() > 1)
+                    time = time + " ...";
+                holder.mClassScheduleTimeTextView.setText(time);
+                holder.mClassScheduleTimeTextView.setVisibility(View.VISIBLE);
+                String location = classSchedule.getLocation();
+                if(StringUtils.isBlank(location)) {
+                    holder.mClassScheduleLocationTextView.setVisibility(View.GONE);
+                }
+                else {
+                    holder.mClassScheduleLocationTextView.setText(location);
+                    holder.mClassScheduleLocationTextView.setVisibility(View.VISIBLE);
+                }
+            }
         }
 
         @Override
@@ -179,6 +200,9 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
             protected LinearLayout mClickableLayout;
             protected TextView mTitleTextView;
             protected TextView mAcademicTermTextView;
+            protected TextView mClassScheduleTimeTextView;
+            protected TextView mClassScheduleLocationTextView;
+
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -186,6 +210,8 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
                 mClickableLayout = (LinearLayout) itemView.findViewById(R.id.clickable_layout);
                 mTitleTextView = (TextView) itemView.findViewById(R.id.title_text_view);
                 mAcademicTermTextView = (TextView) itemView.findViewById(R.id.academic_term_text_view);
+                mClassScheduleTimeTextView = (TextView) itemView.findViewById(R.id.class_schedule_time_text_view);
+                mClassScheduleLocationTextView = (TextView) itemView.findViewById(R.id.class_schedule_location_text_view);
             }
         }
     }

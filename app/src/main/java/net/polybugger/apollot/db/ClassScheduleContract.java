@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -328,6 +329,44 @@ public class ClassScheduleContract {
 
         public void setCampus(String campus) {
             mCampus = campus;
+        }
+
+        public String getTime(Context context) {
+            final SimpleDateFormat sdf;
+            if(StringUtils.equalsIgnoreCase(context.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE))
+                sdf = new SimpleDateFormat(DateTimeFormat.TIME_DISPLAY_TEMPLATE_JA, context.getResources().getConfiguration().locale);
+            else
+                sdf = new SimpleDateFormat(DateTimeFormat.TIME_DISPLAY_TEMPLATE, context.getResources().getConfiguration().locale);
+            StringBuilder time = new StringBuilder(sdf.format(mTimeStart));
+            String timeEnd = (mTimeEnd != null) ? sdf.format(mTimeEnd) : null;
+            if(timeEnd != null) {
+                time.append(" - ");
+                time.append(timeEnd);
+            }
+            if(mDays != 0) {
+                time.append(" ");
+                time.append(DaysBits.intToString(context, mDays));
+            }
+            return time.toString();
+        }
+
+        public String getLocation() {
+            StringBuilder location = new StringBuilder();
+            if(!StringUtils.isBlank(mRoom))
+                location.append(mRoom);
+            if(!StringUtils.isBlank(mBuilding)) {
+                if(location.length() > 0)
+                    location.append(" ");
+                location.append(mBuilding);
+            }
+            if(!StringUtils.isBlank(mCampus)) {
+                if(location.length() > 0)
+                    location.append(" ");
+                location.append("(");
+                location.append(mCampus);
+                location.append(")");
+            }
+            return location.toString();
         }
 
         @Override

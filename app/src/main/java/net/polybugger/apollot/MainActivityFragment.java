@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
+import net.polybugger.apollot.db.ClassScheduleContract;
 import net.polybugger.apollot.db.PastCurrentEnum;
 
 public class MainActivityFragment extends Fragment {
@@ -63,7 +64,9 @@ public class MainActivityFragment extends Fragment {
             SQLiteDatabase db = ApolloDbAdapter.open();
             ArrayList<ClassContract.ClassEntry> classes = ClassContract._getEntriesByPastCurrent(db, result.mPastCurrent);
             for(ClassContract.ClassEntry _class : classes) {
-                result.mClassSummaries.add(new ClassesFragment.ClassSummary(_class));
+                ClassesFragment.ClassSummary classSummary = new ClassesFragment.ClassSummary(_class);
+                classSummary.mClassSchedules = ClassScheduleContract._getEntriesByClassId(db, classSummary.mClass.getId());
+                result.mClassSummaries.add(classSummary);
             }
             ApolloDbAdapter.close();
             return result;

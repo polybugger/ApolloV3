@@ -77,10 +77,14 @@ public class ApolloDbAdapter {
             db.execSQL(ClassContract.CREATE_TABLE_SQL);
             long class0Id = ClassContract._insertDummyClass(db, R.array.default_class_0, sAppContext);
             long class1Id = ClassContract._insertDummyClass(db, R.array.default_class_1, sAppContext);
+            long class2Id = ClassContract._insertDummyClass(db, R.array.default_class_2, sAppContext);
+            long class3Id = ClassContract._insertDummyClass(db, R.array.default_class_3, sAppContext);
 
             db.execSQL(ClassScheduleContract.CREATE_TABLE_SQL);
             ClassScheduleContract._insertDummyClassSchedule(db, class0Id, R.array.default_class_0_class_schedule_0, sAppContext);
             ClassScheduleContract._insertDummyClassSchedule(db, class1Id, R.array.default_class_1_class_schedule_0, sAppContext);
+            ClassScheduleContract._insertDummyClassSchedule(db, class2Id, R.array.default_class_0_class_schedule_0, sAppContext);
+            ClassScheduleContract._insertDummyClassSchedule(db, class2Id, R.array.default_class_1_class_schedule_0, sAppContext);
 
             /*
             db.execSQL(StudentContract.CREATE_TABLE_SQL);

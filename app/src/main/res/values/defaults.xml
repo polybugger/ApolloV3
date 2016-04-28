@@ -205,6 +205,34 @@
         <item>@string/default_class_1_date_created</item>
     </array>
 
+    <string name="default_class_2_code">IT 118</string>
+    <string name="default_class_2_description">Advanced Programming II</string>
+    <integer name="default_class_2_year">2017</integer>
+    <string name="default_class_2_date_created">2016-04-09T00:00:00.000+0800</string>
+
+    <array name="default_class_2">
+        <item>@string/default_class_2_code</item>
+        <item>@string/default_class_2_description</item>
+        <item>@string/default_academic_term_2</item> <!-- spring -->
+        <item>@integer/default_class_2_year</item>
+        <item>@integer/current</item>
+        <item>@string/default_class_2_date_created</item>
+    </array>
+
+    <string name="default_class_3_code">Engl 3</string>
+    <string name="default_class_3_description">Grammar &amp; Composition</string>
+    <integer name="default_class_3_year">2017</integer>
+    <string name="default_class_3_date_created">2016-04-11T00:00:00.000+0800</string>
+
+    <array name="default_class_3">
+        <item>@string/default_class_3_code</item>
+        <item>@string/default_class_3_description</item>
+        <item>@string/default_academic_term_3</item> <!-- spring -->
+        <item>@integer/default_class_3_year</item>
+        <item>@integer/current</item>
+        <item>@string/default_class_3_date_created</item>
+    </array>
+
     <integer name="days_mwf">21</integer>
     <integer name="days_tth">10</integer>
 
