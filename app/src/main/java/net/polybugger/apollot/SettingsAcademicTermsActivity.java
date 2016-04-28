@@ -69,12 +69,18 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
     }
 
     @Override
+    public void onBackPressed() {
+        ClassesFragment.REQUERY = true;
+        super.onBackPressed();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         switch(id) {
             case android.R.id.home:
-                super.onBackPressed();
+                onBackPressed();
                 return true;
         }
 

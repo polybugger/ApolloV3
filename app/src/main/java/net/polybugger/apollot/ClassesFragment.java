@@ -2,6 +2,7 @@ package net.polybugger.apollot;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,9 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
     public static final String TAG_CURRENT = "net.polybugger.apollot.current_classes_fragment";
     public static final String PAST_CURRENT_ARG = "net.polybugger.apollot.past_current_arg";
 
+    public static boolean REQUERY = false;
+
+    private PastCurrentEnum mPastCurrent;
     private RecyclerView mRecyclerView;
     private Adapter mAdapter;
 
@@ -66,8 +70,8 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle args = getArguments();
-        PastCurrentEnum pastCurrent = (PastCurrentEnum) args.getSerializable(PAST_CURRENT_ARG);
-        switch(pastCurrent) {
+        mPastCurrent = (PastCurrentEnum) args.getSerializable(PAST_CURRENT_ARG);
+        switch(mPastCurrent) {
             case PAST:
                 getActivity().setTitle(R.string.past_classes);
                 break;
@@ -85,9 +89,23 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
         mRecyclerView.setAdapter(mAdapter);
 
         MainActivityFragment f = (MainActivityFragment) getFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
-        f.getClassesSummary(pastCurrent);
+        f.getClassesSummary(mPastCurrent);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(REQUERY) {
+            MainActivityFragment f = (MainActivityFragment) getFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
+            f.getClassesSummary(mPastCurrent);
+            REQUERY = false;
+        }
+        else {
+
+        }
     }
 
     @Override
@@ -141,14 +159,19 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
             AcademicTermContract.AcademicTermEntry academicTerm = entry.mClass.getAcademicTerm();
             if(academicTerm != null)
                 holder.mBackgroundLayout.setBackgroundResource(BackgroundRect.getBackgroundResource(academicTerm.getColor(), mActivity));
+            Resources res = mActivity.getResources();
+            int topMargin = res.getDimensionPixelSize(R.dimen.recycler_view_item_margin_top);
+            int rightMargin = res.getDimensionPixelSize(R.dimen.recycler_view_item_margin_right);
+            int bottomMargin = res.getDimensionPixelSize(R.dimen.recycler_view_item_margin_bottom);
+            int leftMargin = res.getDimensionPixelSize(R.dimen.recycler_view_item_margin_left);
             if(position == 0) {
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mBackgroundLayout.getLayoutParams();
-                layoutParams.setMargins(layoutParams.leftMargin, layoutParams.topMargin * 2, layoutParams.rightMargin, layoutParams.bottomMargin);
+                layoutParams.setMargins(leftMargin, topMargin * 2, rightMargin, bottomMargin);
                 holder.mBackgroundLayout.setLayoutParams(layoutParams);
             }
             else if(position == (mArrayList.size() - 1)) {
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mBackgroundLayout.getLayoutParams();
-                layoutParams.setMargins(layoutParams.leftMargin, layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin * 2);
+                layoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin * 2);
                 holder.mBackgroundLayout.setLayoutParams(layoutParams);
             }
             holder.mClickableLayout.setTag(entry);
