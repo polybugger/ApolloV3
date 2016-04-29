@@ -26,7 +26,7 @@ public enum GenderEnum {
         return mValue;
     }
 
-    public static String intToString(Context context, int gender) {
+    public static String intToString(int gender, Context context) {
         if(gender == MALE.mValue)
             return context.getString(R.string.male);
         if(gender == FEMALE.mValue)

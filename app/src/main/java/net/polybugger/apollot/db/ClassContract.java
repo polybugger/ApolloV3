@@ -256,7 +256,7 @@ public class ClassContract {
             dateCreated = null;
         }
         ta.recycle();
-        return ClassContract._insert(db, code,
+        return _insert(db, code,
                 description,
                 AcademicTermContract._getEntryByDescription(db, academicTerm),
                 year,

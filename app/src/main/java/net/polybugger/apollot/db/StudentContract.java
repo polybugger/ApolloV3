@@ -1,9 +1,13 @@
 package net.polybugger.apollot.db;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.support.annotation.StyleableRes;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -142,6 +146,27 @@ public class StudentContract {
         cursor.close();
         return entries;
     }
+
+    public static long _insertDummyStudent(SQLiteDatabase db, int studentResourceId, Context context) {
+        @StyleableRes final int LAST_NAME_INDEX = 0;
+        @StyleableRes final int FIRST_NAME_INDEX = 1;
+        @StyleableRes final int MIDDLE_NAME_INDEX = 2;
+        @StyleableRes final int GENDER_INDEX = 3;
+        @StyleableRes final int EMAIL_ADDRESS_INDEX = 4;
+        @StyleableRes final int CONTACT_NUMBER_INDEX = 5;
+        Resources res = context.getResources();
+        TypedArray ta = res.obtainTypedArray(studentResourceId);
+        String lastName, firstName, middleName, emailAddress, contactNumber;
+        lastName = res.getString(ta.getResourceId(LAST_NAME_INDEX, 0));
+        firstName = res.getString(ta.getResourceId(FIRST_NAME_INDEX, 0));
+        middleName = res.getString(ta.getResourceId(MIDDLE_NAME_INDEX, 0));
+        GenderEnum gender = GenderEnum.fromInt(res.getInteger(ta.getResourceId(GENDER_INDEX, 0)));
+        emailAddress = res.getString(ta.getResourceId(EMAIL_ADDRESS_INDEX, 0));
+        contactNumber = res.getString(ta.getResourceId(CONTACT_NUMBER_INDEX, 0));
+        ta.recycle();
+        return _insert(db, lastName, firstName, middleName, gender, emailAddress, contactNumber);
+    }
+
 
     public static class StudentEntry implements BaseColumns, Serializable {
 

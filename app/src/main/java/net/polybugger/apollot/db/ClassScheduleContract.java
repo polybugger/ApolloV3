@@ -233,7 +233,7 @@ public class ClassScheduleContract {
         building = res.getString(ta.getResourceId(BUILDING_INDEX, 0));
         campus = res.getString(ta.getResourceId(CAMPUS_INDEX, 0));
         ta.recycle();
-        ClassScheduleContract._insert(db, classId, timeStart, timeEnd,
+        _insert(db, classId, timeStart, timeEnd,
                 days, room, building, campus);
     }
 

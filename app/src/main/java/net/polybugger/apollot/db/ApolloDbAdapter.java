@@ -86,10 +86,52 @@ public class ApolloDbAdapter {
             ClassScheduleContract._insertDummyClassSchedule(db, class2Id, R.array.default_class_0_class_schedule_0, sAppContext);
             ClassScheduleContract._insertDummyClassSchedule(db, class2Id, R.array.default_class_1_class_schedule_0, sAppContext);
 
-            /*
             db.execSQL(StudentContract.CREATE_TABLE_SQL);
-            _insertDummyStudents(db);
+            long student0Id = StudentContract._insertDummyStudent(db, R.array.default_student_0, sAppContext);
+            long student1Id = StudentContract._insertDummyStudent(db, R.array.default_student_1, sAppContext);
+            long student2Id = StudentContract._insertDummyStudent(db, R.array.default_student_2, sAppContext);
+            long student3Id = StudentContract._insertDummyStudent(db, R.array.default_student_3, sAppContext);
+            long student4Id = StudentContract._insertDummyStudent(db, R.array.default_student_4, sAppContext);
+            long student5Id = StudentContract._insertDummyStudent(db, R.array.default_student_5, sAppContext);
+            long student6Id = StudentContract._insertDummyStudent(db, R.array.default_student_6, sAppContext);
+            long student7Id = StudentContract._insertDummyStudent(db, R.array.default_student_7, sAppContext);
+            long student8Id = StudentContract._insertDummyStudent(db, R.array.default_student_8, sAppContext);
+            long student9Id = StudentContract._insertDummyStudent(db, R.array.default_student_9, sAppContext);
+            long student10Id = StudentContract._insertDummyStudent(db, R.array.default_student_10, sAppContext);
+            long student11Id = StudentContract._insertDummyStudent(db, R.array.default_student_11, sAppContext);
+            long student12Id = StudentContract._insertDummyStudent(db, R.array.default_student_12, sAppContext);
+            long student13Id = StudentContract._insertDummyStudent(db, R.array.default_student_13, sAppContext);
+            long student14Id = StudentContract._insertDummyStudent(db, R.array.default_student_14, sAppContext);
+            long student15Id = StudentContract._insertDummyStudent(db, R.array.default_student_15, sAppContext);
+            long student16Id = StudentContract._insertDummyStudent(db, R.array.default_student_16, sAppContext);
+            long student17Id = StudentContract._insertDummyStudent(db, R.array.default_student_17, sAppContext);
+            long student18Id = StudentContract._insertDummyStudent(db, R.array.default_student_18, sAppContext);
+            long student19Id = StudentContract._insertDummyStudent(db, R.array.default_student_19, sAppContext);
+            long student20Id = StudentContract._insertDummyStudent(db, R.array.default_student_20, sAppContext);
+            long student21Id = StudentContract._insertDummyStudent(db, R.array.default_student_21, sAppContext);
+            long student22Id = StudentContract._insertDummyStudent(db, R.array.default_student_22, sAppContext);
+            long student23Id = StudentContract._insertDummyStudent(db, R.array.default_student_23, sAppContext);
+            long student24Id = StudentContract._insertDummyStudent(db, R.array.default_student_24, sAppContext);
+            long student25Id = StudentContract._insertDummyStudent(db, R.array.default_student_25, sAppContext);
+            long student26Id = StudentContract._insertDummyStudent(db, R.array.default_student_26, sAppContext);
+            long student27Id = StudentContract._insertDummyStudent(db, R.array.default_student_27, sAppContext);
+            long student28Id = StudentContract._insertDummyStudent(db, R.array.default_student_28, sAppContext);
+            long student29Id = StudentContract._insertDummyStudent(db, R.array.default_student_29, sAppContext);
+            long student30Id = StudentContract._insertDummyStudent(db, R.array.default_student_30, sAppContext);
+            long student31Id = StudentContract._insertDummyStudent(db, R.array.default_student_31, sAppContext);
+            long student32Id = StudentContract._insertDummyStudent(db, R.array.default_student_32, sAppContext);
+            long student33Id = StudentContract._insertDummyStudent(db, R.array.default_student_33, sAppContext);
+            long student34Id = StudentContract._insertDummyStudent(db, R.array.default_student_34, sAppContext);
+            long student35Id = StudentContract._insertDummyStudent(db, R.array.default_student_35, sAppContext);
+            long student36Id = StudentContract._insertDummyStudent(db, R.array.default_student_36, sAppContext);
+            long student37Id = StudentContract._insertDummyStudent(db, R.array.default_student_37, sAppContext);
+            long student38Id = StudentContract._insertDummyStudent(db, R.array.default_student_38, sAppContext);
+            long student39Id = StudentContract._insertDummyStudent(db, R.array.default_student_39, sAppContext);
+            long student40Id = StudentContract._insertDummyStudent(db, R.array.default_student_40, sAppContext);
+            long student41Id = StudentContract._insertDummyStudent(db, R.array.default_student_41, sAppContext);
+            long student42Id = StudentContract._insertDummyStudent(db, R.array.default_student_42, sAppContext);
 
+            /*
             db.execSQL(ClassNoteContract.CREATE_TABLE_SQL);
             _insertDummyClass0Notes(db, class0Id);
 
@@ -106,308 +148,6 @@ public class ApolloDbAdapter {
         }
     }
 
-    public static void _insertDummyStudents(SQLiteDatabase db) {
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_0_last_name),
-                sAppContext.getString(R.string.default_student_0_first_name),
-                sAppContext.getString(R.string.default_student_0_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_0_gender)),
-                sAppContext.getString(R.string.default_student_0_email_address),
-                sAppContext.getString(R.string.default_student_0_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_1_last_name),
-                sAppContext.getString(R.string.default_student_1_first_name),
-                sAppContext.getString(R.string.default_student_1_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_1_gender)),
-                sAppContext.getString(R.string.default_student_1_email_address),
-                sAppContext.getString(R.string.default_student_1_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_2_last_name),
-                sAppContext.getString(R.string.default_student_2_first_name),
-                sAppContext.getString(R.string.default_student_2_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_2_gender)),
-                sAppContext.getString(R.string.default_student_2_email_address),
-                sAppContext.getString(R.string.default_student_2_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_3_last_name),
-                sAppContext.getString(R.string.default_student_3_first_name),
-                sAppContext.getString(R.string.default_student_3_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_3_gender)),
-                sAppContext.getString(R.string.default_student_3_email_address),
-                sAppContext.getString(R.string.default_student_3_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_4_last_name),
-                sAppContext.getString(R.string.default_student_4_first_name),
-                sAppContext.getString(R.string.default_student_4_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_4_gender)),
-                sAppContext.getString(R.string.default_student_4_email_address),
-                sAppContext.getString(R.string.default_student_4_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_5_last_name),
-                sAppContext.getString(R.string.default_student_5_first_name),
-                sAppContext.getString(R.string.default_student_5_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_5_gender)),
-                sAppContext.getString(R.string.default_student_5_email_address),
-                sAppContext.getString(R.string.default_student_5_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_6_last_name),
-                sAppContext.getString(R.string.default_student_6_first_name),
-                sAppContext.getString(R.string.default_student_6_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_6_gender)),
-                sAppContext.getString(R.string.default_student_6_email_address),
-                sAppContext.getString(R.string.default_student_6_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_7_last_name),
-                sAppContext.getString(R.string.default_student_7_first_name),
-                sAppContext.getString(R.string.default_student_7_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_7_gender)),
-                sAppContext.getString(R.string.default_student_7_email_address),
-                sAppContext.getString(R.string.default_student_7_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_8_last_name),
-                sAppContext.getString(R.string.default_student_8_first_name),
-                sAppContext.getString(R.string.default_student_8_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_8_gender)),
-                sAppContext.getString(R.string.default_student_8_email_address),
-                sAppContext.getString(R.string.default_student_8_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_9_last_name),
-                sAppContext.getString(R.string.default_student_9_first_name),
-                sAppContext.getString(R.string.default_student_9_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_9_gender)),
-                sAppContext.getString(R.string.default_student_9_email_address),
-                sAppContext.getString(R.string.default_student_9_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_10_last_name),
-                sAppContext.getString(R.string.default_student_10_first_name),
-                sAppContext.getString(R.string.default_student_10_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_10_gender)),
-                sAppContext.getString(R.string.default_student_10_email_address),
-                sAppContext.getString(R.string.default_student_10_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_11_last_name),
-                sAppContext.getString(R.string.default_student_11_first_name),
-                sAppContext.getString(R.string.default_student_11_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_11_gender)),
-                sAppContext.getString(R.string.default_student_11_email_address),
-                sAppContext.getString(R.string.default_student_11_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_12_last_name),
-                sAppContext.getString(R.string.default_student_12_first_name),
-                sAppContext.getString(R.string.default_student_12_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_12_gender)),
-                sAppContext.getString(R.string.default_student_12_email_address),
-                sAppContext.getString(R.string.default_student_12_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_13_last_name),
-                sAppContext.getString(R.string.default_student_13_first_name),
-                sAppContext.getString(R.string.default_student_13_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_13_gender)),
-                sAppContext.getString(R.string.default_student_13_email_address),
-                sAppContext.getString(R.string.default_student_13_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_14_last_name),
-                sAppContext.getString(R.string.default_student_14_first_name),
-                sAppContext.getString(R.string.default_student_14_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_14_gender)),
-                sAppContext.getString(R.string.default_student_14_email_address),
-                sAppContext.getString(R.string.default_student_14_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_15_last_name),
-                sAppContext.getString(R.string.default_student_15_first_name),
-                sAppContext.getString(R.string.default_student_15_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_15_gender)),
-                sAppContext.getString(R.string.default_student_15_email_address),
-                sAppContext.getString(R.string.default_student_15_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_16_last_name),
-                sAppContext.getString(R.string.default_student_16_first_name),
-                sAppContext.getString(R.string.default_student_16_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_16_gender)),
-                sAppContext.getString(R.string.default_student_16_email_address),
-                sAppContext.getString(R.string.default_student_16_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_17_last_name),
-                sAppContext.getString(R.string.default_student_17_first_name),
-                sAppContext.getString(R.string.default_student_17_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_17_gender)),
-                sAppContext.getString(R.string.default_student_17_email_address),
-                sAppContext.getString(R.string.default_student_17_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_18_last_name),
-                sAppContext.getString(R.string.default_student_18_first_name),
-                sAppContext.getString(R.string.default_student_18_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_18_gender)),
-                sAppContext.getString(R.string.default_student_18_email_address),
-                sAppContext.getString(R.string.default_student_18_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_19_last_name),
-                sAppContext.getString(R.string.default_student_19_first_name),
-                sAppContext.getString(R.string.default_student_19_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_19_gender)),
-                sAppContext.getString(R.string.default_student_19_email_address),
-                sAppContext.getString(R.string.default_student_19_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_20_last_name),
-                sAppContext.getString(R.string.default_student_20_first_name),
-                sAppContext.getString(R.string.default_student_20_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_20_gender)),
-                sAppContext.getString(R.string.default_student_20_email_address),
-                sAppContext.getString(R.string.default_student_20_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_21_last_name),
-                sAppContext.getString(R.string.default_student_21_first_name),
-                sAppContext.getString(R.string.default_student_21_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_21_gender)),
-                sAppContext.getString(R.string.default_student_21_email_address),
-                sAppContext.getString(R.string.default_student_21_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_22_last_name),
-                sAppContext.getString(R.string.default_student_22_first_name),
-                sAppContext.getString(R.string.default_student_22_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_22_gender)),
-                sAppContext.getString(R.string.default_student_22_email_address),
-                sAppContext.getString(R.string.default_student_22_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_23_last_name),
-                sAppContext.getString(R.string.default_student_23_first_name),
-                sAppContext.getString(R.string.default_student_23_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_23_gender)),
-                sAppContext.getString(R.string.default_student_23_email_address),
-                sAppContext.getString(R.string.default_student_23_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_24_last_name),
-                sAppContext.getString(R.string.default_student_24_first_name),
-                sAppContext.getString(R.string.default_student_24_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_24_gender)),
-                sAppContext.getString(R.string.default_student_24_email_address),
-                sAppContext.getString(R.string.default_student_24_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_25_last_name),
-                sAppContext.getString(R.string.default_student_25_first_name),
-                sAppContext.getString(R.string.default_student_25_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_25_gender)),
-                sAppContext.getString(R.string.default_student_25_email_address),
-                sAppContext.getString(R.string.default_student_25_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_26_last_name),
-                sAppContext.getString(R.string.default_student_26_first_name),
-                sAppContext.getString(R.string.default_student_26_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_26_gender)),
-                sAppContext.getString(R.string.default_student_26_email_address),
-                sAppContext.getString(R.string.default_student_26_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_27_last_name),
-                sAppContext.getString(R.string.default_student_27_first_name),
-                sAppContext.getString(R.string.default_student_27_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_27_gender)),
-                sAppContext.getString(R.string.default_student_27_email_address),
-                sAppContext.getString(R.string.default_student_27_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_28_last_name),
-                sAppContext.getString(R.string.default_student_28_first_name),
-                sAppContext.getString(R.string.default_student_28_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_28_gender)),
-                sAppContext.getString(R.string.default_student_28_email_address),
-                sAppContext.getString(R.string.default_student_28_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_29_last_name),
-                sAppContext.getString(R.string.default_student_29_first_name),
-                sAppContext.getString(R.string.default_student_29_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_29_gender)),
-                sAppContext.getString(R.string.default_student_29_email_address),
-                sAppContext.getString(R.string.default_student_29_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_30_last_name),
-                sAppContext.getString(R.string.default_student_30_first_name),
-                sAppContext.getString(R.string.default_student_30_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_30_gender)),
-                sAppContext.getString(R.string.default_student_30_email_address),
-                sAppContext.getString(R.string.default_student_30_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_31_last_name),
-                sAppContext.getString(R.string.default_student_31_first_name),
-                sAppContext.getString(R.string.default_student_31_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_31_gender)),
-                sAppContext.getString(R.string.default_student_31_email_address),
-                sAppContext.getString(R.string.default_student_31_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_32_last_name),
-                sAppContext.getString(R.string.default_student_32_first_name),
-                sAppContext.getString(R.string.default_student_32_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_32_gender)),
-                sAppContext.getString(R.string.default_student_32_email_address),
-                sAppContext.getString(R.string.default_student_32_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_33_last_name),
-                sAppContext.getString(R.string.default_student_33_first_name),
-                sAppContext.getString(R.string.default_student_33_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_33_gender)),
-                sAppContext.getString(R.string.default_student_33_email_address),
-                sAppContext.getString(R.string.default_student_33_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_34_last_name),
-                sAppContext.getString(R.string.default_student_34_first_name),
-                sAppContext.getString(R.string.default_student_34_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_34_gender)),
-                sAppContext.getString(R.string.default_student_34_email_address),
-                sAppContext.getString(R.string.default_student_34_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_35_last_name),
-                sAppContext.getString(R.string.default_student_35_first_name),
-                sAppContext.getString(R.string.default_student_35_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_35_gender)),
-                sAppContext.getString(R.string.default_student_35_email_address),
-                sAppContext.getString(R.string.default_student_35_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_36_last_name),
-                sAppContext.getString(R.string.default_student_36_first_name),
-                sAppContext.getString(R.string.default_student_36_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_36_gender)),
-                sAppContext.getString(R.string.default_student_36_email_address),
-                sAppContext.getString(R.string.default_student_36_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_37_last_name),
-                sAppContext.getString(R.string.default_student_37_first_name),
-                sAppContext.getString(R.string.default_student_37_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_37_gender)),
-                sAppContext.getString(R.string.default_student_37_email_address),
-                sAppContext.getString(R.string.default_student_37_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_38_last_name),
-                sAppContext.getString(R.string.default_student_38_first_name),
-                sAppContext.getString(R.string.default_student_38_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_38_gender)),
-                sAppContext.getString(R.string.default_student_38_email_address),
-                sAppContext.getString(R.string.default_student_38_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_39_last_name),
-                sAppContext.getString(R.string.default_student_39_first_name),
-                sAppContext.getString(R.string.default_student_39_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_39_gender)),
-                sAppContext.getString(R.string.default_student_39_email_address),
-                sAppContext.getString(R.string.default_student_39_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_40_last_name),
-                sAppContext.getString(R.string.default_student_40_first_name),
-                sAppContext.getString(R.string.default_student_40_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_40_gender)),
-                sAppContext.getString(R.string.default_student_40_email_address),
-                sAppContext.getString(R.string.default_student_40_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_41_last_name),
-                sAppContext.getString(R.string.default_student_41_first_name),
-                sAppContext.getString(R.string.default_student_41_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_41_gender)),
-                sAppContext.getString(R.string.default_student_41_email_address),
-                sAppContext.getString(R.string.default_student_41_contact_number));
-
-        StudentContract._insert(db, sAppContext.getString(R.string.default_student_42_last_name),
-                sAppContext.getString(R.string.default_student_42_first_name),
-                sAppContext.getString(R.string.default_student_42_middle_name),
-                GenderEnum.fromInt(sAppContext.getResources().getInteger(R.integer.default_student_42_gender)),
-                sAppContext.getString(R.string.default_student_42_email_address),
-                sAppContext.getString(R.string.default_student_42_contact_number));
-    }
 
     public static void _insertDummyClass0Notes(SQLiteDatabase db, long classId) {
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_DB_TEMPLATE, sAppContext.getResources().getConfiguration().locale);
