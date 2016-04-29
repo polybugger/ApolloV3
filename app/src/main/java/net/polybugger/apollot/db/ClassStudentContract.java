@@ -105,6 +105,18 @@ public class ClassStudentContract {
         return entry;
     }
 
+    public static long _getCount(SQLiteDatabase db, long classId) {
+        String tableName = TABLE_NAME + String.valueOf(classId);
+        db.execSQL(CREATE_TABLE_SQL1 + tableName + CREATE_TABLE_SQL2);
+        long count = 0;
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + tableName, null);
+        cursor.moveToFirst();
+        if(!cursor.isAfterLast())
+            count = cursor.getLong(0);
+        cursor.close();
+        return count;
+    }
+
     public static class ClassStudentEntry implements BaseColumns {
 
         public static final String CLASS_ID = "ClassId";

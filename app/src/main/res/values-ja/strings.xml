@@ -101,4 +101,6 @@
 
     <string name="please_enter_a_class_activity">アクティビティーを記入してください！</string>
 
+    <string name="students_label">学生：</string>
+
 </resources>

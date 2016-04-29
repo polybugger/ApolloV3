@@ -153,6 +153,7 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
             return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_class_summary, parent, false));
         }
 
+        // TODO adjust formatting for empty fields
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             ClassSummary entry = mArrayList.get(position);
@@ -210,6 +211,13 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
                     holder.mClassScheduleLocationTextView.setVisibility(View.VISIBLE);
                 }
             }
+            if(entry.mStudentCount == 0) {
+                holder.mStudentCountTextView.setVisibility(View.GONE);
+            }
+            else {
+                holder.mStudentCountTextView.setText(String.format("%s %d", mActivity.getString(R.string.students_label), entry.mStudentCount));
+                holder.mStudentCountTextView.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -225,6 +233,7 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
             protected TextView mAcademicTermTextView;
             protected TextView mClassScheduleTimeTextView;
             protected TextView mClassScheduleLocationTextView;
+            protected TextView mStudentCountTextView;
 
 
             public ViewHolder(View itemView) {
@@ -235,6 +244,7 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
                 mAcademicTermTextView = (TextView) itemView.findViewById(R.id.academic_term_text_view);
                 mClassScheduleTimeTextView = (TextView) itemView.findViewById(R.id.class_schedule_time_text_view);
                 mClassScheduleLocationTextView = (TextView) itemView.findViewById(R.id.class_schedule_location_text_view);
+                mStudentCountTextView = (TextView) itemView.findViewById(R.id.student_count_text_view);
             }
         }
     }
@@ -242,10 +252,10 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
     public static class ClassSummary {
         public ClassContract.ClassEntry mClass;
         public ArrayList<ClassScheduleContract.ClassScheduleEntry> mClassSchedules;
+        public long mStudentCount;
 
         public ClassSummary(ClassContract.ClassEntry _class) {
             mClass = _class;
-            mClassSchedules = new ArrayList<>();
         }
     }
 }

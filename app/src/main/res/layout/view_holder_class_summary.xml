@@ -69,6 +69,20 @@
                 android:paddingLeft="@dimen/recycler_view_content_padding_left"
                 android:textSize="@dimen/normal_text_size" />
 
+            <View
+                android:paddingRight="@dimen/recycler_view_content_padding_right"
+                android:paddingLeft="@dimen/recycler_view_content_padding_left"
+                style="@style/AppListDivider" />
+
+            <TextView
+                android:id="@+id/student_count_text_view"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:paddingTop="@dimen/recycler_view_content_padding_top"
+                android:paddingRight="@dimen/recycler_view_content_padding_right"
+                android:paddingLeft="@dimen/recycler_view_content_padding_left"
+                android:textSize="@dimen/normal_text_size" />
+
         </LinearLayout>
 
     </LinearLayout>

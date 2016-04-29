@@ -104,4 +104,6 @@
 
     <string name="please_enter_a_class_activity">Please enter a class activity!</string>
 
+    <string name="students_label">Students:</string>
+
 </resources>

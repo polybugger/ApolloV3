@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
+import net.polybugger.apollot.db.ClassStudentContract;
 import net.polybugger.apollot.db.PastCurrentEnum;
 
 public class MainActivityFragment extends Fragment {
@@ -65,7 +66,9 @@ public class MainActivityFragment extends Fragment {
             ArrayList<ClassContract.ClassEntry> classes = ClassContract._getEntriesByPastCurrent(db, result.mPastCurrent);
             for(ClassContract.ClassEntry _class : classes) {
                 ClassesFragment.ClassSummary classSummary = new ClassesFragment.ClassSummary(_class);
-                classSummary.mClassSchedules = ClassScheduleContract._getEntriesByClassId(db, classSummary.mClass.getId());
+                long classId = classSummary.mClass.getId();
+                classSummary.mClassSchedules = ClassScheduleContract._getEntriesByClassId(db, classId);
+                classSummary.mStudentCount = ClassStudentContract._getCount(db, classId);
                 result.mClassSummaries.add(classSummary);
             }
             ApolloDbAdapter.close();
