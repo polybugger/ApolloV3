@@ -41,15 +41,19 @@ public class ClassStudentContract {
 
     private ClassStudentContract() { }
 
-    public static long _insert(SQLiteDatabase db, long classId, StudentContract.StudentEntry student, Date dateCreated) {
+    public static long _insert(SQLiteDatabase db, long classId, long studentId, Date dateCreated) {
         String tableName = TABLE_NAME + String.valueOf(classId);
         db.execSQL(CREATE_TABLE_SQL1 + tableName + CREATE_TABLE_SQL2);
         ContentValues values = new ContentValues();
         values.put(ClassStudentEntry.CLASS_ID, classId);
-        values.put(ClassStudentEntry.STUDENT_ID, student.getId());
+        values.put(ClassStudentEntry.STUDENT_ID, studentId);
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
         values.put(ClassStudentEntry.DATE_CREATED, (dateCreated != null) ? sdf.format(dateCreated) : null);
         return db.insert(tableName, null, values);
+    }
+
+    public static long _insert(SQLiteDatabase db, long classId, StudentContract.StudentEntry student, Date dateCreated) {
+        return _insert(db, classId, student.getId(), dateCreated);
     }
 
     public static int _delete(SQLiteDatabase db, long id, long classId) {
