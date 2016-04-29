@@ -266,6 +266,654 @@
         <item>@string/default_class_1_class_schedule_0_campus</item>
     </array>
 
+    <integer name="gender_male">0</integer>
+    <integer name="gender_female">1</integer>
+    <integer name="gender_unknown">2</integer>
+
+    <string name="default_student_0_last_name">Knute</string>
+    <string name="default_student_0_first_name">Deunan</string>
+    <string name="default_student_0_middle_name">K</string>
+    <string name="default_student_0_email_address">d.knute@eswat.org</string>
+    <string name="default_student_0_contact_number">2105&#8211;17&#8211;2125</string>
+
+    <array name="default_student_0">
+        <item>@string/default_student_0_last_name</item>
+        <item>@string/default_student_0_first_name</item>
+        <item>@string/default_student_0_middle_name</item>
+        <item>@integer/gender_female</item>
+        <item>@string/default_student_0_email_address</item>
+        <item>@string/default_student_0_contact_number</item>
+    </array>
+
+    <string name="default_student_1_last_name">Jenkins</string>
+    <string name="default_student_1_first_name">Carl</string>
+    <string name="default_student_1_middle_name">W</string>
+    <string name="default_student_1_email_address">info@rainbowcity.co</string>
+    <string name="default_student_1_contact_number"></string>
+
+    <array name="default_student_1">
+        <item>@string/default_student_1_last_name</item>
+        <item>@string/default_student_1_first_name</item>
+        <item>@string/default_student_1_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_1_email_address</item>
+        <item>@string/default_student_1_contact_number</item>
+    </array>
+
+    <string name="default_student_2_last_name">Ibanez</string>
+    <string name="default_student_2_first_name">Carmen</string>
+    <string name="default_student_2_middle_name"></string>
+    <string name="default_student_2_email_address"></string>
+    <string name="default_student_2_contact_number"></string>
+
+    <array name="default_student_2">
+        <item>@string/default_student_2_last_name</item>
+        <item>@string/default_student_2_first_name</item>
+        <item>@string/default_student_2_middle_name</item>
+        <item>@integer/gender_female</item>
+        <item>@string/default_student_2_email_address</item>
+        <item>@string/default_student_2_contact_number</item>
+    </array>
+
+    <string name="default_student_3_last_name">Durer</string>
+    <string name="default_student_3_first_name">Tia "Trig"</string>
+    <string name="default_student_3_middle_name"></string>
+    <string name="default_student_3_email_address"></string>
+    <string name="default_student_3_contact_number"></string>
+
+    <array name="default_student_3">
+        <item>@string/default_student_3_last_name</item>
+        <item>@string/default_student_3_first_name</item>
+        <item>@string/default_student_3_middle_name</item>
+        <item>@integer/gender_female</item>
+        <item>@string/default_student_3_email_address</item>
+        <item>@string/default_student_3_contact_number</item>
+    </array>
+
+    <string name="default_student_4_last_name">Rico</string>
+    <string name="default_student_4_first_name">Johnny</string>
+    <string name="default_student_4_middle_name"></string>
+    <string name="default_student_4_email_address"></string>
+    <string name="default_student_4_contact_number"></string>
+
+    <array name="default_student_4">
+        <item>@string/default_student_4_last_name</item>
+        <item>@string/default_student_4_first_name</item>
+        <item>@string/default_student_4_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_4_email_address</item>
+        <item>@string/default_student_4_contact_number</item>
+    </array>
+
+    <string name="default_student_5_last_name">Kusanagi</string>
+    <string name="default_student_5_first_name">Motoko</string>
+    <string name="default_student_5_middle_name"></string>
+    <string name="default_student_5_email_address"></string>
+    <string name="default_student_5_contact_number"></string>
+
+    <array name="default_student_5">
+        <item>@string/default_student_5_last_name</item>
+        <item>@string/default_student_5_first_name</item>
+        <item>@string/default_student_5_middle_name</item>
+        <item>@integer/gender_female</item>
+        <item>@string/default_student_5_email_address</item>
+        <item>@string/default_student_5_contact_number</item>
+    </array>
+
+    <string name="default_student_6_last_name">Cage</string>
+    <string name="default_student_6_first_name">William</string>
+    <string name="default_student_6_middle_name"></string>
+    <string name="default_student_6_email_address"></string>
+    <string name="default_student_6_contact_number"></string>
+
+    <array name="default_student_6">
+        <item>@string/default_student_6_last_name</item>
+        <item>@string/default_student_6_first_name</item>
+        <item>@string/default_student_6_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_6_email_address</item>
+        <item>@string/default_student_6_contact_number</item>
+    </array>
+
+    <string name="default_student_7_last_name">Vrataski</string>
+    <string name="default_student_7_first_name">Rita</string>
+    <string name="default_student_7_middle_name"></string>
+    <string name="default_student_7_email_address"></string>
+    <string name="default_student_7_contact_number"></string>
+
+    <array name="default_student_7">
+        <item>@string/default_student_7_last_name</item>
+        <item>@string/default_student_7_first_name</item>
+        <item>@string/default_student_7_middle_name</item>
+        <item>@integer/gender_female</item>
+        <item>@string/default_student_7_email_address</item>
+        <item>@string/default_student_7_contact_number</item>
+    </array>
+
+    <string name="default_student_8_last_name">Wayne</string>
+    <string name="default_student_8_first_name">Bruce</string>
+    <string name="default_student_8_middle_name"></string>
+    <string name="default_student_8_email_address"></string>
+    <string name="default_student_8_contact_number"></string>
+
+    <array name="default_student_8">
+        <item>@string/default_student_8_last_name</item>
+        <item>@string/default_student_8_first_name</item>
+        <item>@string/default_student_8_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_8_email_address</item>
+        <item>@string/default_student_8_contact_number</item>
+    </array>
+
+    <string name="default_student_9_last_name">Kent</string>
+    <string name="default_student_9_first_name">Clark</string>
+    <string name="default_student_9_middle_name"></string>
+    <string name="default_student_9_email_address"></string>
+    <string name="default_student_9_contact_number"></string>
+
+    <array name="default_student_9">
+        <item>@string/default_student_9_last_name</item>
+        <item>@string/default_student_9_first_name</item>
+        <item>@string/default_student_9_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_9_email_address</item>
+        <item>@string/default_student_9_contact_number</item>
+    </array>
+
+    <string name="default_student_10_last_name">Allen</string>
+    <string name="default_student_10_first_name">Barry</string>
+    <string name="default_student_10_middle_name"></string>
+    <string name="default_student_10_email_address"></string>
+    <string name="default_student_10_contact_number"></string>
+
+    <array name="default_student_10">
+        <item>@string/default_student_10_last_name</item>
+        <item>@string/default_student_10_first_name</item>
+        <item>@string/default_student_10_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_10_email_address</item>
+        <item>@string/default_student_10_contact_number</item>
+    </array>
+
+    <string name="default_student_11_last_name">Stark</string>
+    <string name="default_student_11_first_name">Tony</string>
+    <string name="default_student_11_middle_name"></string>
+    <string name="default_student_11_email_address"></string>
+    <string name="default_student_11_contact_number"></string>
+
+    <array name="default_student_11">
+        <item>@string/default_student_11_last_name</item>
+        <item>@string/default_student_11_first_name</item>
+        <item>@string/default_student_11_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_11_email_address</item>
+        <item>@string/default_student_11_contact_number</item>
+    </array>
+
+    <string name="default_student_12_last_name">Rogers</string>
+    <string name="default_student_12_first_name">Steve</string>
+    <string name="default_student_12_middle_name"></string>
+    <string name="default_student_12_email_address"></string>
+    <string name="default_student_12_contact_number"></string>
+
+    <array name="default_student_12">
+        <item>@string/default_student_12_last_name</item>
+        <item>@string/default_student_12_first_name</item>
+        <item>@string/default_student_12_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_12_email_address</item>
+        <item>@string/default_student_12_contact_number</item>
+    </array>
+
+    <string name="default_student_13_last_name">Romanoff</string>
+    <string name="default_student_13_first_name">Natasha</string>
+    <string name="default_student_13_middle_name"></string>
+    <string name="default_student_13_email_address"></string>
+    <string name="default_student_13_contact_number"></string>
+
+    <array name="default_student_13">
+        <item>@string/default_student_13_last_name</item>
+        <item>@string/default_student_13_first_name</item>
+        <item>@string/default_student_13_middle_name</item>
+        <item>@integer/gender_female</item>
+        <item>@string/default_student_13_email_address</item>
+        <item>@string/default_student_13_contact_number</item>
+    </array>
+
+    <string name="default_student_14_last_name">Banner</string>
+    <string name="default_student_14_first_name">Bruce</string>
+    <string name="default_student_14_middle_name"></string>
+    <string name="default_student_14_email_address"></string>
+    <string name="default_student_14_contact_number"></string>
+
+    <array name="default_student_14">
+        <item>@string/default_student_14_last_name</item>
+        <item>@string/default_student_14_first_name</item>
+        <item>@string/default_student_14_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_14_email_address</item>
+        <item>@string/default_student_14_contact_number</item>
+    </array>
+
+    <string name="default_student_15_last_name">Barton</string>
+    <string name="default_student_15_first_name">Clint</string>
+    <string name="default_student_15_middle_name"></string>
+    <string name="default_student_15_email_address"></string>
+    <string name="default_student_15_contact_number"></string>
+
+    <array name="default_student_15">
+        <item>@string/default_student_15_last_name</item>
+        <item>@string/default_student_15_first_name</item>
+        <item>@string/default_student_15_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_15_email_address</item>
+        <item>@string/default_student_15_contact_number</item>
+    </array>
+
+    <string name="default_student_16_last_name">Coulson</string>
+    <string name="default_student_16_first_name">Phil</string>
+    <string name="default_student_16_middle_name"></string>
+    <string name="default_student_16_email_address"></string>
+    <string name="default_student_16_contact_number"></string>
+
+    <array name="default_student_16">
+        <item>@string/default_student_16_last_name</item>
+        <item>@string/default_student_16_first_name</item>
+        <item>@string/default_student_16_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_16_email_address</item>
+        <item>@string/default_student_16_contact_number</item>
+    </array>
+
+    <string name="default_student_17_last_name">Fury</string>
+    <string name="default_student_17_first_name">Nick</string>
+    <string name="default_student_17_middle_name"></string>
+    <string name="default_student_17_email_address"></string>
+    <string name="default_student_17_contact_number"></string>
+
+    <array name="default_student_17">
+        <item>@string/default_student_17_last_name</item>
+        <item>@string/default_student_17_first_name</item>
+        <item>@string/default_student_17_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_17_email_address</item>
+        <item>@string/default_student_17_contact_number</item>
+    </array>
+
+    <string name="default_student_18_last_name">Parker</string>
+    <string name="default_student_18_first_name">Peter</string>
+    <string name="default_student_18_middle_name"></string>
+    <string name="default_student_18_email_address"></string>
+    <string name="default_student_18_contact_number"></string>
+
+    <array name="default_student_18">
+        <item>@string/default_student_18_last_name</item>
+        <item>@string/default_student_18_first_name</item>
+        <item>@string/default_student_18_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_18_email_address</item>
+        <item>@string/default_student_18_contact_number</item>
+    </array>
+
+    <string name="default_student_19_last_name">Hattori</string>
+    <string name="default_student_19_first_name">Hanzo</string>
+    <string name="default_student_19_middle_name"></string>
+    <string name="default_student_19_email_address"></string>
+    <string name="default_student_19_contact_number"></string>
+
+    <array name="default_student_19">
+        <item>@string/default_student_19_last_name</item>
+        <item>@string/default_student_19_first_name</item>
+        <item>@string/default_student_19_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_19_email_address</item>
+        <item>@string/default_student_19_contact_number</item>
+    </array>
+
+    <string name="default_student_20_last_name">Tachibana</string>
+    <string name="default_student_20_first_name">Ukyo</string>
+    <string name="default_student_20_middle_name"></string>
+    <string name="default_student_20_email_address"></string>
+    <string name="default_student_20_contact_number"></string>
+
+    <array name="default_student_20">
+        <item>@string/default_student_20_last_name</item>
+        <item>@string/default_student_20_first_name</item>
+        <item>@string/default_student_20_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_20_email_address</item>
+        <item>@string/default_student_20_contact_number</item>
+    </array>
+
+    <string name="default_student_21_last_name">Nakoruru</string>
+    <string name="default_student_21_first_name"></string>
+    <string name="default_student_21_middle_name"></string>
+    <string name="default_student_21_email_address"></string>
+    <string name="default_student_21_contact_number"></string>
+
+    <array name="default_student_21">
+        <item>@string/default_student_21_last_name</item>
+        <item>@string/default_student_21_first_name</item>
+        <item>@string/default_student_21_middle_name</item>
+        <item>@integer/gender_female</item>
+        <item>@string/default_student_21_email_address</item>
+        <item>@string/default_student_21_contact_number</item>
+    </array>
+
+    <string name="default_student_22_last_name">Haohmaru</string>
+    <string name="default_student_22_first_name"></string>
+    <string name="default_student_22_middle_name"></string>
+    <string name="default_student_22_email_address"></string>
+    <string name="default_student_22_contact_number"></string>
+
+    <array name="default_student_22">
+        <item>@string/default_student_22_last_name</item>
+        <item>@string/default_student_22_first_name</item>
+        <item>@string/default_student_22_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_22_email_address</item>
+        <item>@string/default_student_22_contact_number</item>
+    </array>
+
+    <string name="default_student_23_last_name">Weller</string>
+    <string name="default_student_23_first_name">Galford</string>
+    <string name="default_student_23_middle_name">D</string>
+    <string name="default_student_23_email_address"></string>
+    <string name="default_student_23_contact_number"></string>
+
+    <array name="default_student_23">
+        <item>@string/default_student_23_last_name</item>
+        <item>@string/default_student_23_first_name</item>
+        <item>@string/default_student_23_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_23_email_address</item>
+        <item>@string/default_student_23_contact_number</item>
+    </array>
+
+    <string name="default_student_24_last_name">de Colde</string>
+    <string name="default_student_24_first_name">Charlotte Christine</string>
+    <string name="default_student_24_middle_name"></string>
+    <string name="default_student_24_email_address"></string>
+    <string name="default_student_24_contact_number"></string>
+
+    <array name="default_student_24">
+        <item>@string/default_student_24_last_name</item>
+        <item>@string/default_student_24_first_name</item>
+        <item>@string/default_student_24_middle_name</item>
+        <item>@integer/gender_female</item>
+        <item>@string/default_student_24_email_address</item>
+        <item>@string/default_student_24_contact_number</item>
+    </array>
+
+    <string name="default_student_25_last_name">Neinhalt</string>
+    <string name="default_student_25_first_name">Sieger</string>
+    <string name="default_student_25_middle_name"></string>
+    <string name="default_student_25_email_address"></string>
+    <string name="default_student_25_contact_number"></string>
+
+    <array name="default_student_25">
+        <item>@string/default_student_25_last_name</item>
+        <item>@string/default_student_25_first_name</item>
+        <item>@string/default_student_25_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_25_email_address</item>
+        <item>@string/default_student_25_contact_number</item>
+    </array>
+
+    <string name="default_student_26_last_name">Cham Cham</string>
+    <string name="default_student_26_first_name"></string>
+    <string name="default_student_26_middle_name"></string>
+    <string name="default_student_26_email_address"></string>
+    <string name="default_student_26_contact_number"></string>
+
+    <array name="default_student_26">
+        <item>@string/default_student_26_last_name</item>
+        <item>@string/default_student_26_first_name</item>
+        <item>@string/default_student_26_middle_name</item>
+        <item>@integer/gender_female</item>
+        <item>@string/default_student_26_email_address</item>
+        <item>@string/default_student_26_contact_number</item>
+    </array>
+
+    <string name="default_student_27_last_name">Descartes</string>
+    <string name="default_student_27_first_name">René</string>
+    <string name="default_student_27_middle_name"></string>
+    <string name="default_student_27_email_address"></string>
+    <string name="default_student_27_contact_number"></string>
+
+    <array name="default_student_27">
+        <item>@string/default_student_27_last_name</item>
+        <item>@string/default_student_27_first_name</item>
+        <item>@string/default_student_27_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_27_email_address</item>
+        <item>@string/default_student_27_contact_number</item>
+    </array>
+
+    <string name="default_student_28_last_name">Euclid</string>
+    <string name="default_student_28_first_name"></string>
+    <string name="default_student_28_middle_name"></string>
+    <string name="default_student_28_email_address"></string>
+    <string name="default_student_28_contact_number"></string>
+
+    <array name="default_student_28">
+        <item>@string/default_student_28_last_name</item>
+        <item>@string/default_student_28_first_name</item>
+        <item>@string/default_student_28_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_28_email_address</item>
+        <item>@string/default_student_28_contact_number</item>
+    </array>
+
+    <string name="default_student_29_last_name">Leibniz</string>
+    <string name="default_student_29_first_name">Gottfried Wilhelm</string>
+    <string name="default_student_29_middle_name"></string>
+    <string name="default_student_29_email_address"></string>
+    <string name="default_student_29_contact_number"></string>
+
+    <array name="default_student_29">
+        <item>@string/default_student_29_last_name</item>
+        <item>@string/default_student_29_first_name</item>
+        <item>@string/default_student_29_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_29_email_address</item>
+        <item>@string/default_student_29_contact_number</item>
+    </array>
+
+    <string name="default_student_30_last_name">Gauss</string>
+    <string name="default_student_30_first_name">Carl Friedrich</string>
+    <string name="default_student_30_middle_name"></string>
+    <string name="default_student_30_email_address"></string>
+    <string name="default_student_30_contact_number"></string>
+
+    <array name="default_student_30">
+        <item>@string/default_student_30_last_name</item>
+        <item>@string/default_student_30_first_name</item>
+        <item>@string/default_student_30_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_30_email_address</item>
+        <item>@string/default_student_30_contact_number</item>
+    </array>
+
+    <string name="default_student_31_last_name">Boole</string>
+    <string name="default_student_31_first_name">George</string>
+    <string name="default_student_31_middle_name"></string>
+    <string name="default_student_31_email_address"></string>
+    <string name="default_student_31_contact_number"></string>
+
+    <array name="default_student_31">
+        <item>@string/default_student_31_last_name</item>
+        <item>@string/default_student_31_first_name</item>
+        <item>@string/default_student_31_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_31_email_address</item>
+        <item>@string/default_student_31_contact_number</item>
+    </array>
+
+    <string name="default_student_32_last_name">Pythagoras</string>
+    <string name="default_student_32_first_name"></string>
+    <string name="default_student_32_middle_name"></string>
+    <string name="default_student_32_email_address"></string>
+    <string name="default_student_32_contact_number"></string>
+
+    <array name="default_student_32">
+        <item>@string/default_student_32_last_name</item>
+        <item>@string/default_student_32_first_name</item>
+        <item>@string/default_student_32_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_32_email_address</item>
+        <item>@string/default_student_32_contact_number</item>
+    </array>
+
+    <string name="default_student_33_last_name">Kepler</string>
+    <string name="default_student_33_first_name">Johannes</string>
+    <string name="default_student_33_middle_name"></string>
+    <string name="default_student_33_email_address"></string>
+    <string name="default_student_33_contact_number"></string>
+
+    <array name="default_student_33">
+        <item>@string/default_student_33_last_name</item>
+        <item>@string/default_student_33_first_name</item>
+        <item>@string/default_student_33_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_33_email_address</item>
+        <item>@string/default_student_33_contact_number</item>
+    </array>
+
+    <string name="default_student_34_last_name">Pascal</string>
+    <string name="default_student_34_first_name">Blaise</string>
+    <string name="default_student_34_middle_name"></string>
+    <string name="default_student_34_email_address"></string>
+    <string name="default_student_34_contact_number"></string>
+
+    <array name="default_student_34">
+        <item>@string/default_student_34_last_name</item>
+        <item>@string/default_student_34_first_name</item>
+        <item>@string/default_student_34_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_34_email_address</item>
+        <item>@string/default_student_34_contact_number</item>
+    </array>
+
+    <string name="default_student_35_last_name">Dedekind</string>
+    <string name="default_student_35_first_name">Julius Wilhelm Richard</string>
+    <string name="default_student_35_middle_name"></string>
+    <string name="default_student_35_email_address"></string>
+    <string name="default_student_35_contact_number"></string>
+
+    <array name="default_student_35">
+        <item>@string/default_student_35_last_name</item>
+        <item>@string/default_student_35_first_name</item>
+        <item>@string/default_student_35_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_35_email_address</item>
+        <item>@string/default_student_35_contact_number</item>
+    </array>
+
+    <string name="default_student_36_last_name">Cantor</string>
+    <string name="default_student_36_first_name">Georg</string>
+    <string name="default_student_36_middle_name"></string>
+    <string name="default_student_36_email_address"></string>
+    <string name="default_student_36_contact_number"></string>
+
+    <array name="default_student_36">
+        <item>@string/default_student_36_last_name</item>
+        <item>@string/default_student_36_first_name</item>
+        <item>@string/default_student_36_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_36_email_address</item>
+        <item>@string/default_student_36_contact_number</item>
+    </array>
+
+    <string name="default_student_37_last_name">Wesker</string>
+    <string name="default_student_37_first_name">Albert</string>
+    <string name="default_student_37_middle_name"></string>
+    <string name="default_student_37_email_address"></string>
+    <string name="default_student_37_contact_number"></string>
+
+    <array name="default_student_37">
+        <item>@string/default_student_37_last_name</item>
+        <item>@string/default_student_37_first_name</item>
+        <item>@string/default_student_37_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_37_email_address</item>
+        <item>@string/default_student_37_contact_number</item>
+    </array>
+
+    <string name="default_student_38_last_name">Redfield</string>
+    <string name="default_student_38_first_name">Cris</string>
+    <string name="default_student_38_middle_name"></string>
+    <string name="default_student_38_email_address"></string>
+    <string name="default_student_38_contact_number"></string>
+
+    <array name="default_student_38">
+        <item>@string/default_student_38_last_name</item>
+        <item>@string/default_student_38_first_name</item>
+        <item>@string/default_student_38_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_38_email_address</item>
+        <item>@string/default_student_38_contact_number</item>
+    </array>
+
+    <string name="default_student_39_last_name">Wong</string>
+    <string name="default_student_39_first_name">Ada</string>
+    <string name="default_student_39_middle_name"></string>
+    <string name="default_student_39_email_address"></string>
+    <string name="default_student_39_contact_number"></string>
+
+    <array name="default_student_39">
+        <item>@string/default_student_39_last_name</item>
+        <item>@string/default_student_39_first_name</item>
+        <item>@string/default_student_39_middle_name</item>
+        <item>@integer/gender_female</item>
+        <item>@string/default_student_39_email_address</item>
+        <item>@string/default_student_39_contact_number</item>
+    </array>
+
+    <string name="default_student_40_last_name">Valentine</string>
+    <string name="default_student_40_first_name">Jill</string>
+    <string name="default_student_40_middle_name"></string>
+    <string name="default_student_40_email_address"></string>
+    <string name="default_student_40_contact_number"></string>
+
+    <array name="default_student_40">
+        <item>@string/default_student_40_last_name</item>
+        <item>@string/default_student_40_first_name</item>
+        <item>@string/default_student_40_middle_name</item>
+        <item>@integer/gender_female</item>
+        <item>@string/default_student_40_email_address</item>
+        <item>@string/default_student_40_contact_number</item>
+    </array>
+
+    <string name="default_student_41_last_name">Redfield</string>
+    <string name="default_student_41_first_name">Claire</string>
+    <string name="default_student_41_middle_name"></string>
+    <string name="default_student_41_email_address"></string>
+    <string name="default_student_41_contact_number"></string>
+
+    <array name="default_student_41">
+        <item>@string/default_student_41_last_name</item>
+        <item>@string/default_student_41_first_name</item>
+        <item>@string/default_student_41_middle_name</item>
+        <item>@integer/gender_female</item>
+        <item>@string/default_student_41_email_address</item>
+        <item>@string/default_student_41_contact_number</item>
+    </array>
+
+    <string name="default_student_42_last_name">Kennedy</string>
+    <string name="default_student_42_first_name">Leon</string>
+    <string name="default_student_42_middle_name">S</string>
+    <string name="default_student_42_email_address"></string>
+    <string name="default_student_42_contact_number"></string>
+
+    <array name="default_student_42">
+        <item>@string/default_student_42_last_name</item>
+        <item>@string/default_student_42_first_name</item>
+        <item>@string/default_student_42_middle_name</item>
+        <item>@integer/gender_male</item>
+        <item>@string/default_student_42_email_address</item>
+        <item>@string/default_student_42_contact_number</item>
+    </array>
 
 
 
@@ -276,311 +924,6 @@
     <string name="default_class_0_class_note_1_date_created">2016&#8211;06&#8211;12T00:00:00.000+0800</string>
 
     <string name="default_class_1_password"></string>
-
-    <integer name="gender_male">0</integer>
-    <integer name="gender_female">1</integer>
-    <integer name="gender_unknown">2</integer>
-
-    <string name="default_student_0_last_name">Knute</string>
-    <string name="default_student_0_first_name">Deunan</string>
-    <string name="default_student_0_middle_name">K</string>
-    <integer name="default_student_0_gender">@integer/gender_female</integer>
-    <string name="default_student_0_email_address">d.knute@eswat.org</string>
-    <string name="default_student_0_contact_number">2105&#8211;17&#8211;2125</string>
-
-    <string name="default_student_1_last_name">Jenkins</string>
-    <string name="default_student_1_first_name">Carl</string>
-    <string name="default_student_1_middle_name">W</string>
-    <integer name="default_student_1_gender">@integer/gender_male</integer>
-    <string name="default_student_1_email_address">info@rainbowcity.co</string>
-    <string name="default_student_1_contact_number"></string>
-
-    <string name="default_student_2_last_name">Ibanez</string>
-    <string name="default_student_2_first_name">Carmen</string>
-    <string name="default_student_2_middle_name"></string>
-    <integer name="default_student_2_gender">@integer/gender_female</integer>
-    <string name="default_student_2_email_address"></string>
-    <string name="default_student_2_contact_number"></string>
-
-    <string name="default_student_3_last_name">Durer</string>
-    <string name="default_student_3_first_name">Tia "Trig"</string>
-    <string name="default_student_3_middle_name"></string>
-    <integer name="default_student_3_gender">@integer/gender_female</integer>
-    <string name="default_student_3_email_address"></string>
-    <string name="default_student_3_contact_number"></string>
-
-    <string name="default_student_4_last_name">Rico</string>
-    <string name="default_student_4_first_name">Johnny</string>
-    <string name="default_student_4_middle_name"></string>
-    <integer name="default_student_4_gender">@integer/gender_male</integer>
-    <string name="default_student_4_email_address"></string>
-    <string name="default_student_4_contact_number"></string>
-
-    <string name="default_student_5_last_name">Kusanagi</string>
-    <string name="default_student_5_first_name">Motoko</string>
-    <string name="default_student_5_middle_name"></string>
-    <integer name="default_student_5_gender">@integer/gender_female</integer>
-    <string name="default_student_5_email_address"></string>
-    <string name="default_student_5_contact_number"></string>
-
-    <string name="default_student_6_last_name">Cage</string>
-    <string name="default_student_6_first_name">William</string>
-    <string name="default_student_6_middle_name"></string>
-    <integer name="default_student_6_gender">@integer/gender_male</integer>
-    <string name="default_student_6_email_address"></string>
-    <string name="default_student_6_contact_number"></string>
-
-    <string name="default_student_7_last_name">Vrataski</string>
-    <string name="default_student_7_first_name">Rita</string>
-    <string name="default_student_7_middle_name"></string>
-    <integer name="default_student_7_gender">@integer/gender_female</integer>
-    <string name="default_student_7_email_address"></string>
-    <string name="default_student_7_contact_number"></string>
-
-    <string name="default_student_8_last_name">Wayne</string>
-    <string name="default_student_8_first_name">Bruce</string>
-    <string name="default_student_8_middle_name"></string>
-    <integer name="default_student_8_gender">@integer/gender_male</integer>
-    <string name="default_student_8_email_address"></string>
-    <string name="default_student_8_contact_number"></string>
-
-    <string name="default_student_9_last_name">Kent</string>
-    <string name="default_student_9_first_name">Clark</string>
-    <string name="default_student_9_middle_name"></string>
-    <integer name="default_student_9_gender">@integer/gender_male</integer>
-    <string name="default_student_9_email_address"></string>
-    <string name="default_student_9_contact_number"></string>
-
-    <string name="default_student_10_last_name">Allen</string>
-    <string name="default_student_10_first_name">Barry</string>
-    <string name="default_student_10_middle_name"></string>
-    <integer name="default_student_10_gender">@integer/gender_male</integer>
-    <string name="default_student_10_email_address"></string>
-    <string name="default_student_10_contact_number"></string>
-
-    <string name="default_student_11_last_name">Stark</string>
-    <string name="default_student_11_first_name">Tony</string>
-    <string name="default_student_11_middle_name"></string>
-    <integer name="default_student_11_gender">@integer/gender_male</integer>
-    <string name="default_student_11_email_address"></string>
-    <string name="default_student_11_contact_number"></string>
-
-    <string name="default_student_12_last_name">Rogers</string>
-    <string name="default_student_12_first_name">Steve</string>
-    <string name="default_student_12_middle_name"></string>
-    <integer name="default_student_12_gender">@integer/gender_male</integer>
-    <string name="default_student_12_email_address"></string>
-    <string name="default_student_12_contact_number"></string>
-
-    <string name="default_student_13_last_name">Romanoff</string>
-    <string name="default_student_13_first_name">Natasha</string>
-    <string name="default_student_13_middle_name"></string>
-    <integer name="default_student_13_gender">@integer/gender_female</integer>
-    <string name="default_student_13_email_address"></string>
-    <string name="default_student_13_contact_number"></string>
-
-    <string name="default_student_14_last_name">Banner</string>
-    <string name="default_student_14_first_name">Bruce</string>
-    <string name="default_student_14_middle_name"></string>
-    <integer name="default_student_14_gender">@integer/gender_male</integer>
-    <string name="default_student_14_email_address"></string>
-    <string name="default_student_14_contact_number"></string>
-
-    <string name="default_student_15_last_name">Barton</string>
-    <string name="default_student_15_first_name">Clint</string>
-    <string name="default_student_15_middle_name"></string>
-    <integer name="default_student_15_gender">@integer/gender_male</integer>
-    <string name="default_student_15_email_address"></string>
-    <string name="default_student_15_contact_number"></string>
-
-    <string name="default_student_16_last_name">Coulson</string>
-    <string name="default_student_16_first_name">Phil</string>
-    <string name="default_student_16_middle_name"></string>
-    <integer name="default_student_16_gender">@integer/gender_male</integer>
-    <string name="default_student_16_email_address"></string>
-    <string name="default_student_16_contact_number"></string>
-
-    <string name="default_student_17_last_name">Fury</string>
-    <string name="default_student_17_first_name">Nick</string>
-    <string name="default_student_17_middle_name"></string>
-    <integer name="default_student_17_gender">@integer/gender_male</integer>
-    <string name="default_student_17_email_address"></string>
-    <string name="default_student_17_contact_number"></string>
-
-    <string name="default_student_18_last_name">Parker</string>
-    <string name="default_student_18_first_name">Peter</string>
-    <string name="default_student_18_middle_name"></string>
-    <integer name="default_student_18_gender">@integer/gender_male</integer>
-    <string name="default_student_18_email_address"></string>
-    <string name="default_student_18_contact_number"></string>
-
-    <string name="default_student_19_last_name">Hattori</string>
-    <string name="default_student_19_first_name">Hanzo</string>
-    <string name="default_student_19_middle_name"></string>
-    <integer name="default_student_19_gender">@integer/gender_male</integer>
-    <string name="default_student_19_email_address"></string>
-    <string name="default_student_19_contact_number"></string>
-
-    <string name="default_student_20_last_name">Tachibana</string>
-    <string name="default_student_20_first_name">Ukyo</string>
-    <string name="default_student_20_middle_name"></string>
-    <integer name="default_student_20_gender">@integer/gender_male</integer>
-    <string name="default_student_20_email_address"></string>
-    <string name="default_student_20_contact_number"></string>
-
-    <string name="default_student_21_last_name">Nakoruru</string>
-    <string name="default_student_21_first_name"></string>
-    <string name="default_student_21_middle_name"></string>
-    <integer name="default_student_21_gender">@integer/gender_female</integer>
-    <string name="default_student_21_email_address"></string>
-    <string name="default_student_21_contact_number"></string>
-
-    <string name="default_student_22_last_name">Haohmaru</string>
-    <string name="default_student_22_first_name"></string>
-    <string name="default_student_22_middle_name"></string>
-    <integer name="default_student_22_gender">@integer/gender_male</integer>
-    <string name="default_student_22_email_address"></string>
-    <string name="default_student_22_contact_number"></string>
-
-    <string name="default_student_23_last_name">Weller</string>
-    <string name="default_student_23_first_name">Galford</string>
-    <string name="default_student_23_middle_name">D</string>
-    <integer name="default_student_23_gender">@integer/gender_male</integer>
-    <string name="default_student_23_email_address"></string>
-    <string name="default_student_23_contact_number"></string>
-
-    <string name="default_student_24_last_name">de Colde</string>
-    <string name="default_student_24_first_name">Charlotte Christine</string>
-    <string name="default_student_24_middle_name"></string>
-    <integer name="default_student_24_gender">@integer/gender_female</integer>
-    <string name="default_student_24_email_address"></string>
-    <string name="default_student_24_contact_number"></string>
-
-    <string name="default_student_25_last_name">Neinhalt</string>
-    <string name="default_student_25_first_name">Sieger</string>
-    <string name="default_student_25_middle_name"></string>
-    <integer name="default_student_25_gender">@integer/gender_male</integer>
-    <string name="default_student_25_email_address"></string>
-    <string name="default_student_25_contact_number"></string>
-
-    <string name="default_student_26_last_name">Cham Cham</string>
-    <string name="default_student_26_first_name"></string>
-    <string name="default_student_26_middle_name"></string>
-    <integer name="default_student_26_gender">@integer/gender_female</integer>
-    <string name="default_student_26_email_address"></string>
-    <string name="default_student_26_contact_number"></string>
-
-    <string name="default_student_27_last_name">Descartes</string>
-    <string name="default_student_27_first_name">René</string>
-    <string name="default_student_27_middle_name"></string>
-    <integer name="default_student_27_gender">@integer/gender_male</integer>
-    <string name="default_student_27_email_address"></string>
-    <string name="default_student_27_contact_number"></string>
-
-    <string name="default_student_28_last_name">Euclid</string>
-    <string name="default_student_28_first_name"></string>
-    <string name="default_student_28_middle_name"></string>
-    <integer name="default_student_28_gender">@integer/gender_male</integer>
-    <string name="default_student_28_email_address"></string>
-    <string name="default_student_28_contact_number"></string>
-
-    <string name="default_student_29_last_name">Leibniz</string>
-    <string name="default_student_29_first_name">Gottfried Wilhelm</string>
-    <string name="default_student_29_middle_name"></string>
-    <integer name="default_student_29_gender">@integer/gender_male</integer>
-    <string name="default_student_29_email_address"></string>
-    <string name="default_student_29_contact_number"></string>
-
-    <string name="default_student_30_last_name">Gauss</string>
-    <string name="default_student_30_first_name">Carl Friedrich</string>
-    <string name="default_student_30_middle_name"></string>
-    <integer name="default_student_30_gender">@integer/gender_male</integer>
-    <string name="default_student_30_email_address"></string>
-    <string name="default_student_30_contact_number"></string>
-
-    <string name="default_student_31_last_name">Boole</string>
-    <string name="default_student_31_first_name">George</string>
-    <string name="default_student_31_middle_name"></string>
-    <integer name="default_student_31_gender">@integer/gender_male</integer>
-    <string name="default_student_31_email_address"></string>
-    <string name="default_student_31_contact_number"></string>
-
-    <string name="default_student_32_last_name">Pythagoras</string>
-    <string name="default_student_32_first_name"></string>
-    <string name="default_student_32_middle_name"></string>
-    <integer name="default_student_32_gender">@integer/gender_male</integer>
-    <string name="default_student_32_email_address"></string>
-    <string name="default_student_32_contact_number"></string>
-
-    <string name="default_student_33_last_name">Kepler</string>
-    <string name="default_student_33_first_name">Johannes</string>
-    <string name="default_student_33_middle_name"></string>
-    <integer name="default_student_33_gender">@integer/gender_male</integer>
-    <string name="default_student_33_email_address"></string>
-    <string name="default_student_33_contact_number"></string>
-
-    <string name="default_student_34_last_name">Pascal</string>
-    <string name="default_student_34_first_name">Blaise</string>
-    <string name="default_student_34_middle_name"></string>
-    <integer name="default_student_34_gender">@integer/gender_male</integer>
-    <string name="default_student_34_email_address"></string>
-    <string name="default_student_34_contact_number"></string>
-
-    <string name="default_student_35_last_name">Dedekind</string>
-    <string name="default_student_35_first_name">Julius Wilhelm Richard</string>
-    <string name="default_student_35_middle_name"></string>
-    <integer name="default_student_35_gender">@integer/gender_male</integer>
-    <string name="default_student_35_email_address"></string>
-    <string name="default_student_35_contact_number"></string>
-
-    <string name="default_student_36_last_name">Cantor</string>
-    <string name="default_student_36_first_name">Georg</string>
-    <string name="default_student_36_middle_name"></string>
-    <integer name="default_student_36_gender">@integer/gender_male</integer>
-    <string name="default_student_36_email_address"></string>
-    <string name="default_student_36_contact_number"></string>
-
-    <string name="default_student_37_last_name">Wesker</string>
-    <string name="default_student_37_first_name">Albert</string>
-    <string name="default_student_37_middle_name"></string>
-    <integer name="default_student_37_gender">@integer/gender_male</integer>
-    <string name="default_student_37_email_address"></string>
-    <string name="default_student_37_contact_number"></string>
-
-    <string name="default_student_38_last_name">Redfield</string>
-    <string name="default_student_38_first_name">Cris</string>
-    <string name="default_student_38_middle_name"></string>
-    <integer name="default_student_38_gender">@integer/gender_male</integer>
-    <string name="default_student_38_email_address"></string>
-    <string name="default_student_38_contact_number"></string>
-
-    <string name="default_student_39_last_name">Wong</string>
-    <string name="default_student_39_first_name">Ada</string>
-    <string name="default_student_39_middle_name"></string>
-    <integer name="default_student_39_gender">@integer/gender_female</integer>
-    <string name="default_student_39_email_address"></string>
-    <string name="default_student_39_contact_number"></string>
-
-    <string name="default_student_40_last_name">Valentine</string>
-    <string name="default_student_40_first_name">Jill</string>
-    <string name="default_student_40_middle_name"></string>
-    <integer name="default_student_40_gender">@integer/gender_female</integer>
-    <string name="default_student_40_email_address"></string>
-    <string name="default_student_40_contact_number"></string>
-
-    <string name="default_student_41_last_name">Redfield</string>
-    <string name="default_student_41_first_name">Claire</string>
-    <string name="default_student_41_middle_name"></string>
-    <integer name="default_student_41_gender">@integer/gender_female</integer>
-    <string name="default_student_41_email_address"></string>
-    <string name="default_student_41_contact_number"></string>
-
-    <string name="default_student_42_last_name">Kennedy</string>
-    <string name="default_student_42_first_name">Leon</string>
-    <string name="default_student_42_middle_name">S</string>
-    <integer name="default_student_42_gender">@integer/gender_male</integer>
-    <string name="default_student_42_email_address"></string>
-    <string name="default_student_42_contact_number"></string>
 
     <string name="default_class_0_class_item_0_description">Review of Linear Algebra</string>
     <string name="default_class_0_class_item_0_item_type">@string/default_class_item_type_0</string> <!-- lecture -->
