@@ -85,6 +85,7 @@ public class ApolloDbAdapter {
             ClassScheduleContract._insertDummyClassSchedule(db, class1Id, R.array.default_class_1_class_schedule_0, sAppContext);
             ClassScheduleContract._insertDummyClassSchedule(db, class2Id, R.array.default_class_0_class_schedule_0, sAppContext);
             ClassScheduleContract._insertDummyClassSchedule(db, class2Id, R.array.default_class_1_class_schedule_0, sAppContext);
+            ClassScheduleContract._insertDummyClassSchedule(db, class3Id, R.array.default_class_3_class_schedule_0, sAppContext);
 
             db.execSQL(StudentContract.CREATE_TABLE_SQL);
             long student0Id = StudentContract._insertDummyStudent(db, R.array.default_student_0, sAppContext);
@@ -195,6 +196,18 @@ public class ApolloDbAdapter {
             long class0Item17Id = ClassItemContract._insertDummyClassItem(db, class0Id, R.array.default_class_0_class_item_17, sAppContext);
             long class0Item18Id = ClassItemContract._insertDummyClassItem(db, class0Id, R.array.default_class_0_class_item_18, sAppContext);
             long class0Item19Id = ClassItemContract._insertDummyClassItem(db, class0Id, R.array.default_class_0_class_item_19, sAppContext);
+
+            ClassStudentContract._insert(db, class2Id, student0Id, new Date());
+            ClassStudentContract._insert(db, class2Id, student1Id, new Date());
+            ClassStudentContract._insert(db, class2Id, student2Id, new Date());
+            ClassStudentContract._insert(db, class2Id, student3Id, new Date());
+            ClassStudentContract._insert(db, class2Id, student4Id, new Date());
+            ClassStudentContract._insert(db, class2Id, student5Id, new Date());
+            ClassStudentContract._insert(db, class2Id, student6Id, new Date());
+            ClassStudentContract._insert(db, class2Id, student7Id, new Date());
+
+            long class1Item0Id = ClassItemContract._insertDummyClassItem(db, class1Id, R.array.default_class_0_class_item_0, sAppContext);
+            long class1Item1Id = ClassItemContract._insertDummyClassItem(db, class1Id, R.array.default_class_0_class_item_1, sAppContext);
 
             /*
             db.execSQL(ClassNoteContract.CREATE_TABLE_SQL);

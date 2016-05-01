@@ -266,6 +266,21 @@
         <item>@string/default_class_1_class_schedule_0_campus</item>
     </array>
 
+    <string name="default_class_3_class_schedule_0_time_start">08:45:00.000+0800</string>
+    <string name="default_class_3_class_schedule_0_time_end">09:45:00.000+0800</string>
+    <string name="default_class_3_class_schedule_0_room"></string>
+    <string name="default_class_3_class_schedule_0_building"></string>
+    <string name="default_class_3_class_schedule_0_campus"></string>
+
+    <array name="default_class_3_class_schedule_0">
+        <item>@string/default_class_3_class_schedule_0_time_start</item>
+        <item>@string/default_class_3_class_schedule_0_time_end</item>
+        <item>@integer/days_mwf</item>
+        <item>@string/default_class_3_class_schedule_0_room</item>
+        <item>@string/default_class_3_class_schedule_0_building</item>
+        <item>@string/default_class_3_class_schedule_0_campus</item>
+    </array>
+
     <integer name="gender_male">0</integer>
     <integer name="gender_female">1</integer>
     <integer name="gender_unknown">2</integer>
@@ -917,6 +932,13 @@
 
     <bool name="bool_true">true</bool>
     <bool name="bool_false">false</bool>
+
+
+
+
+
+
+
 
     <string name="default_class_0_class_note_0_note">Textbook - A First Course in Abstract Algebra, 7th Edition by John B. Fraleigh</string>
     <string name="default_class_0_class_note_0_date_created">2016&#8211;06&#8211;11T00:00:00.000+0800</string>

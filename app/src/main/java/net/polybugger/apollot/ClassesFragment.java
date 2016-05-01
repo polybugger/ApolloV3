@@ -208,6 +208,10 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
                 String location = classSchedule.getLocation();
                 if(StringUtils.isBlank(location)) {
                     holder.mClassScheduleLocationTextView.setVisibility(View.GONE);
+                    int paddingTop = holder.mClassScheduleTimeTextView.getPaddingTop();
+                    int paddingRight = holder.mClassScheduleTimeTextView.getPaddingRight();
+                    int paddingLeft = holder.mClassScheduleTimeTextView.getPaddingLeft();
+                    holder.mClassScheduleTimeTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingTop);
                 }
                 else {
                     holder.mClassScheduleLocationTextView.setText(location);
@@ -225,11 +229,18 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
             if(entry.mItemSummaryCount.size() == 0) {
                 holder.mItemCountTextView.setVisibility(View.GONE);
                 holder.mItemSummaryCountLinearLayout.setVisibility(View.GONE);
+                if(holder.mStudentCountTextView.getVisibility() == View.VISIBLE) {
+                    int paddingTop = holder.mStudentCountTextView.getPaddingTop();
+                    int paddingRight = holder.mStudentCountTextView.getPaddingRight();
+                    int paddingLeft = holder.mStudentCountTextView.getPaddingLeft();
+                    holder.mStudentCountTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingTop);
+                }
             }
             else {
                 LayoutInflater inflater = mActivity.getLayoutInflater();
                 int itemSummaryTotal = 0, count;
                 View view; TextView textView;
+                holder.mItemSummaryCountLinearLayout.removeAllViews();
                 for(Map.Entry<ClassItemTypeContract.ClassItemTypeEntry, Integer> itemCount : entry.mItemSummaryCount.entrySet()) {
                     ClassItemTypeContract.ClassItemTypeEntry itemType = itemCount.getKey();
                     count = itemCount.getValue();
@@ -243,7 +254,19 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
                 holder.mItemCountTextView.setText(String.format("%s %d", mActivity.getString(R.string.class_activities_label), itemSummaryTotal));
                 holder.mItemCountTextView.setVisibility(View.VISIBLE);
                 holder.mItemSummaryCountLinearLayout.setVisibility(View.VISIBLE);
+                if(holder.mStudentCountTextView.getVisibility() == View.GONE) {
+                    int paddingTop = holder.mTitleTextView.getPaddingTop();
+                    int paddingRight = holder.mItemCountTextView.getPaddingRight();
+                    int paddingBottom = holder.mItemCountTextView.getPaddingBottom();
+                    int paddingLeft = holder.mItemCountTextView.getPaddingLeft();
+                    holder.mItemCountTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+                }
             }
+
+            if(holder.mClassScheduleTimeTextView.getVisibility() == View.GONE && holder.mClassScheduleLocationTextView.getVisibility() == View.GONE)
+                holder.mClassScheduleDivider.setVisibility(View.GONE);
+            if(holder.mStudentCountTextView.getVisibility() == View.GONE && holder.mItemCountTextView.getVisibility() == View.GONE)
+                holder.mStudentCountDivider.setVisibility(View.GONE);
         }
 
         @Override
@@ -257,8 +280,10 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
             protected LinearLayout mClickableLayout;
             protected TextView mTitleTextView;
             protected TextView mAcademicTermTextView;
+            protected View mClassScheduleDivider;
             protected TextView mClassScheduleTimeTextView;
             protected TextView mClassScheduleLocationTextView;
+            protected View mStudentCountDivider;
             protected TextView mStudentCountTextView;
             protected TextView mItemCountTextView;
             protected LinearLayout mItemSummaryCountLinearLayout;
@@ -270,8 +295,10 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
                 mClickableLayout = (LinearLayout) itemView.findViewById(R.id.clickable_layout);
                 mTitleTextView = (TextView) itemView.findViewById(R.id.title_text_view);
                 mAcademicTermTextView = (TextView) itemView.findViewById(R.id.academic_term_text_view);
+                mClassScheduleDivider = itemView.findViewById(R.id.class_schedule_divider);
                 mClassScheduleTimeTextView = (TextView) itemView.findViewById(R.id.class_schedule_time_text_view);
                 mClassScheduleLocationTextView = (TextView) itemView.findViewById(R.id.class_schedule_location_text_view);
+                mStudentCountDivider = itemView.findViewById(R.id.student_count_divider);
                 mStudentCountTextView = (TextView) itemView.findViewById(R.id.student_count_text_view);
                 mItemCountTextView = (TextView) itemView.findViewById(R.id.item_count_text_view);
                 mItemSummaryCountLinearLayout = (LinearLayout) itemView.findViewById(R.id.item_summary_count_linear_layout);

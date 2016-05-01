@@ -47,6 +47,7 @@
                 android:textSize="@dimen/normal_text_size" />
 
             <View
+                android:id="@+id/class_schedule_divider"
                 android:paddingRight="@dimen/recycler_view_content_padding_right"
                 android:paddingLeft="@dimen/recycler_view_content_padding_left"
                 style="@style/AppListDivider" />
@@ -70,6 +71,7 @@
                 android:textSize="@dimen/normal_text_size" />
 
             <View
+                android:id="@+id/student_count_divider"
                 android:paddingRight="@dimen/recycler_view_content_padding_right"
                 android:paddingLeft="@dimen/recycler_view_content_padding_left"
                 style="@style/AppListDivider" />
