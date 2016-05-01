@@ -1,9 +1,13 @@
 package net.polybugger.apollot.db;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.support.annotation.StyleableRes;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -19,10 +23,10 @@ public class ClassItemContract {
     public static final String CREATE_TABLE_SQL2 = " (" +
             ClassItemEntry._ID + " INTEGER PRIMARY KEY, " +
             ClassItemEntry.CLASS_ID + " INTEGER NOT NULL REFERENCES " +
-                ClassContract.TABLE_NAME + " (" + ClassContract.ClassEntry._ID + "), " +
+                ClassContract.TABLE_NAME + " (" + ClassContract.ClassEntry._ID + ") ON DELETE CASCADE, " +
             ClassItemEntry.DESCRIPTION + " TEXT NOT NULL, " +
             ClassItemEntry.ITEM_TYPE_ID + " INTEGER NULL REFERENCES " +
-                ClassItemTypeContract.TABLE_NAME + " (" + ClassItemTypeContract.ClassItemTypeEntry._ID + "), " +
+                ClassItemTypeContract.TABLE_NAME + " (" + ClassItemTypeContract.ClassItemTypeEntry._ID + ") ON DELETE SET NULL, " +
             ClassItemEntry.ITEM_DATE + " TEXT NULL, " +
             ClassItemEntry.CHECK_ATTENDANCE + " INTEGER NOT NULL DEFAULT 0, " +
             ClassItemEntry.RECORD_SCORES + " INTEGER NOT NULL DEFAULT 0, " +
@@ -189,6 +193,55 @@ public class ClassItemContract {
         }
         cursor.close();
         return entries;
+    }
+
+    public static long _insertDummyClassItem(SQLiteDatabase db, long classId, int classItemResourceId, Context context) {
+        @StyleableRes final int DESCRIPTION_INDEX = 0;
+        @StyleableRes final int ITEM_TYPE_INDEX = 1;
+        @StyleableRes final int ITEM_DATE_INDEX = 2;
+        @StyleableRes final int CHECK_ATTENDANCE_INDEX = 3;
+        @StyleableRes final int RECORD_SCORES_INDEX = 4;
+        @StyleableRes final int PERFECT_SCORE_INDEX = 5;
+        @StyleableRes final int RECORD_SUBMISSIONS_INDEX = 6;
+        @StyleableRes final int SUBMISSION_DUE_DATE_INDEX = 7;
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_DB_TEMPLATE, context.getResources().getConfiguration().locale);
+        Resources res = context.getResources();
+        TypedArray ta = res.obtainTypedArray(classItemResourceId);
+        String description = res.getString(ta.getResourceId(DESCRIPTION_INDEX, 0));
+        ClassItemTypeContract.ClassItemTypeEntry itemType;
+        try {
+            itemType = ClassItemTypeContract._getEntryByDescription(db, res.getString(ta.getResourceId(ITEM_TYPE_INDEX, 0)));
+        }
+        catch(Exception e) {
+            itemType = null;
+        }
+        Date itemDate;
+        try {
+            itemDate = sdf.parse(res.getString(ta.getResourceId(ITEM_DATE_INDEX, 0)));
+        }
+        catch(Exception e) {
+            itemDate = null;
+        }
+        boolean checkAttendance = res.getBoolean(ta.getResourceId(CHECK_ATTENDANCE_INDEX, 0));
+        boolean recordScores = res.getBoolean(ta.getResourceId(RECORD_SCORES_INDEX, 0));
+        Float perfectScore;
+        try {
+            perfectScore = Float.parseFloat(res.getString(ta.getResourceId(PERFECT_SCORE_INDEX, 0)));
+        }
+        catch(Exception e) {
+            perfectScore = null;
+        }
+        boolean recordSubmissions = res.getBoolean(ta.getResourceId(RECORD_SUBMISSIONS_INDEX, 0));
+        Date submissionDueDate;
+        try {
+            submissionDueDate = sdf.parse(res.getString(ta.getResourceId(SUBMISSION_DUE_DATE_INDEX, 0)));
+        }
+        catch(Exception e) {
+            submissionDueDate = null;
+        }
+        ta.recycle();
+        return _insert(db, classId,
+                description, itemType, itemDate, checkAttendance, recordScores, perfectScore, recordSubmissions, submissionDueDate);
     }
 
     public static class ClassItemEntry implements BaseColumns {

@@ -18,9 +18,9 @@ public class ClassStudentContract {
     public static final String CREATE_TABLE_SQL2 = " (" +
             ClassStudentEntry._ID + " INTEGER PRIMARY KEY, " +
             ClassStudentEntry.CLASS_ID + " INTEGER NOT NULL REFERENCES " +
-                ClassContract.TABLE_NAME + " (" + ClassContract.ClassEntry._ID + "), " +
+                ClassContract.TABLE_NAME + " (" + ClassContract.ClassEntry._ID + ") ON DELETE CASCADE, " +
             ClassStudentEntry.STUDENT_ID + " INTEGER NOT NULL UNIQUE REFERENCES " +
-                StudentContract.TABLE_NAME + " (" + StudentContract.StudentEntry._ID + "), " +
+                StudentContract.TABLE_NAME + " (" + StudentContract.StudentEntry._ID + ") ON DELETE CASCADE, " +
             ClassStudentEntry.DATE_CREATED + " TEXT NULL)";
     public static final String SELECT_TABLE_SQL1 = "SELECT " +
             "cs." + ClassStudentEntry._ID + ", " + // 0
