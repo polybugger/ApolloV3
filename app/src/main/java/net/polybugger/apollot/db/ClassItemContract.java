@@ -15,6 +15,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 public class ClassItemContract {
 
@@ -193,6 +194,35 @@ public class ClassItemContract {
         }
         cursor.close();
         return entries;
+    }
+
+    public static LinkedHashMap<ClassItemTypeContract.ClassItemTypeEntry, Integer> _getItemSummaryCount(SQLiteDatabase db, long classId) {
+        String tableName = TABLE_NAME + String.valueOf(classId);
+        db.execSQL(CREATE_TABLE_SQL1 + tableName + CREATE_TABLE_SQL2);
+        LinkedHashMap<ClassItemTypeContract.ClassItemTypeEntry, Integer> itemSummaryCount = new LinkedHashMap<>();
+        ClassItemTypeContract.ClassItemTypeEntry itemType = null;
+        Cursor cursor = db.query(tableName + " AS ci INNER JOIN " +
+                        ClassContract.TABLE_NAME + " AS c ON ci." + ClassItemEntry.CLASS_ID + "=c." + ClassContract.ClassEntry._ID +
+                        " LEFT OUTER JOIN " + ClassItemTypeContract.TABLE_NAME + " AS cit ON ci." + ClassItemEntry.ITEM_TYPE_ID + "=cit." + ClassItemTypeContract.ClassItemTypeEntry._ID,
+                new String[]{"ci." + ClassItemEntry.ITEM_TYPE_ID, // 0 nullable
+                        "cit." + ClassItemTypeContract.ClassItemTypeEntry.DESCRIPTION, // 1
+                        "cit." + ClassItemTypeContract.ClassItemTypeEntry.COLOR}, // 2
+                null, null, null, null, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            itemType = cursor.isNull(0) ? null : new ClassItemTypeContract.ClassItemTypeEntry(cursor.getLong(0), cursor.getString(1), cursor.isNull(2) ? null : cursor.getString(2));
+            if(itemType != null) {
+                if(itemSummaryCount.containsKey(itemType)) {
+                    int count = itemSummaryCount.get(itemType) + 1;
+                    itemSummaryCount.put(itemType, count);
+                }
+                else
+                    itemSummaryCount.put(itemType, 1);
+            }
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return itemSummaryCount;
     }
 
     public static long _insertDummyClassItem(SQLiteDatabase db, long classId, int classItemResourceId, Context context) {

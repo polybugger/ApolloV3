@@ -16,10 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import net.polybugger.apollot.db.AcademicTermContract;
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
+import net.polybugger.apollot.db.ClassItemTypeContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
 import net.polybugger.apollot.db.PastCurrentEnum;
 
@@ -218,6 +221,29 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
                 holder.mStudentCountTextView.setText(String.format("%s %d", mActivity.getString(R.string.students_label), entry.mStudentCount));
                 holder.mStudentCountTextView.setVisibility(View.VISIBLE);
             }
+
+            if(entry.mItemSummaryCount.size() == 0) {
+                holder.mItemCountTextView.setVisibility(View.GONE);
+                holder.mItemSummaryCountLinearLayout.setVisibility(View.GONE);
+            }
+            else {
+                LayoutInflater inflater = mActivity.getLayoutInflater();
+                int itemSummaryTotal = 0, count;
+                View view; TextView textView;
+                for(Map.Entry<ClassItemTypeContract.ClassItemTypeEntry, Integer> itemCount : entry.mItemSummaryCount.entrySet()) {
+                    ClassItemTypeContract.ClassItemTypeEntry itemType = itemCount.getKey();
+                    count = itemCount.getValue();
+                    view = inflater.inflate(R.layout.row_class_summary_item_count, null);
+                    textView = (TextView) view.findViewById(R.id.text_view);
+                    textView.setBackgroundResource(BackgroundRect.getBackgroundResource(itemType.getColor(), mActivity));
+                    textView.setText(String.format("%s%s %d", itemType.getDescription(), mActivity.getString(R.string.colon), count));
+                    holder.mItemSummaryCountLinearLayout.addView(view);
+                    itemSummaryTotal = itemSummaryTotal + count;
+                }
+                holder.mItemCountTextView.setText(String.format("%s %d", mActivity.getString(R.string.class_activities_label), itemSummaryTotal));
+                holder.mItemCountTextView.setVisibility(View.VISIBLE);
+                holder.mItemSummaryCountLinearLayout.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -234,6 +260,8 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
             protected TextView mClassScheduleTimeTextView;
             protected TextView mClassScheduleLocationTextView;
             protected TextView mStudentCountTextView;
+            protected TextView mItemCountTextView;
+            protected LinearLayout mItemSummaryCountLinearLayout;
 
 
             public ViewHolder(View itemView) {
@@ -245,6 +273,8 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
                 mClassScheduleTimeTextView = (TextView) itemView.findViewById(R.id.class_schedule_time_text_view);
                 mClassScheduleLocationTextView = (TextView) itemView.findViewById(R.id.class_schedule_location_text_view);
                 mStudentCountTextView = (TextView) itemView.findViewById(R.id.student_count_text_view);
+                mItemCountTextView = (TextView) itemView.findViewById(R.id.item_count_text_view);
+                mItemSummaryCountLinearLayout = (LinearLayout) itemView.findViewById(R.id.item_summary_count_linear_layout);
             }
         }
     }
@@ -253,6 +283,7 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
         public ClassContract.ClassEntry mClass;
         public ArrayList<ClassScheduleContract.ClassScheduleEntry> mClassSchedules;
         public long mStudentCount;
+        public LinkedHashMap<ClassItemTypeContract.ClassItemTypeEntry, Integer> mItemSummaryCount;
 
         public ClassSummary(ClassContract.ClassEntry _class) {
             mClass = _class;

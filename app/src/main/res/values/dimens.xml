@@ -57,4 +57,14 @@
     <dimen name="button_padding">8dp</dimen>
     <dimen name="button_margin">4dp</dimen>
 
+    <dimen name="item_count_margin_top">2dp</dimen>
+    <dimen name="item_count_margin_right">2dp</dimen>
+    <dimen name="item_count_margin_bottom">2dp</dimen>
+    <dimen name="item_count_margin_left">2dp</dimen>
+
+    <dimen name="item_count_padding_top">4dp</dimen>
+    <dimen name="item_count_padding_right">6dp</dimen>
+    <dimen name="item_count_padding_bottom">4dp</dimen>
+    <dimen name="item_count_padding_left">6dp</dimen>
+
 </resources>

@@ -83,6 +83,23 @@
                 android:paddingLeft="@dimen/recycler_view_content_padding_left"
                 android:textSize="@dimen/normal_text_size" />
 
+            <TextView
+                android:id="@+id/item_count_text_view"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:paddingRight="@dimen/recycler_view_content_padding_right"
+                android:paddingLeft="@dimen/recycler_view_content_padding_left"
+                android:textSize="@dimen/normal_text_size" />
+
+            <LinearLayout
+                android:id="@+id/item_summary_count_linear_layout"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:paddingRight="@dimen/recycler_view_content_padding_right"
+                android:paddingBottom="@dimen/recycler_view_content_padding_bottom"
+                android:paddingLeft="@dimen/recycler_view_content_padding_left" />
+
         </LinearLayout>
 
     </LinearLayout>

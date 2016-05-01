@@ -105,5 +105,7 @@
     <string name="please_enter_a_class_activity">Please enter a class activity!</string>
 
     <string name="students_label">Students:</string>
+    <string name="class_activities_label">Class Activities:</string>
+    <string name="colon">:</string>
 
 </resources>

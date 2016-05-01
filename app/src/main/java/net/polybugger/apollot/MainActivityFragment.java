@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
+import net.polybugger.apollot.db.ClassItemContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
 import net.polybugger.apollot.db.ClassStudentContract;
 import net.polybugger.apollot.db.PastCurrentEnum;
@@ -69,6 +70,7 @@ public class MainActivityFragment extends Fragment {
                 long classId = classSummary.mClass.getId();
                 classSummary.mClassSchedules = ClassScheduleContract._getEntriesByClassId(db, classId);
                 classSummary.mStudentCount = ClassStudentContract._getCount(db, classId);
+                classSummary.mItemSummaryCount = ClassItemContract._getItemSummaryCount(db, classId);
                 result.mClassSummaries.add(classSummary);
             }
             ApolloDbAdapter.close();
