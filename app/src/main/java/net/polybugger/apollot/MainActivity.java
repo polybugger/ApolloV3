@@ -21,15 +21,20 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+import net.polybugger.apollot.db.AcademicTermContract;
 import net.polybugger.apollot.db.ApolloDbAdapter;
+import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.PastCurrentEnum;
 import net.polybugger.apollot.db.StudentContract;
 import net.polybugger.apollot.db.StudentNameDisplayEnum;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        MainActivityFragment.Listener {
+        MainActivityFragment.Listener,
+        ClassNewDialogFragment.Listener {
 
     public static final long SNACKBAR_POST_DELAYED_MSEC = 500;
+
+    private FloatingActionButton mFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -127,12 +132,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_current_classes:
                 sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 2).apply();
                 ft.replace(R.id.fragment_container, ClassesFragment.newInstance(PastCurrentEnum.CURRENT), ClassesFragment.TAG_CURRENT);
-
+                mFab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FragmentManager fm = getSupportFragmentManager();
+                        ClassNewDialogFragment df = (ClassNewDialogFragment) fm.findFragmentByTag(ClassNewDialogFragment.TAG);
+                        if(df == null) {
+                            df = ClassNewDialogFragment.newInstance(PastCurrentEnum.CURRENT);
+                            df.show(fm, ClassNewDialogFragment.TAG);
+                        }
+                    }
+                });
                 break;
             case R.id.nav_past_classes:
                 sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 3).apply();
                 ft.replace(R.id.fragment_container, ClassesFragment.newInstance(PastCurrentEnum.PAST), ClassesFragment.TAG_PAST);
-
+                mFab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FragmentManager fm = getSupportFragmentManager();
+                        ClassNewDialogFragment df = (ClassNewDialogFragment) fm.findFragmentByTag(ClassNewDialogFragment.TAG);
+                        if(df == null) {
+                            df = ClassNewDialogFragment.newInstance(PastCurrentEnum.PAST);
+                            df.show(fm, ClassNewDialogFragment.TAG);
+                        }
+                    }
+                });
                 break;
             case R.id.nav_students:
                 sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 4).apply();
@@ -158,6 +183,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
         ClassesFragment f = (ClassesFragment) getSupportFragmentManager().findFragmentByTag(tag);
-        f.onGetClassesSummary(arrayList, pastCurrent);
+        if(f != null)
+            f.onGetClassesSummary(arrayList, pastCurrent);
+    }
+
+    @Override
+    public void onGetAcademicTerms(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList, String fragmentTag) {
+        ClassNewDialogFragment df = (ClassNewDialogFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        if(df != null)
+            df.onGetAcademicTerms(arrayList, fragmentTag);
+    }
+
+    @Override
+    public void onConfirmInsertClass(ClassContract.ClassEntry entry) {
+
     }
 }

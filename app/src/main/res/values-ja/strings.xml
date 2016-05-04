@@ -7,7 +7,7 @@
     <string name="app_version">バージョン﻿ 3.0</string>
 
     <string name="past">過去</string>
-    <string name="current">現在</string>
+    <string name="current">登録済み</string>
 
     <string name="unknown">不明</string>
     <string name="male">男</string>
@@ -43,7 +43,7 @@
 
     <string name="day_activities">今日のアクティビティー</string>
     <string name="week_activities">今週のアクティビティー</string>
-    <string name="current_classes">現在の授業</string>
+    <string name="current_classes">登録済みの授業</string>
     <string name="past_classes">過去の授業</string>
     <string name="students">学生</string>
 
@@ -53,12 +53,12 @@
     <string name="academic_terms">学期</string>
     <string name="class_activities">アクティビティー</string>
     <string name="default_time_start">デフォルト時間開始</string>
-    <string name="final_grade_calculation">最終成績計算</string>
-    <string name="student_name_display">学生氏名並び替え</string>
+    <string name="final_grade_calculation">成績計算</string>
+    <string name="student_name_display">氏名並び替え</string>
 
     <string name="security">セキュリティー</string>
     <string name="lock_enabled">ロック機能</string>
-    <string name="unlock_password">パスワードを解除</string>
+    <string name="unlock_password">ロック解除</string>
 
     <string name="details">情報</string>
     <string name="about_this_app">Apolloについて</string>
@@ -68,19 +68,19 @@
     <string name="cancel">キャンセル</string>
     <string name="change">変更</string>
     <string name="incorrect_password">パスワードが間違っています！</string>
-    <string name="unlock_password_changed">ロック解除パスワード変更済み。</string>
-    <string name="unlock_password_cleared">ロック解除パスワードが取り消されました。</string>
+    <string name="unlock_password_changed">ロック解除変更済み。</string>
+    <string name="unlock_password_cleared">ロック解除が取り消されました。</string>
 
     <string name="last_name_first_name">「姓」「名」</string>
     <string name="first_name_last_name">「名」「姓」</string>
-    <string name="student_name_display_changed">学生氏名並び替え変更済み。</string>
+    <string name="student_name_display_changed">氏名並び替え変更済み。</string>
     <string name="default_time_start_changed">デフォルト時間開始変更済み。</string>
 
     <string name="remove_academic_term">学期を削除しますか？</string>
     <string name="remove">削除</string>
     <string name="academic_term_removed">学期削除済み。</string>
 
-    <string name="new_academic_term">新しい学期を作りますか？</string>
+    <string name="new_academic_term">新しい学期を設定しますか？</string>
     <string name="add">追加</string>
     <string name="academic_term_added">学期追加済み。</string>
 
@@ -93,7 +93,7 @@
     <string name="remove_class_activity">アクティビティーを削除しますか？</string>
     <string name="class_activity_removed">アクティビティー削除済み。</string>
 
-    <string name="new_class_activity">新しいアクティビティーを作りますか？</string>
+    <string name="new_class_activity">新しいアクティビティーを設定しますか？</string>
     <string name="class_activity_added">アクティビティー追加済み。</string>
 
     <string name="update_class_activity">アクティビティーを更新しますか？</string>
@@ -104,5 +104,7 @@
     <string name="students_label">学生：</string>
     <string name="class_activities_label">アクティビティー：</string>
     <string name="colon">：</string>
+
+    <string name="new_class">新しい授業を設定しますか？</string>
 
 </resources>

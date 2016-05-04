@@ -108,4 +108,10 @@
     <string name="class_activities_label">Class Activities:</string>
     <string name="colon">:</string>
 
+    <string name="new_class">New class?</string>
+    <string name="code_hint">Code</string>
+    <string name="description_hint">Description</string>
+    <string name="academic_term_hint">Academic Term</string>
+    <string name="year_hint">Year</string>
+
 </resources>

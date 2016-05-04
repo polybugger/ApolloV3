@@ -92,7 +92,8 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
         mRecyclerView.setAdapter(mAdapter);
 
         MainActivityFragment f = (MainActivityFragment) getFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
-        f.getClassesSummary(mPastCurrent);
+        if(f != null)
+            f.getClassesSummary(mPastCurrent);
 
         return view;
     }
@@ -103,7 +104,8 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
 
         if(REQUERY) {
             MainActivityFragment f = (MainActivityFragment) getFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
-            f.getClassesSummary(mPastCurrent);
+            if(f != null)
+                f.getClassesSummary(mPastCurrent);
             REQUERY = false;
         }
         else {
@@ -114,6 +116,11 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
     @Override
     public void onGetClassesSummary(ArrayList<ClassSummary> arrayList, PastCurrentEnum pastCurrent) {
         mAdapter.setArrayList(arrayList);
+    }
+
+    @Override
+    public void onGetAcademicTerms(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList, String fragmentTag) {
+        // unused
     }
 
 

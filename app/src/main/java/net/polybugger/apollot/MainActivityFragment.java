@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
 
+import net.polybugger.apollot.db.AcademicTermContract;
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassItemContract;
@@ -19,6 +20,7 @@ public class MainActivityFragment extends Fragment {
 
     public interface Listener {
         void onGetClassesSummary(ArrayList<ClassesFragment.ClassSummary> arrayList, PastCurrentEnum pastCurrent);
+        void onGetAcademicTerms(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.main_activity_fragment";
@@ -56,6 +58,10 @@ public class MainActivityFragment extends Fragment {
         new GetClassesSummaryAsyncTask().execute(pastCurrent);
     }
 
+    public void getAcademicTerms(String fragmentTag) {
+        new GetAcademicTermsAsyncTask().execute(fragmentTag);
+    }
+
     private class GetClassesSummaryAsyncTask extends AsyncTask<PastCurrentEnum, Integer, AsyncTaskResult> {
 
         @Override
@@ -85,9 +91,32 @@ public class MainActivityFragment extends Fragment {
         }
     }
 
+    private class GetAcademicTermsAsyncTask extends AsyncTask<String, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(String... fragmentTag) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mFragmentTag = fragmentTag[0];
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mAcademicTerms = AcademicTermContract._getEntries(db);
+            ApolloDbAdapter.close();
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onGetAcademicTerms(result.mAcademicTerms, result.mFragmentTag);
+            }
+        }
+    }
+
     private class AsyncTaskResult {
         public PastCurrentEnum mPastCurrent;
         public ArrayList<ClassesFragment.ClassSummary> mClassSummaries;
+
+        public String mFragmentTag;
+        public ArrayList<AcademicTermContract.AcademicTermEntry> mAcademicTerms;
 
         public AsyncTaskResult() { }
     }
