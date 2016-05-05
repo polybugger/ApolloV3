@@ -113,5 +113,6 @@
     <string name="description_hint">Description</string>
     <string name="academic_term_hint">Academic Term</string>
     <string name="year_hint">Year</string>
+    <string name="please_enter_a_class_code">Please enter a class code!</string>
 
 </resources>
