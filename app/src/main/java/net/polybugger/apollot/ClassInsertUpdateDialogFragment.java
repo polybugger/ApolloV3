@@ -22,7 +22,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import net.polybugger.apollot.db.AcademicTermContract;
 import net.polybugger.apollot.db.ClassContract;
@@ -30,14 +29,16 @@ import net.polybugger.apollot.db.PastCurrentEnum;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class ClassNewDialogFragment extends DialogFragment implements MainActivityFragment.Listener {
+public class ClassInsertUpdateDialogFragment extends DialogFragment implements MainActivityFragment.Listener {
 
     public interface Listener {
         void onConfirmInsertClass(ClassContract.ClassEntry entry);
     }
 
-    public static final String TAG = "net.polybugger.apollot.insert_class_dialog_fragment";
-    public static final String PAST_CURRENT_ARG = "net.polybugger.apollot.past_current_arg";
+    public static final String TAG = "net.polybugger.apollot.insert_update_class_dialog_fragment";
+    public static final String ENTRY_ARG = "net.polybugger.apollot.past_current_arg";
+    public static final String TITLE_ARG = "net.polybugger.apollot.title_arg";
+    public static final String BUTTON_TEXT_ARG = "net.polybugger.apollot.button_text_arg";
 
     private Listener mListener;
     private ClassContract.ClassEntry mEntry;
@@ -49,10 +50,12 @@ public class ClassNewDialogFragment extends DialogFragment implements MainActivi
     private EditText mYearEditText;
     private CheckBox mCurrentCheckBox;
 
-    public static ClassNewDialogFragment newInstance(PastCurrentEnum pastCurrent) {
-        ClassNewDialogFragment df = new ClassNewDialogFragment();
+    public static ClassInsertUpdateDialogFragment newInstance(ClassContract.ClassEntry entry, String title, String buttonText) {
+        ClassInsertUpdateDialogFragment df = new ClassInsertUpdateDialogFragment();
         Bundle args = new Bundle();
-        args.putSerializable(PAST_CURRENT_ARG, pastCurrent);
+        args.putSerializable(ENTRY_ARG, entry);
+        args.putString(TITLE_ARG, title);
+        args.putString(BUTTON_TEXT_ARG, buttonText);
         df.setArguments(args);
         return df;
     }
@@ -61,9 +64,9 @@ public class ClassNewDialogFragment extends DialogFragment implements MainActivi
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
-        final PastCurrentEnum pastCurrent = (PastCurrentEnum) args.getSerializable(PAST_CURRENT_ARG);
+        mEntry = (ClassContract.ClassEntry) args.getSerializable(ENTRY_ARG);
 
-        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_class_insert, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_class_insert_update, null);
         mBackgroundLayout = (LinearLayout) view.findViewById(R.id.background_layout);
         mCodeEditText = (EditText) view.findViewById(R.id.code_edit_text);
         mErrorTextView = (TextView) view.findViewById(R.id.error_text_view);
@@ -82,7 +85,6 @@ public class ClassNewDialogFragment extends DialogFragment implements MainActivi
                 mErrorTextView.setText(" ");
             }
         });
-
         mAcademicTermSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             // TODO make sure the colors are preserved on theme change from system
             @Override
@@ -101,7 +103,14 @@ public class ClassNewDialogFragment extends DialogFragment implements MainActivi
             public void onNothingSelected(AdapterView<?> parent) { }
         });
 
-        switch(pastCurrent) {
+        if(mEntry.getId() != -1) {
+            mCodeEditText.setText(mEntry.getCode());
+            mDescriptionEditText.setText(mEntry.getDescription());
+            Long year = mEntry.getYear();
+            if(year != null)
+                mYearEditText.setText(String.valueOf(year));
+        }
+        switch(mEntry.getPastCurrent()) {
             case PAST:
                 mCurrentCheckBox.setChecked(false);
                 break;
@@ -109,16 +118,15 @@ public class ClassNewDialogFragment extends DialogFragment implements MainActivi
                 mCurrentCheckBox.setChecked(true);
                 break;
         }
-
         MainActivityFragment rf = (MainActivityFragment) getFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
         if(rf != null)
             rf.getAcademicTerms(TAG);
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
-                .setTitle(getString(R.string.new_class))
+                .setTitle(args.getString(TITLE_ARG))
                 .setView(view)
                 .setNegativeButton(R.string.cancel, null)
-                .setPositiveButton(getString(R.string.add), null)
+                .setPositiveButton(args.getString(BUTTON_TEXT_ARG), null)
                 .create();
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
@@ -132,8 +140,6 @@ public class ClassNewDialogFragment extends DialogFragment implements MainActivi
                             mCodeEditText.requestFocus();
                             return;
                         }
-                        if(mEntry == null)
-                            mEntry = new ClassContract.ClassEntry(-1, "", null, null, null, pastCurrent, new Date());
                         mEntry.setCode(code);
                         mEntry.setDescription(mDescriptionEditText.getText().toString());
                         AcademicTermContract.AcademicTermEntry academicTerm = (AcademicTermContract.AcademicTermEntry) mAcademicTermSpinner.getSelectedItem();
@@ -204,5 +210,10 @@ public class ClassNewDialogFragment extends DialogFragment implements MainActivi
         };
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAcademicTermSpinner.setAdapter(spinnerAdapter);
+        if(mEntry.getId() != -1) {
+            AcademicTermContract.AcademicTermEntry academicTerm = mEntry.getAcademicTerm();
+            if(academicTerm != null)
+                mAcademicTermSpinner.setSelection(spinnerAdapter.getPosition(academicTerm));
+        }
     }
 }
