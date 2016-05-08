@@ -36,7 +36,7 @@ public class ClassInsertUpdateDialogFragment extends DialogFragment {
     }
 
     public static final String TAG = "net.polybugger.apollot.insert_update_class_dialog_fragment";
-    public static final String ENTRY_ARG = "net.polybugger.apollot.past_current_arg";
+    public static final String ENTRY_ARG = "net.polybugger.apollot.entry_arg";
     public static final String TITLE_ARG = "net.polybugger.apollot.title_arg";
     public static final String BUTTON_TEXT_ARG = "net.polybugger.apollot.button_text_arg";
 

@@ -203,6 +203,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ClassesFragment f = (ClassesFragment) getSupportFragmentManager().findFragmentByTag(tag);
         if(f != null)
             f.insertClass(entry);
+
+        Intent intent = new Intent(this, ClassActivity.class);
+        Bundle args = new Bundle();
+        args.putSerializable(ClassActivity.CLASS_ARG, entry);
+        intent.putExtras(args);
+        startActivity(intent);
     }
 
     @Override

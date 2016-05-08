@@ -2,6 +2,7 @@ package net.polybugger.apollot;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -196,7 +198,12 @@ public class ClassesFragment extends Fragment {
             holder.mClickableLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Intent intent = new Intent(mActivity, ClassActivity.class);
+                    ClassSummary classSummary = (ClassSummary) v.getTag();
+                    Bundle args = new Bundle();
+                    args.putSerializable(ClassActivity.CLASS_ARG, classSummary.mClass);
+                    intent.putExtras(args);
+                    mActivity.startActivity(intent);
                 }
             });
             holder.mTitleTextView.setText(entry.mClass.getTitle());
