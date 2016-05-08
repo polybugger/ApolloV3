@@ -21,6 +21,7 @@ public class MainActivityFragment extends Fragment {
     public interface Listener {
         void onGetClassesSummary(ArrayList<ClassesFragment.ClassSummary> arrayList, PastCurrentEnum pastCurrent);
         void onGetAcademicTerms(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList, String fragmentTag);
+        void onInsertClass(ClassContract.ClassEntry entry);
     }
 
     public static final String TAG = "net.polybugger.apollot.main_activity_fragment";
@@ -60,6 +61,10 @@ public class MainActivityFragment extends Fragment {
 
     public void getAcademicTerms(String fragmentTag) {
         new GetAcademicTermsAsyncTask().execute(fragmentTag);
+    }
+
+    public void insertClass(ClassContract.ClassEntry entry) {
+        new InsertClassAsyncTask().execute(entry);
     }
 
     private class GetClassesSummaryAsyncTask extends AsyncTask<PastCurrentEnum, Integer, AsyncTaskResult> {
@@ -111,12 +116,36 @@ public class MainActivityFragment extends Fragment {
         }
     }
 
+    private class InsertClassAsyncTask extends AsyncTask<ClassContract.ClassEntry, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(ClassContract.ClassEntry... entry) {
+            ClassContract.ClassEntry classEntry = entry[0];
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            long id = ClassContract._insert(db, classEntry.getCode(), classEntry.getDescription(), classEntry.getAcademicTerm(), classEntry.getYear(), classEntry.getPastCurrent(), classEntry.getDateCreated());
+            ApolloDbAdapter.close();
+            classEntry.setId(id);
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassEntry = classEntry;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onInsertClass(result.mClassEntry);
+            }
+        }
+    }
+
     private class AsyncTaskResult {
         public PastCurrentEnum mPastCurrent;
         public ArrayList<ClassesFragment.ClassSummary> mClassSummaries;
 
         public String mFragmentTag;
         public ArrayList<AcademicTermContract.AcademicTermEntry> mAcademicTerms;
+
+        public ClassContract.ClassEntry mClassEntry;
 
         public AsyncTaskResult() { }
     }

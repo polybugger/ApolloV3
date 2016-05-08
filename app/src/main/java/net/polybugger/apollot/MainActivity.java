@@ -2,11 +2,9 @@ package net.polybugger.apollot;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -192,7 +190,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onConfirmInsertClass(ClassContract.ClassEntry entry) {
+    public void onInsertClass(ClassContract.ClassEntry entry) {
+        String tag = ClassesFragment.TAG_PAST;
+        switch(entry.getPastCurrent()) {
+            case PAST:
+                tag = ClassesFragment.TAG_PAST;
+                break;
+            case CURRENT:
+                tag = ClassesFragment.TAG_CURRENT;
+                break;
+        }
+        ClassesFragment f = (ClassesFragment) getSupportFragmentManager().findFragmentByTag(tag);
+        if(f != null)
+            f.insertClass(entry);
+    }
 
+    @Override
+    public void onConfirmInsertClass(ClassContract.ClassEntry entry) {
+        MainActivityFragment rf = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
+        if(rf != null)
+            rf.insertClass(entry);
     }
 }

@@ -115,4 +115,6 @@
     <string name="year_hint">Year</string>
     <string name="please_enter_a_class_code">Please enter a class code!</string>
 
+    <string name="class_added">Class added.</string>
+
 </resources>

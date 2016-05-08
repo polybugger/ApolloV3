@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,7 +30,7 @@ import net.polybugger.apollot.db.PastCurrentEnum;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class ClassesFragment extends Fragment implements MainActivityFragment.Listener {
+public class ClassesFragment extends Fragment {
 
     public static final String TAG_PAST = "net.polybugger.apollot.past_classes_fragment";
     public static final String TAG_CURRENT = "net.polybugger.apollot.current_classes_fragment";
@@ -113,16 +115,21 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
         }
     }
 
-    @Override
     public void onGetClassesSummary(ArrayList<ClassSummary> arrayList, PastCurrentEnum pastCurrent) {
         mAdapter.setArrayList(arrayList);
     }
 
-    @Override
-    public void onGetAcademicTerms(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList, String fragmentTag) {
-        // unused
+    public void insertClass(ClassContract.ClassEntry entry) {
+        ClassesFragment.ClassSummary classSummary = new ClassesFragment.ClassSummary(entry);
+        mAdapter.add(classSummary);
+        mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_added), Snackbar.LENGTH_SHORT).show();
+            }
+        }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
     }
-
 
     public static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
@@ -139,12 +146,12 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
             notifyDataSetChanged();
         }
 
-        /*
-        public void add(AcademicTermContract.AcademicTermEntry entry) {
+        public void add(ClassSummary entry) {
             mArrayList.add(entry);
             notifyDataSetChanged();
         }
 
+        /*
         public void update(AcademicTermContract.AcademicTermEntry entry) {
             int pos = mArrayList.indexOf(entry);
             mArrayList.remove(pos);
@@ -196,6 +203,11 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
             String academicTermYear = entry.mClass.getAcademicTermYear();
             if(StringUtils.isBlank(academicTermYear)) {
                 holder.mAcademicTermTextView.setVisibility(View.GONE);
+                int paddingTop = holder.mTitleTextView.getPaddingTop();
+                int paddingRight = holder.mTitleTextView.getPaddingRight();
+                int paddingLeft = holder.mTitleTextView.getPaddingLeft();
+                holder.mTitleTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingTop);
+
             }
             else {
                 holder.mAcademicTermTextView.setText(academicTermYear);
@@ -321,6 +333,9 @@ public class ClassesFragment extends Fragment implements MainActivityFragment.Li
 
         public ClassSummary(ClassContract.ClassEntry _class) {
             mClass = _class;
+            mClassSchedules = new ArrayList<>();
+            mStudentCount = 0;
+            mItemSummaryCount = new LinkedHashMap<>();
         }
     }
 }

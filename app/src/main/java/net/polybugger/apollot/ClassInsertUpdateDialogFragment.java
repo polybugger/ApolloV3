@@ -29,7 +29,7 @@ import net.polybugger.apollot.db.PastCurrentEnum;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class ClassInsertUpdateDialogFragment extends DialogFragment implements MainActivityFragment.Listener {
+public class ClassInsertUpdateDialogFragment extends DialogFragment {
 
     public interface Listener {
         void onConfirmInsertClass(ClassContract.ClassEntry entry);
@@ -183,13 +183,7 @@ public class ClassInsertUpdateDialogFragment extends DialogFragment implements M
         super.onDetach();
     }
 
-    @Override
-    public void onGetClassesSummary(ArrayList<ClassesFragment.ClassSummary> arrayList, PastCurrentEnum pastCurrent) {
-        // unused
-    }
-
     // TODO make sure the colors are preserved on theme change from system
-    @Override
     public void onGetAcademicTerms(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList, String fragmentTag) {
         arrayList.add(0, new AcademicTermContract.AcademicTermEntry(-1, getString(R.string.academic_term_hint), null));
         ArrayAdapter<AcademicTermContract.AcademicTermEntry> spinnerAdapter = new ArrayAdapter<AcademicTermContract.AcademicTermEntry>(getActivity(), android.R.layout.simple_spinner_item, arrayList) {
