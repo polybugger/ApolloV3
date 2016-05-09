@@ -9,16 +9,16 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -92,7 +92,7 @@ public class ClassesFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new Adapter(getActivity());
+        mAdapter = new Adapter(this);
         mRecyclerView.setAdapter(mAdapter);
 
         MainActivityFragment f = (MainActivityFragment) getFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
@@ -112,6 +112,7 @@ public class ClassesFragment extends Fragment {
                 f.getClassesSummary(mPastCurrent);
             REQUERY = false;
         }
+        // TODO other types of REQUERY
         else {
 
         }
@@ -135,11 +136,11 @@ public class ClassesFragment extends Fragment {
 
     public static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
-        private FragmentActivity mActivity;
+        private Fragment mFragment;
         private ArrayList<ClassSummary> mArrayList;
 
-        public Adapter(FragmentActivity activity) {
-            mActivity = activity;
+        public Adapter(Fragment fragment) {
+            mFragment = fragment;
             mArrayList = new ArrayList<>();
         }
 
@@ -178,8 +179,8 @@ public class ClassesFragment extends Fragment {
             ClassSummary entry = mArrayList.get(position);
             AcademicTermContract.AcademicTermEntry academicTerm = entry.mClass.getAcademicTerm();
             if(academicTerm != null)
-                holder.mBackgroundLayout.setBackgroundResource(BackgroundRect.getBackgroundResource(academicTerm.getColor(), mActivity));
-            Resources res = mActivity.getResources();
+                holder.mBackgroundLayout.setBackgroundResource(BackgroundRect.getBackgroundResource(academicTerm.getColor(), mFragment.getContext()));
+            Resources res = mFragment.getResources();
             int topMargin = res.getDimensionPixelSize(R.dimen.recycler_view_item_margin_top);
             int rightMargin = res.getDimensionPixelSize(R.dimen.recycler_view_item_margin_right);
             int bottomMargin = res.getDimensionPixelSize(R.dimen.recycler_view_item_margin_bottom);
@@ -198,28 +199,49 @@ public class ClassesFragment extends Fragment {
             holder.mClickableLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mActivity, ClassActivity.class);
                     ClassSummary classSummary = (ClassSummary) v.getTag();
-                    Bundle args = new Bundle();
-                    args.putSerializable(ClassActivity.CLASS_ARG, classSummary.mClass);
-                    intent.putExtras(args);
-                    mActivity.startActivity(intent);
+                    if(classSummary.mLockedClass) {
+                        FragmentManager fm = mFragment.getFragmentManager();
+                        UnlockPasswordDialogFragment df = (UnlockPasswordDialogFragment) fm.findFragmentByTag(UnlockPasswordDialogFragment.TAG);
+                        if(df == null) {
+                            df = UnlockPasswordDialogFragment.newInstance(classSummary.mClass);
+                            df.show(fm, UnlockPasswordDialogFragment.TAG);
+                        }
+                    }
+                    else {
+                        Intent intent = new Intent(mFragment.getContext(), ClassActivity.class);
+                        Bundle args = new Bundle();
+                        args.putSerializable(ClassActivity.CLASS_ARG, classSummary.mClass);
+                        intent.putExtras(args);
+                        mFragment.startActivity(intent);
+                    }
                 }
             });
-            holder.mTitleTextView.setText(entry.mClass.getTitle());
-            String academicTermYear = entry.mClass.getAcademicTermYear();
-            if(StringUtils.isBlank(academicTermYear)) {
+
+            if(entry.mLockedClass) {
+                holder.mTitleTextView.setText(String.format("%s %s", entry.mClass.getCode(), mFragment.getString(R.string.ellipsis)));
+                holder.mLockImageView.setVisibility(View.VISIBLE);
                 holder.mAcademicTermTextView.setVisibility(View.GONE);
+            }
+            else {
+                holder.mTitleTextView.setText(entry.mClass.getTitle());
+                holder.mLockImageView.setVisibility(View.GONE);
+                String academicTermYear = entry.mClass.getAcademicTermYear();
+                if(StringUtils.isBlank(academicTermYear)) {
+                    holder.mAcademicTermTextView.setVisibility(View.GONE);
+                }
+                else {
+                    holder.mAcademicTermTextView.setText(academicTermYear);
+                    holder.mAcademicTermTextView.setVisibility(View.VISIBLE);
+                }
+            }
+            if(holder.mAcademicTermTextView.getVisibility() == View.GONE) {
                 int paddingTop = holder.mTitleTextView.getPaddingTop();
                 int paddingRight = holder.mTitleTextView.getPaddingRight();
                 int paddingLeft = holder.mTitleTextView.getPaddingLeft();
                 holder.mTitleTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingTop);
+            }
 
-            }
-            else {
-                holder.mAcademicTermTextView.setText(academicTermYear);
-                holder.mAcademicTermTextView.setVisibility(View.VISIBLE);
-            }
             if(entry.mClassSchedules.size() == 0) {
                 holder.mClassScheduleTimeTextView.setVisibility(View.GONE);
                 holder.mClassScheduleLocationTextView.setVisibility(View.GONE);
@@ -248,7 +270,7 @@ public class ClassesFragment extends Fragment {
                 holder.mStudentCountTextView.setVisibility(View.GONE);
             }
             else {
-                holder.mStudentCountTextView.setText(String.format("%s %d", mActivity.getString(R.string.students_label), entry.mStudentCount));
+                holder.mStudentCountTextView.setText(String.format("%s %d", mFragment.getString(R.string.students_label), entry.mStudentCount));
                 holder.mStudentCountTextView.setVisibility(View.VISIBLE);
             }
 
@@ -263,7 +285,7 @@ public class ClassesFragment extends Fragment {
                 }
             }
             else {
-                LayoutInflater inflater = mActivity.getLayoutInflater();
+                LayoutInflater inflater = mFragment.getLayoutInflater(null);
                 int itemSummaryTotal = 0, count;
                 View view; TextView textView;
                 holder.mItemSummaryCountLinearLayout.removeAllViews();
@@ -272,12 +294,12 @@ public class ClassesFragment extends Fragment {
                     count = itemCount.getValue();
                     view = inflater.inflate(R.layout.row_class_summary_item_count, null);
                     textView = (TextView) view.findViewById(R.id.text_view);
-                    textView.setBackgroundResource(BackgroundRect.getBackgroundResource(itemType.getColor(), mActivity));
-                    textView.setText(String.format("%s%s %d", itemType.getDescription(), mActivity.getString(R.string.colon), count));
+                    textView.setBackgroundResource(BackgroundRect.getBackgroundResource(itemType.getColor(), mFragment.getContext()));
+                    textView.setText(String.format("%s%s %d", itemType.getDescription(), mFragment.getString(R.string.colon), count));
                     holder.mItemSummaryCountLinearLayout.addView(view);
                     itemSummaryTotal = itemSummaryTotal + count;
                 }
-                holder.mItemCountTextView.setText(String.format("%s %d", mActivity.getString(R.string.class_activities_label), itemSummaryTotal));
+                holder.mItemCountTextView.setText(String.format("%s %d", mFragment.getString(R.string.class_activities_label), itemSummaryTotal));
                 holder.mItemCountTextView.setVisibility(View.VISIBLE);
                 holder.mItemSummaryCountLinearLayout.setVisibility(View.VISIBLE);
                 if(holder.mStudentCountTextView.getVisibility() == View.GONE) {
@@ -305,6 +327,7 @@ public class ClassesFragment extends Fragment {
             protected LinearLayout mBackgroundLayout;
             protected LinearLayout mClickableLayout;
             protected TextView mTitleTextView;
+            protected ImageView mLockImageView;
             protected TextView mAcademicTermTextView;
             protected View mClassScheduleDivider;
             protected TextView mClassScheduleTimeTextView;
@@ -320,6 +343,7 @@ public class ClassesFragment extends Fragment {
                 mBackgroundLayout = (LinearLayout) itemView.findViewById(R.id.background_layout);
                 mClickableLayout = (LinearLayout) itemView.findViewById(R.id.clickable_layout);
                 mTitleTextView = (TextView) itemView.findViewById(R.id.title_text_view);
+                mLockImageView = (ImageView) itemView.findViewById(R.id.lock_image_view);
                 mAcademicTermTextView = (TextView) itemView.findViewById(R.id.academic_term_text_view);
                 mClassScheduleDivider = itemView.findViewById(R.id.class_schedule_divider);
                 mClassScheduleTimeTextView = (TextView) itemView.findViewById(R.id.class_schedule_time_text_view);
@@ -334,12 +358,14 @@ public class ClassesFragment extends Fragment {
 
     public static class ClassSummary {
         public ClassContract.ClassEntry mClass;
+        public boolean mLockedClass;
         public ArrayList<ClassScheduleContract.ClassScheduleEntry> mClassSchedules;
         public long mStudentCount;
         public LinkedHashMap<ClassItemTypeContract.ClassItemTypeEntry, Integer> mItemSummaryCount;
 
         public ClassSummary(ClassContract.ClassEntry _class) {
             mClass = _class;
+            mLockedClass = false;
             mClassSchedules = new ArrayList<>();
             mStudentCount = 0;
             mItemSummaryCount = new LinkedHashMap<>();

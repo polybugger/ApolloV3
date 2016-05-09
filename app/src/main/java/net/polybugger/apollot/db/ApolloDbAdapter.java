@@ -209,11 +209,14 @@ public class ApolloDbAdapter {
             long class1Item0Id = ClassItemContract._insertDummyClassItem(db, class1Id, R.array.default_class_0_class_item_0, sAppContext);
             long class1Item1Id = ClassItemContract._insertDummyClassItem(db, class1Id, R.array.default_class_0_class_item_1, sAppContext);
 
+            db.execSQL(ClassPasswordContract.CREATE_TABLE_SQL);
+            ClassPasswordContract._insertDummyClassPassword(db, class1Id, R.string.default_class_1_password, sAppContext);
+            ClassPasswordContract._insertDummyClassPassword(db, class2Id, R.string.default_class_1_password, sAppContext);
+
             /*
             db.execSQL(ClassNoteContract.CREATE_TABLE_SQL);
             _insertDummyClass0Notes(db, class0Id);
 
-            db.execSQL(ClassPasswordContract.CREATE_TABLE_SQL);
             _insertDummyClass1Password(db, class1Id);
 
             _insertDummyClass0Items(db, class0Id);
@@ -248,9 +251,5 @@ public class ApolloDbAdapter {
         ClassNoteContract._insert(db, classId,
                 sAppContext.getString(R.string.default_class_0_class_note_1_note),
                 dateCreated);
-    }
-
-    public static long _insertDummyClass1Password(SQLiteDatabase db, long classId) {
-        return ClassPasswordContract._insert(db, classId, sAppContext.getString(R.string.default_class_1_password));
     }
 }

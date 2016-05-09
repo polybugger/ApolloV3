@@ -2,9 +2,11 @@ package net.polybugger.apollot;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -30,10 +32,12 @@ import net.polybugger.apollot.db.StudentNameDisplayEnum;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         MainActivityFragment.Listener,
-        ClassInsertUpdateDialogFragment.Listener {
+        ClassInsertUpdateDialogFragment.Listener,
+        UnlockPasswordDialogFragment.Listener {
 
     public static final long SNACKBAR_POST_DELAYED_MSEC = 500;
 
+    private static boolean lockAuthenticated = false;
     private FloatingActionButton mFab;
 
     @Override
@@ -44,31 +48,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         StudentContract.STUDENT_NAME_DISPLAY = StudentNameDisplayEnum.fromInt(sharedPref.getInt(getString(R.string.student_name_display_key), getResources().getInteger(R.integer.default_student_name_display)));
 
-        setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
-
         FragmentManager fm = getSupportFragmentManager();
         if(fm.findFragmentByTag(MainActivityFragment.TAG) == null)
             fm.beginTransaction().add(MainActivityFragment.newInstance(), MainActivityFragment.TAG).commit();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        NavigationMenuView navigationMenuView = (NavigationMenuView) navigationView.getChildAt(0);
-        navigationMenuView.setVerticalScrollBarEnabled(false);
-
-        int defaultNavDrawerMenuItemIndex = sharedPref.getInt(getString(R.string.default_nav_drawer_menu_item_index_key), 0);
-        MenuItem defaultNavDrawerMenuItem = navigationView.getMenu().getItem(defaultNavDrawerMenuItemIndex);
-        defaultNavDrawerMenuItem.setChecked(true);
-        onNavigationItemSelected(defaultNavDrawerMenuItem);
+        boolean lockEnabled = sharedPref.getBoolean(getString(R.string.lock_enabled_key), false);
+        if(lockEnabled && !lockAuthenticated) {
+            UnlockPasswordDialogFragment df = (UnlockPasswordDialogFragment) fm.findFragmentByTag(UnlockPasswordDialogFragment.TAG);
+            if(df == null) {
+                df = UnlockPasswordDialogFragment.newInstance(null);
+                df.show(fm, UnlockPasswordDialogFragment.TAG);
+            }
+        }
+        else {
+            onUnlockPassword(null);
+        }
     }
 
     @Override
@@ -216,9 +210,54 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    public void onUnlockClass(ClassContract.ClassEntry entry, boolean passwordMatched) {
+        if(passwordMatched) {
+            Intent intent = new Intent(this, ClassActivity.class);
+            Bundle args = new Bundle();
+            args.putSerializable(ClassActivity.CLASS_ARG, entry);
+            intent.putExtras(args);
+            startActivity(intent);
+        }
+        else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.incorrect_password), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
+    }
+
+    @Override
     public void onConfirmInsertClass(ClassContract.ClassEntry entry) {
         MainActivityFragment rf = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
         if(rf != null)
             rf.insertClass(entry);
+    }
+
+    @Override
+    public void onUnlockPassword(ClassContract.ClassEntry entry) {
+        setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        NavigationMenuView navigationMenuView = (NavigationMenuView) navigationView.getChildAt(0);
+        navigationMenuView.setVerticalScrollBarEnabled(false);
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        int defaultNavDrawerMenuItemIndex = sharedPref.getInt(getString(R.string.default_nav_drawer_menu_item_index_key), 0);
+        MenuItem defaultNavDrawerMenuItem = navigationView.getMenu().getItem(defaultNavDrawerMenuItemIndex);
+        defaultNavDrawerMenuItem.setChecked(true);
+        onNavigationItemSelected(defaultNavDrawerMenuItem);
     }
 }

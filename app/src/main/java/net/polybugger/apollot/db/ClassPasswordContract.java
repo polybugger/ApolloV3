@@ -1,9 +1,12 @@
 package net.polybugger.apollot.db;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+
+import net.polybugger.apollot.R;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -74,6 +77,10 @@ public class ClassPasswordContract {
                     cursor.getString(2));
         cursor.close();
         return entry;
+    }
+
+    public static long _insertDummyClassPassword(SQLiteDatabase db, long classId, int classPasswordResourceId, Context context) {
+        return _insert(db, classId, context.getString(classPasswordResourceId));
     }
 
     public static class ClassPasswordEntry implements BaseColumns {

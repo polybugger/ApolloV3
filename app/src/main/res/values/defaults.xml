@@ -933,10 +933,7 @@
     <bool name="bool_true">true</bool>
     <bool name="bool_false">false</bool>
 
-
-
-
-
+    <string name="default_class_1_password"></string>
 
 
 
@@ -944,7 +941,5 @@
     <string name="default_class_0_class_note_0_date_created">2016&#8211;06&#8211;11T00:00:00.000+0800</string>
     <string name="default_class_0_class_note_1_note">Syllabus - http://www.extension.harvard.edu/sites/default/files/openlearning/math222/files/OLI_MathE222_Syllabus.pdf</string>
     <string name="default_class_0_class_note_1_date_created">2016&#8211;06&#8211;12T00:00:00.000+0800</string>
-
-    <string name="default_class_1_password"></string>
 
 </resources>

@@ -116,5 +116,8 @@
     <string name="please_enter_a_class_code">Please enter a class code!</string>
 
     <string name="class_added">Class added.</string>
+    <string name="unlock_class">Unlock Class</string>
+    <string name="unlock">Unlock</string>
+    <string name="ellipsis">...</string>
 
 </resources>
