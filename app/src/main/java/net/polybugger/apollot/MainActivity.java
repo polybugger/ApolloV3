@@ -163,6 +163,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // ft.addToBackStack(null);
         ft.commit();
 
+        // TODO fab is not anchored to any view, check if this creates any bugs
+        if(mFab.getVisibility() == View.GONE)
+            mFab.show();
+
         return true;
     }
 
