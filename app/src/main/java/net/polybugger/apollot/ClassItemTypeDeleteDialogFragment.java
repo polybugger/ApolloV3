@@ -5,14 +5,14 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDialogFragment;
 import android.view.View;
 import android.widget.TextView;
 
 import net.polybugger.apollot.db.ClassItemTypeContract;
 
-public class ClassItemTypeDeleteDialogFragment extends DialogFragment {
+public class ClassItemTypeDeleteDialogFragment extends AppCompatDialogFragment {
 
     public interface Listener {
         void onConfirmDeleteClassItemType(ClassItemTypeContract.ClassItemTypeEntry entry);
