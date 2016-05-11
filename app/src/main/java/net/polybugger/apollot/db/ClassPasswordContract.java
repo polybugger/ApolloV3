@@ -17,7 +17,7 @@ public class ClassPasswordContract {
     public static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + " (" +
             ClassPasswordEntry._ID + " INTEGER PRIMARY KEY, " +
             ClassPasswordEntry.CLASS_ID + " INTEGER NOT NULL UNIQUE REFERENCES " +
-                ClassContract.TABLE_NAME + " (" + ClassContract.ClassEntry._ID + "), " +
+                ClassContract.TABLE_NAME + " (" + ClassContract.ClassEntry._ID + ") ON DELETE CASCADE, " +
             ClassPasswordEntry.PASSWORD + " TEXT NOT NULL)";
     public static final String SELECT_TABLE_SQL = "SELECT " +
             ClassPasswordEntry._ID + ", " + // 0

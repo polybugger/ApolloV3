@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(lockEnabled && !lockAuthenticated) {
             UnlockPasswordDialogFragment df = (UnlockPasswordDialogFragment) fm.findFragmentByTag(UnlockPasswordDialogFragment.TAG);
             if(df == null) {
-                df = UnlockPasswordDialogFragment.newInstance(null);
+                df = UnlockPasswordDialogFragment.newInstance(null, UnlockPasswordDialogFragment.Option.UNLOCK_APP);
                 df.show(fm, UnlockPasswordDialogFragment.TAG);
             }
         }
@@ -236,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onUnlockPassword(ClassContract.ClassEntry entry) {
+    public void onUnlockPassword(ClassContract.ClassEntry _class) {
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

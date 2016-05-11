@@ -192,7 +192,9 @@ public class ClassContract {
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
         Date dateCreated;
         Cursor cursor = db.query(TABLE_NAME + " AS c LEFT OUTER JOIN " +
-                        AcademicTermContract.TABLE_NAME + " AS at ON c." + ClassEntry.ACADEMIC_TERM_ID + "=at." + AcademicTermContract.AcademicTermEntry._ID,
+                        AcademicTermContract.TABLE_NAME + " AS at ON c." + ClassEntry.ACADEMIC_TERM_ID + "=at." + AcademicTermContract.AcademicTermEntry._ID +
+                        " LEFT OUTER JOIN " +
+                        ClassPasswordContract.TABLE_NAME + " AS cp ON c." + ClassEntry._ID + "=cp." + ClassPasswordContract.ClassPasswordEntry.CLASS_ID,
                 new String[]{"c." + ClassEntry._ID, // 0
                         "c." + ClassEntry.CODE, // 1
                         "c." + ClassEntry.DESCRIPTION, // 2 nullable
@@ -201,7 +203,8 @@ public class ClassContract {
                         "at." + AcademicTermContract.AcademicTermEntry.COLOR, // 5
                         "c." + ClassEntry.YEAR, // 6 nullable
                         "c." + ClassEntry.CURRENT, // 7
-                        "c." + ClassEntry.DATE_CREATED}, // 8 nullable
+                        "c." + ClassEntry.DATE_CREATED,
+                        "cp." + ClassPasswordContract.ClassPasswordEntry._ID}, // 8 nullable
                 "c." + ClassEntry.CURRENT + "=?",
                 new String[]{String.valueOf(pastCurrent.getValue())},
                 null, null, null);
@@ -213,13 +216,15 @@ public class ClassContract {
             catch(Exception e) {
                 dateCreated = null;
             }
-            entries.add(new ClassEntry(cursor.getLong(0),
+            ClassEntry entry = new ClassEntry(cursor.getLong(0),
                     cursor.getString(1),
                     cursor.isNull(2) ? null : cursor.getString(2),
                     cursor.isNull(3) ? null : new AcademicTermContract.AcademicTermEntry(cursor.getLong(3), cursor.getString(4), cursor.isNull(5) ? null : cursor.getString(5)),
                     cursor.isNull(6) ? null : cursor.getLong(6),
                     PastCurrentEnum.fromInt(cursor.getInt(7)),
-                    dateCreated)); // 8
+                    dateCreated);
+            entry.setLocked(!cursor.isNull(9));
+            entries.add(entry); // 8
             cursor.moveToNext();
         }
         cursor.close();
@@ -280,6 +285,7 @@ public class ClassContract {
         private Long mYear; // 6 nullable
         private PastCurrentEnum mPastCurrent; // 7
         private Date mDateCreated; // 8 nullable
+        private boolean mLocked; // hack for getting password
 
         public ClassEntry(long id, String code, String description, AcademicTermContract.AcademicTermEntry academicTerm, Long year, PastCurrentEnum pastCurrent, Date dateCreated) {
             mId = id;
@@ -289,6 +295,7 @@ public class ClassContract {
             mYear = year;
             mPastCurrent = pastCurrent;
             mDateCreated = dateCreated;
+            mLocked = false;
         }
 
         public long getId() {
@@ -349,6 +356,14 @@ public class ClassContract {
 
         public void setDateCreated(Date dateCreated) {
             mDateCreated = dateCreated;
+        }
+
+        public boolean isLocked() {
+            return mLocked;
+        }
+
+        public void setLocked(boolean locked) {
+            mLocked = locked;
         }
 
         @Override

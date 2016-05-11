@@ -200,11 +200,11 @@ public class ClassesFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     ClassSummary classSummary = (ClassSummary) v.getTag();
-                    if(classSummary.mLockedClass) {
+                    if(classSummary.mClass.isLocked()) {
                         FragmentManager fm = mFragment.getFragmentManager();
                         UnlockPasswordDialogFragment df = (UnlockPasswordDialogFragment) fm.findFragmentByTag(UnlockPasswordDialogFragment.TAG);
                         if(df == null) {
-                            df = UnlockPasswordDialogFragment.newInstance(classSummary.mClass);
+                            df = UnlockPasswordDialogFragment.newInstance(classSummary.mClass, UnlockPasswordDialogFragment.Option.UNLOCK_CLASS);
                             df.show(fm, UnlockPasswordDialogFragment.TAG);
                         }
                     }
@@ -218,14 +218,14 @@ public class ClassesFragment extends Fragment {
                 }
             });
 
-            if(entry.mLockedClass) {
+            if(entry.mClass.isLocked()) {
                 holder.mTitleTextView.setText(String.format("%s %s", entry.mClass.getCode(), mFragment.getString(R.string.ellipsis)));
-                holder.mLockImageView.setVisibility(View.VISIBLE);
+                holder.mLockedImageView.setVisibility(View.VISIBLE);
                 holder.mAcademicTermTextView.setVisibility(View.GONE);
             }
             else {
                 holder.mTitleTextView.setText(entry.mClass.getTitle());
-                holder.mLockImageView.setVisibility(View.GONE);
+                holder.mLockedImageView.setVisibility(View.GONE);
                 String academicTermYear = entry.mClass.getAcademicTermYear();
                 if(StringUtils.isBlank(academicTermYear)) {
                     holder.mAcademicTermTextView.setVisibility(View.GONE);
@@ -327,7 +327,7 @@ public class ClassesFragment extends Fragment {
             protected LinearLayout mBackgroundLayout;
             protected LinearLayout mClickableLayout;
             protected TextView mTitleTextView;
-            protected ImageView mLockImageView;
+            protected ImageView mLockedImageView;
             protected TextView mAcademicTermTextView;
             protected View mClassScheduleDivider;
             protected TextView mClassScheduleTimeTextView;
@@ -343,7 +343,7 @@ public class ClassesFragment extends Fragment {
                 mBackgroundLayout = (LinearLayout) itemView.findViewById(R.id.background_layout);
                 mClickableLayout = (LinearLayout) itemView.findViewById(R.id.clickable_layout);
                 mTitleTextView = (TextView) itemView.findViewById(R.id.title_text_view);
-                mLockImageView = (ImageView) itemView.findViewById(R.id.lock_image_view);
+                mLockedImageView = (ImageView) itemView.findViewById(R.id.locked_image_view);
                 mAcademicTermTextView = (TextView) itemView.findViewById(R.id.academic_term_text_view);
                 mClassScheduleDivider = itemView.findViewById(R.id.class_schedule_divider);
                 mClassScheduleTimeTextView = (TextView) itemView.findViewById(R.id.class_schedule_time_text_view);
@@ -358,14 +358,12 @@ public class ClassesFragment extends Fragment {
 
     public static class ClassSummary {
         public ClassContract.ClassEntry mClass;
-        public boolean mLockedClass;
         public ArrayList<ClassScheduleContract.ClassScheduleEntry> mClassSchedules;
         public long mStudentCount;
         public LinkedHashMap<ClassItemTypeContract.ClassItemTypeEntry, Integer> mItemSummaryCount;
 
         public ClassSummary(ClassContract.ClassEntry _class) {
             mClass = _class;
-            mLockedClass = false;
             mClassSchedules = new ArrayList<>();
             mStudentCount = 0;
             mItemSummaryCount = new LinkedHashMap<>();

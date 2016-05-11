@@ -71,9 +71,9 @@ public class MainActivityFragment extends Fragment {
         new InsertClassAsyncTask().execute(entry);
     }
 
-    public void unlockClass(ClassContract.ClassEntry entry, String password) {
+    public void unlockClass(ClassContract.ClassEntry _class, String password) {
         AsyncTaskParams params = new AsyncTaskParams();
-        params.mClassEntry = entry;
+        params.mClass = _class;
         params.mPassword = password;
         new UnlockClassAsyncTask().execute(params);
     }
@@ -89,12 +89,8 @@ public class MainActivityFragment extends Fragment {
             ArrayList<ClassContract.ClassEntry> classes = ClassContract._getEntriesByPastCurrent(db, result.mPastCurrent);
             for(ClassContract.ClassEntry _class : classes) {
                 ClassesFragment.ClassSummary classSummary = new ClassesFragment.ClassSummary(_class);
-                long classId = classSummary.mClass.getId();
-                ClassPasswordContract.ClassPasswordEntry classPassword = ClassPasswordContract._getEntryByClassId(db, classId);
-                if(classPassword != null) {
-                    classSummary.mLockedClass = true;
-                }
-                else {
+                if(!_class.isLocked()) {
+                    long classId = _class.getId();
                     classSummary.mClassSchedules = ClassScheduleContract._getEntriesByClassId(db, classId);
                     classSummary.mStudentCount = ClassStudentContract._getCount(db, classId);
                     classSummary.mItemSummaryCount = ClassItemContract._getItemSummaryCount(db, classId);
@@ -137,20 +133,20 @@ public class MainActivityFragment extends Fragment {
 
         @Override
         protected AsyncTaskResult doInBackground(ClassContract.ClassEntry... entry) {
-            ClassContract.ClassEntry classEntry = entry[0];
+            ClassContract.ClassEntry _class = entry[0];
             SQLiteDatabase db = ApolloDbAdapter.open();
-            long id = ClassContract._insert(db, classEntry.getCode(), classEntry.getDescription(), classEntry.getAcademicTerm(), classEntry.getYear(), classEntry.getPastCurrent(), classEntry.getDateCreated());
+            long id = ClassContract._insert(db, _class.getCode(), _class.getDescription(), _class.getAcademicTerm(), _class.getYear(), _class.getPastCurrent(), _class.getDateCreated());
             ApolloDbAdapter.close();
-            classEntry.setId(id);
+            _class.setId(id);
             AsyncTaskResult result = new AsyncTaskResult();
-            result.mClassEntry = classEntry;
+            result.mClass = _class;
             return result;
         }
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
             if(mListener != null) {
-                mListener.onInsertClass(result.mClassEntry);
+                mListener.onInsertClass(result.mClass);
             }
         }
     }
@@ -160,18 +156,18 @@ public class MainActivityFragment extends Fragment {
         @Override
         protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
             AsyncTaskResult result = new AsyncTaskResult();
-            result.mClassEntry = params[0].mClassEntry;
+            result.mClass = params[0].mClass;
             SQLiteDatabase db = ApolloDbAdapter.open();
-            ClassPasswordContract.ClassPasswordEntry mClassPassword = ClassPasswordContract._getEntryByClassId(db, result.mClassEntry.getId());
+            ClassPasswordContract.ClassPasswordEntry classPassword = ClassPasswordContract._getEntryByClassId(db, result.mClass.getId());
             ApolloDbAdapter.close();
-            result.mPasswordMatched = StringUtils.equals(mClassPassword.getPassword(), params[0].mPassword);
+            result.mPasswordMatched = StringUtils.equals(classPassword.getPassword(), params[0].mPassword);
             return result;
         }
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
             if(mListener != null) {
-                mListener.onUnlockClass(result.mClassEntry, result.mPasswordMatched);
+                mListener.onUnlockClass(result.mClass, result.mPasswordMatched);
             }
         }
     }
@@ -183,7 +179,7 @@ public class MainActivityFragment extends Fragment {
         public String mFragmentTag;
         public ArrayList<AcademicTermContract.AcademicTermEntry> mAcademicTerms;
 
-        public ClassContract.ClassEntry mClassEntry;
+        public ClassContract.ClassEntry mClass;
 
         public boolean mPasswordMatched;
 
@@ -192,7 +188,7 @@ public class MainActivityFragment extends Fragment {
 
     private class AsyncTaskParams {
 
-        public ClassContract.ClassEntry mClassEntry;
+        public ClassContract.ClassEntry mClass;
         public String mPassword;
 
         public AsyncTaskParams() { }

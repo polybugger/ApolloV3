@@ -116,9 +116,13 @@
     <string name="please_enter_a_class_code">Please enter a class code!</string>
 
     <string name="class_added">Class added.</string>
+    <string name="lock_class">Lock Class</string>
     <string name="unlock_class">Unlock Class</string>
     <string name="unlock">Unlock</string>
+    <string name="lock">Lock</string>
     <string name="ellipsis">...</string>
+    <string name="class_password_removed">Class password removed.</string>
+    <string name="class_password_applied">Class password applied.</string>
 
     <string name="info_tab">Info</string>
     <string name="items_tab">Activities</string>

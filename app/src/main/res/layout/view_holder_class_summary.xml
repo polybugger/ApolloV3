@@ -44,7 +44,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/lock_image_view"
+                    android:id="@+id/locked_image_view"
                     android:contentDescription="@null"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"

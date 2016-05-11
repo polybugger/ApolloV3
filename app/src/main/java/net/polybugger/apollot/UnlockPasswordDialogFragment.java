@@ -16,28 +16,30 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import net.polybugger.apollot.db.ClassContract;
-import net.polybugger.apollot.db.ClassItemTypeContract;
 
 import org.apache.commons.lang3.StringUtils;
 
 public class UnlockPasswordDialogFragment extends AppCompatDialogFragment {
 
     public interface Listener {
-        void onUnlockPassword(ClassContract.ClassEntry entry);
+        void onUnlockPassword(ClassContract.ClassEntry _class);
     }
 
     public static final String TAG = "net.polybugger.apollot.unlock_password_dialog_fragment";
-    public static final String ENTRY_ARG = "net.polybugger.apollot.entry_arg";
+    public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
+    public static final String OPTION_ARG = "net.polybugger.apollot.option_arg";
 
     private Listener mListener;
-    private ClassContract.ClassEntry mEntry;
+    private ClassContract.ClassEntry mClass;
+    private Option mOption;
     private EditText mPasswordEditText;
     private TextView mPasswordErrorTextView;
 
-    public static UnlockPasswordDialogFragment newInstance(ClassContract.ClassEntry entry) {
+    public static UnlockPasswordDialogFragment newInstance(ClassContract.ClassEntry _class, Option option) {
         UnlockPasswordDialogFragment df = new UnlockPasswordDialogFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ENTRY_ARG, entry);
+        args.putSerializable(CLASS_ARG, _class);
+        args.putSerializable(OPTION_ARG, option);
         df.setArguments(args);
         return df;
     }
@@ -46,7 +48,8 @@ public class UnlockPasswordDialogFragment extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
-        mEntry = (ClassContract.ClassEntry) args.getSerializable(ENTRY_ARG);
+        mClass = (ClassContract.ClassEntry) args.getSerializable(CLASS_ARG);
+        mOption = (Option) args.getSerializable(OPTION_ARG);
 
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_unlock_password, null);
         mPasswordEditText = (EditText) view.findViewById(R.id.password_edit_text);
@@ -63,23 +66,52 @@ public class UnlockPasswordDialogFragment extends AppCompatDialogFragment {
         });
 
         final AlertDialog alertDialog;
-        if(mEntry == null) {
-            setCancelable(false);
-            mPasswordErrorTextView.setVisibility(View.VISIBLE);
-            alertDialog = new AlertDialog.Builder(getActivity())
-                    .setTitle(R.string.unlock_password)
-                    .setView(view)
-                    .setPositiveButton(R.string.unlock, null)
-                    .create();
-        }
-        else {
-            mPasswordErrorTextView.setVisibility(View.GONE);
-            alertDialog = new AlertDialog.Builder(getActivity())
-                    .setTitle(R.string.unlock_class)
-                    .setView(view)
-                    .setNegativeButton(R.string.cancel, null)
-                    .setPositiveButton(R.string.unlock, null)
-                    .create();
+        switch(mOption) {
+            case UNLOCK_APP:
+                setCancelable(false);
+                mPasswordErrorTextView.setVisibility(View.VISIBLE);
+                alertDialog = new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.unlock_password)
+                        .setView(view)
+                        .setPositiveButton(R.string.unlock, null)
+                        .create();
+                break;
+            case UNLOCK_CLASS:
+                mPasswordErrorTextView.setVisibility(View.GONE);
+                alertDialog = new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.unlock_class)
+                        .setView(view)
+                        .setNegativeButton(R.string.cancel, null)
+                        .setPositiveButton(R.string.unlock, null)
+                        .create();
+                break;
+            case REMOVE_LOCK:
+                mPasswordErrorTextView.setVisibility(View.GONE);
+                alertDialog = new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.unlock_class)
+                        .setView(view)
+                        .setNegativeButton(R.string.cancel, null)
+                        .setPositiveButton(R.string.unlock, null)
+                        .create();
+                break;
+            case APPLY_LOCK:
+                mPasswordErrorTextView.setVisibility(View.GONE);
+                alertDialog = new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.lock_class)
+                        .setView(view)
+                        .setNegativeButton(R.string.cancel, null)
+                        .setPositiveButton(R.string.lock, null)
+                        .create();
+                break;
+            default:
+                setCancelable(false);
+                mPasswordErrorTextView.setVisibility(View.VISIBLE);
+                alertDialog = new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.unlock_password)
+                        .setView(view)
+                        .setPositiveButton(R.string.unlock, null)
+                        .create();
+                break;
         }
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
@@ -87,23 +119,52 @@ public class UnlockPasswordDialogFragment extends AppCompatDialogFragment {
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        MainActivityFragment mrf;
+                        ClassActivityFragment crf;
+                        SharedPreferences sharedPref;
+                        String savedPassword;
                         String password = mPasswordEditText.getText().toString();
-                        if(mEntry == null) {
-                            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-                            String savedPassword = sharedPref.getString(getString(R.string.unlock_password_key), getString(R.string.default_unlock_password));
-                            if(!StringUtils.equals(savedPassword, password)) {
-                                mPasswordErrorTextView.setText(R.string.incorrect_password);
-                                mPasswordEditText.requestFocus();
-                                return;
-                            }
-                            mListener.onUnlockPassword(mEntry);
-                            dismiss();
-                        }
-                        else {
-                            MainActivityFragment rf = (MainActivityFragment) getFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
-                            if(rf != null)
-                                rf.unlockClass(mEntry, password);
-                            dismiss();
+                        switch(mOption) {
+                            case UNLOCK_APP:
+                                sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                                savedPassword = sharedPref.getString(getString(R.string.unlock_password_key), getString(R.string.default_unlock_password));
+                                if(!StringUtils.equals(savedPassword, password)) {
+                                    mPasswordErrorTextView.setText(R.string.incorrect_password);
+                                    mPasswordEditText.requestFocus();
+                                    return;
+                                }
+                                mListener.onUnlockPassword(mClass);
+                                dismiss();
+                                break;
+                            case UNLOCK_CLASS:
+                                mrf = (MainActivityFragment) getFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
+                                if(mrf != null)
+                                    mrf.unlockClass(mClass, password);
+                                dismiss();
+                                break;
+                            case REMOVE_LOCK:
+                                crf = (ClassActivityFragment) getFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+                                if(crf != null)
+                                    crf.unlockClass(mClass, password);
+                                dismiss();
+                                break;
+                            case APPLY_LOCK:
+                                crf = (ClassActivityFragment) getFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+                                if(crf != null)
+                                    crf.lockClass(mClass, password);
+                                dismiss();
+                                break;
+                            default:
+                                sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                                savedPassword = sharedPref.getString(getString(R.string.unlock_password_key), getString(R.string.default_unlock_password));
+                                if(!StringUtils.equals(savedPassword, password)) {
+                                    mPasswordErrorTextView.setText(R.string.incorrect_password);
+                                    mPasswordEditText.requestFocus();
+                                    return;
+                                }
+                                mListener.onUnlockPassword(mClass);
+                                dismiss();
+                                break;
                         }
                     }
                 });
@@ -127,5 +188,22 @@ public class UnlockPasswordDialogFragment extends AppCompatDialogFragment {
     public void onDetach() {
         mListener = null;
         super.onDetach();
+    }
+
+    public enum Option {
+        UNLOCK_APP(0),
+        UNLOCK_CLASS(1),
+        REMOVE_LOCK(2),
+        APPLY_LOCK(3);
+
+        private int mValue;
+
+        private Option(int value) {
+            mValue = value;
+        }
+
+        public int getValue() {
+            return mValue;
+        }
     }
 }
