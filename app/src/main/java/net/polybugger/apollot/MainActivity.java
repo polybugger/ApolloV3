@@ -229,6 +229,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    public void onRequeryClassSummary(ClassesFragment.ClassSummary classSummary, String fragmentTag) {
+        ClassesFragment f = (ClassesFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        if(f != null)
+            f.onRequeryClassSummary(classSummary, fragmentTag);
+    }
+
+    @Override
     public void onConfirmInsertClass(ClassContract.ClassEntry entry) {
         MainActivityFragment rf = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
         if(rf != null)

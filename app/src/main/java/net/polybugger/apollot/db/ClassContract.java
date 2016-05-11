@@ -79,7 +79,9 @@ public class ClassContract {
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
         Date dateCreated;
         Cursor cursor = db.query(TABLE_NAME + " AS c LEFT OUTER JOIN " +
-                        AcademicTermContract.TABLE_NAME + " AS at ON c." + ClassEntry.ACADEMIC_TERM_ID + "=at." + AcademicTermContract.AcademicTermEntry._ID,
+                        AcademicTermContract.TABLE_NAME + " AS at ON c." + ClassEntry.ACADEMIC_TERM_ID + "=at." + AcademicTermContract.AcademicTermEntry._ID +
+                        " LEFT OUTER JOIN " +
+                        ClassPasswordContract.TABLE_NAME + " AS cp ON c." + ClassEntry._ID + "=cp." + ClassPasswordContract.ClassPasswordEntry.CLASS_ID,
                 new String[]{"c." + ClassEntry._ID, // 0
                         "c." + ClassEntry.CODE, // 1
                         "c." + ClassEntry.DESCRIPTION, // 2 nullable
@@ -88,7 +90,8 @@ public class ClassContract {
                         "at." + AcademicTermContract.AcademicTermEntry.COLOR, // 5
                         "c." + ClassEntry.YEAR, // 6 nullable
                         "c." + ClassEntry.CURRENT, // 7
-                        "c." + ClassEntry.DATE_CREATED}, // 8 nullable
+                        "c." + ClassEntry.DATE_CREATED, // 8 nullable
+                        "cp." + ClassPasswordContract.ClassPasswordEntry._ID},
                 "c." + ClassEntry._ID + "=?",
                 new String[]{String.valueOf(id)},
                 null, null, null);
@@ -107,6 +110,7 @@ public class ClassContract {
                     cursor.isNull(6) ? null : cursor.getLong(6),
                     PastCurrentEnum.fromInt(cursor.getInt(7)),
                     dateCreated); // 8
+            entry.setLocked(!cursor.isNull(9));
         }
         cursor.close();
         return entry;
@@ -203,8 +207,8 @@ public class ClassContract {
                         "at." + AcademicTermContract.AcademicTermEntry.COLOR, // 5
                         "c." + ClassEntry.YEAR, // 6 nullable
                         "c." + ClassEntry.CURRENT, // 7
-                        "c." + ClassEntry.DATE_CREATED,
-                        "cp." + ClassPasswordContract.ClassPasswordEntry._ID}, // 8 nullable
+                        "c." + ClassEntry.DATE_CREATED, // 8 nullable
+                        "cp." + ClassPasswordContract.ClassPasswordEntry._ID},
                 "c." + ClassEntry.CURRENT + "=?",
                 new String[]{String.valueOf(pastCurrent.getValue())},
                 null, null, null);

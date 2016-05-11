@@ -26,6 +26,7 @@ public class MainActivityFragment extends Fragment {
         void onGetAcademicTerms(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList, String fragmentTag);
         void onInsertClass(ClassContract.ClassEntry entry);
         void onUnlockClass(ClassContract.ClassEntry entry, boolean passwordMatched);
+        void onRequeryClassSummary(ClassesFragment.ClassSummary classSummary, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.main_activity_fragment";
@@ -78,6 +79,13 @@ public class MainActivityFragment extends Fragment {
         new UnlockClassAsyncTask().execute(params);
     }
 
+    public void requeryClassSummary(ClassContract.ClassEntry _class, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClass = _class;
+        params.mFragmentTag = fragmentTag;
+        new GetClassSummaryAsyncTask().execute(params);
+    }
+
     private class GetClassesSummaryAsyncTask extends AsyncTask<PastCurrentEnum, Integer, AsyncTaskResult> {
 
         @Override
@@ -105,6 +113,33 @@ public class MainActivityFragment extends Fragment {
         protected void onPostExecute(AsyncTaskResult result) {
             if(mListener != null) {
                 mListener.onGetClassesSummary(result.mClassSummaries, result.mPastCurrent);
+            }
+        }
+    }
+
+    private class GetClassSummaryAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            long classId = params[0].mClass.getId();
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mClass = ClassContract._getEntry(db, classId);
+            result.mClassSummary = new ClassesFragment.ClassSummary(result.mClass);
+            if(!result.mClass.isLocked()) {
+                result.mClassSummary.mClassSchedules = ClassScheduleContract._getEntriesByClassId(db, classId);
+                result.mClassSummary.mStudentCount = ClassStudentContract._getCount(db, classId);
+                result.mClassSummary.mItemSummaryCount = ClassItemContract._getItemSummaryCount(db, classId);
+            }
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onRequeryClassSummary(result.mClassSummary, result.mFragmentTag);
             }
         }
     }
@@ -183,6 +218,8 @@ public class MainActivityFragment extends Fragment {
 
         public boolean mPasswordMatched;
 
+        public ClassesFragment.ClassSummary mClassSummary;
+
         public AsyncTaskResult() { }
     }
 
@@ -190,6 +227,7 @@ public class MainActivityFragment extends Fragment {
 
         public ClassContract.ClassEntry mClass;
         public String mPassword;
+        public String mFragmentTag;
 
         public AsyncTaskParams() { }
     }

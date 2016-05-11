@@ -39,6 +39,8 @@ public class ClassesFragment extends Fragment {
     public static final String PAST_CURRENT_ARG = "net.polybugger.apollot.past_current_arg";
 
     public static boolean REQUERY = false;
+    public static boolean REQUERY_CLASS = false;
+    public static ClassContract.ClassEntry CLASS = null;
 
     private PastCurrentEnum mPastCurrent;
     private RecyclerView mRecyclerView;
@@ -113,6 +115,17 @@ public class ClassesFragment extends Fragment {
             REQUERY = false;
         }
         // TODO other types of REQUERY
+        else if(REQUERY_CLASS) {
+            if(mPastCurrent != CLASS.getPastCurrent())
+                mAdapter.removeByClass(CLASS);
+            else {
+                MainActivityFragment f = (MainActivityFragment) getFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
+                if(f != null)
+                    f.requeryClassSummary(CLASS, getTag());
+            }
+            REQUERY_CLASS = false;
+            CLASS = null;
+        }
         else {
 
         }
@@ -134,6 +147,12 @@ public class ClassesFragment extends Fragment {
         }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
     }
 
+    public void onRequeryClassSummary(ClassSummary classSummary, String fragmentTag) {
+        if(mPastCurrent == classSummary.mClass.getPastCurrent()) {
+            mAdapter.update(classSummary);
+        }
+    }
+
     public static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         private Fragment mFragment;
@@ -151,6 +170,43 @@ public class ClassesFragment extends Fragment {
 
         public void add(ClassSummary entry) {
             mArrayList.add(entry);
+            notifyDataSetChanged();
+        }
+
+        public boolean containsByClass(ClassContract.ClassEntry _class) {
+            for(ClassSummary classSummary : mArrayList) {
+                if(classSummary.mClass.equals(_class))
+                    return true;
+            }
+            return false;
+        }
+
+        public ClassSummary removeByClass(ClassContract.ClassEntry _class) {
+            ClassSummary classSummary = null;
+            int size = mArrayList.size();
+            for(int i = 0; i < size; ++i) {
+                classSummary = mArrayList.get(i);
+                if(classSummary.mClass.equals(_class)) {
+                    mArrayList.remove(i);
+                    break;
+                }
+            }
+            return classSummary;
+        }
+
+        public void update(ClassSummary classSummary) {
+            ClassSummary tmpClassSummary = null;
+            int size = mArrayList.size(), pos = size;
+            for(int i = 0; i < size; ++i) {
+                tmpClassSummary = mArrayList.get(i);
+                if(tmpClassSummary.mClass.equals(classSummary.mClass)) {
+                    pos = i;
+                    break;
+                }
+            }
+            if(pos < size)
+                mArrayList.remove(pos);
+            mArrayList.add(pos, classSummary);
             notifyDataSetChanged();
         }
 
@@ -241,6 +297,12 @@ public class ClassesFragment extends Fragment {
                 int paddingLeft = holder.mTitleTextView.getPaddingLeft();
                 holder.mTitleTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingTop);
             }
+            else {
+                int paddingTop = holder.mTitleTextView.getPaddingTop();
+                int paddingRight = holder.mTitleTextView.getPaddingRight();
+                int paddingLeft = holder.mTitleTextView.getPaddingLeft();
+                holder.mTitleTextView.setPadding(paddingLeft, paddingTop, paddingRight, 0);
+            }
 
             if(entry.mClassSchedules.size() == 0) {
                 holder.mClassScheduleTimeTextView.setVisibility(View.GONE);
@@ -262,6 +324,10 @@ public class ClassesFragment extends Fragment {
                     holder.mClassScheduleTimeTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingTop);
                 }
                 else {
+                    int paddingTop = holder.mClassScheduleTimeTextView.getPaddingTop();
+                    int paddingRight = holder.mClassScheduleTimeTextView.getPaddingRight();
+                    int paddingLeft = holder.mClassScheduleTimeTextView.getPaddingLeft();
+                    holder.mClassScheduleTimeTextView.setPadding(paddingLeft, paddingTop, paddingRight, 0);
                     holder.mClassScheduleLocationTextView.setText(location);
                     holder.mClassScheduleLocationTextView.setVisibility(View.VISIBLE);
                 }
@@ -282,6 +348,12 @@ public class ClassesFragment extends Fragment {
                     int paddingRight = holder.mStudentCountTextView.getPaddingRight();
                     int paddingLeft = holder.mStudentCountTextView.getPaddingLeft();
                     holder.mStudentCountTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingTop);
+                }
+                else {
+                    int paddingTop = holder.mStudentCountTextView.getPaddingTop();
+                    int paddingRight = holder.mStudentCountTextView.getPaddingRight();
+                    int paddingLeft = holder.mStudentCountTextView.getPaddingLeft();
+                    holder.mStudentCountTextView.setPadding(paddingLeft, paddingTop, paddingRight, 0);
                 }
             }
             else {
@@ -309,12 +381,22 @@ public class ClassesFragment extends Fragment {
                     int paddingLeft = holder.mItemCountTextView.getPaddingLeft();
                     holder.mItemCountTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
                 }
+                else {
+                    int paddingRight = holder.mItemCountTextView.getPaddingRight();
+                    int paddingBottom = holder.mItemCountTextView.getPaddingBottom();
+                    int paddingLeft = holder.mItemCountTextView.getPaddingLeft();
+                    holder.mItemCountTextView.setPadding(paddingLeft, 0, paddingRight, paddingBottom);
+                }
             }
 
             if(holder.mClassScheduleTimeTextView.getVisibility() == View.GONE && holder.mClassScheduleLocationTextView.getVisibility() == View.GONE)
                 holder.mClassScheduleDivider.setVisibility(View.GONE);
+            else
+                holder.mClassScheduleDivider.setVisibility(View.VISIBLE);
             if(holder.mStudentCountTextView.getVisibility() == View.GONE && holder.mItemCountTextView.getVisibility() == View.GONE)
                 holder.mStudentCountDivider.setVisibility(View.GONE);
+            else
+                holder.mStudentCountDivider.setVisibility(View.VISIBLE);
         }
 
         @Override

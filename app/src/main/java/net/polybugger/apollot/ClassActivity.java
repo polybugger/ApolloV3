@@ -127,6 +127,8 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
 
     @Override
     public void onBackPressed() {
+        ClassesFragment.REQUERY_CLASS = true;
+        ClassesFragment.CLASS = mClass;
         super.onBackPressed();
     }
 
