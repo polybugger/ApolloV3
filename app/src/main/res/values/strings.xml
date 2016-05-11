@@ -120,4 +120,9 @@
     <string name="unlock">Unlock</string>
     <string name="ellipsis">...</string>
 
+    <string name="info_tab">Info</string>
+    <string name="items_tab">Activities</string>
+    <string name="students_tab">Students</string>
+
+    <string name="delete_class">Delete Class</string>
 </resources>

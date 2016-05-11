@@ -27,6 +27,10 @@ public class ClassActivity extends AppCompatActivity {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
+    private static final int INFO_TAB = 0;
+    private static final int ITEMS_TAB = 1;
+    private static final int STUDENTS_TAB = 2;
+
     private ClassContract.ClassEntry mClass;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -130,7 +134,15 @@ public class ClassActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return PlaceholderFragment.newInstance(position + 1);
+            switch(position) {
+                case INFO_TAB:
+                    return ClassInfoFragment.newInstance(mClass);
+                case ITEMS_TAB:
+                    return ClassInfoFragment.newInstance(mClass);
+                case STUDENTS_TAB:
+                    return ClassInfoFragment.newInstance(mClass);
+            }
+            return null;
         }
 
         @Override
@@ -141,12 +153,12 @@ public class ClassActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             switch(position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
+                case INFO_TAB:
+                    return getString(R.string.info_tab);
+                case ITEMS_TAB:
+                    return getString(R.string.items_tab);
+                case STUDENTS_TAB:
+                    return getString(R.string.students_tab);
             }
             return null;
         }
