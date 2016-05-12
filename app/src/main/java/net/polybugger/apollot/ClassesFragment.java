@@ -191,6 +191,7 @@ public class ClassesFragment extends Fragment {
                     break;
                 }
             }
+            notifyDataSetChanged();
             return classSummary;
         }
 
@@ -236,6 +237,8 @@ public class ClassesFragment extends Fragment {
             AcademicTermContract.AcademicTermEntry academicTerm = entry.mClass.getAcademicTerm();
             if(academicTerm != null)
                 holder.mBackgroundLayout.setBackgroundResource(BackgroundRect.getBackgroundResource(academicTerm.getColor(), mFragment.getContext()));
+            else
+                holder.mBackgroundLayout.setBackgroundResource(BackgroundRect.getBackgroundResource(null, mFragment.getContext()));
             Resources res = mFragment.getResources();
             int topMargin = res.getDimensionPixelSize(R.dimen.recycler_view_item_margin_top);
             int rightMargin = res.getDimensionPixelSize(R.dimen.recycler_view_item_margin_right);

@@ -23,7 +23,6 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.Date;
 
-import net.polybugger.apollot.db.AcademicTermContract;
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.PastCurrentEnum;
@@ -180,12 +179,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             f.onGetClassesSummary(arrayList, pastCurrent);
     }
 
+    /*
     @Override
     public void onGetAcademicTerms(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList, String fragmentTag) {
         ClassInsertUpdateDialogFragment df = (ClassInsertUpdateDialogFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
         if(df != null)
             df.onGetAcademicTerms(arrayList, fragmentTag);
     }
+    */
 
     @Override
     public void onInsertClass(ClassContract.ClassEntry entry) {
@@ -236,10 +237,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onConfirmInsertClass(ClassContract.ClassEntry entry) {
+    public void onConfirmInsertUpdateClass(ClassContract.ClassEntry _class) {
         MainActivityFragment rf = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
         if(rf != null)
-            rf.insertClass(entry);
+            rf.insertClass(_class);
     }
 
     @Override

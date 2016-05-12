@@ -5,9 +5,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,6 +19,8 @@ import net.polybugger.apollot.db.PastCurrentEnum;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Date;
+
 public class ClassInfoFragment extends Fragment {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
@@ -25,9 +29,9 @@ public class ClassInfoFragment extends Fragment {
 
     private LinearLayout mBackgroundLayout;
     private TextView mTitleTextView;
-    private TextView mDescriptionTextView;
     private TextView mAcademicTermTextView;
     private TextView mCurrentTextView;
+    private ImageButton mEditButton;
 
     public static ClassInfoFragment newInstance(ClassContract.ClassEntry _class) {
         ClassInfoFragment f = new ClassInfoFragment();
@@ -69,15 +73,34 @@ public class ClassInfoFragment extends Fragment {
         mTitleTextView = (TextView) view.findViewById(R.id.title_text_view);
         mAcademicTermTextView = (TextView) view.findViewById(R.id.academic_term_text_view);
         mCurrentTextView = (TextView) view.findViewById(R.id.current_text_view);
+        mEditButton = (ImageButton) view.findViewById(R.id.edit_button);
+        mEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                ClassInsertUpdateDialogFragment df = (ClassInsertUpdateDialogFragment) fm.findFragmentByTag(ClassInsertUpdateDialogFragment.TAG);
+                if(df == null) {
+                    df = ClassInsertUpdateDialogFragment.newInstance(mClass, getString(R.string.update_class), getString(R.string.save_changes));
+                    df.show(fm, ClassInsertUpdateDialogFragment.TAG);
+                }
+            }
+        });
 
         populateClassInfo();
         return view;
+    }
+
+    public void updateClass(ClassContract.ClassEntry _class, int rowsUpdated) {
+        mClass = _class;
+        populateClassInfo();
     }
 
     private void populateClassInfo() {
         AcademicTermContract.AcademicTermEntry academicTerm = mClass.getAcademicTerm();
         if(academicTerm != null)
             mBackgroundLayout.setBackgroundResource(BackgroundRect.getBackgroundResource(academicTerm.getColor(), getContext()));
+        else
+            mBackgroundLayout.setBackgroundResource(BackgroundRect.getBackgroundResource(null, getContext()));
         mTitleTextView.setText(mClass.getTitle());
         String academicTermYear = mClass.getAcademicTermYear();
         if(StringUtils.isBlank(academicTermYear)) {
@@ -88,8 +111,6 @@ public class ClassInfoFragment extends Fragment {
             mAcademicTermTextView.setVisibility(View.VISIBLE);
         }
         mCurrentTextView.setText(PastCurrentEnum.toString(mClass.getPastCurrent(), getContext()));
-
-
     }
 
 }

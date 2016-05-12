@@ -20,7 +20,8 @@ import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 
 public class ClassActivity extends AppCompatActivity implements ClassActivityFragment.Listener,
-        UnlockPasswordDialogFragment.Listener {
+        UnlockPasswordDialogFragment.Listener,
+        ClassInsertUpdateDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
@@ -62,7 +63,7 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -185,6 +186,25 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
     }
 
+    @Override
+    public void onUpdateClass(ClassContract.ClassEntry _class, int rowsUpdated) {
+        if(rowsUpdated > 0) {
+            FragmentManager fm = getSupportFragmentManager();
+            mClass = _class;
+            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(getFragmentTag(INFO_TAB));
+            if(f1 != null) {
+                f1.updateClass(_class, rowsUpdated);
+            }
+        }
+    }
+
+    @Override
+    public void onConfirmInsertUpdateClass(ClassContract.ClassEntry _class) {
+        ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+        if(rf != null)
+            rf.updateClass(_class);
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -221,5 +241,9 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
             }
             return null;
         }
+    }
+
+    private String getFragmentTag(int position) {
+        return "android:switcher:" + R.id.view_pager + ":" + position;
     }
 }

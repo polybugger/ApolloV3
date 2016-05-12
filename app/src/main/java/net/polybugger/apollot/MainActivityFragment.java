@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
 
-import net.polybugger.apollot.db.AcademicTermContract;
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassItemContract;
@@ -23,7 +22,7 @@ public class MainActivityFragment extends Fragment {
 
     public interface Listener {
         void onGetClassesSummary(ArrayList<ClassesFragment.ClassSummary> arrayList, PastCurrentEnum pastCurrent);
-        void onGetAcademicTerms(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList, String fragmentTag);
+        // void onGetAcademicTerms(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList, String fragmentTag);
         void onInsertClass(ClassContract.ClassEntry entry);
         void onUnlockClass(ClassContract.ClassEntry entry, boolean passwordMatched);
         void onRequeryClassSummary(ClassesFragment.ClassSummary classSummary, String fragmentTag);
@@ -64,12 +63,14 @@ public class MainActivityFragment extends Fragment {
         new GetClassesSummaryAsyncTask().execute(pastCurrent);
     }
 
+    /*
     public void getAcademicTerms(String fragmentTag) {
         new GetAcademicTermsAsyncTask().execute(fragmentTag);
     }
+    */
 
-    public void insertClass(ClassContract.ClassEntry entry) {
-        new InsertClassAsyncTask().execute(entry);
+    public void insertClass(ClassContract.ClassEntry _class) {
+        new InsertClassAsyncTask().execute(_class);
     }
 
     public void unlockClass(ClassContract.ClassEntry _class, String password) {
@@ -144,6 +145,7 @@ public class MainActivityFragment extends Fragment {
         }
     }
 
+    /*
     private class GetAcademicTermsAsyncTask extends AsyncTask<String, Integer, AsyncTaskResult> {
 
         @Override
@@ -163,6 +165,7 @@ public class MainActivityFragment extends Fragment {
             }
         }
     }
+    */
 
     private class InsertClassAsyncTask extends AsyncTask<ClassContract.ClassEntry, Integer, AsyncTaskResult> {
 
@@ -210,25 +213,18 @@ public class MainActivityFragment extends Fragment {
     private class AsyncTaskResult {
         public PastCurrentEnum mPastCurrent;
         public ArrayList<ClassesFragment.ClassSummary> mClassSummaries;
-
         public String mFragmentTag;
-        public ArrayList<AcademicTermContract.AcademicTermEntry> mAcademicTerms;
-
+        // public ArrayList<AcademicTermContract.AcademicTermEntry> mAcademicTerms;
         public ClassContract.ClassEntry mClass;
-
         public boolean mPasswordMatched;
-
         public ClassesFragment.ClassSummary mClassSummary;
-
         public AsyncTaskResult() { }
     }
 
     private class AsyncTaskParams {
-
         public ClassContract.ClassEntry mClass;
         public String mPassword;
         public String mFragmentTag;
-
         public AsyncTaskParams() { }
     }
 

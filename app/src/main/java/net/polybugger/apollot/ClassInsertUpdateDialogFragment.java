@@ -3,6 +3,7 @@ package net.polybugger.apollot;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import net.polybugger.apollot.db.AcademicTermContract;
+import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.PastCurrentEnum;
 
@@ -32,16 +34,16 @@ import org.apache.commons.lang3.StringUtils;
 public class ClassInsertUpdateDialogFragment extends AppCompatDialogFragment {
 
     public interface Listener {
-        void onConfirmInsertClass(ClassContract.ClassEntry entry);
+        void onConfirmInsertUpdateClass(ClassContract.ClassEntry _class);
     }
 
     public static final String TAG = "net.polybugger.apollot.insert_update_class_dialog_fragment";
-    public static final String ENTRY_ARG = "net.polybugger.apollot.entry_arg";
+    public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
     public static final String TITLE_ARG = "net.polybugger.apollot.title_arg";
     public static final String BUTTON_TEXT_ARG = "net.polybugger.apollot.button_text_arg";
 
     private Listener mListener;
-    private ClassContract.ClassEntry mEntry;
+    private ClassContract.ClassEntry mClass;
     private LinearLayout mBackgroundLayout;
     private EditText mCodeEditText;
     private TextView mErrorTextView;
@@ -50,10 +52,10 @@ public class ClassInsertUpdateDialogFragment extends AppCompatDialogFragment {
     private EditText mYearEditText;
     private CheckBox mCurrentCheckBox;
 
-    public static ClassInsertUpdateDialogFragment newInstance(ClassContract.ClassEntry entry, String title, String buttonText) {
+    public static ClassInsertUpdateDialogFragment newInstance(ClassContract.ClassEntry _class, String title, String buttonText) {
         ClassInsertUpdateDialogFragment df = new ClassInsertUpdateDialogFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ENTRY_ARG, entry);
+        args.putSerializable(CLASS_ARG, _class);
         args.putString(TITLE_ARG, title);
         args.putString(BUTTON_TEXT_ARG, buttonText);
         df.setArguments(args);
@@ -64,7 +66,7 @@ public class ClassInsertUpdateDialogFragment extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
-        mEntry = (ClassContract.ClassEntry) args.getSerializable(ENTRY_ARG);
+        mClass = (ClassContract.ClassEntry) args.getSerializable(CLASS_ARG);
 
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_class_insert_update, null);
         mBackgroundLayout = (LinearLayout) view.findViewById(R.id.background_layout);
@@ -103,14 +105,14 @@ public class ClassInsertUpdateDialogFragment extends AppCompatDialogFragment {
             public void onNothingSelected(AdapterView<?> parent) { }
         });
 
-        if(mEntry.getId() != -1) {
-            mCodeEditText.setText(mEntry.getCode());
-            mDescriptionEditText.setText(mEntry.getDescription());
-            Long year = mEntry.getYear();
+        if(mClass.getId() != -1) {
+            mCodeEditText.setText(mClass.getCode());
+            mDescriptionEditText.setText(mClass.getDescription());
+            Long year = mClass.getYear();
             if(year != null)
                 mYearEditText.setText(String.valueOf(year));
         }
-        switch(mEntry.getPastCurrent()) {
+        switch(mClass.getPastCurrent()) {
             case PAST:
                 mCurrentCheckBox.setChecked(false);
                 break;
@@ -118,9 +120,39 @@ public class ClassInsertUpdateDialogFragment extends AppCompatDialogFragment {
                 mCurrentCheckBox.setChecked(true);
                 break;
         }
-        MainActivityFragment rf = (MainActivityFragment) getFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
+
+        // TODO just get the academic terms without using async task
+        /* MainActivityFragment rf = (MainActivityFragment) getFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
         if(rf != null)
             rf.getAcademicTerms(TAG);
+        */
+        SQLiteDatabase db = ApolloDbAdapter.open();
+        ArrayList<AcademicTermContract.AcademicTermEntry> academicTerms = AcademicTermContract._getEntries(db);
+        ApolloDbAdapter.close();
+        academicTerms.add(0, new AcademicTermContract.AcademicTermEntry(-1, getString(R.string.academic_term_hint), null));
+        ArrayAdapter<AcademicTermContract.AcademicTermEntry> spinnerAdapter = new ArrayAdapter<AcademicTermContract.AcademicTermEntry>(getActivity(), android.R.layout.simple_spinner_item, academicTerms) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent){
+                TextView tv = (TextView) super.getDropDownView(position, convertView, parent);
+                AcademicTermContract.AcademicTermEntry academicTerm = getItem(position);
+                if(academicTerm.getId() == -1)
+                    tv.setTextColor(ContextCompat.getColor(getContext(), android.R.color.tertiary_text_dark));
+                else
+                    tv.setTextColor(ContextCompat.getColor(getContext(), android.R.color.primary_text_light));
+                try {
+                    tv.setBackgroundColor(Color.parseColor(academicTerm.getColor()));
+                }
+                catch(Exception e) { }
+                return tv;
+            }
+        };
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mAcademicTermSpinner.setAdapter(spinnerAdapter);
+        if(mClass.getId() != -1) {
+            AcademicTermContract.AcademicTermEntry academicTerm = mClass.getAcademicTerm();
+            if(academicTerm != null)
+                mAcademicTermSpinner.setSelection(spinnerAdapter.getPosition(academicTerm));
+        }
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(args.getString(TITLE_ARG))
@@ -140,11 +172,13 @@ public class ClassInsertUpdateDialogFragment extends AppCompatDialogFragment {
                             mCodeEditText.requestFocus();
                             return;
                         }
-                        mEntry.setCode(code);
-                        mEntry.setDescription(mDescriptionEditText.getText().toString());
+                        mClass.setCode(code);
+                        mClass.setDescription(mDescriptionEditText.getText().toString());
                         AcademicTermContract.AcademicTermEntry academicTerm = (AcademicTermContract.AcademicTermEntry) mAcademicTermSpinner.getSelectedItem();
-                        if(academicTerm.getId() != -1)
-                            mEntry.setAcademicTerm(academicTerm);
+                        if(academicTerm != null && academicTerm.getId() != -1)
+                            mClass.setAcademicTerm(academicTerm);
+                        else
+                            mClass.setAcademicTerm(null);
                         Long year;
                         try {
                             year = Long.parseLong(mYearEditText.getText().toString());
@@ -152,12 +186,12 @@ public class ClassInsertUpdateDialogFragment extends AppCompatDialogFragment {
                         catch(Exception e) {
                             year = null;
                         }
-                        mEntry.setYear(year);
+                        mClass.setYear(year);
                         if(mCurrentCheckBox.isChecked())
-                            mEntry.setPastCurrent(PastCurrentEnum.CURRENT);
+                            mClass.setPastCurrent(PastCurrentEnum.CURRENT);
                         else
-                            mEntry.setPastCurrent(PastCurrentEnum.PAST);
-                        mListener.onConfirmInsertClass(mEntry);
+                            mClass.setPastCurrent(PastCurrentEnum.PAST);
+                        mListener.onConfirmInsertUpdateClass(mClass);
                         dismiss();
                     }
                 });
@@ -184,30 +218,5 @@ public class ClassInsertUpdateDialogFragment extends AppCompatDialogFragment {
     }
 
     // TODO make sure the colors are preserved on theme change from system
-    public void onGetAcademicTerms(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList, String fragmentTag) {
-        arrayList.add(0, new AcademicTermContract.AcademicTermEntry(-1, getString(R.string.academic_term_hint), null));
-        ArrayAdapter<AcademicTermContract.AcademicTermEntry> spinnerAdapter = new ArrayAdapter<AcademicTermContract.AcademicTermEntry>(getActivity(), android.R.layout.simple_spinner_item, arrayList) {
-            @Override
-            public View getDropDownView(int position, View convertView, ViewGroup parent){
-                TextView tv = (TextView) super.getDropDownView(position, convertView, parent);
-                AcademicTermContract.AcademicTermEntry academicTerm = getItem(position);
-                if(academicTerm.getId() == -1)
-                    tv.setTextColor(ContextCompat.getColor(getContext(), android.R.color.tertiary_text_dark));
-                else
-                    tv.setTextColor(ContextCompat.getColor(getContext(), android.R.color.primary_text_light));
-                try {
-                    tv.setBackgroundColor(Color.parseColor(academicTerm.getColor()));
-                }
-                catch(Exception e) { }
-                return tv;
-            }
-        };
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mAcademicTermSpinner.setAdapter(spinnerAdapter);
-        if(mEntry.getId() != -1) {
-            AcademicTermContract.AcademicTermEntry academicTerm = mEntry.getAcademicTerm();
-            if(academicTerm != null)
-                mAcademicTermSpinner.setSelection(spinnerAdapter.getPosition(academicTerm));
-        }
-    }
+    // public void onGetAcademicTerms(ArrayList<AcademicTermContract.AcademicTermEntry> arrayList, String fragmentTag) { }
 }

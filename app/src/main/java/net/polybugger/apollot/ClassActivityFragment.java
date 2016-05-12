@@ -17,6 +17,7 @@ public class ClassActivityFragment extends Fragment {
     public interface Listener {
         void onUnlockClass(ClassContract.ClassEntry _class, boolean passwordMatched);
         void onLockClass(ClassContract.ClassEntry _class);
+        void onUpdateClass(ClassContract.ClassEntry _class, int rowsUpdated);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_activity_fragment";
@@ -43,6 +44,10 @@ public class ClassActivityFragment extends Fragment {
         params.mClass = _class;
         params.mPassword = password;
         new UnlockClassAsyncTask().execute(params);
+    }
+
+    public void updateClass(ClassContract.ClassEntry _class) {
+        new UpdateClassAsyncTask().execute(_class);
     }
 
     private class UnlockClassAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
@@ -88,6 +93,26 @@ public class ClassActivityFragment extends Fragment {
         }
     }
 
+    private class UpdateClassAsyncTask extends AsyncTask<ClassContract.ClassEntry, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(ClassContract.ClassEntry... _class) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClass = _class[0];
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mRowsUpdated = ClassContract._update(db, result.mClass.getId(), result.mClass.getCode(), result.mClass.getDescription(), result.mClass.getAcademicTerm(), result.mClass.getYear(), result.mClass.getPastCurrent(), result.mClass.getDateCreated());
+            ApolloDbAdapter.close();
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onUpdateClass(result.mClass, result.mRowsUpdated);
+            }
+        }
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -110,7 +135,7 @@ public class ClassActivityFragment extends Fragment {
     private class AsyncTaskResult {
         public ClassContract.ClassEntry mClass;
         public boolean mPasswordMatched;
-
+        public int mRowsUpdated;
         public AsyncTaskResult() { }
     }
 
