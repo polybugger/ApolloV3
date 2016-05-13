@@ -71,6 +71,81 @@
 
         </LinearLayout>
 
+        <View
+            android:id="@+id/class_schedule_divider"
+            android:paddingRight="@dimen/recycler_view_content_padding_right"
+            android:paddingLeft="@dimen/recycler_view_content_padding_left"
+            style="@style/AppListDivider" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingTop="@dimen/activity_padding_top"
+            android:paddingRight="@dimen/recycler_view_content_padding_right"
+            android:paddingLeft="@dimen/recycler_view_content_padding_left"
+            android:text="@string/schedule"
+            android:textSize="@dimen/small_text_size"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/schedule_linear_layout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:paddingRight="@dimen/recycler_view_content_padding_right"
+            android:paddingBottom="@dimen/recycler_view_content_padding_bottom"
+            android:paddingLeft="@dimen/recycler_view_content_padding_left" />
+
+        <View
+            android:id="@+id/grade_breakdown_divider"
+            android:paddingRight="@dimen/recycler_view_content_padding_right"
+            android:paddingLeft="@dimen/recycler_view_content_padding_left"
+            style="@style/AppListDivider" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingTop="@dimen/activity_padding_top"
+            android:paddingRight="@dimen/recycler_view_content_padding_right"
+            android:paddingLeft="@dimen/recycler_view_content_padding_left"
+            android:text="@string/grade_breakdown"
+            android:textSize="@dimen/small_text_size"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/grade_breakdown_linear_layout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:paddingRight="@dimen/recycler_view_content_padding_right"
+            android:paddingBottom="@dimen/recycler_view_content_padding_bottom"
+            android:paddingLeft="@dimen/recycler_view_content_padding_left" />
+
+        <View
+            android:id="@+id/notes_divider"
+            android:paddingRight="@dimen/recycler_view_content_padding_right"
+            android:paddingLeft="@dimen/recycler_view_content_padding_left"
+            style="@style/AppListDivider" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingTop="@dimen/activity_padding_top"
+            android:paddingRight="@dimen/recycler_view_content_padding_right"
+            android:paddingLeft="@dimen/recycler_view_content_padding_left"
+            android:text="@string/notes"
+            android:textSize="@dimen/small_text_size"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/notes_linear_layout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:paddingRight="@dimen/recycler_view_content_padding_right"
+            android:paddingBottom="@dimen/recycler_view_content_padding_bottom"
+            android:paddingLeft="@dimen/recycler_view_content_padding_left" />
+
 
     </LinearLayout>
 

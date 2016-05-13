@@ -1,5 +1,6 @@
 package net.polybugger.apollot;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
@@ -195,14 +196,19 @@ public class SettingsClassItemTypesActivity extends AppCompatActivity implements
         public void onBindViewHolder(ViewHolder holder, int position) {
             ClassItemTypeContract.ClassItemTypeEntry entry = mArrayList.get(position);
             holder.mBackgroundLayout.setBackgroundResource(BackgroundRect.getBackgroundResource(entry.getColor(), mActivity));
+            Resources res = mActivity.getResources();
+            int topMargin = res.getDimensionPixelSize(R.dimen.recycler_view_item_margin_top);
+            int rightMargin = res.getDimensionPixelSize(R.dimen.recycler_view_item_margin_right);
+            int bottomMargin = res.getDimensionPixelSize(R.dimen.recycler_view_item_margin_bottom);
+            int leftMargin = res.getDimensionPixelSize(R.dimen.recycler_view_item_margin_left);
             if(position == 0) {
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mBackgroundLayout.getLayoutParams();
-                layoutParams.setMargins(layoutParams.leftMargin, layoutParams.topMargin * 2, layoutParams.rightMargin, layoutParams.bottomMargin);
+                layoutParams.setMargins(leftMargin, topMargin * 2, rightMargin, bottomMargin);
                 holder.mBackgroundLayout.setLayoutParams(layoutParams);
             }
             else if(position == (mArrayList.size() - 1)) {
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mBackgroundLayout.getLayoutParams();
-                layoutParams.setMargins(layoutParams.leftMargin, layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin * 2);
+                layoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin * 2);
                 holder.mBackgroundLayout.setLayoutParams(layoutParams);
             }
             holder.mClickableLayout.setTag(entry);

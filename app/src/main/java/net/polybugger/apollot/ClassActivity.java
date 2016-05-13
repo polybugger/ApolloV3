@@ -195,6 +195,13 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
             if(f1 != null) {
                 f1.updateClass(_class, rowsUpdated);
             }
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.class_updated), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
         }
     }
 

@@ -126,6 +126,9 @@
     <string name="class_password_removed">Class password removed.</string>
     <string name="class_password_applied">Class password applied.</string>
 
+    <string name="schedule">Schedule</string>
+    <string name="grade_breakdown">Grade Breakdown</string>
+    <string name="notes">Notes</string>
 
     <string name="info_tab">Info</string>
     <string name="items_tab">Activities</string>

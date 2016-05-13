@@ -19,8 +19,6 @@ import net.polybugger.apollot.db.PastCurrentEnum;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Date;
-
 public class ClassInfoFragment extends Fragment {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
