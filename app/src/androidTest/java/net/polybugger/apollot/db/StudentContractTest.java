@@ -50,18 +50,18 @@ public class StudentContractTest {
         mDb = ApolloDbAdapter.open();
         mDb.setForeignKeyConstraintsEnabled(false);
         mDb.execSQL(StudentContract.DELETE_ALL_SQL);
-        ApolloDbAdapter._insertDummyStudents(mDb);
+        //ApolloDbAdapter._insertDummyStudents(mDb);
         mStudent0LastName = mContext.getString(R.string.default_student_0_last_name);
         mStudent0FirstName = mContext.getString(R.string.default_student_0_first_name);
         mStudent0MiddleName = mContext.getString(R.string.default_student_0_middle_name);
-        mStudent0Gender = GenderEnum.fromInt(mContext.getResources().getInteger(R.integer.default_student_0_gender));
+        //mStudent0Gender = GenderEnum.fromInt(mContext.getResources().getInteger(R.integer.default_student_0_gender));
         mStudent0EmailAddress = mContext.getString(R.string.default_student_0_email_address);
         mStudent0ContactNumber = mContext.getString(R.string.default_student_0_contact_number);
         mStudent0Id = StudentContract._getEntryByLastName(mDb, mStudent0LastName).getId();
         mStudent1LastName = mContext.getString(R.string.default_student_1_last_name);
         mStudent1FirstName = mContext.getString(R.string.default_student_1_first_name);
         mStudent1MiddleName = mContext.getString(R.string.default_student_1_middle_name);
-        mStudent1Gender = GenderEnum.fromInt(mContext.getResources().getInteger(R.integer.default_student_1_gender));
+        //mStudent1Gender = GenderEnum.fromInt(mContext.getResources().getInteger(R.integer.default_student_1_gender));
         mStudent1EmailAddress = mContext.getString(R.string.default_student_1_email_address);
         mStudent1ContactNumber = mContext.getString(R.string.default_student_1_contact_number);
         mStudent1Id = StudentContract._getEntryByLastName(mDb, mStudent1LastName).getId();
@@ -70,7 +70,7 @@ public class StudentContractTest {
     @After
     public void tearDown() throws Exception {
         mDb.execSQL(StudentContract.DELETE_ALL_SQL);
-        ApolloDbAdapter._insertDummyStudents(mDb);
+        //ApolloDbAdapter._insertDummyStudents(mDb);
         ApolloDbAdapter.close();
     }
 

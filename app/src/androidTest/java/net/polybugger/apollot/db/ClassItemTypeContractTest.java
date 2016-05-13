@@ -44,10 +44,10 @@ public class ClassItemTypeContractTest {
         mDb.execSQL(ClassItemTypeContract.DELETE_ALL_SQL);
         ClassItemTypeContract._insertDefaultClassItemTypes(mDb, mContext);
         mItemTyp0Description = mContext.getString(R.string.default_class_item_type_0);
-        mItemTyp0Color = mContext.getString(R.string.default_class_item_type_color_0);
+        //mItemTyp0Color = mContext.getString(R.string.default_class_item_type_color_0);
         mItemTyp0Id = ClassItemTypeContract._getEntryByDescription(mDb, mItemTyp0Description).getId();
         mItemTyp1Description = mContext.getString(R.string.default_class_item_type_1);
-        mItemTyp1Color = mContext.getString(R.string.default_class_item_type_color_1);
+        //mItemTyp1Color = mContext.getString(R.string.default_class_item_type_color_1);
         mItemTyp1Id = ClassItemTypeContract._getEntryByDescription(mDb, mItemTyp1Description).getId();
     }
 

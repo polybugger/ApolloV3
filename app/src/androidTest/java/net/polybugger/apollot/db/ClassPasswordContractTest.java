@@ -37,13 +37,13 @@ public class ClassPasswordContractTest {
         mDb.execSQL(ClassPasswordContract.DELETE_ALL_SQL);
         mClass1 = ClassContract._getEntryByCode(mDb, mContext.getString(R.string.default_class_1_code));
         mPassword0 = mContext.getString(R.string.default_class_1_password);
-        mPassword0Id = ApolloDbAdapter._insertDummyClass1Password(mDb, mClass1.getId());
+        //mPassword0Id = ApolloDbAdapter._insertDummyClass1Password(mDb, mClass1.getId());
     }
 
     @After
     public void tearDown() throws Exception {
         mDb.execSQL(ClassPasswordContract.DELETE_ALL_SQL);
-        ApolloDbAdapter._insertDummyClass1Password(mDb, mClass1.getId());
+        //ApolloDbAdapter._insertDummyClass1Password(mDb, mClass1.getId());
         ApolloDbAdapter.close();
     }
 
@@ -86,7 +86,7 @@ public class ClassPasswordContractTest {
         ClassPasswordContract.ClassPasswordEntry entry = ClassPasswordContract._getEntryByClassId(mDb, mClass1.getId());
         assertNull(entry);
 
-        mPassword0Id = ApolloDbAdapter._insertDummyClass1Password(mDb, mClass1.getId());
+        //mPassword0Id = ApolloDbAdapter._insertDummyClass1Password(mDb, mClass1.getId());
         rowsDeleted = ClassPasswordContract._deleteByClassId(mDb, mClass1.getId());
         assertEquals(1, rowsDeleted);
         rowsDeleted = ClassPasswordContract._deleteByClassId(mDb, mClass1.getId());

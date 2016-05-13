@@ -44,10 +44,10 @@ public class AcademicTermContractTest {
         mDb.execSQL(AcademicTermContract.DELETE_ALL_SQL);
         AcademicTermContract._insertDefaultAcademicTerms(mDb, mContext);
         mAcademicTerm0Description = mContext.getString(R.string.default_academic_term_0);
-        mAcademicTerm0Color = mContext.getString(R.string.default_academic_term_color_0);
+        //mAcademicTerm0Color = mContext.getString(R.string.default_academic_term_color_0);
         mAcademicTerm0Id = AcademicTermContract._getEntryByDescription(mDb, mAcademicTerm0Description).getId();
         mAcademicTerm1Description = mContext.getString(R.string.default_academic_term_1);
-        mAcademicTerm1Color = mContext.getString(R.string.default_academic_term_color_1);
+        //mAcademicTerm1Color = mContext.getString(R.string.default_academic_term_color_1);
         mAcademicTerm1Id = AcademicTermContract._getEntryByDescription(mDb, mAcademicTerm1Description).getId();
     }
 

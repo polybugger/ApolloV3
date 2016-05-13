@@ -62,26 +62,26 @@ public class ClassItemContractTest {
         mClass0Id = ClassContract._getEntryByCode(mDb, mContext.getString(R.string.default_class_0_code)).getId();
         mClass1Id = 999;
         mDb.execSQL(ClassItemContract.DELETE_ALL_SQL + ClassItemContract.TABLE_NAME + String.valueOf(mClass0Id));
-        ApolloDbAdapter._insertDummyClass0Items(mDb, mClass0Id);
+        //ApolloDbAdapter._insertDummyClass0Items(mDb, mClass0Id);
 
         mClassItem0Id = 1;
         mClassItem0Description = mContext.getString(R.string.default_class_0_class_item_0_description);
-        mClassItem0ItemType = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_0_class_item_0_item_type));
+        //mClassItem0ItemType = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_0_class_item_0_item_type));
         try {
             mClassItem0ItemDate = sdf.parse(mContext.getString(R.string.default_class_0_class_item_0_item_date));
         }
         catch(Exception e) {
             mClassItem0ItemDate = null;
         }
-        mClassItem0CheckAttendance = mContext.getResources().getBoolean(R.bool.default_class_0_class_item_0_check_attendance);
-        mClassItem0RecordScores = mContext.getResources().getBoolean(R.bool.default_class_0_class_item_0_record_scores);
+        //mClassItem0CheckAttendance = mContext.getResources().getBoolean(R.bool.default_class_0_class_item_0_check_attendance);
+        //mClassItem0RecordScores = mContext.getResources().getBoolean(R.bool.default_class_0_class_item_0_record_scores);
         try {
             mClassItem0PerfectScore = Float.parseFloat(mContext.getString(R.string.default_class_0_class_item_0_perfect_score));
         }
         catch(Exception e) {
             mClassItem0PerfectScore = null;
         }
-        mClassItem0RecordSubmissions = mContext.getResources().getBoolean(R.bool.default_class_0_class_item_0_record_submissions);
+        //mClassItem0RecordSubmissions = mContext.getResources().getBoolean(R.bool.default_class_0_class_item_0_record_submissions);
         try {
             mClassItem0SubmissionDueDate = sdf.parse(mContext.getString(R.string.default_class_0_class_item_0_submission_due_date));
         }
@@ -91,22 +91,22 @@ public class ClassItemContractTest {
 
         mClassItem1Id = 2;
         mClassItem1Description = mContext.getString(R.string.default_class_0_class_item_1_description);
-        mClassItem1ItemType = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_0_class_item_1_item_type));
+        //mClassItem1ItemType = ClassItemTypeContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_0_class_item_1_item_type));
         try {
             mClassItem1ItemDate = sdf.parse(mContext.getString(R.string.default_class_0_class_item_1_submission_due_date)); // changing because it's same with class item 0
         }
         catch(Exception e) {
             mClassItem1ItemDate = null;
         }
-        mClassItem1CheckAttendance = mContext.getResources().getBoolean(R.bool.default_class_0_class_item_1_check_attendance);
-        mClassItem1RecordScores = mContext.getResources().getBoolean(R.bool.default_class_0_class_item_1_record_scores);
+        //mClassItem1CheckAttendance = mContext.getResources().getBoolean(R.bool.default_class_0_class_item_1_check_attendance);
+        //mClassItem1RecordScores = mContext.getResources().getBoolean(R.bool.default_class_0_class_item_1_record_scores);
         try {
             mClassItem1PerfectScore = Float.parseFloat(mContext.getString(R.string.default_class_0_class_item_1_perfect_score));
         }
         catch(Exception e) {
             mClassItem1PerfectScore = null;
         }
-        mClassItem1RecordSubmissions = mContext.getResources().getBoolean(R.bool.default_class_0_class_item_1_record_submissions);
+        //mClassItem1RecordSubmissions = mContext.getResources().getBoolean(R.bool.default_class_0_class_item_1_record_submissions);
         try {
             mClassItem1SubmissionDueDate = sdf.parse(mContext.getString(R.string.default_class_0_class_item_1_submission_due_date));
         }
@@ -118,7 +118,7 @@ public class ClassItemContractTest {
     @After
     public void tearDown() throws Exception {
         mDb.execSQL(ClassItemContract.DELETE_ALL_SQL + ClassItemContract.TABLE_NAME + String.valueOf(mClass0Id));
-        ApolloDbAdapter._insertDummyClass0Items(mDb, mClass0Id);
+        //ApolloDbAdapter._insertDummyClass0Items(mDb, mClass0Id);
         ApolloDbAdapter.close();
     }
 

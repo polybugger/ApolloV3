@@ -67,12 +67,12 @@ public class ClassScheduleContractTest {
         catch(Exception e) {
             mTimeEnd0 = null;
         }
-        mDays0 = mContext.getResources().getInteger(R.integer.default_class_0_class_schedule_0_days);
+        //mDays0 = mContext.getResources().getInteger(R.integer.default_class_0_class_schedule_0_days);
         mRoom0 = mContext.getString(R.string.default_class_0_class_schedule_0_room);
         mBuilding0 = mContext.getString(R.string.default_class_0_class_schedule_0_building);
         mCampus0 = mContext.getString(R.string.default_class_0_class_schedule_0_campus);
         mClass0 = ClassContract._getEntryByCode(mDb, mContext.getString(R.string.default_class_0_code));
-        ApolloDbAdapter._insertDummyClass0Schedules(mDb, mClass0.getId());
+        //ApolloDbAdapter._insertDummyClass0Schedules(mDb, mClass0.getId());
         mClassSchedule0Id = ClassScheduleContract._getEntriesByClassId(mDb, mClass0.getId()).get(0).getId();
         try {
             mTimeStart1 = sdf.parse(mContext.getString(R.string.default_class_1_class_schedule_0_time_start));
@@ -86,20 +86,20 @@ public class ClassScheduleContractTest {
         catch(Exception e) {
             mTimeEnd1 = null;
         }
-        mDays1 = mContext.getResources().getInteger(R.integer.default_class_1_class_schedule_0_days);
+        //mDays1 = mContext.getResources().getInteger(R.integer.default_class_1_class_schedule_0_days);
         mRoom1 = mContext.getString(R.string.default_class_1_class_schedule_0_room);
         mBuilding1 = mContext.getString(R.string.default_class_1_class_schedule_0_building);
         mCampus1 = mContext.getString(R.string.default_class_1_class_schedule_0_campus);
         mClass1 = ClassContract._getEntryByCode(mDb, mContext.getString(R.string.default_class_1_code));
-        ApolloDbAdapter._insertDummyClass0Schedules(mDb, mClass1.getId());
+        //ApolloDbAdapter._insertDummyClass0Schedules(mDb, mClass1.getId());
         mClassSchedule1Id = ClassScheduleContract._getEntriesByClassId(mDb, mClass1.getId()).get(0).getId();
     }
 
     @After
     public void tearDown() throws Exception {
         mDb.execSQL(ClassScheduleContract.DELETE_ALL_SQL);
-        ApolloDbAdapter._insertDummyClass0Schedules(mDb, mClass0.getId());
-        ApolloDbAdapter._insertDummyClass0Schedules(mDb, mClass1.getId());
+        //ApolloDbAdapter._insertDummyClass0Schedules(mDb, mClass0.getId());
+        //ApolloDbAdapter._insertDummyClass0Schedules(mDb, mClass1.getId());
         ApolloDbAdapter.close();
     }
 

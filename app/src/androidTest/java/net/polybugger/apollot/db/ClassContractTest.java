@@ -56,35 +56,35 @@ public class ClassContractTest {
         mDb.execSQL(ClassContract.DELETE_ALL_SQL);
         mClass0Code = mContext.getString(R.string.default_class_0_code);
         mClass0Description = mContext.getString(R.string.default_class_0_description);
-        mClass0AcademicTerm = AcademicTermContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_0_academic_term));
+        //mClass0AcademicTerm = AcademicTermContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_0_academic_term));
         mClass0Year = (long) mContext.getResources().getInteger(R.integer.default_class_0_year);
-        mClass0PastCurrent = PastCurrentEnum.fromInt(mContext.getResources().getInteger(R.integer.default_class_0_past_current));
+        //mClass0PastCurrent = PastCurrentEnum.fromInt(mContext.getResources().getInteger(R.integer.default_class_0_past_current));
         try {
             mClass0DateCreated = sdf.parse(mContext.getString(R.string.default_class_0_date_created));
         }
         catch(Exception e) {
             mClass0DateCreated = null;
         }
-        mClass0Id = ApolloDbAdapter._insertDummyClass0(mDb);
+        //mClass0Id = ApolloDbAdapter._insertDummyClass0(mDb);
         mClass1Code = mContext.getString(R.string.default_class_1_code);
         mClass1Description = mContext.getString(R.string.default_class_1_description);
-        mClass1AcademicTerm = AcademicTermContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_1_academic_term));
+        //mClass1AcademicTerm = AcademicTermContract._getEntryByDescription(mDb, mContext.getString(R.string.default_class_1_academic_term));
         mClass1Year = (long) mContext.getResources().getInteger(R.integer.default_class_1_year);
-        mClass1PastCurrent = PastCurrentEnum.fromInt(mContext.getResources().getInteger(R.integer.default_class_1_past_current));
+        //mClass1PastCurrent = PastCurrentEnum.fromInt(mContext.getResources().getInteger(R.integer.default_class_1_past_current));
         try {
             mClass1DateCreated = sdf.parse(mContext.getString(R.string.default_class_1_date_created));
         }
         catch(Exception e) {
             mClass1DateCreated = null;
         }
-        mClass1Id = ApolloDbAdapter._insertDummyClass1(mDb);
+        //mClass1Id = ApolloDbAdapter._insertDummyClass1(mDb);
     }
 
     @After
     public void tearDown() throws Exception {
         mDb.execSQL(ClassContract.DELETE_ALL_SQL);
-        mClass0Id = ApolloDbAdapter._insertDummyClass0(mDb);
-        mClass1Id = ApolloDbAdapter._insertDummyClass1(mDb);
+        //mClass0Id = ApolloDbAdapter._insertDummyClass0(mDb);
+        //mClass1Id = ApolloDbAdapter._insertDummyClass1(mDb);
         ApolloDbAdapter.close();
     }
 
