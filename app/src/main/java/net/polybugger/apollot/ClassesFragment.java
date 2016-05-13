@@ -308,32 +308,19 @@ public class ClassesFragment extends Fragment {
             }
 
             if(entry.mClassSchedules.size() == 0) {
-                holder.mClassScheduleTimeTextView.setVisibility(View.GONE);
-                holder.mClassScheduleLocationTextView.setVisibility(View.GONE);
+                holder.mClassScheduleTimeLocationTextView.setVisibility(View.GONE);
             }
             else {
                 ClassScheduleContract.ClassScheduleEntry classSchedule = entry.mClassSchedules.get(0);
                 String time = classSchedule.getTime(ApolloDbAdapter.getAppContext());
                 if(entry.mClassSchedules.size() > 1)
                     time = time + " ...";
-                holder.mClassScheduleTimeTextView.setText(time);
-                holder.mClassScheduleTimeTextView.setVisibility(View.VISIBLE);
                 String location = classSchedule.getLocation();
-                if(StringUtils.isBlank(location)) {
-                    holder.mClassScheduleLocationTextView.setVisibility(View.GONE);
-                    int paddingTop = holder.mClassScheduleTimeTextView.getPaddingTop();
-                    int paddingRight = holder.mClassScheduleTimeTextView.getPaddingRight();
-                    int paddingLeft = holder.mClassScheduleTimeTextView.getPaddingLeft();
-                    holder.mClassScheduleTimeTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingTop);
+                if(!StringUtils.isBlank(location)) {
+                    time = time + "\n" + location;
                 }
-                else {
-                    int paddingTop = holder.mClassScheduleTimeTextView.getPaddingTop();
-                    int paddingRight = holder.mClassScheduleTimeTextView.getPaddingRight();
-                    int paddingLeft = holder.mClassScheduleTimeTextView.getPaddingLeft();
-                    holder.mClassScheduleTimeTextView.setPadding(paddingLeft, paddingTop, paddingRight, 0);
-                    holder.mClassScheduleLocationTextView.setText(location);
-                    holder.mClassScheduleLocationTextView.setVisibility(View.VISIBLE);
-                }
+                holder.mClassScheduleTimeLocationTextView.setText(time);
+                holder.mClassScheduleTimeLocationTextView.setVisibility(View.VISIBLE);
             }
             if(entry.mStudentCount == 0) {
                 holder.mStudentCountTextView.setVisibility(View.GONE);
@@ -392,7 +379,7 @@ public class ClassesFragment extends Fragment {
                 }
             }
 
-            if(holder.mClassScheduleTimeTextView.getVisibility() == View.GONE && holder.mClassScheduleLocationTextView.getVisibility() == View.GONE)
+            if(holder.mClassScheduleTimeLocationTextView.getVisibility() == View.GONE)
                 holder.mClassScheduleDivider.setVisibility(View.GONE);
             else
                 holder.mClassScheduleDivider.setVisibility(View.VISIBLE);
@@ -415,8 +402,7 @@ public class ClassesFragment extends Fragment {
             protected ImageView mLockedImageView;
             protected TextView mAcademicTermTextView;
             protected View mClassScheduleDivider;
-            protected TextView mClassScheduleTimeTextView;
-            protected TextView mClassScheduleLocationTextView;
+            protected TextView mClassScheduleTimeLocationTextView;
             protected View mStudentCountDivider;
             protected TextView mStudentCountTextView;
             protected TextView mItemCountTextView;
@@ -431,8 +417,7 @@ public class ClassesFragment extends Fragment {
                 mLockedImageView = (ImageView) itemView.findViewById(R.id.locked_image_view);
                 mAcademicTermTextView = (TextView) itemView.findViewById(R.id.academic_term_text_view);
                 mClassScheduleDivider = itemView.findViewById(R.id.class_schedule_divider);
-                mClassScheduleTimeTextView = (TextView) itemView.findViewById(R.id.class_schedule_time_text_view);
-                mClassScheduleLocationTextView = (TextView) itemView.findViewById(R.id.class_schedule_location_text_view);
+                mClassScheduleTimeLocationTextView = (TextView) itemView.findViewById(R.id.class_schedule_time_location_text_view);
                 mStudentCountDivider = itemView.findViewById(R.id.student_count_divider);
                 mStudentCountTextView = (TextView) itemView.findViewById(R.id.student_count_text_view);
                 mItemCountTextView = (TextView) itemView.findViewById(R.id.item_count_text_view);

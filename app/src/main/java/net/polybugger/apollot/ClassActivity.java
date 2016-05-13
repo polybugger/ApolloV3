@@ -16,8 +16,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
+import net.polybugger.apollot.db.ClassScheduleContract;
 
 public class ClassActivity extends AppCompatActivity implements ClassActivityFragment.Listener,
         UnlockPasswordDialogFragment.Listener,
@@ -202,6 +205,15 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
                     Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.class_updated), Snackbar.LENGTH_SHORT).show();
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
+    }
+
+    @Override
+    public void onGetClassSchedules(ArrayList<ClassScheduleContract.ClassScheduleEntry> classSchedules, String fragmentTag) {
+        FragmentManager fm = getSupportFragmentManager();
+        ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
+        if(f1 != null) {
+            f1.populateClassSchedules(classSchedules, fragmentTag);
         }
     }
 

@@ -92,9 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:paddingRight="@dimen/recycler_view_content_padding_right"
-            android:paddingBottom="@dimen/recycler_view_content_padding_bottom"
-            android:paddingLeft="@dimen/recycler_view_content_padding_left" />
+            android:paddingBottom="@dimen/recycler_view_content_padding_bottom" />
 
         <View
             android:id="@+id/grade_breakdown_divider"

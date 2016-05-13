@@ -15,9 +15,13 @@ import android.widget.TextView;
 
 import net.polybugger.apollot.db.AcademicTermContract;
 import net.polybugger.apollot.db.ClassContract;
+import net.polybugger.apollot.db.ClassItemTypeContract;
+import net.polybugger.apollot.db.ClassScheduleContract;
 import net.polybugger.apollot.db.PastCurrentEnum;
 
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
 
 public class ClassInfoFragment extends Fragment {
 
@@ -29,7 +33,12 @@ public class ClassInfoFragment extends Fragment {
     private TextView mTitleTextView;
     private TextView mAcademicTermTextView;
     private TextView mCurrentTextView;
-    private ImageButton mEditButton;
+
+    private LinearLayout mScheduleLinearLayout;
+    private ArrayList<ClassScheduleContract.ClassScheduleEntry> mScheduleList;
+    private View.OnClickListener mEditScheduleClickListener;
+    private View.OnClickListener mRemoveScheduleClickListener;
+
 
     public static ClassInfoFragment newInstance(ClassContract.ClassEntry _class) {
         ClassInfoFragment f = new ClassInfoFragment();
@@ -71,8 +80,7 @@ public class ClassInfoFragment extends Fragment {
         mTitleTextView = (TextView) view.findViewById(R.id.title_text_view);
         mAcademicTermTextView = (TextView) view.findViewById(R.id.academic_term_text_view);
         mCurrentTextView = (TextView) view.findViewById(R.id.current_text_view);
-        mEditButton = (ImageButton) view.findViewById(R.id.edit_button);
-        mEditButton.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.edit_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getFragmentManager();
@@ -84,7 +92,17 @@ public class ClassInfoFragment extends Fragment {
             }
         });
 
+        mScheduleLinearLayout = (LinearLayout) view.findViewById(R.id.schedule_linear_layout);
+
+
+
         populateClassInfo();
+
+        ClassActivityFragment rf = (ClassActivityFragment) getFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+        if(rf != null) {
+            rf.getClassSchedules(mClass, getTag());
+        }
+
         return view;
     }
 
@@ -111,4 +129,22 @@ public class ClassInfoFragment extends Fragment {
         mCurrentTextView.setText(PastCurrentEnum.toString(mClass.getPastCurrent(), getContext()));
     }
 
+    public void populateClassSchedules(ArrayList<ClassScheduleContract.ClassScheduleEntry> classSchedules, String fragmentTag) {
+        mScheduleList = classSchedules;
+        mScheduleLinearLayout.removeAllViews();
+        for(ClassScheduleContract.ClassScheduleEntry schedule : mScheduleList) {
+            mScheduleLinearLayout.addView(getScheduleView(getLayoutInflater(null), schedule, mEditScheduleClickListener, mRemoveScheduleClickListener));
+        }
+    }
+
+    private View getScheduleView(LayoutInflater inflater, ClassScheduleContract.ClassScheduleEntry schedule, View.OnClickListener editClickListener, View.OnClickListener removeClickListener) {
+        View view = inflater.inflate(R.layout.row_class_schedule, null);
+        String location = schedule.getLocation(), time;
+        if(!StringUtils.isBlank(location))
+            time = schedule.getTime(getContext()) + "\n" + location;
+        else
+            time = schedule.getTime(getContext());
+        ((TextView) view.findViewById(R.id.time_location_text_view)).setText(time);
+        return view;
+    }
 }

@@ -6,9 +6,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 
+import java.util.ArrayList;
+
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassPasswordContract;
+import net.polybugger.apollot.db.ClassScheduleContract;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,6 +21,7 @@ public class ClassActivityFragment extends Fragment {
         void onUnlockClass(ClassContract.ClassEntry _class, boolean passwordMatched);
         void onLockClass(ClassContract.ClassEntry _class);
         void onUpdateClass(ClassContract.ClassEntry _class, int rowsUpdated);
+        void onGetClassSchedules(ArrayList<ClassScheduleContract.ClassScheduleEntry> classSchedules, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_activity_fragment";
@@ -48,6 +52,13 @@ public class ClassActivityFragment extends Fragment {
 
     public void updateClass(ClassContract.ClassEntry _class) {
         new UpdateClassAsyncTask().execute(_class);
+    }
+
+    public void getClassSchedules(ClassContract.ClassEntry _class, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClass = _class;
+        params.mFragmentTag = fragmentTag;
+        new GetClassSchedulesAsyncTask().execute(params);
     }
 
     private class UnlockClassAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
@@ -113,6 +124,26 @@ public class ClassActivityFragment extends Fragment {
         }
     }
 
+    private class GetClassSchedulesAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mClassSchedules = ClassScheduleContract._getEntriesByClassId(db, params[0].mClass.getId());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onGetClassSchedules(result.mClassSchedules, result.mFragmentTag);
+            }
+        }
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -136,12 +167,15 @@ public class ClassActivityFragment extends Fragment {
         public ClassContract.ClassEntry mClass;
         public boolean mPasswordMatched;
         public int mRowsUpdated;
+        public ArrayList<ClassScheduleContract.ClassScheduleEntry> mClassSchedules;
+        public String mFragmentTag;
         public AsyncTaskResult() { }
     }
 
     private class AsyncTaskParams {
         public ClassContract.ClassEntry mClass;
         public String mPassword;
+        public String mFragmentTag;
 
         public AsyncTaskParams() { }
     }
