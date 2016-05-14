@@ -126,10 +126,10 @@
     <string name="class_password_removed">Class password removed.</string>
     <string name="class_password_applied">Class password applied.</string>
 
-    <string name="schedule">Schedule</string>
+    <string name="class_schedule">Schedule</string>
     <string name="grade_breakdown">Grade Breakdown</string>
     <string name="notes">Notes</string>
-    <string name="new_schedule">New Schedule</string>
+    <string name="new_class_schedule">New Schedule</string>
     <string name="new_grade_breakdown">New Grade Breakdown</string>
     <string name="new_note">New Note</string>
 
@@ -138,4 +138,8 @@
     <string name="students_tab">Students</string>
 
     <string name="delete_class">Delete Class</string>
+
+    <string name="remove_class_schedule">Remove schedule?</string>
+    <string name="class_schedule_removed">Schedule removed.</string>
+
 </resources>

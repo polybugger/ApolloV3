@@ -3,7 +3,9 @@ package net.polybugger.apollot;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -93,7 +95,17 @@ public class ClassInfoFragment extends Fragment {
         });
 
         mScheduleLinearLayout = (LinearLayout) view.findViewById(R.id.schedule_linear_layout);
-
+        mRemoveScheduleClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                ClassScheduleDeleteDialogFragment df = (ClassScheduleDeleteDialogFragment) fm.findFragmentByTag(ClassScheduleDeleteDialogFragment.TAG);
+                if(df == null) {
+                    df = ClassScheduleDeleteDialogFragment.newInstance((ClassScheduleContract.ClassScheduleEntry) v.getTag(), getTag());
+                    df.show(fm, ClassScheduleDeleteDialogFragment.TAG);
+                }
+            }
+        };
 
 
         populateClassInfo();
@@ -137,6 +149,21 @@ public class ClassInfoFragment extends Fragment {
         }
     }
 
+    public void deleteClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsDeleted, String fragmentTag) {
+        int childPosition = mScheduleList.indexOf(classSchedule);
+        if(childPosition != -1) {
+            mScheduleList.remove(childPosition);
+            mScheduleLinearLayout.removeViewAt(childPosition);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_schedule_removed), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
+    }
+
     private View getScheduleView(LayoutInflater inflater, ClassScheduleContract.ClassScheduleEntry schedule, View.OnClickListener editClickListener, View.OnClickListener removeClickListener) {
         View view = inflater.inflate(R.layout.row_class_schedule, null);
         String location = schedule.getLocation(), time;
@@ -145,6 +172,9 @@ public class ClassInfoFragment extends Fragment {
         else
             time = schedule.getTime(getContext());
         ((TextView) view.findViewById(R.id.time_location_text_view)).setText(time);
+        ImageButton removeButton = (ImageButton) view.findViewById(R.id.remove_button);
+        removeButton.setTag(schedule);
+        removeButton.setOnClickListener(removeClickListener);
         return view;
     }
 }

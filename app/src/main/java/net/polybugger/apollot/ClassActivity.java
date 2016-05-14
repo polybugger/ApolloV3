@@ -25,7 +25,8 @@ import net.polybugger.apollot.db.ClassScheduleContract;
 
 public class ClassActivity extends AppCompatActivity implements ClassActivityFragment.Listener,
         UnlockPasswordDialogFragment.Listener,
-        ClassInsertUpdateDialogFragment.Listener {
+        ClassInsertUpdateDialogFragment.Listener,
+        ClassScheduleDeleteDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
@@ -219,10 +220,28 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     }
 
     @Override
+    public void onDeleteClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsDeleted, String fragmentTag) {
+        if(rowsDeleted > 0) {
+            FragmentManager fm = getSupportFragmentManager();
+            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
+            if(f1 != null) {
+                f1.deleteClassSchedule(classSchedule, rowsDeleted, fragmentTag);
+            }
+        }
+    }
+
+    @Override
     public void onConfirmInsertUpdateClass(ClassContract.ClassEntry _class) {
         ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
         if(rf != null)
             rf.updateClass(_class);
+    }
+
+    @Override
+    public void onConfirmDeleteClassSchedule(ClassScheduleContract.ClassScheduleEntry entry, String fragmentTag) {
+        ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+        if(rf != null)
+            rf.deleteClassSchedule(entry, fragmentTag);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

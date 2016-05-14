@@ -22,6 +22,7 @@ public class ClassActivityFragment extends Fragment {
         void onLockClass(ClassContract.ClassEntry _class);
         void onUpdateClass(ClassContract.ClassEntry _class, int rowsUpdated);
         void onGetClassSchedules(ArrayList<ClassScheduleContract.ClassScheduleEntry> classSchedules, String fragmentTag);
+        void onDeleteClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsDeleted, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_activity_fragment";
@@ -54,6 +55,13 @@ public class ClassActivityFragment extends Fragment {
         new UpdateClassAsyncTask().execute(_class);
     }
 
+    public void deleteClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassSchedule = classSchedule;
+        params.mFragmentTag = fragmentTag;
+        new DeleteClassScheduleAsyncTask().execute(params);
+    }
+
     public void getClassSchedules(ClassContract.ClassEntry _class, String fragmentTag) {
         AsyncTaskParams params = new AsyncTaskParams();
         params.mClass = _class;
@@ -80,6 +88,27 @@ public class ClassActivityFragment extends Fragment {
         protected void onPostExecute(AsyncTaskResult result) {
             if(mListener != null) {
                 mListener.onUnlockClass(result.mClass, result.mPasswordMatched);
+            }
+        }
+    }
+
+    private class DeleteClassScheduleAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassSchedule = params[0].mClassSchedule;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mRowsDeleted = ClassScheduleContract._delete(db, result.mClassSchedule.getId());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onDeleteClassSchedule(result.mClassSchedule, result.mRowsDeleted, result.mFragmentTag);
             }
         }
     }
@@ -165,8 +194,10 @@ public class ClassActivityFragment extends Fragment {
 
     private class AsyncTaskResult {
         public ClassContract.ClassEntry mClass;
+        public ClassScheduleContract.ClassScheduleEntry mClassSchedule;
         public boolean mPasswordMatched;
         public int mRowsUpdated;
+        public int mRowsDeleted;
         public ArrayList<ClassScheduleContract.ClassScheduleEntry> mClassSchedules;
         public String mFragmentTag;
         public AsyncTaskResult() { }
@@ -174,6 +205,7 @@ public class ClassActivityFragment extends Fragment {
 
     private class AsyncTaskParams {
         public ClassContract.ClassEntry mClass;
+        public ClassScheduleContract.ClassScheduleEntry mClassSchedule;
         public String mPassword;
         public String mFragmentTag;
 

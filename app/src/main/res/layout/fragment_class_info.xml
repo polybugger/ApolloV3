@@ -85,7 +85,7 @@
             android:paddingTop="@dimen/activity_padding_top"
             android:paddingRight="@dimen/recycler_view_content_padding_right"
             android:paddingLeft="@dimen/recycler_view_content_padding_left"
-            android:text="@string/schedule"
+            android:text="@string/class_schedule"
             android:textSize="@dimen/small_text_size"
             android:textStyle="bold" />
 
