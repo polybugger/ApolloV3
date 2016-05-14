@@ -7,6 +7,8 @@
 
     <color name="color_error">@android:color/holo_red_light</color>
 
+    <color name="bg_color_white">#FFFFFFFF</color>
+
     <color name="bg_color_0">#00000000</color>
     <color name="bg_color_1">#FF7ED8FD</color>
     <color name="bg_color_2">#FFA6FFE9</color>

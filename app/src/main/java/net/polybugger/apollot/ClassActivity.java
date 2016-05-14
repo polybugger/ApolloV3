@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -234,6 +235,17 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         public Fragment getItem(int position) {
             switch(position) {
                 case INFO_TAB:
+                    mFab.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            FragmentManager fm = getSupportFragmentManager();
+                            FloatingActionBarMenuDialogFragment df = (FloatingActionBarMenuDialogFragment) fm.findFragmentByTag(FloatingActionBarMenuDialogFragment.TAG);
+                            if(df == null) {
+                                df = FloatingActionBarMenuDialogFragment.newInstance();
+                                df.show(fm, FloatingActionBarMenuDialogFragment.TAG);
+                            }
+                        }
+                    });
                     return ClassInfoFragment.newInstance(mClass);
                 case ITEMS_TAB:
                     return ClassInfoFragment.newInstance(mClass);

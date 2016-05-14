@@ -129,6 +129,9 @@
     <string name="schedule">Schedule</string>
     <string name="grade_breakdown">Grade Breakdown</string>
     <string name="notes">Notes</string>
+    <string name="new_schedule">New Schedule</string>
+    <string name="new_grade_breakdown">New Grade Breakdown</string>
+    <string name="new_note">New Note</string>
 
     <string name="info_tab">Info</string>
     <string name="items_tab">Activities</string>
