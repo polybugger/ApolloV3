@@ -48,7 +48,7 @@ public class FloatingActionBarMenuDialogFragment extends AppCompatDialogFragment
                 window.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
                 Resources res = getResources();
                 //windowParams.x = sourceX + res.getDimensionPixelSize(R.dimen.fab_margin); // dpToPx(rightMargin); // about half of confirm button size left of source view
-                int bottomMargin = res.getDimensionPixelSize(R.dimen.tab_height) + res.getDimensionPixelSize(R.dimen.fab_margin) + res.getDimensionPixelSize(R.dimen.fab_size);
+                int bottomMargin = res.getDimensionPixelSize(R.dimen.tab_height_fab_margin) + res.getDimensionPixelSize(R.dimen.fab_size);
                 windowParams.y = sourceY + bottomMargin; // above source view
                 window.setAttributes(windowParams);
             }
