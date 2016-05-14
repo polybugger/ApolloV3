@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.util.DisplayMetrics;
@@ -16,19 +17,42 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import net.polybugger.apollot.db.ClassScheduleContract;
+
 public class FloatingActionBarMenuDialogFragment extends AppCompatDialogFragment {
 
     public static final String TAG = "net.polybugger.apollot.floating_action_bar_menu_dialog_fragment";
+    public static final String FRAGMENT_TAG_ARG = "net.polybugger.apollot.fragment_tag_arg";
 
-    public static FloatingActionBarMenuDialogFragment newInstance() {
+    public static FloatingActionBarMenuDialogFragment newInstance(String fragmentTag) {
         FloatingActionBarMenuDialogFragment df = new FloatingActionBarMenuDialogFragment();
+        Bundle args = new Bundle();
+        args.putString(FRAGMENT_TAG_ARG, fragmentTag);
+        df.setArguments(args);
         return df;
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Bundle args = getArguments();
+        final String fragmentTag = args.getString(FRAGMENT_TAG_ARG);
+
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_floating_action_bar_menu, null);
+
+        view.findViewById(R.id.new_schedule_clickable_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+                FragmentManager fm = getFragmentManager();
+                ClassScheduleInsertUpdateDialogFragment df = (ClassScheduleInsertUpdateDialogFragment) fm.findFragmentByTag(ClassScheduleInsertUpdateDialogFragment.TAG);
+                if(df == null) {
+                    df = ClassScheduleInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_schedule), getString(R.string.add), fragmentTag);
+                    df.show(fm, ClassScheduleInsertUpdateDialogFragment.TAG);
+                }
+            }
+        });
+
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(null)
                 .setView(view)

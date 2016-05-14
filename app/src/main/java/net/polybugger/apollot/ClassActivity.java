@@ -26,7 +26,8 @@ import net.polybugger.apollot.db.ClassScheduleContract;
 public class ClassActivity extends AppCompatActivity implements ClassActivityFragment.Listener,
         UnlockPasswordDialogFragment.Listener,
         ClassInsertUpdateDialogFragment.Listener,
-        ClassScheduleDeleteDialogFragment.Listener {
+        ClassScheduleDeleteDialogFragment.Listener,
+        ClassScheduleInsertUpdateDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
@@ -244,6 +245,11 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
             rf.deleteClassSchedule(entry, fragmentTag);
     }
 
+    @Override
+    public void onConfirmInsertUpdateClassSchedule(ClassScheduleContract.ClassScheduleEntry entry, String fragmentTag) {
+
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -251,7 +257,7 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         }
 
         @Override
-        public Fragment getItem(int position) {
+        public Fragment getItem(final int position) {
             switch(position) {
                 case INFO_TAB:
                     mFab.setOnClickListener(new View.OnClickListener() {
@@ -260,7 +266,7 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
                             FragmentManager fm = getSupportFragmentManager();
                             FloatingActionBarMenuDialogFragment df = (FloatingActionBarMenuDialogFragment) fm.findFragmentByTag(FloatingActionBarMenuDialogFragment.TAG);
                             if(df == null) {
-                                df = FloatingActionBarMenuDialogFragment.newInstance();
+                                df = FloatingActionBarMenuDialogFragment.newInstance(getFragmentTag(position));
                                 df.show(fm, FloatingActionBarMenuDialogFragment.TAG);
                             }
                         }

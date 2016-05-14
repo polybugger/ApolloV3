@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import net.polybugger.apollot.db.AcademicTermContract;
 import net.polybugger.apollot.db.ClassContract;
-import net.polybugger.apollot.db.ClassItemTypeContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
 import net.polybugger.apollot.db.PastCurrentEnum;
 
@@ -106,7 +105,17 @@ public class ClassInfoFragment extends Fragment {
                 }
             }
         };
-
+        mEditScheduleClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                ClassScheduleInsertUpdateDialogFragment df = (ClassScheduleInsertUpdateDialogFragment) fm.findFragmentByTag(ClassScheduleInsertUpdateDialogFragment.TAG);
+                if(df == null) {
+                    df = ClassScheduleInsertUpdateDialogFragment.newInstance((ClassScheduleContract.ClassScheduleEntry) v.getTag(), getString(R.string.update_class_schedule), getString(R.string.save_changes), getTag());
+                    df.show(fm, ClassScheduleInsertUpdateDialogFragment.TAG);
+                }
+            }
+        };
 
         populateClassInfo();
 
@@ -172,6 +181,9 @@ public class ClassInfoFragment extends Fragment {
         else
             time = schedule.getTime(getContext());
         ((TextView) view.findViewById(R.id.time_location_text_view)).setText(time);
+        LinearLayout editLinearLayout = (LinearLayout) view.findViewById(R.id.schedule_clickable_layout);
+        editLinearLayout.setTag(schedule);
+        editLinearLayout.setOnClickListener(editClickListener);
         ImageButton removeButton = (ImageButton) view.findViewById(R.id.remove_button);
         removeButton.setTag(schedule);
         removeButton.setOnClickListener(removeClickListener);

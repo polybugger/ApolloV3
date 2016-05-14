@@ -129,9 +129,9 @@
     <string name="class_schedule">Schedule</string>
     <string name="grade_breakdown">Grade Breakdown</string>
     <string name="notes">Notes</string>
-    <string name="new_class_schedule">New Schedule</string>
-    <string name="new_grade_breakdown">New Grade Breakdown</string>
-    <string name="new_note">New Note</string>
+    <string name="new_class_schedule_fab_label">New Schedule</string>
+    <string name="new_grade_breakdown_fab_label">New Grade Breakdown</string>
+    <string name="new_note_fab_label">New Note</string>
 
     <string name="info_tab">Info</string>
     <string name="items_tab">Activities</string>
@@ -141,5 +141,17 @@
 
     <string name="remove_class_schedule">Remove schedule?</string>
     <string name="class_schedule_removed">Schedule removed.</string>
+
+    <string name="time_start">Time Start</string>
+    <string name="time_end">Time End</string>
+    <string name="days">Days</string>
+    <string name="room">Room</string>
+    <string name="building">Building</string>
+    <string name="campus">Campus</string>
+
+    <string name="new_class_schedule">New schedule?</string>
+    <string name="please_input_a_time_start">Please input a time start!</string>
+    <string name="update_class_schedule">Update schedule?</string>
+    <string name="class_schedule_updated">Schedule updated.</string>
 
 </resources>
