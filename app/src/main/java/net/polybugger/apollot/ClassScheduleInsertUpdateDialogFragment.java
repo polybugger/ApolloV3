@@ -94,6 +94,24 @@ public class ClassScheduleInsertUpdateDialogFragment extends AppCompatDialogFrag
                 }
             }
         });
+        mDaysButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                DaysPickerDialogFragment df = (DaysPickerDialogFragment) fm.findFragmentByTag(DaysPickerDialogFragment.TAG);
+                if(df == null) {
+                    int days;
+                    try {
+                        days = (int) v.getTag();
+                    }
+                    catch(Exception e) {
+                        days = 0;
+                    }
+                    df = DaysPickerDialogFragment.newInstance(days, getString(R.string.days), getTag(), R.id.days_button);
+                    df.show(fm, DaysPickerDialogFragment.TAG);
+                }
+            }
+        });
         Context context = getContext();
         final SimpleDateFormat sdf;
         if(StringUtils.equalsIgnoreCase(context.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE))
@@ -177,10 +195,18 @@ public class ClassScheduleInsertUpdateDialogFragment extends AppCompatDialogFrag
         Button b = (Button) mAlertDialog.findViewById(buttonId);
         if(time != null) {
             b.setText(sdf.format(time));
+            if(buttonId == R.id.time_start_button)
+                mErrorTextView.setText(null);
         }
         else {
             b.setText(null);
         }
         b.setTag(time);
+    }
+
+    public void setButtonDays(int days, int buttonId) {
+        Context context = getContext();
+        mDaysButton.setText(DaysBits.intToString(context, days));
+        mDaysButton.setTag(days);
     }
 }

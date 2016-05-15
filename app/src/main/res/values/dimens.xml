@@ -44,6 +44,7 @@
     <dimen name="edit_text_text_view_padding_right">4dp</dimen>
     <dimen name="edit_text_spacer_top">16dp</dimen>
     <dimen name="radio_button_spacer_top">16dp</dimen>
+    <dimen name="checkbox_spacer_left">16dp</dimen>
 
     <dimen name="recycler_view_item_margin_top_half">3dp</dimen>
     <dimen name="recycler_view_item_margin_bottom_half">3dp</dimen>

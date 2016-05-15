@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:scrollbars="none"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dialog_fragment_padding_top"
+        android:paddingRight="@dimen/dialog_fragment_padding_right"
+        android:paddingBottom="@dimen/dialog_fragment_padding_bottom"
+        android:paddingLeft="@dimen/dialog_fragment_padding_left">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/monday_check_box"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/days_monday"
+                android:textSize="@dimen/normal_text_size" />
+
+            <CheckBox
+                android:id="@+id/tuesday_check_box"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="@dimen/checkbox_spacer_left"
+                android:text="@string/days_tuesday"
+                android:textSize="@dimen/normal_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/edit_text_spacer_top"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/wednesday_check_box"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/days_wednesday"
+                android:textSize="@dimen/normal_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/edit_text_spacer_top"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/thursday_check_box"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/days_thursday"
+                android:textSize="@dimen/normal_text_size" />
+
+            <CheckBox
+                android:id="@+id/friday_check_box"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="@dimen/checkbox_spacer_left"
+                android:text="@string/days_friday"
+                android:textSize="@dimen/normal_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/edit_text_spacer_top"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/saturday_check_box"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/days_saturday"
+                android:textSize="@dimen/normal_text_size" />
+
+            <CheckBox
+                android:id="@+id/sunday_check_box"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="@dimen/checkbox_spacer_left"
+                android:text="@string/days_sunday"
+                android:textSize="@dimen/normal_text_size" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
