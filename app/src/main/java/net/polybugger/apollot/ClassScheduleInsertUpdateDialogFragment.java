@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.View;
@@ -38,6 +38,7 @@ public class ClassScheduleInsertUpdateDialogFragment extends AppCompatDialogFrag
 
     private Listener mListener;
     private ClassScheduleContract.ClassScheduleEntry mEntry;
+    private AlertDialog mAlertDialog;
     private Button mTimeStartButton;
     private TextView mErrorTextView;
     private Button mTimeEndButton;
@@ -57,7 +58,6 @@ public class ClassScheduleInsertUpdateDialogFragment extends AppCompatDialogFrag
         return df;
     }
 
-    // TODO add checked foreground
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -72,7 +72,28 @@ public class ClassScheduleInsertUpdateDialogFragment extends AppCompatDialogFrag
         mRoomEditText = (EditText) view.findViewById(R.id.room_edit_text);
         mBuildingEditText = (EditText) view.findViewById(R.id.building_edit_text);
         mCampusEditText = (EditText) view.findViewById(R.id.campus_edit_text);
-
+        mTimeStartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                TimePickerDialogFragment df = (TimePickerDialogFragment) fm.findFragmentByTag(TimePickerDialogFragment.TAG);
+                if(df == null) {
+                    df = TimePickerDialogFragment.newInstance((Date) v.getTag(), getString(R.string.time_start), getTag(), R.id.time_start_button);
+                    df.show(fm, TimePickerDialogFragment.TAG);
+                }
+            }
+        });
+        mTimeEndButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                TimePickerDialogFragment df = (TimePickerDialogFragment) fm.findFragmentByTag(TimePickerDialogFragment.TAG);
+                if(df == null) {
+                    df = TimePickerDialogFragment.newInstance((Date) v.getTag(), getString(R.string.time_end), getTag(), R.id.time_end_button);
+                    df.show(fm, TimePickerDialogFragment.TAG);
+                }
+            }
+        });
         Context context = getContext();
         final SimpleDateFormat sdf;
         if(StringUtils.equalsIgnoreCase(context.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE))
@@ -101,18 +122,16 @@ public class ClassScheduleInsertUpdateDialogFragment extends AppCompatDialogFrag
             mBuildingEditText.setText(mEntry.getBuilding());
             mCampusEditText.setText(mEntry.getCampus());
         }
-
-        dimButtons();
-        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+        mAlertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(args.getString(TITLE_ARG))
                 .setView(view)
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(args.getString(BUTTON_TEXT_ARG), null)
                 .create();
-        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+        mAlertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                mAlertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Date timeStart = (Date) mTimeStartButton.getTag();
@@ -127,7 +146,7 @@ public class ClassScheduleInsertUpdateDialogFragment extends AppCompatDialogFrag
                 });
             }
         });
-        return alertDialog;
+        return mAlertDialog;
     }
 
     @Override
@@ -147,25 +166,21 @@ public class ClassScheduleInsertUpdateDialogFragment extends AppCompatDialogFrag
         super.onDetach();
     }
 
-    private void dimButtons() {
-        if(mTimeStartButton.getTag() == null)
-            mTimeStartButton.setTextColor(ContextCompat.getColor(getContext(), android.R.color.tertiary_text_dark));
+    public void setButtonTime(Date time, int buttonId) {
+        Context context = getContext();
+        final SimpleDateFormat sdf;
+        if(StringUtils.equalsIgnoreCase(context.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE))
+            sdf = new SimpleDateFormat(DateTimeFormat.TIME_DISPLAY_TEMPLATE_JA, context.getResources().getConfiguration().locale);
         else
-            mTimeStartButton.setTextColor(ContextCompat.getColor(getContext(), android.R.color.primary_text_light));
-        if(mTimeEndButton.getTag() == null)
-            mTimeEndButton.setTextColor(ContextCompat.getColor(getContext(), android.R.color.tertiary_text_dark));
-        else
-            mTimeEndButton.setTextColor(ContextCompat.getColor(getContext(), android.R.color.primary_text_light));
-        int days;
-        try {
-            days = (int) mDaysButton.getTag();
+            sdf = new SimpleDateFormat(DateTimeFormat.TIME_DISPLAY_TEMPLATE, context.getResources().getConfiguration().locale);
+
+        Button b = (Button) mAlertDialog.findViewById(buttonId);
+        if(time != null) {
+            b.setText(sdf.format(time));
         }
-        catch(Exception e) {
-            days = 0;
+        else {
+            b.setText(null);
         }
-        if(days == 0)
-            mDaysButton.setTextColor(ContextCompat.getColor(getContext(), android.R.color.tertiary_text_dark));
-        else
-            mDaysButton.setTextColor(ContextCompat.getColor(getContext(), android.R.color.primary_text_light));
+        b.setTag(time);
     }
 }

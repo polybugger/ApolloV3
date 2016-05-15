@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
@@ -27,7 +28,8 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         UnlockPasswordDialogFragment.Listener,
         ClassInsertUpdateDialogFragment.Listener,
         ClassScheduleDeleteDialogFragment.Listener,
-        ClassScheduleInsertUpdateDialogFragment.Listener {
+        ClassScheduleInsertUpdateDialogFragment.Listener,
+        TimePickerDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
@@ -248,6 +250,13 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     @Override
     public void onConfirmInsertUpdateClassSchedule(ClassScheduleContract.ClassScheduleEntry entry, String fragmentTag) {
 
+    }
+
+    @Override
+    public void onSetButtonTime(Date time, String dialogFragmentTag, int buttonId) {
+        ClassScheduleInsertUpdateDialogFragment df = (ClassScheduleInsertUpdateDialogFragment) getSupportFragmentManager().findFragmentByTag(dialogFragmentTag);
+        if(df != null)
+            df.setButtonTime(time, buttonId);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

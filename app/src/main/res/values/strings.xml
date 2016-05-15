@@ -153,5 +153,7 @@
     <string name="please_input_a_time_start">Please input a time start!</string>
     <string name="update_class_schedule">Update schedule?</string>
     <string name="class_schedule_updated">Schedule updated.</string>
+    <string name="clear">Clear</string>
+    <string name="set">Set</string>
 
 </resources>

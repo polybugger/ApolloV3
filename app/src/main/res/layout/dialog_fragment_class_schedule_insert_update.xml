@@ -23,6 +23,7 @@
 
             <Button
                 android:id="@+id/time_start_button"
+                android:hint="@string/time_start"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -31,6 +32,7 @@
 
             <Button
                 android:id="@+id/time_end_button"
+                android:hint="@string/time_end"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -50,6 +52,7 @@
 
         <Button
             android:id="@+id/days_button"
+            android:hint="@string/days"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/edit_text_spacer_top"

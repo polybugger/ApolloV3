@@ -17,8 +17,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import net.polybugger.apollot.db.ClassScheduleContract;
-
 public class FloatingActionBarMenuDialogFragment extends AppCompatDialogFragment {
 
     public static final String TAG = "net.polybugger.apollot.floating_action_bar_menu_dialog_fragment";
