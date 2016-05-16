@@ -4,6 +4,7 @@
     android:clipToPadding="false"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:paddingBottom="@dimen/recycler_view_item_margin_bottom_4x"
     android:scrollbars="none">
 
     <LinearLayout

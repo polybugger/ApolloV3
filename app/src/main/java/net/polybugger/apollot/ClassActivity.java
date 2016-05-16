@@ -45,6 +45,7 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     private MenuItem mLockMenuItem;
     private MenuItem mUnlockMenuItem;
 
+    // TODO hide fab when viewpager fragments are scrolling 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

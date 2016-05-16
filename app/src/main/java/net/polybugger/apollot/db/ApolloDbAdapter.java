@@ -88,6 +88,7 @@ public class ApolloDbAdapter {
             ClassScheduleContract._insertDummyClassSchedule(db, class0Id, R.array.default_class_1_class_schedule_0, sAppContext);
             ClassScheduleContract._insertDummyClassSchedule(db, class0Id, R.array.default_class_3_class_schedule_0, sAppContext);
             ClassScheduleContract._insertDummyClassSchedule(db, class0Id, R.array.default_class_0_class_schedule_0, sAppContext);
+            ClassScheduleContract._insertDummyClassSchedule(db, class0Id, R.array.default_class_1_class_schedule_0, sAppContext);
 
             ClassScheduleContract._insertDummyClassSchedule(db, class1Id, R.array.default_class_1_class_schedule_0, sAppContext);
             ClassScheduleContract._insertDummyClassSchedule(db, class2Id, R.array.default_class_0_class_schedule_0, sAppContext);
