@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="default_class_0_class_grade_breakdown_0_percentage">20.0</string>
+
+    <array name="default_class_0_class_grade_breakdown_0">
+        <item>@string/default_class_item_type_0</item> <!-- lecture -->
+        <item>@string/default_class_0_class_grade_breakdown_0_percentage</item>
+    </array>
+
+    <string name="default_class_0_class_grade_breakdown_1_percentage">20.0</string>
+
+    <array name="default_class_0_class_grade_breakdown_1">
+        <item>@string/default_class_item_type_1</item> <!-- homework -->
+        <item>@string/default_class_0_class_grade_breakdown_1_percentage</item>
+    </array>
+
+    <string name="default_class_0_class_grade_breakdown_2_percentage">10.0</string>
+
+    <array name="default_class_0_class_grade_breakdown_2">
+        <item>@string/default_class_item_type_7</item> <!-- report -->
+        <item>@string/default_class_0_class_grade_breakdown_2_percentage</item>
+    </array>
+
+    <string name="default_class_0_class_grade_breakdown_3_percentage">25.0</string>
+
+    <array name="default_class_0_class_grade_breakdown_3">
+        <item>@string/default_class_item_type_9</item> <!-- midterm exam -->
+        <item>@string/default_class_0_class_grade_breakdown_3_percentage</item>
+    </array>
+
+    <string name="default_class_0_class_grade_breakdown_4_percentage">25.0</string>
+
+    <array name="default_class_0_class_grade_breakdown_4">
+        <item>@string/default_class_item_type_10</item> <!-- final exam -->
+        <item>@string/default_class_0_class_grade_breakdown_4_percentage</item>
+    </array>
+
+</resources>

@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
-import net.polybugger.apollot.R;
+import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -83,7 +83,7 @@ public class ClassPasswordContract {
         return _insert(db, classId, context.getString(classPasswordResourceId));
     }
 
-    public static class ClassPasswordEntry implements BaseColumns {
+    public static class ClassPasswordEntry implements BaseColumns, Serializable {
 
         public static final String CLASS_ID = "ClassId";
         public static final String PASSWORD = "Password";

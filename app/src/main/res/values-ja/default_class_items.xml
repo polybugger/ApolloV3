@@ -24,7 +24,7 @@
 
     <array name="default_class_0_class_item_1">
         <item>@string/default_class_0_class_item_1_description</item>
-        <item>@string/default_class_item_type_1a</item> <!-- homework -->
+        <item>@string/default_class_item_type_1a</item> <!-- assignment -->
         <item>@string/default_class_0_class_item_1_item_date</item>
         <item>@bool/bool_false</item>
         <item>@bool/bool_true</item>
@@ -72,7 +72,7 @@
 
     <array name="default_class_0_class_item_4">
         <item>@string/default_class_0_class_item_4_description</item>
-        <item>@string/default_class_item_type_1a</item> <!-- homework -->
+        <item>@string/default_class_item_type_1a</item> <!-- assignment -->
         <item>@string/default_class_0_class_item_4_item_date</item>
         <item>@bool/bool_false</item>
         <item>@bool/bool_true</item>
@@ -120,7 +120,7 @@
 
     <array name="default_class_0_class_item_7">
         <item>@string/default_class_0_class_item_7_description</item>
-        <item>@string/default_class_item_type_1a</item> <!-- homework -->
+        <item>@string/default_class_item_type_1a</item> <!-- assignment -->
         <item>@string/default_class_0_class_item_7_item_date</item>
         <item>@bool/bool_false</item>
         <item>@bool/bool_true</item>
@@ -232,7 +232,7 @@
 
     <array name="default_class_0_class_item_14">
         <item>@string/default_class_0_class_item_14_description</item>
-        <item>@string/default_class_item_type_1a</item> <!-- homework -->
+        <item>@string/default_class_item_type_1a</item> <!-- assignment -->
         <item>@string/default_class_0_class_item_14_item_date</item>
         <item>@bool/bool_false</item>
         <item>@bool/bool_true</item>

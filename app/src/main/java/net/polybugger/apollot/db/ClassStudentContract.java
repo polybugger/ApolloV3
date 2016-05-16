@@ -8,6 +8,7 @@ import android.provider.BaseColumns;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -117,7 +118,7 @@ public class ClassStudentContract {
         return count;
     }
 
-    public static class ClassStudentEntry implements BaseColumns {
+    public static class ClassStudentEntry implements BaseColumns, Serializable {
 
         public static final String CLASS_ID = "ClassId";
         public static final String STUDENT_ID = "StudentId";

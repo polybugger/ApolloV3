@@ -9,13 +9,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.support.annotation.StyleableRes;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class ClassItemContract {
 
@@ -274,7 +275,7 @@ public class ClassItemContract {
                 description, itemType, itemDate, checkAttendance, recordScores, perfectScore, recordSubmissions, submissionDueDate);
     }
 
-    public static class ClassItemEntry implements BaseColumns {
+    public static class ClassItemEntry implements BaseColumns, Serializable {
 
         public static final String CLASS_ID = "ClassId";
         public static final String DESCRIPTION = "Description";

@@ -1,7 +1,7 @@
 package net.polybugger.apollot.db;
 
-// TODO primes used: academicTerm 2,3, itemType 5,7, class 11,13, student 17,19, schedule 23,29, note 31,37, password 41,43, classItem 47,53, classStudent 59,61
-// TODO use next hash 67,71
+// TODO primes used: academicTerm 2,3, itemType 5,7, class 11,13, student 17,19, schedule 23,29, note 31,37, password 41,43, classItem 47,53, classStudent 59,61, classGradeBreakdown 67,71
+// TODO use next hash 73,79
 
 // TODO application tag in manifest needs to be google indexed
 
@@ -82,6 +82,8 @@ public class ApolloDbAdapter {
 
             db.execSQL(ClassScheduleContract.CREATE_TABLE_SQL);
             ClassScheduleContract._insertDummyClassSchedule(db, class0Id, R.array.default_class_0_class_schedule_0, sAppContext);
+
+            /*
             ClassScheduleContract._insertDummyClassSchedule(db, class0Id, R.array.default_class_1_class_schedule_0, sAppContext);
             ClassScheduleContract._insertDummyClassSchedule(db, class0Id, R.array.default_class_3_class_schedule_0, sAppContext);
             ClassScheduleContract._insertDummyClassSchedule(db, class0Id, R.array.default_class_0_class_schedule_0, sAppContext);
@@ -89,6 +91,7 @@ public class ApolloDbAdapter {
             ClassScheduleContract._insertDummyClassSchedule(db, class0Id, R.array.default_class_3_class_schedule_0, sAppContext);
             ClassScheduleContract._insertDummyClassSchedule(db, class0Id, R.array.default_class_0_class_schedule_0, sAppContext);
             ClassScheduleContract._insertDummyClassSchedule(db, class0Id, R.array.default_class_1_class_schedule_0, sAppContext);
+            */
 
             ClassScheduleContract._insertDummyClassSchedule(db, class1Id, R.array.default_class_1_class_schedule_0, sAppContext);
             ClassScheduleContract._insertDummyClassSchedule(db, class2Id, R.array.default_class_0_class_schedule_0, sAppContext);
@@ -220,6 +223,12 @@ public class ApolloDbAdapter {
             db.execSQL(ClassPasswordContract.CREATE_TABLE_SQL);
             ClassPasswordContract._insertDummyClassPassword(db, class1Id, R.string.default_class_1_password, sAppContext);
             ClassPasswordContract._insertDummyClassPassword(db, class2Id, R.string.default_class_1_password, sAppContext);
+
+            ClassGradeBreakdownContract._insertDummyClassGradeBreakdown(db, class0Id, R.array.default_class_0_class_grade_breakdown_0, sAppContext);
+            ClassGradeBreakdownContract._insertDummyClassGradeBreakdown(db, class0Id, R.array.default_class_0_class_grade_breakdown_1, sAppContext);
+            ClassGradeBreakdownContract._insertDummyClassGradeBreakdown(db, class0Id, R.array.default_class_0_class_grade_breakdown_2, sAppContext);
+            ClassGradeBreakdownContract._insertDummyClassGradeBreakdown(db, class0Id, R.array.default_class_0_class_grade_breakdown_3, sAppContext);
+            ClassGradeBreakdownContract._insertDummyClassGradeBreakdown(db, class0Id, R.array.default_class_0_class_grade_breakdown_4, sAppContext);
 
             /*
             db.execSQL(ClassNoteContract.CREATE_TABLE_SQL);

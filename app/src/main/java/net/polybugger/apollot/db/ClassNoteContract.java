@@ -18,7 +18,7 @@ public class ClassNoteContract {
     public static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + " (" +
             ClassNoteEntry._ID + " INTEGER PRIMARY KEY, " +
             ClassNoteEntry.CLASS_ID + " INTEGER NOT NULL REFERENCES " +
-                ClassContract.TABLE_NAME + " (" + ClassContract.ClassEntry._ID + "), " +
+                ClassContract.TABLE_NAME + " (" + ClassContract.ClassEntry._ID + ") ON DELETE CASCADE, " +
             ClassNoteEntry.NOTE + " TEXT NOT NULL, " +
             ClassNoteEntry.DATE_CREATED + " TEXT NOT NULL)";
     public static final String SELECT_TABLE_SQL = "SELECT " +
