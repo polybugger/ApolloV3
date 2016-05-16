@@ -224,6 +224,28 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     }
 
     @Override
+    public void onInsertClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, long id, String fragmentTag) {
+        if(classSchedule.getId() == -1) {
+            FragmentManager fm = getSupportFragmentManager();
+            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
+            if(f1 != null) {
+                f1.insertClassSchedule(classSchedule, id, fragmentTag);
+            }
+        }
+    }
+
+    @Override
+    public void onUpdateClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsUpdated, String fragmentTag) {
+        if(rowsUpdated > 0) {
+            FragmentManager fm = getSupportFragmentManager();
+            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
+            if(f1 != null) {
+                f1.updateClassSchedule(classSchedule, rowsUpdated, fragmentTag);
+            }
+        }
+    }
+
+    @Override
     public void onDeleteClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsDeleted, String fragmentTag) {
         if(rowsDeleted > 0) {
             FragmentManager fm = getSupportFragmentManager();
@@ -250,7 +272,14 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
 
     @Override
     public void onConfirmInsertUpdateClassSchedule(ClassScheduleContract.ClassScheduleEntry entry, String fragmentTag) {
-
+        ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+        if(rf != null) {
+            entry.setClassId(mClass.getId()); // capture class id here
+            if(entry.getId() == -1)
+                rf.insertClassSchedule(entry, fragmentTag);
+            else
+                rf.updateClassSchedule(entry, fragmentTag);
+        }
     }
 
     @Override

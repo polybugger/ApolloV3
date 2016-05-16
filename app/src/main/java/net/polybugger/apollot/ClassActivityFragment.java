@@ -22,6 +22,8 @@ public class ClassActivityFragment extends Fragment {
         void onLockClass(ClassContract.ClassEntry _class);
         void onUpdateClass(ClassContract.ClassEntry _class, int rowsUpdated);
         void onGetClassSchedules(ArrayList<ClassScheduleContract.ClassScheduleEntry> classSchedules, String fragmentTag);
+        void onInsertClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, long id, String fragmentTag);
+        void onUpdateClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsUpdated, String fragmentTag);
         void onDeleteClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsDeleted, String fragmentTag);
     }
 
@@ -53,6 +55,20 @@ public class ClassActivityFragment extends Fragment {
 
     public void updateClass(ClassContract.ClassEntry _class) {
         new UpdateClassAsyncTask().execute(_class);
+    }
+
+    public void insertClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassSchedule = classSchedule;
+        params.mFragmentTag = fragmentTag;
+        new InsertClassScheduleAsyncTask().execute(params);
+    }
+
+    public void updateClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassSchedule = classSchedule;
+        params.mFragmentTag = fragmentTag;
+        new UpdateClassScheduleAsyncTask().execute(params);
     }
 
     public void deleteClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, String fragmentTag) {
@@ -88,6 +104,48 @@ public class ClassActivityFragment extends Fragment {
         protected void onPostExecute(AsyncTaskResult result) {
             if(mListener != null) {
                 mListener.onUnlockClass(result.mClass, result.mPasswordMatched);
+            }
+        }
+    }
+
+    private class InsertClassScheduleAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassSchedule = params[0].mClassSchedule;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mId = ClassScheduleContract._insert(db, result.mClassSchedule.getClassId(), result.mClassSchedule.getTimeStart(), result.mClassSchedule.getTimeEnd(), result.mClassSchedule.getDays(), result.mClassSchedule.getRoom(), result.mClassSchedule.getBuilding(), result.mClassSchedule.getCampus());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onInsertClassSchedule(result.mClassSchedule, result.mId, result.mFragmentTag);
+            }
+        }
+    }
+
+    private class UpdateClassScheduleAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassSchedule = params[0].mClassSchedule;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mRowsUpdated = ClassScheduleContract._update(db, result.mClassSchedule.getId(), result.mClassSchedule.getClassId(), result.mClassSchedule.getTimeStart(), result.mClassSchedule.getTimeEnd(), result.mClassSchedule.getDays(), result.mClassSchedule.getRoom(), result.mClassSchedule.getBuilding(), result.mClassSchedule.getCampus());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onUpdateClassSchedule(result.mClassSchedule, result.mRowsUpdated, result.mFragmentTag);
             }
         }
     }
@@ -198,6 +256,7 @@ public class ClassActivityFragment extends Fragment {
         public boolean mPasswordMatched;
         public int mRowsUpdated;
         public int mRowsDeleted;
+        public long mId;
         public ArrayList<ClassScheduleContract.ClassScheduleEntry> mClassSchedules;
         public String mFragmentTag;
         public AsyncTaskResult() { }

@@ -158,6 +158,36 @@ public class ClassInfoFragment extends Fragment {
         }
     }
 
+    public void insertClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, long id, String fragmentTag) {
+        if(id != -1) {
+            classSchedule.setId(id);
+            mScheduleList.add(classSchedule);
+            mScheduleLinearLayout.addView(getScheduleView(getActivity().getLayoutInflater(), classSchedule, mEditScheduleClickListener, mRemoveScheduleClickListener));
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_schedule_added), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
+    }
+
+    public void updateClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsUpdated, String fragmentTag) {
+        int position = mScheduleList.indexOf(classSchedule);
+        if(position != -1) {
+            mScheduleList.set(position, classSchedule);
+            View view = mScheduleLinearLayout.getChildAt(position);
+            if(view != null)
+                _getScheduleView(view, classSchedule, mEditScheduleClickListener, mRemoveScheduleClickListener);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_schedule_updated), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
+    }
+
     public void deleteClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsDeleted, String fragmentTag) {
         int childPosition = mScheduleList.indexOf(classSchedule);
         if(childPosition != -1) {
@@ -174,7 +204,10 @@ public class ClassInfoFragment extends Fragment {
     }
 
     private View getScheduleView(LayoutInflater inflater, ClassScheduleContract.ClassScheduleEntry schedule, View.OnClickListener editClickListener, View.OnClickListener removeClickListener) {
-        View view = inflater.inflate(R.layout.row_class_schedule, null);
+        return _getScheduleView(inflater.inflate(R.layout.row_class_schedule, null), schedule, editClickListener, removeClickListener);
+    }
+
+    private View _getScheduleView(View view, ClassScheduleContract.ClassScheduleEntry schedule, View.OnClickListener editClickListener, View.OnClickListener removeClickListener) {
         String location = schedule.getLocation(), time;
         if(!StringUtils.isBlank(location))
             time = schedule.getTime(getContext()) + "\n" + location;

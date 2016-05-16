@@ -158,6 +158,19 @@ public class ClassScheduleInsertUpdateDialogFragment extends AppCompatDialogFrag
                             mTimeStartButton.requestFocus();
                             return;
                         }
+                        int days;
+                        try {
+                            days = (int) mDaysButton.getTag();
+                        }
+                        catch(Exception e) {
+                            days = 0;
+                        }
+                        mEntry.setTimeStart(timeStart);
+                        mEntry.setTimeEnd((Date) mTimeEndButton.getTag());
+                        mEntry.setDays(days);
+                        mEntry.setRoom(mRoomEditText.getText().toString());
+                        mEntry.setBuilding(mBuildingEditText.getText().toString());
+                        mEntry.setCampus(mCampusEditText.getText().toString());
                         mListener.onConfirmInsertUpdateClassSchedule(mEntry, fragmentTag);
                         dismiss();
                     }

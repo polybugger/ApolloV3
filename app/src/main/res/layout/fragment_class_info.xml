@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clipToPadding="false"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:scrollbars="none"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    android:scrollbars="none">
 
     <LinearLayout
         android:id="@+id/background_layout"
@@ -145,7 +143,6 @@
             android:paddingRight="@dimen/recycler_view_content_padding_right"
             android:paddingBottom="@dimen/recycler_view_content_padding_bottom"
             android:paddingLeft="@dimen/recycler_view_content_padding_left" />
-
 
     </LinearLayout>
 
