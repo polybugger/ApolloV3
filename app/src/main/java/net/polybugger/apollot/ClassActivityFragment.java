@@ -27,6 +27,7 @@ public class ClassActivityFragment extends Fragment {
         void onUpdateClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsUpdated, String fragmentTag);
         void onDeleteClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsDeleted, String fragmentTag);
         void onGetGradeBreakdowns(ArrayList<ClassGradeBreakdownContract.ClassGradeBreakdownEntry> gradeBreakdowns, String fragmentTag);
+        void onDeleteClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsDeleted, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_activity_fragment";
@@ -78,6 +79,13 @@ public class ClassActivityFragment extends Fragment {
         params.mClassSchedule = classSchedule;
         params.mFragmentTag = fragmentTag;
         new DeleteClassScheduleAsyncTask().execute(params);
+    }
+
+    public void deleteClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassGradeBreakdown = classGradeBreakdown;
+        params.mFragmentTag = fragmentTag;
+        new DeleteClassGradeBreakdownAsyncTask().execute(params);
     }
 
     public void getClassSchedules(ClassContract.ClassEntry _class, String fragmentTag) {
@@ -153,6 +161,27 @@ public class ClassActivityFragment extends Fragment {
         protected void onPostExecute(AsyncTaskResult result) {
             if(mListener != null) {
                 mListener.onDeleteClassSchedule(result.mClassSchedule, result.mRowsDeleted, result.mFragmentTag);
+            }
+        }
+    }
+
+    private class DeleteClassGradeBreakdownAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassGradeBreakdown = params[0].mClassGradeBreakdown;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mRowsDeleted = ClassGradeBreakdownContract._delete(db, result.mClassGradeBreakdown.getId(), result.mClassGradeBreakdown.getClassId());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onDeleteClassGradeBreakdown(result.mClassGradeBreakdown, result.mRowsDeleted, result.mFragmentTag);
             }
         }
     }
@@ -282,6 +311,7 @@ public class ClassActivityFragment extends Fragment {
     private class AsyncTaskResult {
         public ClassContract.ClassEntry mClass;
         public ClassScheduleContract.ClassScheduleEntry mClassSchedule;
+        public ClassGradeBreakdownContract.ClassGradeBreakdownEntry mClassGradeBreakdown;
         public boolean mPasswordMatched;
         public int mRowsUpdated;
         public int mRowsDeleted;
@@ -295,6 +325,7 @@ public class ClassActivityFragment extends Fragment {
     private class AsyncTaskParams {
         public ClassContract.ClassEntry mClass;
         public ClassScheduleContract.ClassScheduleEntry mClassSchedule;
+        public ClassGradeBreakdownContract.ClassGradeBreakdownEntry mClassGradeBreakdown;
         public String mPassword;
         public String mFragmentTag;
 

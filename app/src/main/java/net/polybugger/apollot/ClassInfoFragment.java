@@ -128,7 +128,12 @@ public class ClassInfoFragment extends Fragment {
         mRemoveGradeBreakdownClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FragmentManager fm = getFragmentManager();
+                ClassGradeBreakdownDeleteDialogFragment df = (ClassGradeBreakdownDeleteDialogFragment) fm.findFragmentByTag(ClassGradeBreakdownDeleteDialogFragment.TAG);
+                if(df == null) {
+                    df = ClassGradeBreakdownDeleteDialogFragment.newInstance((ClassGradeBreakdownContract.ClassGradeBreakdownEntry) v.getTag(), getTag());
+                    df.show(fm, ClassGradeBreakdownDeleteDialogFragment.TAG);
+                }
             }
         };
         mEditGradeBreakdownClickListener = new View.OnClickListener() {
@@ -190,6 +195,7 @@ public class ClassInfoFragment extends Fragment {
             totalPercentage = totalPercentage + gradeBreakdown.getPercentage();
         }
         mTotalPercentageTextView.setText(String.format("%.2f%%", totalPercentage));
+        mTotalPercentageTextView.setTag(totalPercentage);
     }
 
     public void insertClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, long id, String fragmentTag) {
@@ -232,6 +238,26 @@ public class ClassInfoFragment extends Fragment {
                 @Override
                 public void run() {
                     Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_schedule_removed), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
+    }
+
+    public void deleteClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsDeleted, String fragmentTag) {
+        int childPosition = mGradeBreakdownList.indexOf(classGradeBreakdown);
+        if(childPosition != -1) {
+            mGradeBreakdownList.remove(childPosition);
+            mGradeBreakdownLinearLayout.removeViewAt(childPosition);
+
+            float totalPercentage = (float) mTotalPercentageTextView.getTag();
+            totalPercentage = totalPercentage - classGradeBreakdown.getPercentage();
+            mTotalPercentageTextView.setText(String.format("%.2f%%", totalPercentage));
+            mTotalPercentageTextView.setTag(totalPercentage);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_grade_breakdown_removed), Snackbar.LENGTH_SHORT).show();
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
         }

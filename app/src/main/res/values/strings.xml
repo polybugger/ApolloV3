@@ -159,4 +159,8 @@
 
     <string name="total">Total</string>
 
+    <string name="remove_class_grade_breakdown">Remove class grade breakdown?</string>
+    <string name="class_grade_breakdown_removed">Class grade breakdown removed.</string>
+
+
 </resources>

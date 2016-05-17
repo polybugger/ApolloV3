@@ -31,7 +31,8 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         ClassScheduleDeleteDialogFragment.Listener,
         ClassScheduleInsertUpdateDialogFragment.Listener,
         TimePickerDialogFragment.Listener,
-        DaysPickerDialogFragment.Listener {
+        DaysPickerDialogFragment.Listener,
+        ClassGradeBreakdownDeleteDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
@@ -267,6 +268,17 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     }
 
     @Override
+    public void onDeleteClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsDeleted, String fragmentTag) {
+        if(rowsDeleted > 0) {
+            FragmentManager fm = getSupportFragmentManager();
+            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
+            if(f1 != null) {
+                f1.deleteClassGradeBreakdown(classGradeBreakdown, rowsDeleted, fragmentTag);
+            }
+        }
+    }
+
+    @Override
     public void onConfirmInsertUpdateClass(ClassContract.ClassEntry _class) {
         ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
         if(rf != null)
@@ -304,6 +316,13 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         ClassScheduleInsertUpdateDialogFragment df = (ClassScheduleInsertUpdateDialogFragment) getSupportFragmentManager().findFragmentByTag(dialogFragmentTag);
         if(df != null)
             df.setButtonDays(days, buttonId);
+    }
+
+    @Override
+    public void onConfirmDeleteClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry entry, String fragmentTag) {
+        ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+        if(rf != null)
+            rf.deleteClassGradeBreakdown(entry, fragmentTag);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
