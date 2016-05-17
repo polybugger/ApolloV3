@@ -15,14 +15,16 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import net.polybugger.apollot.db.AcademicTermContract;
 import net.polybugger.apollot.db.ClassContract;
+import net.polybugger.apollot.db.ClassGradeBreakdownContract;
+import net.polybugger.apollot.db.ClassItemTypeContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
 import net.polybugger.apollot.db.PastCurrentEnum;
 
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.ArrayList;
 
 public class ClassInfoFragment extends Fragment {
 
@@ -40,6 +42,11 @@ public class ClassInfoFragment extends Fragment {
     private View.OnClickListener mEditScheduleClickListener;
     private View.OnClickListener mRemoveScheduleClickListener;
 
+    private LinearLayout mGradeBreakdownLinearLayout;
+    private ArrayList<ClassGradeBreakdownContract.ClassGradeBreakdownEntry> mGradeBreakdownList;
+    private View.OnClickListener mEditGradeBreakdownClickListener;
+    private View.OnClickListener mRemoveGradeBreakdownClickListener;
+    private TextView mTotalPercentageTextView;
 
     public static ClassInfoFragment newInstance(ClassContract.ClassEntry _class) {
         ClassInfoFragment f = new ClassInfoFragment();
@@ -117,11 +124,27 @@ public class ClassInfoFragment extends Fragment {
             }
         };
 
+        mGradeBreakdownLinearLayout = (LinearLayout) view.findViewById(R.id.grade_breakdown_linear_layout);
+        mRemoveGradeBreakdownClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        };
+        mEditGradeBreakdownClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        };
+        mTotalPercentageTextView = (TextView) view.findViewById(R.id.total_percentage_text_view);
+
         populateClassInfo();
 
         ClassActivityFragment rf = (ClassActivityFragment) getFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
         if(rf != null) {
             rf.getClassSchedules(mClass, getTag());
+            rf.getGradeBreakdowns(mClass, getTag());
         }
 
         return view;
@@ -156,6 +179,17 @@ public class ClassInfoFragment extends Fragment {
         for(ClassScheduleContract.ClassScheduleEntry schedule : mScheduleList) {
             mScheduleLinearLayout.addView(getScheduleView(getLayoutInflater(null), schedule, mEditScheduleClickListener, mRemoveScheduleClickListener));
         }
+    }
+
+    public void populateGradeBreakdowns(ArrayList<ClassGradeBreakdownContract.ClassGradeBreakdownEntry> gradeBreakdowns, String fragmentTag) {
+        mGradeBreakdownList = gradeBreakdowns;
+        mGradeBreakdownLinearLayout.removeAllViews();
+        float totalPercentage = 0f;
+        for(ClassGradeBreakdownContract.ClassGradeBreakdownEntry gradeBreakdown : mGradeBreakdownList) {
+            mGradeBreakdownLinearLayout.addView(getGradeBreakdownView(getLayoutInflater(null), gradeBreakdown, mEditGradeBreakdownClickListener, mRemoveGradeBreakdownClickListener));
+            totalPercentage = totalPercentage + gradeBreakdown.getPercentage();
+        }
+        mTotalPercentageTextView.setText(String.format("%.2f%%", totalPercentage));
     }
 
     public void insertClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, long id, String fragmentTag) {
@@ -219,6 +253,25 @@ public class ClassInfoFragment extends Fragment {
         editLinearLayout.setOnClickListener(editClickListener);
         ImageButton removeButton = (ImageButton) view.findViewById(R.id.remove_button);
         removeButton.setTag(schedule);
+        removeButton.setOnClickListener(removeClickListener);
+        return view;
+    }
+
+    private View getGradeBreakdownView(LayoutInflater inflater, ClassGradeBreakdownContract.ClassGradeBreakdownEntry gradeBreakdown, View.OnClickListener editClickListener, View.OnClickListener removeClickListener) {
+        return _getGradeBreakdownView(inflater.inflate(R.layout.row_grade_breakdown, null), gradeBreakdown, editClickListener, removeClickListener);
+    }
+
+    private View _getGradeBreakdownView(View view, ClassGradeBreakdownContract.ClassGradeBreakdownEntry gradeBreakdown, View.OnClickListener editClickListener, View.OnClickListener removeClickListener) {
+        ClassItemTypeContract.ClassItemTypeEntry itemType = gradeBreakdown.getItemType();
+        ((TextView) view.findViewById(R.id.grade_breakdown_text_view)).setText(itemType.getDescription());
+        ((TextView) view.findViewById(R.id.percentage_text_view)).setText(String.format("%.2f%%", gradeBreakdown.getPercentage()));
+        LinearLayout backgroundLayout = (LinearLayout) view.findViewById(R.id.grade_breakdown_background_layout);
+        backgroundLayout.setBackgroundResource(BackgroundRect.getBackgroundResource(itemType.getColor(), getContext()));
+        LinearLayout editLinearLayout = (LinearLayout) view.findViewById(R.id.grade_breakdown_clickable_layout);
+        editLinearLayout.setTag(gradeBreakdown);
+        editLinearLayout.setOnClickListener(editClickListener);
+        ImageButton removeButton = (ImageButton) view.findViewById(R.id.remove_button);
+        removeButton.setTag(gradeBreakdown);
         removeButton.setOnClickListener(removeClickListener);
         return view;
     }

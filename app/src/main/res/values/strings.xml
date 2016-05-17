@@ -157,4 +157,6 @@
     <string name="set">Set</string>
     <string name="please_input_a_time_start">Please input a time start!</string>
 
+    <string name="total">Total</string>
+
 </resources>

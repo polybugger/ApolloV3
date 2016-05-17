@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clipToPadding="false"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/grade_breakdown_background_layout"
+        android:background="@drawable/bg_rounded_rect_0"
+        android:elevation="@dimen/low_elevation"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/item_count_margin_top"
+        android:layout_marginRight="@dimen/item_count_margin_right"
+        android:layout_marginBottom="@dimen/item_count_margin_bottom"
+        android:layout_marginLeft="@dimen/item_count_margin_left"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/grade_breakdown_clickable_layout"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/grade_breakdown_text_view"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:paddingLeft="@dimen/item_count_padding_left"
+                android:textSize="@dimen/small_text_size" />
+
+            <TextView
+                android:id="@+id/percentage_text_view"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/small_text_size" />
+
+            <ImageButton
+                android:id="@+id/remove_button"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_gravity="top"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:padding="@dimen/button_padding"
+                android:src="@drawable/ic_clear_black_24dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

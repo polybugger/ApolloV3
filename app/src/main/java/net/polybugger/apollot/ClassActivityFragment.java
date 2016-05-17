@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
+import net.polybugger.apollot.db.ClassGradeBreakdownContract;
 import net.polybugger.apollot.db.ClassPasswordContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
 
@@ -25,6 +26,7 @@ public class ClassActivityFragment extends Fragment {
         void onInsertClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, long id, String fragmentTag);
         void onUpdateClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsUpdated, String fragmentTag);
         void onDeleteClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsDeleted, String fragmentTag);
+        void onGetGradeBreakdowns(ArrayList<ClassGradeBreakdownContract.ClassGradeBreakdownEntry> gradeBreakdowns, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_activity_fragment";
@@ -85,27 +87,11 @@ public class ClassActivityFragment extends Fragment {
         new GetClassSchedulesAsyncTask().execute(params);
     }
 
-    private class UnlockClassAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
-
-        @Override
-        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
-            AsyncTaskResult result = new AsyncTaskResult();
-            result.mClass = params[0].mClass;
-            SQLiteDatabase db = ApolloDbAdapter.open();
-            ClassPasswordContract.ClassPasswordEntry classPassword = ClassPasswordContract._getEntryByClassId(db, result.mClass.getId());
-            result.mPasswordMatched = StringUtils.equals(classPassword.getPassword(), params[0].mPassword);
-            if(result.mPasswordMatched)
-                result.mClass.setLocked(!(ClassPasswordContract._delete(db, classPassword.getId()) > 0));
-            ApolloDbAdapter.close();
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
-                mListener.onUnlockClass(result.mClass, result.mPasswordMatched);
-            }
-        }
+    public void getGradeBreakdowns(ClassContract.ClassEntry _class, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClass = _class;
+        params.mFragmentTag = fragmentTag;
+        new GetGradeBreakdownsAsyncTask().execute(params);
     }
 
     private class InsertClassScheduleAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
@@ -191,6 +177,29 @@ public class ClassActivityFragment extends Fragment {
         }
     }
 
+    private class UnlockClassAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClass = params[0].mClass;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            ClassPasswordContract.ClassPasswordEntry classPassword = ClassPasswordContract._getEntryByClassId(db, result.mClass.getId());
+            result.mPasswordMatched = StringUtils.equals(classPassword.getPassword(), params[0].mPassword);
+            if(result.mPasswordMatched)
+                result.mClass.setLocked(!(ClassPasswordContract._delete(db, classPassword.getId()) > 0));
+            ApolloDbAdapter.close();
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onUnlockClass(result.mClass, result.mPasswordMatched);
+            }
+        }
+    }
+
     private class UpdateClassAsyncTask extends AsyncTask<ClassContract.ClassEntry, Integer, AsyncTaskResult> {
 
         @Override
@@ -231,6 +240,26 @@ public class ClassActivityFragment extends Fragment {
         }
     }
 
+    private class GetGradeBreakdownsAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mGradeBreakdowns = ClassGradeBreakdownContract._getEntries(db, params[0].mClass.getId());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onGetGradeBreakdowns(result.mGradeBreakdowns, result.mFragmentTag);
+            }
+        }
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -258,6 +287,7 @@ public class ClassActivityFragment extends Fragment {
         public int mRowsDeleted;
         public long mId;
         public ArrayList<ClassScheduleContract.ClassScheduleEntry> mClassSchedules;
+        public ArrayList<ClassGradeBreakdownContract.ClassGradeBreakdownEntry> mGradeBreakdowns;
         public String mFragmentTag;
         public AsyncTaskResult() { }
     }

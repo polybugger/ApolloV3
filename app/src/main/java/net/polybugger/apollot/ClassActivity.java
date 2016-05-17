@@ -22,6 +22,7 @@ import java.util.Date;
 
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
+import net.polybugger.apollot.db.ClassGradeBreakdownContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
 
 public class ClassActivity extends AppCompatActivity implements ClassActivityFragment.Listener,
@@ -253,6 +254,15 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
             if(f1 != null) {
                 f1.deleteClassSchedule(classSchedule, rowsDeleted, fragmentTag);
             }
+        }
+    }
+
+    @Override
+    public void onGetGradeBreakdowns(ArrayList<ClassGradeBreakdownContract.ClassGradeBreakdownEntry> gradeBreakdowns, String fragmentTag) {
+        FragmentManager fm = getSupportFragmentManager();
+        ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
+        if(f1 != null) {
+            f1.populateGradeBreakdowns(gradeBreakdowns, fragmentTag);
         }
     }
 
