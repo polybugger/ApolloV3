@@ -139,7 +139,12 @@ public class ClassInfoFragment extends Fragment {
         mEditGradeBreakdownClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FragmentManager fm = getFragmentManager();
+                ClassGradeBreakdownInsertUpdateDialogFragment df = (ClassGradeBreakdownInsertUpdateDialogFragment) fm.findFragmentByTag(ClassGradeBreakdownInsertUpdateDialogFragment.TAG);
+                if(df == null) {
+                    df = ClassGradeBreakdownInsertUpdateDialogFragment.newInstance((ClassGradeBreakdownContract.ClassGradeBreakdownEntry) v.getTag(), getString(R.string.update_class_grade_breakdown), getString(R.string.save_changes), getTag());
+                    df.show(fm, ClassGradeBreakdownInsertUpdateDialogFragment.TAG);
+                }
             }
         };
         mTotalPercentageTextView = (TextView) view.findViewById(R.id.total_percentage_text_view);

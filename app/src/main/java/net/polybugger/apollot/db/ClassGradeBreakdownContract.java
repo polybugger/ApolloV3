@@ -105,6 +105,29 @@ public class ClassGradeBreakdownContract {
         return entries;
     }
 
+    public static ArrayList<ClassItemTypeContract.ClassItemTypeEntry> _getUnusedItemTypes(SQLiteDatabase db, long classId) {
+        String tableName = TABLE_NAME + String.valueOf(classId);
+        db.execSQL(CREATE_TABLE_SQL1 + tableName + CREATE_TABLE_SQL2);
+        ArrayList<ClassItemTypeContract.ClassItemTypeEntry> entries = new ArrayList<>();
+        Cursor cursor = db.query(ClassItemTypeContract.TABLE_NAME,
+                new String[]{ClassItemTypeContract.ClassItemTypeEntry._ID, // 0
+                        ClassItemTypeContract.ClassItemTypeEntry.DESCRIPTION, // 1
+                        ClassItemTypeContract.ClassItemTypeEntry.COLOR}, // 2
+                ClassItemTypeContract.ClassItemTypeEntry._ID + " NOT IN(SELECT cgb." + ClassGradeBreakdownEntry.ITEM_TYPE_ID + " FROM " + tableName +
+                        " AS cgb INNER JOIN " + ClassContract.TABLE_NAME + " AS c ON cgb." + ClassGradeBreakdownEntry.CLASS_ID + "=c." + ClassContract.ClassEntry._ID +
+                        " LEFT OUTER JOIN " + ClassItemTypeContract.TABLE_NAME + " AS cit ON cgb." + ClassGradeBreakdownEntry.ITEM_TYPE_ID + "=cit." + ClassItemTypeContract.ClassItemTypeEntry._ID + ")",
+                null, null, null, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            entries.add(new ClassItemTypeContract.ClassItemTypeEntry(cursor.getLong(0),
+                    cursor.getString(1),
+                    cursor.isNull(2) ? null : cursor.getString(2)));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return entries;
+    }
+
     public static long _insertDummyClassGradeBreakdown(SQLiteDatabase db, long classId, int classGradeBreakdownResourceId, Context context) {
         @StyleableRes final int ITEM_TYPE_INDEX = 0;
         @StyleableRes final int PERCENTAGE_INDEX = 1;

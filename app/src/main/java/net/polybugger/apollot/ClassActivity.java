@@ -32,7 +32,8 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         ClassScheduleInsertUpdateDialogFragment.Listener,
         TimePickerDialogFragment.Listener,
         DaysPickerDialogFragment.Listener,
-        ClassGradeBreakdownDeleteDialogFragment.Listener {
+        ClassGradeBreakdownDeleteDialogFragment.Listener,
+        ClassGradeBreakdownInsertUpdateDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
@@ -323,6 +324,15 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
         if(rf != null)
             rf.deleteClassGradeBreakdown(entry, fragmentTag);
+    }
+
+    @Override
+    public void onConfirmInsertUpdateClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry entry, String fragmentTag) {
+
+    }
+
+    public ClassContract.ClassEntry getClassEntry() {
+        return mClass;
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

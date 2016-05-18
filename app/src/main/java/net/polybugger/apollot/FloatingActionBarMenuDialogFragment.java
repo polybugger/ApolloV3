@@ -50,6 +50,18 @@ public class FloatingActionBarMenuDialogFragment extends AppCompatDialogFragment
                 }
             }
         });
+        view.findViewById(R.id.new_grade_breakdown_clickable_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+                FragmentManager fm = getFragmentManager();
+                ClassGradeBreakdownInsertUpdateDialogFragment df = (ClassGradeBreakdownInsertUpdateDialogFragment) fm.findFragmentByTag(ClassGradeBreakdownInsertUpdateDialogFragment.TAG);
+                if(df == null) {
+                    df = ClassGradeBreakdownInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_grade_breakdown), getString(R.string.add), fragmentTag);
+                    df.show(fm, ClassGradeBreakdownInsertUpdateDialogFragment.TAG);
+                }
+            }
+        });
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(null)
