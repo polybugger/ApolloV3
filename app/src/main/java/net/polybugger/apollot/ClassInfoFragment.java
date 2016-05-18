@@ -248,6 +248,48 @@ public class ClassInfoFragment extends Fragment {
         }
     }
 
+    public void insertClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, long id, String fragmentTag) {
+        if(id != -1) {
+            classGradeBreakdown.setId(id);
+            mGradeBreakdownList.add(classGradeBreakdown);
+            mGradeBreakdownLinearLayout.addView(getGradeBreakdownView(getActivity().getLayoutInflater(), classGradeBreakdown, mEditGradeBreakdownClickListener, mRemoveGradeBreakdownClickListener));
+
+            float totalPercentage = (float) mTotalPercentageTextView.getTag();
+            totalPercentage = totalPercentage + classGradeBreakdown.getPercentage();
+            mTotalPercentageTextView.setText(String.format("%.2f%%", totalPercentage));
+            mTotalPercentageTextView.setTag(totalPercentage);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_grade_breakdown_added), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
+    }
+
+    public void updateClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsUpdated, String fragmentTag) {
+        int position = mGradeBreakdownList.indexOf(classGradeBreakdown);
+        if(position != -1) {
+            mGradeBreakdownList.set(position, classGradeBreakdown);
+            View view = mGradeBreakdownLinearLayout.getChildAt(position);
+            if(view != null)
+                _getGradeBreakdownView(view, classGradeBreakdown, mEditGradeBreakdownClickListener, mRemoveGradeBreakdownClickListener);
+            float totalPercentage = 0f;
+            for(ClassGradeBreakdownContract.ClassGradeBreakdownEntry gradeBreakdown : mGradeBreakdownList) {
+                totalPercentage = totalPercentage + gradeBreakdown.getPercentage();
+            }
+            mTotalPercentageTextView.setText(String.format("%.2f%%", totalPercentage));
+            mTotalPercentageTextView.setTag(totalPercentage);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_grade_breakdown_updated), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
+    }
+
     public void deleteClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsDeleted, String fragmentTag) {
         int childPosition = mGradeBreakdownList.indexOf(classGradeBreakdown);
         if(childPosition != -1) {

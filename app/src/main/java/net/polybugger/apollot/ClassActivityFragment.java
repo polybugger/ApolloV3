@@ -27,6 +27,8 @@ public class ClassActivityFragment extends Fragment {
         void onUpdateClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsUpdated, String fragmentTag);
         void onDeleteClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsDeleted, String fragmentTag);
         void onGetGradeBreakdowns(ArrayList<ClassGradeBreakdownContract.ClassGradeBreakdownEntry> gradeBreakdowns, String fragmentTag);
+        void onInsertClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, long id, String fragmentTag);
+        void onUpdateClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsUpdated, String fragmentTag);
         void onDeleteClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsDeleted, String fragmentTag);
     }
 
@@ -79,6 +81,20 @@ public class ClassActivityFragment extends Fragment {
         params.mClassSchedule = classSchedule;
         params.mFragmentTag = fragmentTag;
         new DeleteClassScheduleAsyncTask().execute(params);
+    }
+
+    public void insertClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassGradeBreakdown = classGradeBreakdown;
+        params.mFragmentTag = fragmentTag;
+        new InsertClassGradeBreakdownAsyncTask().execute(params);
+    }
+
+    public void updateClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassGradeBreakdown = classGradeBreakdown;
+        params.mFragmentTag = fragmentTag;
+        new UpdateClassGradeBreakdownAsyncTask().execute(params);
     }
 
     public void deleteClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, String fragmentTag) {
@@ -161,6 +177,48 @@ public class ClassActivityFragment extends Fragment {
         protected void onPostExecute(AsyncTaskResult result) {
             if(mListener != null) {
                 mListener.onDeleteClassSchedule(result.mClassSchedule, result.mRowsDeleted, result.mFragmentTag);
+            }
+        }
+    }
+
+    private class InsertClassGradeBreakdownAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassGradeBreakdown = params[0].mClassGradeBreakdown;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mId = ClassGradeBreakdownContract._insert(db, result.mClassGradeBreakdown.getClassId(), result.mClassGradeBreakdown.getItemType(), result.mClassGradeBreakdown.getPercentage());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onInsertClassGradeBreakdown(result.mClassGradeBreakdown, result.mId, result.mFragmentTag);
+            }
+        }
+    }
+
+    private class UpdateClassGradeBreakdownAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassGradeBreakdown = params[0].mClassGradeBreakdown;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mRowsUpdated = ClassGradeBreakdownContract._update(db, result.mClassGradeBreakdown.getId(), result.mClassGradeBreakdown.getClassId(), result.mClassGradeBreakdown.getItemType(), result.mClassGradeBreakdown.getPercentage());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onUpdateClassGradeBreakdown(result.mClassGradeBreakdown, result.mRowsUpdated, result.mFragmentTag);
             }
         }
     }

@@ -269,6 +269,28 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     }
 
     @Override
+    public void onInsertClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, long id, String fragmentTag) {
+        if(classGradeBreakdown.getId() == -1) {
+            FragmentManager fm = getSupportFragmentManager();
+            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
+            if(f1 != null) {
+                f1.insertClassGradeBreakdown(classGradeBreakdown, id, fragmentTag);
+            }
+        }
+    }
+
+    @Override
+    public void onUpdateClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsUpdated, String fragmentTag) {
+        if(rowsUpdated > 0) {
+            FragmentManager fm = getSupportFragmentManager();
+            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
+            if(f1 != null) {
+                f1.updateClassGradeBreakdown(classGradeBreakdown, rowsUpdated, fragmentTag);
+            }
+        }
+    }
+
+    @Override
     public void onDeleteClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsDeleted, String fragmentTag) {
         if(rowsDeleted > 0) {
             FragmentManager fm = getSupportFragmentManager();
@@ -328,7 +350,14 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
 
     @Override
     public void onConfirmInsertUpdateClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry entry, String fragmentTag) {
-
+        ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+        if(rf != null) {
+            entry.setClassId(mClass.getId()); // capture class id here
+            if(entry.getId() == -1)
+                rf.insertClassGradeBreakdown(entry, fragmentTag);
+            else
+                rf.updateClassGradeBreakdown(entry, fragmentTag);
+        }
     }
 
     public ClassContract.ClassEntry getClassEntry() {
