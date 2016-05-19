@@ -178,6 +178,8 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:orientation="vertical"
+            android:layout_marginTop="@dimen/recycler_view_item_margin_top"
+            android:layout_marginBottom="@dimen/recycler_view_item_margin_bottom"
             android:paddingRight="@dimen/recycler_view_content_padding_right"
             android:paddingBottom="@dimen/recycler_view_content_padding_bottom"
             android:paddingLeft="@dimen/recycler_view_content_padding_left" />

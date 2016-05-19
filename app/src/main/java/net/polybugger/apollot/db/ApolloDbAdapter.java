@@ -230,14 +230,9 @@ public class ApolloDbAdapter {
             ClassGradeBreakdownContract._insertDummyClassGradeBreakdown(db, class0Id, R.array.default_class_0_class_grade_breakdown_3, sAppContext);
             ClassGradeBreakdownContract._insertDummyClassGradeBreakdown(db, class0Id, R.array.default_class_0_class_grade_breakdown_4, sAppContext);
 
-            /*
             db.execSQL(ClassNoteContract.CREATE_TABLE_SQL);
-            _insertDummyClass0Notes(db, class0Id);
-
-            _insertDummyClass1Password(db, class1Id);
-
-            _insertDummyClass0Items(db, class0Id);
-            */
+            ClassNoteContract._insertDummyClassNote(db, class0Id, R.array.default_class_0_note_0, sAppContext);
+            ClassNoteContract._insertDummyClassNote(db, class0Id, R.array.default_class_0_note_1, sAppContext);
         }
 
         @Override

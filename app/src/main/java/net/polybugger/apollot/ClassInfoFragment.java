@@ -21,6 +21,7 @@ import net.polybugger.apollot.db.AcademicTermContract;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassGradeBreakdownContract;
 import net.polybugger.apollot.db.ClassItemTypeContract;
+import net.polybugger.apollot.db.ClassNoteContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
 import net.polybugger.apollot.db.PastCurrentEnum;
 
@@ -47,6 +48,11 @@ public class ClassInfoFragment extends Fragment {
     private View.OnClickListener mEditGradeBreakdownClickListener;
     private View.OnClickListener mRemoveGradeBreakdownClickListener;
     private TextView mTotalPercentageTextView;
+
+    private LinearLayout mClassNoteLinearLayout;
+    private ArrayList<ClassNoteContract.ClassNoteEntry> mClassNoteList;
+    private View.OnClickListener mEditClassNoteClickListener;
+    private View.OnClickListener mRemoveClassNoteClickListener;
 
     public static ClassInfoFragment newInstance(ClassContract.ClassEntry _class) {
         ClassInfoFragment f = new ClassInfoFragment();
@@ -149,12 +155,25 @@ public class ClassInfoFragment extends Fragment {
         };
         mTotalPercentageTextView = (TextView) view.findViewById(R.id.total_percentage_text_view);
 
+        mClassNoteLinearLayout = (LinearLayout) view.findViewById(R.id.notes_linear_layout);
+        mRemoveClassNoteClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        };
+        mEditClassNoteClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        };
+
         populateClassInfo();
 
         ClassActivityFragment rf = (ClassActivityFragment) getFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
         if(rf != null) {
             rf.getClassSchedules(mClass, getTag());
             rf.getGradeBreakdowns(mClass, getTag());
+            rf.getClassNotes(mClass, getTag());
         }
 
         return view;
@@ -201,6 +220,14 @@ public class ClassInfoFragment extends Fragment {
         }
         mTotalPercentageTextView.setText(String.format("%.2f%%", totalPercentage));
         mTotalPercentageTextView.setTag(totalPercentage);
+    }
+
+    public void populateClassNotes(ArrayList<ClassNoteContract.ClassNoteEntry> classNotes, String fragmentTag) {
+        mClassNoteList = classNotes;
+        mClassNoteLinearLayout.removeAllViews();
+        for(ClassNoteContract.ClassNoteEntry classNote: mClassNoteList) {
+            mClassNoteLinearLayout.addView(getClassNoteView(getLayoutInflater(null), classNote, mEditClassNoteClickListener, mRemoveClassNoteClickListener));
+        }
     }
 
     public void insertClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, long id, String fragmentTag) {
@@ -345,6 +372,21 @@ public class ClassInfoFragment extends Fragment {
         editLinearLayout.setOnClickListener(editClickListener);
         ImageButton removeButton = (ImageButton) view.findViewById(R.id.remove_button);
         removeButton.setTag(gradeBreakdown);
+        removeButton.setOnClickListener(removeClickListener);
+        return view;
+    }
+
+    private View getClassNoteView(LayoutInflater inflater, ClassNoteContract.ClassNoteEntry classNote, View.OnClickListener editClickListener, View.OnClickListener removeClickListener) {
+        return _getClassNoteView(inflater.inflate(R.layout.row_class_note, null), classNote, editClickListener, removeClickListener);
+    }
+
+    private View _getClassNoteView(View view, ClassNoteContract.ClassNoteEntry classNote, View.OnClickListener editClickListener, View.OnClickListener removeClickListener) {
+        ((TextView) view.findViewById(R.id.date_created_note_text_view)).setText(classNote.getDateCreatedNote(getContext()));
+        LinearLayout editLinearLayout = (LinearLayout) view.findViewById(R.id.note_clickable_layout);
+        editLinearLayout.setTag(classNote);
+        editLinearLayout.setOnClickListener(editClickListener);
+        ImageButton removeButton = (ImageButton) view.findViewById(R.id.remove_button);
+        removeButton.setTag(classNote);
         removeButton.setOnClickListener(removeClickListener);
         return view;
     }

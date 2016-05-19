@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassGradeBreakdownContract;
+import net.polybugger.apollot.db.ClassNoteContract;
 import net.polybugger.apollot.db.ClassPasswordContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
 
@@ -30,6 +31,7 @@ public class ClassActivityFragment extends Fragment {
         void onInsertClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, long id, String fragmentTag);
         void onUpdateClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsUpdated, String fragmentTag);
         void onDeleteClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsDeleted, String fragmentTag);
+        void onGetClassNotes(ArrayList<ClassNoteContract.ClassNoteEntry> classNotes, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_activity_fragment";
@@ -116,6 +118,13 @@ public class ClassActivityFragment extends Fragment {
         params.mClass = _class;
         params.mFragmentTag = fragmentTag;
         new GetGradeBreakdownsAsyncTask().execute(params);
+    }
+
+    public void getClassNotes(ClassContract.ClassEntry _class, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClass = _class;
+        params.mFragmentTag = fragmentTag;
+        new GetClassNotesAsyncTask().execute(params);
     }
 
     private class InsertClassScheduleAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
@@ -347,6 +356,26 @@ public class ClassActivityFragment extends Fragment {
         }
     }
 
+    private class GetClassNotesAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mClassNotes = ClassNoteContract._getEntriesByClassId(db, params[0].mClass.getId());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onGetClassNotes(result.mClassNotes, result.mFragmentTag);
+            }
+        }
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -376,6 +405,7 @@ public class ClassActivityFragment extends Fragment {
         public long mId;
         public ArrayList<ClassScheduleContract.ClassScheduleEntry> mClassSchedules;
         public ArrayList<ClassGradeBreakdownContract.ClassGradeBreakdownEntry> mGradeBreakdowns;
+        public ArrayList<ClassNoteContract.ClassNoteEntry> mClassNotes;
         public String mFragmentTag;
         public AsyncTaskResult() { }
     }

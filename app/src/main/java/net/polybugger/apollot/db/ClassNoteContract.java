@@ -1,14 +1,19 @@
 package net.polybugger.apollot.db;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.support.annotation.StyleableRes;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -140,6 +145,24 @@ public class ClassNoteContract {
         return entries;
     }
 
+    public static void _insertDummyClassNote(SQLiteDatabase db, long classId, int classNoteResourceId, Context context) {
+        @StyleableRes final int NOTE_INDEX = 0;
+        @StyleableRes final int DATE_CREATED_INDEX = 1;
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_TIME_DB_TEMPLATE, context.getResources().getConfiguration().locale);
+        Resources res = context.getResources();
+        TypedArray ta = res.obtainTypedArray(classNoteResourceId);
+        String note = res.getString(ta.getResourceId(NOTE_INDEX, 0));
+        Date dateCreated;
+        try {
+            dateCreated = sdf.parse(res.getString(ta.getResourceId(DATE_CREATED_INDEX, 0)));
+        }
+        catch(Exception e) {
+            dateCreated = null;
+        }
+        ta.recycle();
+        _insert(db, classId, note, dateCreated);
+    }
+
     public static class ClassNoteEntry implements BaseColumns {
 
         public static final String CLASS_ID = "ClassId";
@@ -188,6 +211,19 @@ public class ClassNoteContract {
 
         public void setDateCreated(Date dateCreated) {
             mDateCreated = dateCreated;
+        }
+
+        public String getDateCreatedNote(Context context) {
+            final SimpleDateFormat sdf;
+            if(StringUtils.equalsIgnoreCase(context.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE))
+                sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE_JA, context.getResources().getConfiguration().locale);
+            else
+                sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE, context.getResources().getConfiguration().locale);
+
+            StringBuilder note = new StringBuilder(sdf.format(mDateCreated));
+            note.append(" - ");
+            note.append(mNote);
+            return note.toString();
         }
 
         @Override
