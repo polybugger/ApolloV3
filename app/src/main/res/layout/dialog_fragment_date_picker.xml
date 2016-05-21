@@ -7,11 +7,11 @@
     android:scrollbars="none"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <TimePicker
-        android:id="@+id/time_picker"
+    <DatePicker
+        android:id="@+id/date_picker"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:textSize="@dimen/small_text_size"
-        android:timePickerMode="clock" />
+        android:datePickerMode="calendar" />
 
 </LinearLayout>

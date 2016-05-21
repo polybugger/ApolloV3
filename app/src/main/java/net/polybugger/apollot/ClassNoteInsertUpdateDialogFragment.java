@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.text.Editable;
@@ -69,7 +70,12 @@ public class ClassNoteInsertUpdateDialogFragment extends AppCompatDialogFragment
         mNoteDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FragmentManager fm = getFragmentManager();
+                DatePickerDialogFragment df = (DatePickerDialogFragment) fm.findFragmentByTag(DatePickerDialogFragment.TAG);
+                if(df == null) {
+                    df = DatePickerDialogFragment.newInstance((Date) v.getTag(), getString(R.string.note_date_hint), getTag(), R.id.note_date_button);
+                    df.show(fm, DatePickerDialogFragment.TAG);
+                }
             }
         });
         mNoteEditText.addTextChangedListener(new TextWatcher() {
@@ -155,5 +161,22 @@ public class ClassNoteInsertUpdateDialogFragment extends AppCompatDialogFragment
     public void onDetach() {
         mListener = null;
         super.onDetach();
+    }
+
+    public void setButtonDate(Date date, int buttonId) {
+        Context context = getContext();
+        final SimpleDateFormat sdf;
+        if(StringUtils.equalsIgnoreCase(context.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE))
+            sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE_JA, context.getResources().getConfiguration().locale);
+        else
+            sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE, context.getResources().getConfiguration().locale);
+        if(date != null) {
+            mNoteDateButton.setText(sdf.format(date));
+            mNoteDateErrorTextView.setText(" ");
+        }
+        else {
+            mNoteDateButton.setText(null);
+        }
+        mNoteDateButton.setTag(date);
     }
 }

@@ -209,7 +209,7 @@ public class ClassScheduleInsertUpdateDialogFragment extends AppCompatDialogFrag
         if(time != null) {
             b.setText(sdf.format(time));
             if(buttonId == R.id.time_start_button)
-                mErrorTextView.setText(null);
+                mErrorTextView.setText(" ");
         }
         else {
             b.setText(null);
