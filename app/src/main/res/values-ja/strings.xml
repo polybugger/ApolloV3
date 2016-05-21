@@ -106,12 +106,76 @@
     <string name="colon">：</string>
 
     <string name="new_class">新しい授業を設定しますか？</string>
-    <string name="code_hint">Code</string>
-    <string name="description_hint">Description</string>
-    <string name="academic_term_hint">Academic Term</string>
-    <string name="year_hint">Year</string>
-    <string name="please_enter_a_class_code">Please enter a class code!</string>
+    <string name="update_class">授業を更新しますか？</string>
+    <string name="code_hint">コード</string>
+    <string name="description_hint">科目</string>
+    <string name="academic_term_hint">学期</string>
+    <string name="year_hint">年</string>
+    <string name="please_enter_a_class_code">コードを記入してください！</string>
 
-    <string name="class_added">Class added.</string>
+    <string name="class_added">授業追加済み。</string>
+    <string name="class_updated">授業更新済み。</string>
+    <string name="lock_class">授業情報をロックします。</string>
+    <string name="unlock_class">授業情報ロックの解除</string>
+    <string name="unlock">ロック解除</string>
+    <string name="lock">ロック</string>
+    <string name="ellipsis">。。。</string>
+    <string name="class_password_removed">授業情報ロックが解除されました。</string>
+    <string name="class_password_applied">授業情報がロックされました。</string>
+
+    <string name="class_schedule">スケジュール</string>
+    <string name="grade_breakdown">学年</string>
+    <string name="notes">メモ</string>
+    <string name="new_class_schedule_fab_label">新しいスケジュール</string>
+    <string name="new_grade_breakdown_fab_label">新しい学年</string>
+    <string name="new_note_fab_label">新しいメモ</string>
+
+    <string name="info_tab">情報</string>
+    <string name="items_tab">アクティビティー</string>
+    <string name="students_tab">学生</string>
+
+    <string name="delete_class">授業を削除</string>
+
+    <string name="remove_class_schedule">スケジュールを削除しますか？</string>
+    <string name="class_schedule_removed">スケジュール削除済み。</string>
+
+    <string name="time_start">開始時間</string>
+    <string name="time_end">終了時間</string>
+    <string name="days">曜日</string>
+    <string name="room">教室</string>
+    <string name="building">棟</string>
+    <string name="campus">キャンパス</string>
+
+    <string name="new_class_schedule">新しいスケジュールを設定しますか？</string>
+    <string name="update_class_schedule">スケジュールを更新しますか？</string>
+    <string name="class_schedule_added">スケジュール追加済み。</string>
+    <string name="class_schedule_updated">スケジュール更新済み。</string>
+    <string name="clear">クリア</string>
+    <string name="set">設定</string>
+    <string name="please_input_a_time_start">開始時間を入れてください！</string>
+
+    <string name="total">合計</string>
+
+    <string name="remove_class_grade_breakdown">学年を削除しますか？</string>
+    <string name="class_grade_breakdown_removed">学年削除済み。</string>
+    <string name="new_class_grade_breakdown">新しい学年を設定しますか？</string>
+    <string name="update_class_grade_breakdown">学年を更新しますか？</string>
+    <string name="item_type_hint">アクティビティー</string>
+    <string name="percentage_hint">パーセンテージ</string>
+    <string name="class_grade_breakdown_added">学年追加済み。</string>
+    <string name="class_grade_breakdown_updated">学年更新済み。</string>
+
+    <string name="please_select_a_class_activity">アクティビティーを選んでください！</string>
+    <string name="please_enter_a_breakdown_percentage">パーセンテージを記入してください！</string>
+
+
+    <string name="new_class_note">新しいメモを設定しますか？</string>
+    <string name="update_class_note">メモを更新しますか？</string>
+    <string name="remove_class_note">メモを削除しますか？</string>
+    <string name="note_date_hint">メモ日付</string>
+    <string name="note_char_limit_hint">（１４０字まで）</string>
+    <string name="please_input_a_note_date">メモ日付を入れてください！</string>
+    <string name="please_write_a_note">メモを記入してください！</string>
+    <string name="characters_left">あと～文字です。</string>
 
 </resources>

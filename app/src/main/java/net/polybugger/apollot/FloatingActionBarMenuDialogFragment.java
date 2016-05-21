@@ -62,6 +62,18 @@ public class FloatingActionBarMenuDialogFragment extends AppCompatDialogFragment
                 }
             }
         });
+        view.findViewById(R.id.new_note_clickable_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+                FragmentManager fm = getFragmentManager();
+                ClassNoteInsertUpdateDialogFragment df = (ClassNoteInsertUpdateDialogFragment) fm.findFragmentByTag(ClassNoteInsertUpdateDialogFragment.TAG);
+                if(df == null) {
+                    df = ClassNoteInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_note), getString(R.string.add), fragmentTag);
+                    df.show(fm, ClassNoteInsertUpdateDialogFragment.TAG);
+                }
+            }
+        });
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(null)

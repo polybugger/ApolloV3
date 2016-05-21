@@ -172,7 +172,7 @@ public class ClassGradeBreakdownInsertUpdateDialogFragment extends AppCompatDial
                         }
                         String strPercentage = mPercentageEditText.getText().toString();
                         if(StringUtils.isBlank(strPercentage)) {
-                            mPercentageErrorTextView.setText(R.string.please_input_a_breakdown_percentage);
+                            mPercentageErrorTextView.setText(R.string.please_enter_a_breakdown_percentage);
                             mPercentageEditText.requestFocus();
                             return;
                         }

@@ -169,6 +169,16 @@
     <string name="class_grade_breakdown_updated">Class grade breakdown updated.</string>
 
     <string name="please_select_a_class_activity">Please select a class activity!</string>
-    <string name="please_input_a_breakdown_percentage">Please input a breakdown percentage!</string>
+    <string name="please_enter_a_breakdown_percentage">Please enter a breakdown percentage!</string>
+
+
+    <string name="new_class_note">New class note?</string>
+    <string name="update_class_note">Update class note?</string>
+    <string name="remove_class_note">Remove class note?</string>
+    <string name="note_date_hint">Note Date</string>
+    <string name="note_char_limit_hint">(140 characters limit)</string>
+    <string name="please_input_a_note_date">Please input a note date!</string>
+    <string name="please_write_a_note">Please write a note!</string>
+    <string name="characters_left">character(s) left.</string>
 
 </resources>

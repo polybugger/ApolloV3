@@ -34,7 +34,8 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         TimePickerDialogFragment.Listener,
         DaysPickerDialogFragment.Listener,
         ClassGradeBreakdownDeleteDialogFragment.Listener,
-        ClassGradeBreakdownInsertUpdateDialogFragment.Listener {
+        ClassGradeBreakdownInsertUpdateDialogFragment.Listener,
+        ClassNoteInsertUpdateDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
@@ -372,6 +373,11 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
 
     public ClassContract.ClassEntry getClassEntry() {
         return mClass;
+    }
+
+    @Override
+    public void onConfirmInsertUpdateClassNote(ClassNoteContract.ClassNoteEntry entry, String fragmentTag) {
+
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

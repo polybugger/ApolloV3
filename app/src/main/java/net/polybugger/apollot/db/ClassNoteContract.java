@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.support.annotation.StyleableRes;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +19,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class ClassNoteContract {
-
     public static final String TABLE_NAME = "ClassNotes";
     public static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + " (" +
             ClassNoteEntry._ID + " INTEGER PRIMARY KEY, " +
@@ -126,7 +126,7 @@ public class ClassNoteContract {
                         ClassNoteEntry.DATE_CREATED}, // 3
                 ClassNoteEntry.CLASS_ID + "=?",
                 new String[]{String.valueOf(classId)},
-                null, null, null);
+                null, null, "date(" + ClassNoteEntry.DATE_CREATED + ") DESC");
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
             try {
@@ -163,7 +163,7 @@ public class ClassNoteContract {
         _insert(db, classId, note, dateCreated);
     }
 
-    public static class ClassNoteEntry implements BaseColumns {
+    public static class ClassNoteEntry implements BaseColumns, Serializable {
 
         public static final String CLASS_ID = "ClassId";
         public static final String NOTE = "Note";

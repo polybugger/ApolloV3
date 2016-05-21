@@ -8,7 +8,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
-        android:clipToPadding="false"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="vertical"
@@ -18,9 +17,7 @@
         android:paddingLeft="@dimen/dialog_fragment_padding_left">
 
         <LinearLayout
-            android:id="@+id/grade_breakdown_background_layout"
-            android:background="@drawable/bg_rounded_rect_0"
-            android:elevation="@dimen/low_elevation"
+            android:background="@drawable/dashed_border"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/item_count_margin_top"
@@ -33,19 +30,14 @@
             android:paddingLeft="@dimen/recycler_view_content_padding_left"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/item_type_text_view"
+            <Button
+                android:id="@+id/note_date_button"
+                android:hint="@string/note_date_hint"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:textSize="@dimen/normal_text_size" />
-            <Spinner
-                android:id="@+id/item_type_spinner"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_spacer_top"
-                android:textSize="@dimen/normal_text_size" />
             <TextView
-                android:id="@+id/item_type_error_text_view"
+                android:id="@+id/note_date_error_text_view"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:paddingLeft="@dimen/edit_text_text_view_padding_left"
@@ -54,15 +46,20 @@
                 android:textSize="@dimen/small_text_size" />
 
             <EditText
-                android:id="@+id/percentage_edit_text"
-                android:hint="@string/percentage_hint"
-                android:inputType="numberDecimal"
+                android:id="@+id/note_edit_text"
+                android:background="@android:color/transparent"
+                android:hint="@string/note_char_limit_hint"
+                android:gravity="left|top"
+                android:inputType="textFilter|textMultiLine"
+                android:isScrollContainer="true"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/edit_text_spacer_top"
+                android:lines="6"
+                android:maxLength="@integer/note_char_limit"
                 android:textSize="@dimen/normal_text_size" />
             <TextView
-                android:id="@+id/percentage_error_text_view"
+                android:id="@+id/note_error_text_view"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:paddingLeft="@dimen/edit_text_text_view_padding_left"

@@ -6,7 +6,6 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:background="@drawable/dashed_border"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
