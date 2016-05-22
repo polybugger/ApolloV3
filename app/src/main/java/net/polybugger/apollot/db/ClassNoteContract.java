@@ -220,7 +220,9 @@ public class ClassNoteContract {
             else
                 sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE, context.getResources().getConfiguration().locale);
 
-            StringBuilder note = new StringBuilder(sdf.format(mDateCreated));
+            StringBuilder note = new StringBuilder("<b>");
+            note.append(sdf.format(mDateCreated));
+            note.append("</b>");
             note.append(" - ");
             note.append(mNote);
             return note.toString();

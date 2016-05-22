@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.NestedScrollView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,7 @@ public class ClassInfoFragment extends Fragment {
 
     private ClassContract.ClassEntry mClass;
 
+    private NestedScrollView mNestedScrollView;
     private LinearLayout mBackgroundLayout;
     private TextView mTitleTextView;
     private TextView mAcademicTermTextView;
@@ -90,6 +93,7 @@ public class ClassInfoFragment extends Fragment {
         mClass = (ClassContract.ClassEntry) args.getSerializable(CLASS_ARG);
 
         View view = inflater.inflate(R.layout.fragment_class_info, container, false);
+        mNestedScrollView = (NestedScrollView) view.findViewById(R.id.nested_scroll_view);
         mBackgroundLayout = (LinearLayout) view.findViewById(R.id.background_layout);
         mTitleTextView = (TextView) view.findViewById(R.id.title_text_view);
         mAcademicTermTextView = (TextView) view.findViewById(R.id.academic_term_text_view);
@@ -246,10 +250,12 @@ public class ClassInfoFragment extends Fragment {
         if(id != -1) {
             classSchedule.setId(id);
             mScheduleList.add(classSchedule);
-            mScheduleLinearLayout.addView(getScheduleView(getActivity().getLayoutInflater(), classSchedule, mEditScheduleClickListener, mRemoveScheduleClickListener));
+            final View view = getScheduleView(getActivity().getLayoutInflater(), classSchedule, mEditScheduleClickListener, mRemoveScheduleClickListener);
+            mScheduleLinearLayout.addView(view);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    mNestedScrollView.smoothScrollTo(0, view.getBottom());
                     Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_schedule_added), Snackbar.LENGTH_SHORT).show();
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
@@ -260,12 +266,13 @@ public class ClassInfoFragment extends Fragment {
         int position = mScheduleList.indexOf(classSchedule);
         if(position != -1) {
             mScheduleList.set(position, classSchedule);
-            View view = mScheduleLinearLayout.getChildAt(position);
+            final View view = mScheduleLinearLayout.getChildAt(position);
             if(view != null)
                 _getScheduleView(view, classSchedule, mEditScheduleClickListener, mRemoveScheduleClickListener);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    mNestedScrollView.smoothScrollTo(0, view.getBottom());
                     Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_schedule_updated), Snackbar.LENGTH_SHORT).show();
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
@@ -277,7 +284,6 @@ public class ClassInfoFragment extends Fragment {
         if(childPosition != -1) {
             mScheduleList.remove(childPosition);
             mScheduleLinearLayout.removeViewAt(childPosition);
-
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -291,7 +297,8 @@ public class ClassInfoFragment extends Fragment {
         if(id != -1) {
             classGradeBreakdown.setId(id);
             mGradeBreakdownList.add(classGradeBreakdown);
-            mGradeBreakdownLinearLayout.addView(getGradeBreakdownView(getActivity().getLayoutInflater(), classGradeBreakdown, mEditGradeBreakdownClickListener, mRemoveGradeBreakdownClickListener));
+            final View view = getGradeBreakdownView(getActivity().getLayoutInflater(), classGradeBreakdown, mEditGradeBreakdownClickListener, mRemoveGradeBreakdownClickListener);
+            mGradeBreakdownLinearLayout.addView(view);
             float totalPercentage = (float) mTotalPercentageTextView.getTag();
             totalPercentage = totalPercentage + classGradeBreakdown.getPercentage();
             mTotalPercentageTextView.setText(String.format("%.2f%%", totalPercentage));
@@ -299,6 +306,7 @@ public class ClassInfoFragment extends Fragment {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    mNestedScrollView.smoothScrollTo(0, view.getBottom());
                     Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_grade_breakdown_added), Snackbar.LENGTH_SHORT).show();
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
@@ -309,7 +317,7 @@ public class ClassInfoFragment extends Fragment {
         int position = mGradeBreakdownList.indexOf(classGradeBreakdown);
         if(position != -1) {
             mGradeBreakdownList.set(position, classGradeBreakdown);
-            View view = mGradeBreakdownLinearLayout.getChildAt(position);
+            final View view = mGradeBreakdownLinearLayout.getChildAt(position);
             if(view != null)
                 _getGradeBreakdownView(view, classGradeBreakdown, mEditGradeBreakdownClickListener, mRemoveGradeBreakdownClickListener);
             float totalPercentage = 0f;
@@ -321,6 +329,7 @@ public class ClassInfoFragment extends Fragment {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    mNestedScrollView.smoothScrollTo(0, view.getBottom());
                     Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_grade_breakdown_updated), Snackbar.LENGTH_SHORT).show();
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
@@ -349,10 +358,12 @@ public class ClassInfoFragment extends Fragment {
         if(id != -1) {
             classNote.setId(id);
             mClassNoteList.add(classNote);
-            mClassNoteLinearLayout.addView(getClassNoteView(getActivity().getLayoutInflater(), classNote, mEditClassNoteClickListener, mRemoveClassNoteClickListener));
+            final View view = getClassNoteView(getActivity().getLayoutInflater(), classNote, mEditClassNoteClickListener, mRemoveClassNoteClickListener);
+            mClassNoteLinearLayout.addView(view);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    mNestedScrollView.smoothScrollTo(0, view.getBottom());
                     Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_note_added), Snackbar.LENGTH_SHORT).show();
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
@@ -363,12 +374,13 @@ public class ClassInfoFragment extends Fragment {
         int position = mClassNoteList.indexOf(classNote);
         if(position != -1) {
             mClassNoteList.set(position, classNote);
-            View view = mClassNoteLinearLayout.getChildAt(position);
+            final View view = mClassNoteLinearLayout.getChildAt(position);
             if(view != null)
                 _getClassNoteView(view, classNote, mEditClassNoteClickListener, mRemoveClassNoteClickListener);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    mNestedScrollView.smoothScrollTo(0, view.getBottom());
                     Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_note_updated), Snackbar.LENGTH_SHORT).show();
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
@@ -433,7 +445,7 @@ public class ClassInfoFragment extends Fragment {
     }
 
     private View _getClassNoteView(View view, ClassNoteContract.ClassNoteEntry classNote, View.OnClickListener editClickListener, View.OnClickListener removeClickListener) {
-        ((TextView) view.findViewById(R.id.date_created_note_text_view)).setText(classNote.getDateCreatedNote(getContext()));
+        ((TextView) view.findViewById(R.id.date_created_note_text_view)).setText(Html.fromHtml(classNote.getDateCreatedNote(getContext())));
         LinearLayout editLinearLayout = (LinearLayout) view.findViewById(R.id.note_clickable_layout);
         editLinearLayout.setTag(classNote);
         editLinearLayout.setOnClickListener(editClickListener);

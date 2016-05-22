@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
@@ -40,7 +41,7 @@ public class ClassNoteDeleteDialogFragment extends AppCompatDialogFragment {
         final ClassNoteContract.ClassNoteEntry entry = (ClassNoteContract.ClassNoteEntry) args.getSerializable(ENTRY_ARG);
         final String fragmentTag = args.getString(FRAGMENT_TAG_ARG);
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_class_note_delete, null);
-        ((TextView) view.findViewById(R.id.date_created_note_text_view)).setText(entry.getDateCreatedNote(getContext()));
+        ((TextView) view.findViewById(R.id.date_created_note_text_view)).setText(Html.fromHtml(entry.getDateCreatedNote(getContext())));
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.remove_class_note)
                 .setView(view)
