@@ -93,7 +93,6 @@ public class ClassNoteInsertUpdateDialogFragment extends AppCompatDialogFragment
                     mNoteErrorTextView.setText(" ");
             }
         });
-
         Context context = getContext();
         final SimpleDateFormat sdf;
         if(StringUtils.equalsIgnoreCase(context.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE))
@@ -110,7 +109,6 @@ public class ClassNoteInsertUpdateDialogFragment extends AppCompatDialogFragment
             mNoteDateButton.setTag(noteDate);
         }
         mNoteEditText.setText(mEntry.getNote());
-
         mAlertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(args.getString(TITLE_ARG))
                 .setView(view)

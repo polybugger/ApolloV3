@@ -305,6 +305,28 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     }
 
     @Override
+    public void onInsertClassNote(ClassNoteContract.ClassNoteEntry classNote, long id, String fragmentTag) {
+        if(classNote.getId() == -1) {
+            FragmentManager fm = getSupportFragmentManager();
+            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
+            if(f1 != null) {
+                f1.insertClassNote(classNote, id, fragmentTag);
+            }
+        }
+    }
+
+    @Override
+    public void onUpdateClassNote(ClassNoteContract.ClassNoteEntry classNote, int rowsUpdated, String fragmentTag) {
+        if(rowsUpdated > 0) {
+            FragmentManager fm = getSupportFragmentManager();
+            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
+            if(f1 != null) {
+                f1.updateClassNote(classNote, rowsUpdated, fragmentTag);
+            }
+        }
+    }
+
+    @Override
     public void onGetClassNotes(ArrayList<ClassNoteContract.ClassNoteEntry> classNotes, String fragmentTag) {
         FragmentManager fm = getSupportFragmentManager();
         ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
@@ -378,7 +400,14 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
 
     @Override
     public void onConfirmInsertUpdateClassNote(ClassNoteContract.ClassNoteEntry entry, String fragmentTag) {
-
+        ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+        if(rf != null) {
+            entry.setClassId(mClass.getId()); // capture class id here
+            if(entry.getId() == -1)
+                rf.insertClassNote(entry, fragmentTag);
+            else
+                rf.updateClassNote(entry, fragmentTag);
+        }
     }
 
     @Override

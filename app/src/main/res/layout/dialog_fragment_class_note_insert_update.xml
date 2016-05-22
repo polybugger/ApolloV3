@@ -50,7 +50,7 @@
                 android:background="@android:color/transparent"
                 android:hint="@string/note_char_limit_hint"
                 android:gravity="left|top"
-                android:inputType="textFilter|textMultiLine"
+                android:inputType="textFilter|textMultiLine|textCapSentences"
                 android:isScrollContainer="true"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"

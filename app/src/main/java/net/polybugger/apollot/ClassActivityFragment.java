@@ -31,6 +31,8 @@ public class ClassActivityFragment extends Fragment {
         void onInsertClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, long id, String fragmentTag);
         void onUpdateClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsUpdated, String fragmentTag);
         void onDeleteClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsDeleted, String fragmentTag);
+        void onInsertClassNote(ClassNoteContract.ClassNoteEntry classNote, long id, String fragmentTag);
+        void onUpdateClassNote(ClassNoteContract.ClassNoteEntry classNote, int rowsUpdated, String fragmentTag);
         void onGetClassNotes(ArrayList<ClassNoteContract.ClassNoteEntry> classNotes, String fragmentTag);
     }
 
@@ -104,6 +106,20 @@ public class ClassActivityFragment extends Fragment {
         params.mClassGradeBreakdown = classGradeBreakdown;
         params.mFragmentTag = fragmentTag;
         new DeleteClassGradeBreakdownAsyncTask().execute(params);
+    }
+
+    public void insertClassNote(ClassNoteContract.ClassNoteEntry classNote, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassNote = classNote;
+        params.mFragmentTag = fragmentTag;
+        new InsertClassNoteAsyncTask().execute(params);
+    }
+
+    public void updateClassNote(ClassNoteContract.ClassNoteEntry classNote, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassNote = classNote;
+        params.mFragmentTag = fragmentTag;
+        new UpdateClassNoteAsyncTask().execute(params);
     }
 
     public void getClassSchedules(ClassContract.ClassEntry _class, String fragmentTag) {
@@ -249,6 +265,48 @@ public class ClassActivityFragment extends Fragment {
         protected void onPostExecute(AsyncTaskResult result) {
             if(mListener != null) {
                 mListener.onDeleteClassGradeBreakdown(result.mClassGradeBreakdown, result.mRowsDeleted, result.mFragmentTag);
+            }
+        }
+    }
+
+    private class InsertClassNoteAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassNote = params[0].mClassNote;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mId = ClassNoteContract._insert(db, result.mClassNote.getClassId(), result.mClassNote.getNote(), result.mClassNote.getDateCreated());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onInsertClassNote(result.mClassNote, result.mId, result.mFragmentTag);
+            }
+        }
+    }
+
+    private class UpdateClassNoteAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassNote = params[0].mClassNote;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mRowsUpdated = ClassNoteContract._update(db, result.mClassNote.getId(), result.mClassNote.getClassId(), result.mClassNote.getNote(), result.mClassNote.getDateCreated());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onUpdateClassNote(result.mClassNote, result.mRowsUpdated, result.mFragmentTag);
             }
         }
     }
@@ -399,6 +457,7 @@ public class ClassActivityFragment extends Fragment {
         public ClassContract.ClassEntry mClass;
         public ClassScheduleContract.ClassScheduleEntry mClassSchedule;
         public ClassGradeBreakdownContract.ClassGradeBreakdownEntry mClassGradeBreakdown;
+        public ClassNoteContract.ClassNoteEntry mClassNote;
         public boolean mPasswordMatched;
         public int mRowsUpdated;
         public int mRowsDeleted;
@@ -413,6 +472,7 @@ public class ClassActivityFragment extends Fragment {
     private class AsyncTaskParams {
         public ClassContract.ClassEntry mClass;
         public ClassScheduleContract.ClassScheduleEntry mClassSchedule;
+        public ClassNoteContract.ClassNoteEntry mClassNote;
         public ClassGradeBreakdownContract.ClassGradeBreakdownEntry mClassGradeBreakdown;
         public String mPassword;
         public String mFragmentTag;

@@ -171,7 +171,6 @@
     <string name="please_select_a_class_activity">Please select a class activity!</string>
     <string name="please_enter_a_breakdown_percentage">Please enter a breakdown percentage!</string>
 
-
     <string name="new_class_note">New class note?</string>
     <string name="update_class_note">Update class note?</string>
     <string name="remove_class_note">Remove class note?</string>
@@ -180,5 +179,7 @@
     <string name="please_input_a_note_date">Please input a note date!</string>
     <string name="please_write_a_note">Please write a note!</string>
     <string name="characters_left">character(s) left.</string>
+    <string name="class_note_added">Class note added.</string>
+    <string name="class_note_updated">Class note updated.</string>
 
 </resources>

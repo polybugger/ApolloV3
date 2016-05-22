@@ -286,12 +286,10 @@ public class ClassInfoFragment extends Fragment {
             classGradeBreakdown.setId(id);
             mGradeBreakdownList.add(classGradeBreakdown);
             mGradeBreakdownLinearLayout.addView(getGradeBreakdownView(getActivity().getLayoutInflater(), classGradeBreakdown, mEditGradeBreakdownClickListener, mRemoveGradeBreakdownClickListener));
-
             float totalPercentage = (float) mTotalPercentageTextView.getTag();
             totalPercentage = totalPercentage + classGradeBreakdown.getPercentage();
             mTotalPercentageTextView.setText(String.format("%.2f%%", totalPercentage));
             mTotalPercentageTextView.setTag(totalPercentage);
-
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -328,16 +326,44 @@ public class ClassInfoFragment extends Fragment {
         if(childPosition != -1) {
             mGradeBreakdownList.remove(childPosition);
             mGradeBreakdownLinearLayout.removeViewAt(childPosition);
-
             float totalPercentage = (float) mTotalPercentageTextView.getTag();
             totalPercentage = totalPercentage - classGradeBreakdown.getPercentage();
             mTotalPercentageTextView.setText(String.format("%.2f%%", totalPercentage));
             mTotalPercentageTextView.setTag(totalPercentage);
-
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_grade_breakdown_removed), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
+    }
+
+    public void insertClassNote(ClassNoteContract.ClassNoteEntry classNote, long id, String fragmentTag) {
+        if(id != -1) {
+            classNote.setId(id);
+            mClassNoteList.add(classNote);
+            mClassNoteLinearLayout.addView(getClassNoteView(getActivity().getLayoutInflater(), classNote, mEditClassNoteClickListener, mRemoveClassNoteClickListener));
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_note_added), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
+    }
+
+    public void updateClassNote(ClassNoteContract.ClassNoteEntry classNote, int rowsUpdated, String fragmentTag) {
+        int position = mClassNoteList.indexOf(classNote);
+        if(position != -1) {
+            mClassNoteList.set(position, classNote);
+            View view = mClassNoteLinearLayout.getChildAt(position);
+            if(view != null)
+                _getClassNoteView(view, classNote, mEditClassNoteClickListener, mRemoveClassNoteClickListener);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_note_updated), Snackbar.LENGTH_SHORT).show();
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
         }
