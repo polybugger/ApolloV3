@@ -181,5 +181,6 @@
     <string name="characters_left">character(s) left.</string>
     <string name="class_note_added">Class note added.</string>
     <string name="class_note_updated">Class note updated.</string>
+    <string name="class_note_removed">Class note removed.</string>
 
 </resources>

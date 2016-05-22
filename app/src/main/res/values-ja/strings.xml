@@ -176,5 +176,8 @@
     <string name="please_input_a_note_date">メモ日付を入れてください！</string>
     <string name="please_write_a_note">メモを記入してください！</string>
     <string name="characters_left">あと～文字です。</string>
+    <string name="class_note_added">メモ追加済み。</string>
+    <string name="class_note_updated">メモ更新済み。</string>
+    <string name="class_note_removed">メモ削除済み。</string>
 
 </resources>

@@ -36,7 +36,8 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         ClassGradeBreakdownDeleteDialogFragment.Listener,
         ClassGradeBreakdownInsertUpdateDialogFragment.Listener,
         ClassNoteInsertUpdateDialogFragment.Listener,
-        DatePickerDialogFragment.Listener {
+        DatePickerDialogFragment.Listener,
+        ClassNoteDeleteDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
@@ -327,6 +328,17 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     }
 
     @Override
+    public void onDeleteClassNote(ClassNoteContract.ClassNoteEntry classNote, int rowsDeleted, String fragmentTag) {
+        if(rowsDeleted > 0) {
+            FragmentManager fm = getSupportFragmentManager();
+            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
+            if(f1 != null) {
+                f1.deleteClassNote(classNote, rowsDeleted, fragmentTag);
+            }
+        }
+    }
+
+    @Override
     public void onGetClassNotes(ArrayList<ClassNoteContract.ClassNoteEntry> classNotes, String fragmentTag) {
         FragmentManager fm = getSupportFragmentManager();
         ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
@@ -415,6 +427,13 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         ClassNoteInsertUpdateDialogFragment df = (ClassNoteInsertUpdateDialogFragment) getSupportFragmentManager().findFragmentByTag(dialogFragmentTag);
         if(df != null)
             df.setButtonDate(date, buttonId);
+    }
+
+    @Override
+    public void onConfirmDeleteClassNote(ClassNoteContract.ClassNoteEntry entry, String fragmentTag) {
+        ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+        if(rf != null)
+            rf.deleteClassNote(entry, fragmentTag);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

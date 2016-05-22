@@ -33,6 +33,7 @@ public class ClassActivityFragment extends Fragment {
         void onDeleteClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsDeleted, String fragmentTag);
         void onInsertClassNote(ClassNoteContract.ClassNoteEntry classNote, long id, String fragmentTag);
         void onUpdateClassNote(ClassNoteContract.ClassNoteEntry classNote, int rowsUpdated, String fragmentTag);
+        void onDeleteClassNote(ClassNoteContract.ClassNoteEntry classNote, int rowsDeleted, String fragmentTag);
         void onGetClassNotes(ArrayList<ClassNoteContract.ClassNoteEntry> classNotes, String fragmentTag);
     }
 
@@ -120,6 +121,13 @@ public class ClassActivityFragment extends Fragment {
         params.mClassNote = classNote;
         params.mFragmentTag = fragmentTag;
         new UpdateClassNoteAsyncTask().execute(params);
+    }
+
+    public void deleteClassNote(ClassNoteContract.ClassNoteEntry classNote, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassNote = classNote;
+        params.mFragmentTag = fragmentTag;
+        new DeleteClassNoteAsyncTask().execute(params);
     }
 
     public void getClassSchedules(ClassContract.ClassEntry _class, String fragmentTag) {
@@ -307,6 +315,27 @@ public class ClassActivityFragment extends Fragment {
         protected void onPostExecute(AsyncTaskResult result) {
             if(mListener != null) {
                 mListener.onUpdateClassNote(result.mClassNote, result.mRowsUpdated, result.mFragmentTag);
+            }
+        }
+    }
+
+    private class DeleteClassNoteAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassNote = params[0].mClassNote;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mRowsDeleted = ClassNoteContract._delete(db, result.mClassNote.getId());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onDeleteClassNote(result.mClassNote, result.mRowsDeleted, result.mFragmentTag);
             }
         }
     }

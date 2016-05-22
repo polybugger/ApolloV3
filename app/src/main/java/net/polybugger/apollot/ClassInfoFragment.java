@@ -159,6 +159,12 @@ public class ClassInfoFragment extends Fragment {
         mRemoveClassNoteClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                ClassNoteDeleteDialogFragment df = (ClassNoteDeleteDialogFragment) fm.findFragmentByTag(ClassNoteDeleteDialogFragment.TAG);
+                if(df == null) {
+                    df = ClassNoteDeleteDialogFragment.newInstance((ClassNoteContract.ClassNoteEntry) v.getTag(), getTag());
+                    df.show(fm, ClassNoteDeleteDialogFragment.TAG);
+                }
             }
         };
         mEditClassNoteClickListener = new View.OnClickListener() {
@@ -364,6 +370,20 @@ public class ClassInfoFragment extends Fragment {
                 @Override
                 public void run() {
                     Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_note_updated), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
+    }
+
+    public void deleteClassNote(ClassNoteContract.ClassNoteEntry classNote, int rowsDeleted, String fragmentTag) {
+        int childPosition = mClassNoteList.indexOf(classNote);
+        if(childPosition != -1) {
+            mClassNoteList.remove(childPosition);
+            mClassNoteLinearLayout.removeViewAt(childPosition);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_note_removed), Snackbar.LENGTH_SHORT).show();
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
         }
