@@ -115,8 +115,8 @@
 
     <string name="class_added">授業追加済み。</string>
     <string name="class_updated">授業更新済み。</string>
-    <string name="lock_class">授業情報をロックします。</string>
-    <string name="unlock_class">授業情報ロックの解除</string>
+    <string name="lock_class">授業をロック</string>
+    <string name="unlock_class">授業ロックの解除</string>
     <string name="unlock">ロック解除</string>
     <string name="lock">ロック</string>
     <string name="ellipsis">。。。</string>
@@ -167,7 +167,6 @@
 
     <string name="please_select_a_class_activity">アクティビティーを選んでください！</string>
     <string name="please_enter_a_breakdown_percentage">パーセンテージを記入してください！</string>
-
 
     <string name="new_class_note">新しいメモを設定しますか？</string>
     <string name="update_class_note">メモを更新しますか？</string>
