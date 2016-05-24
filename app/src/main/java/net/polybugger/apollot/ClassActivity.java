@@ -41,6 +41,8 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
+    public static boolean REQUERY_CLASS = false;
+
     private static final int INFO_TAB = 0;
     private static final int ITEMS_TAB = 1;
     private static final int STUDENTS_TAB = 2;
@@ -147,6 +149,20 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         ClassesFragment.REQUERY_CLASS = true;
         ClassesFragment.CLASS = mClass;
         super.onBackPressed();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(REQUERY_CLASS) {
+            ClassActivityFragment f = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+            if(f != null)
+                f.requeryClass(mClass);
+            REQUERY_CLASS = false;
+        }
+        else {
+
+        }
     }
 
     @Override
@@ -347,6 +363,17 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         }
     }
 
+    // TODO requery other fragments if necessary
+    @Override
+    public void onRequeryClass(ClassContract.ClassEntry _class) {
+        mClass = _class;
+        FragmentManager fm = getSupportFragmentManager();
+        ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(getFragmentTag(INFO_TAB));
+        if(f1 != null) {
+            f1.requeryClass(_class);
+        }
+    }
+
     @Override
     public void onConfirmInsertUpdateClass(ClassContract.ClassEntry _class) {
         ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
@@ -459,7 +486,7 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
                     });
                     return ClassInfoFragment.newInstance(mClass);
                 case ITEMS_TAB:
-                    return ClassInfoFragment.newInstance(mClass);
+                    return ClassItemsFragment.newInstance(mClass);
                 case STUDENTS_TAB:
                     return ClassInfoFragment.newInstance(mClass);
             }

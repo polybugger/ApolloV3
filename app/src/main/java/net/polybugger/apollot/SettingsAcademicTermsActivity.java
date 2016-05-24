@@ -72,6 +72,7 @@ public class SettingsAcademicTermsActivity extends AppCompatActivity implements 
     @Override
     public void onBackPressed() {
         ClassesFragment.REQUERY = true;
+        ClassActivity.REQUERY_CLASS = true;
         super.onBackPressed();
     }
 

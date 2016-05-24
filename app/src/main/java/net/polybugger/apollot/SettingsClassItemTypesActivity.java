@@ -72,6 +72,7 @@ public class SettingsClassItemTypesActivity extends AppCompatActivity implements
     @Override
     public void onBackPressed() {
         ClassesFragment.REQUERY = true;
+        ClassInfoFragment.REQUERY_GRADE_BREAKDOWNS = true;
         super.onBackPressed();
     }
 

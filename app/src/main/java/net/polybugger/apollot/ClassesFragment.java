@@ -211,20 +211,6 @@ public class ClassesFragment extends Fragment {
             notifyDataSetChanged();
         }
 
-        /*
-        public void update(AcademicTermContract.AcademicTermEntry entry) {
-            int pos = mArrayList.indexOf(entry);
-            mArrayList.remove(pos);
-            mArrayList.add(pos, entry);
-            notifyDataSetChanged();
-        }
-
-        public void remove(AcademicTermContract.AcademicTermEntry entry) {
-            mArrayList.remove(entry);
-            notifyDataSetChanged();
-        }
-        */
-
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_class_summary, parent, false));

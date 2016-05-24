@@ -35,6 +35,7 @@ public class ClassActivityFragment extends Fragment {
         void onUpdateClassNote(ClassNoteContract.ClassNoteEntry classNote, int rowsUpdated, String fragmentTag);
         void onDeleteClassNote(ClassNoteContract.ClassNoteEntry classNote, int rowsDeleted, String fragmentTag);
         void onGetClassNotes(ArrayList<ClassNoteContract.ClassNoteEntry> classNotes, String fragmentTag);
+        void onRequeryClass(ClassContract.ClassEntry _class);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_activity_fragment";
@@ -149,6 +150,10 @@ public class ClassActivityFragment extends Fragment {
         params.mClass = _class;
         params.mFragmentTag = fragmentTag;
         new GetClassNotesAsyncTask().execute(params);
+    }
+
+    public void requeryClass(ClassContract.ClassEntry _class) {
+        new RequeryClassAsyncTask().execute(_class);
     }
 
     private class InsertClassScheduleAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
@@ -459,6 +464,24 @@ public class ClassActivityFragment extends Fragment {
         protected void onPostExecute(AsyncTaskResult result) {
             if(mListener != null) {
                 mListener.onGetClassNotes(result.mClassNotes, result.mFragmentTag);
+            }
+        }
+    }
+
+    private class RequeryClassAsyncTask extends AsyncTask<ClassContract.ClassEntry, Integer, ClassContract.ClassEntry> {
+
+        @Override
+        protected ClassContract.ClassEntry doInBackground(ClassContract.ClassEntry... _class) {
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            ClassContract.ClassEntry requeryClass = ClassContract._getEntry(db, _class[0].getId());
+            ApolloDbAdapter.close();
+            return requeryClass;
+        }
+
+        @Override
+        protected void onPostExecute(ClassContract.ClassEntry _class) {
+            if(mListener != null) {
+                mListener.onRequeryClass(_class);
             }
         }
     }

@@ -33,6 +33,8 @@ public class ClassInfoFragment extends Fragment {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
+    public static boolean REQUERY_GRADE_BREAKDOWNS = false;
+
     private ClassContract.ClassEntry mClass;
 
     private NestedScrollView mNestedScrollView;
@@ -193,6 +195,21 @@ public class ClassInfoFragment extends Fragment {
         }
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // requery class is handled by activity
+        if(REQUERY_GRADE_BREAKDOWNS) {
+            ClassActivityFragment f = (ClassActivityFragment) getFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+            if(f != null)
+                f.getGradeBreakdowns(mClass, getTag());
+            REQUERY_GRADE_BREAKDOWNS = false;
+        }
+        else {
+
+        }
     }
 
     public void updateClass(ClassContract.ClassEntry _class, int rowsUpdated) {
@@ -399,6 +416,11 @@ public class ClassInfoFragment extends Fragment {
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
         }
+    }
+
+    public void requeryClass(ClassContract.ClassEntry _class) {
+        mClass = _class;
+        populateClassInfo();
     }
 
     private View getScheduleView(LayoutInflater inflater, ClassScheduleContract.ClassScheduleEntry schedule, View.OnClickListener editClickListener, View.OnClickListener removeClickListener) {
