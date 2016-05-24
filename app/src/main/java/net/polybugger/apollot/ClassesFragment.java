@@ -13,6 +13,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -20,6 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -78,6 +83,7 @@ public class ClassesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         Bundle args = getArguments();
         mPastCurrent = (PastCurrentEnum) args.getSerializable(PAST_CURRENT_ARG);
         switch(mPastCurrent) {
@@ -131,6 +137,32 @@ public class ClassesFragment extends Fragment {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch(id) {
+            case R.id.action_sort_class_code:
+                mAdapter.sortBy(R.id.action_sort_class_code);
+                return true;
+            case R.id.action_sort_class_description:
+                mAdapter.sortBy(R.id.action_sort_class_description);
+                return true;
+            case R.id.action_sort_academic_term:
+                mAdapter.sortBy(R.id.action_sort_academic_term);
+                return true;
+            case R.id.action_sort_year:
+                mAdapter.sortBy(R.id.action_sort_year);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_classes, menu);
+    }
+
     public void onGetClassesSummary(ArrayList<ClassSummary> arrayList, PastCurrentEnum pastCurrent) {
         mAdapter.setArrayList(arrayList);
     }
@@ -158,9 +190,67 @@ public class ClassesFragment extends Fragment {
         private Fragment mFragment;
         private ArrayList<ClassSummary> mArrayList;
 
+        private int mSortId;
+
+        private Comparator<ClassSummary> mComparator;
+
         public Adapter(Fragment fragment) {
             mFragment = fragment;
             mArrayList = new ArrayList<>();
+            mComparator = new Comparator<ClassSummary>() {
+                @Override
+                public int compare(ClassSummary lhs, ClassSummary rhs) {
+                    if(mSortId == R.id.action_sort_class_code) {
+                        return lhs.mClass.getCode().compareToIgnoreCase(rhs.mClass.getCode());
+                    }
+                    else if(-mSortId == R.id.action_sort_class_code) {
+                        return -lhs.mClass.getCode().compareToIgnoreCase(rhs.mClass.getCode());
+                    }
+                    else if(mSortId == R.id.action_sort_class_description) {
+                        return lhs.mClass.getDescription().compareToIgnoreCase(rhs.mClass.getDescription());
+                    }
+                    else if(-mSortId == R.id.action_sort_class_description) {
+                        return -lhs.mClass.getDescription().compareToIgnoreCase(rhs.mClass.getDescription());
+                    }
+                    else if(mSortId == R.id.action_sort_academic_term) {
+                        AcademicTermContract.AcademicTermEntry lat = lhs.mClass.getAcademicTerm();
+                        AcademicTermContract.AcademicTermEntry rat = rhs.mClass.getAcademicTerm();
+                        if(lat == null)
+                            return 1;
+                        if(rat == null)
+                            return -1;
+                        return lat.getDescription().compareToIgnoreCase(rat.getDescription());
+                    }
+                    else if(-mSortId == R.id.action_sort_academic_term) {
+                        AcademicTermContract.AcademicTermEntry lat = lhs.mClass.getAcademicTerm();
+                        AcademicTermContract.AcademicTermEntry rat = rhs.mClass.getAcademicTerm();
+                        if(lat == null)
+                            return -1;
+                        if(rat == null)
+                            return 1;
+                        return -lat.getDescription().compareToIgnoreCase(rat.getDescription());
+                    }
+                    else if(mSortId == R.id.action_sort_year) {
+                        Long lYear = lhs.mClass.getYear();
+                        Long rYear = rhs.mClass.getYear();
+                        if(lYear == null)
+                            return 1;
+                        if(rYear == null)
+                            return -1;
+                        return (lYear < rYear ? -1 : 1);
+                    }
+                    else if(-mSortId == R.id.action_sort_year) {
+                        Long lYear = lhs.mClass.getYear();
+                        Long rYear = rhs.mClass.getYear();
+                        if(lYear == null)
+                            return -1;
+                        if(rYear == null)
+                            return 1;
+                        return (lYear < rYear ? 1 : -1);
+                    }
+                    return 0;
+                }
+            };
         }
 
         public void setArrayList(ArrayList<ClassSummary> arrayList) {
@@ -208,6 +298,12 @@ public class ClassesFragment extends Fragment {
             if(pos < size)
                 mArrayList.remove(pos);
             mArrayList.add(pos, classSummary);
+            notifyDataSetChanged();
+        }
+
+        public void sortBy(final int sortId) {
+            mSortId = (mSortId == sortId) ? -sortId : sortId;
+            Collections.sort(mArrayList, mComparator);
             notifyDataSetChanged();
         }
 
