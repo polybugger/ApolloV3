@@ -183,4 +183,8 @@
     <string name="class_note_updated">Class note updated.</string>
     <string name="class_note_removed">Class note removed.</string>
 
+    <string name="check_attendance">Check Attendance</string>
+    <string name="perfect_score_label">Perfect Score:</string>
+    <string name="submission_due_date_label">Submission Due Date:</string>
+
 </resources>

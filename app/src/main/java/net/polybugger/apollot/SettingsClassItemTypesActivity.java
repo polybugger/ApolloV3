@@ -212,6 +212,11 @@ public class SettingsClassItemTypesActivity extends AppCompatActivity implements
                 layoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin * 2);
                 holder.mBackgroundLayout.setLayoutParams(layoutParams);
             }
+            else {
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mBackgroundLayout.getLayoutParams();
+                layoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
+                holder.mBackgroundLayout.setLayoutParams(layoutParams);
+            }
             holder.mClickableLayout.setTag(entry);
             holder.mClickableLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

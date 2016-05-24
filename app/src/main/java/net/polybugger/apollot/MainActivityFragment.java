@@ -93,7 +93,7 @@ public class MainActivityFragment extends Fragment {
         protected AsyncTaskResult doInBackground(PastCurrentEnum... pastCurrent) {
             AsyncTaskResult result = new AsyncTaskResult();
             result.mPastCurrent = pastCurrent[0];
-            result.mClassSummaries = new ArrayList<>();
+            result.mClassesSummary = new ArrayList<>();
             SQLiteDatabase db = ApolloDbAdapter.open();
             ArrayList<ClassContract.ClassEntry> classes = ClassContract._getEntriesByPastCurrent(db, result.mPastCurrent);
             for(ClassContract.ClassEntry _class : classes) {
@@ -104,7 +104,7 @@ public class MainActivityFragment extends Fragment {
                     classSummary.mStudentCount = ClassStudentContract._getCount(db, classId);
                     classSummary.mItemSummaryCount = ClassItemContract._getItemSummaryCount(db, classId);
                 }
-                result.mClassSummaries.add(classSummary);
+                result.mClassesSummary.add(classSummary);
             }
             ApolloDbAdapter.close();
             return result;
@@ -113,7 +113,7 @@ public class MainActivityFragment extends Fragment {
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
             if(mListener != null) {
-                mListener.onGetClassesSummary(result.mClassSummaries, result.mPastCurrent);
+                mListener.onGetClassesSummary(result.mClassesSummary, result.mPastCurrent);
             }
         }
     }
@@ -212,7 +212,7 @@ public class MainActivityFragment extends Fragment {
 
     private class AsyncTaskResult {
         public PastCurrentEnum mPastCurrent;
-        public ArrayList<ClassesFragment.ClassSummary> mClassSummaries;
+        public ArrayList<ClassesFragment.ClassSummary> mClassesSummary;
         public String mFragmentTag;
         // public ArrayList<AcademicTermContract.AcademicTermEntry> mAcademicTerms;
         public ClassContract.ClassEntry mClass;
