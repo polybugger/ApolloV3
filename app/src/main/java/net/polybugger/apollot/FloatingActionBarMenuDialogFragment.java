@@ -21,11 +21,13 @@ public class FloatingActionBarMenuDialogFragment extends AppCompatDialogFragment
 
     public static final String TAG = "net.polybugger.apollot.floating_action_bar_menu_dialog_fragment";
     public static final String FRAGMENT_TAG_ARG = "net.polybugger.apollot.fragment_tag_arg";
+    public static final String FAB_MODE_ARG = "net.polybugger.apollot.fab_mode_arg";
 
-    public static FloatingActionBarMenuDialogFragment newInstance(String fragmentTag) {
+    public static FloatingActionBarMenuDialogFragment newInstance(String fragmentTag, FABMode fabMode) {
         FloatingActionBarMenuDialogFragment df = new FloatingActionBarMenuDialogFragment();
         Bundle args = new Bundle();
         args.putString(FRAGMENT_TAG_ARG, fragmentTag);
+        args.putSerializable(FAB_MODE_ARG, fabMode);
         df.setArguments(args);
         return df;
     }
@@ -35,45 +37,68 @@ public class FloatingActionBarMenuDialogFragment extends AppCompatDialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
         final String fragmentTag = args.getString(FRAGMENT_TAG_ARG);
-
+        FABMode fabMode = (FABMode) args.getSerializable(FAB_MODE_ARG);
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_floating_action_bar_menu, null);
 
-        view.findViewById(R.id.new_schedule_clickable_layout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-                FragmentManager fm = getFragmentManager();
-                ClassScheduleInsertUpdateDialogFragment df = (ClassScheduleInsertUpdateDialogFragment) fm.findFragmentByTag(ClassScheduleInsertUpdateDialogFragment.TAG);
-                if(df == null) {
-                    df = ClassScheduleInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_schedule), getString(R.string.add), fragmentTag);
-                    df.show(fm, ClassScheduleInsertUpdateDialogFragment.TAG);
-                }
-            }
-        });
-        view.findViewById(R.id.new_grade_breakdown_clickable_layout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-                FragmentManager fm = getFragmentManager();
-                ClassGradeBreakdownInsertUpdateDialogFragment df = (ClassGradeBreakdownInsertUpdateDialogFragment) fm.findFragmentByTag(ClassGradeBreakdownInsertUpdateDialogFragment.TAG);
-                if(df == null) {
-                    df = ClassGradeBreakdownInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_grade_breakdown), getString(R.string.add), fragmentTag);
-                    df.show(fm, ClassGradeBreakdownInsertUpdateDialogFragment.TAG);
-                }
-            }
-        });
-        view.findViewById(R.id.new_note_clickable_layout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-                FragmentManager fm = getFragmentManager();
-                ClassNoteInsertUpdateDialogFragment df = (ClassNoteInsertUpdateDialogFragment) fm.findFragmentByTag(ClassNoteInsertUpdateDialogFragment.TAG);
-                if(df == null) {
-                    df = ClassNoteInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_note), getString(R.string.add), fragmentTag);
-                    df.show(fm, ClassNoteInsertUpdateDialogFragment.TAG);
-                }
-            }
-        });
+        switch(fabMode) {
+            case CLASS_INFO_FRAGMENT:
+                view.findViewById(R.id.fragment_class_info_layout).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.new_schedule_clickable_layout).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dismiss();
+                        FragmentManager fm = getFragmentManager();
+                        ClassScheduleInsertUpdateDialogFragment df = (ClassScheduleInsertUpdateDialogFragment) fm.findFragmentByTag(ClassScheduleInsertUpdateDialogFragment.TAG);
+                        if(df == null) {
+                            df = ClassScheduleInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_schedule), getString(R.string.add), fragmentTag);
+                            df.show(fm, ClassScheduleInsertUpdateDialogFragment.TAG);
+                        }
+                    }
+                });
+                view.findViewById(R.id.new_grade_breakdown_clickable_layout).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dismiss();
+                        FragmentManager fm = getFragmentManager();
+                        ClassGradeBreakdownInsertUpdateDialogFragment df = (ClassGradeBreakdownInsertUpdateDialogFragment) fm.findFragmentByTag(ClassGradeBreakdownInsertUpdateDialogFragment.TAG);
+                        if(df == null) {
+                            df = ClassGradeBreakdownInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_grade_breakdown), getString(R.string.add), fragmentTag);
+                            df.show(fm, ClassGradeBreakdownInsertUpdateDialogFragment.TAG);
+                        }
+                    }
+                });
+                view.findViewById(R.id.new_note_clickable_layout).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dismiss();
+                        FragmentManager fm = getFragmentManager();
+                        ClassNoteInsertUpdateDialogFragment df = (ClassNoteInsertUpdateDialogFragment) fm.findFragmentByTag(ClassNoteInsertUpdateDialogFragment.TAG);
+                        if(df == null) {
+                            df = ClassNoteInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_note), getString(R.string.add), fragmentTag);
+                            df.show(fm, ClassNoteInsertUpdateDialogFragment.TAG);
+                        }
+                    }
+                });
+                break;
+            case CLASS_ITEMS_FRAGMENT:
+                view.findViewById(R.id.fragment_class_items_layout).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.new_class_item_clickable_layout).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dismiss();
+                        /*
+                        FragmentManager fm = getFragmentManager();
+                        ClassScheduleInsertUpdateDialogFragment df = (ClassScheduleInsertUpdateDialogFragment) fm.findFragmentByTag(ClassScheduleInsertUpdateDialogFragment.TAG);
+                        if(df == null) {
+                            df = ClassScheduleInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_schedule), getString(R.string.add), fragmentTag);
+                            df.show(fm, ClassScheduleInsertUpdateDialogFragment.TAG);
+                        }
+                        */
+                    }
+                });
+
+                break;
+        }
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(null)
@@ -126,4 +151,20 @@ public class FloatingActionBarMenuDialogFragment extends AppCompatDialogFragment
         super.onDetach();
     }
 
+    public enum FABMode {
+
+        CLASS_INFO_FRAGMENT(0),
+        CLASS_ITEMS_FRAGMENT(1),
+        CLASS_STUDENTS_FRAGMENT(2);
+
+        private int mValue;
+
+        private FABMode(int value) {
+            mValue = value;
+        }
+
+        public int getValue() {
+            return mValue;
+        }
+    }
 }

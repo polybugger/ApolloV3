@@ -200,6 +200,7 @@
     <string name="action_sort_perfect_score">Perfect Score</string>
     <string name="action_sort_submission_due_date">Due Date</string>
 
+    <string name="new_class_item_fab_label">New Activity</string>
 
 
     <string name="action_sort_last_name">Last Name</string>

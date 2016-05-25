@@ -79,15 +79,61 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(mClass.getTitle());
 
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                FloatingActionBarMenuDialogFragment df = (FloatingActionBarMenuDialogFragment) fm.findFragmentByTag(FloatingActionBarMenuDialogFragment.TAG);
+                if(df == null) {
+                    df = FloatingActionBarMenuDialogFragment.newInstance(getFragmentTag(INFO_TAB), FloatingActionBarMenuDialogFragment.FABMode.CLASS_INFO_FRAGMENT);
+                    df.show(fm, FloatingActionBarMenuDialogFragment.TAG);
+                }
+            }
+        });
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+            @Override
+            public void onPageSelected(final int position) {
+                final FloatingActionBarMenuDialogFragment.FABMode fabMode;
+                switch(position) {
+                    case INFO_TAB:
+                        fabMode = FloatingActionBarMenuDialogFragment.FABMode.CLASS_INFO_FRAGMENT;
+                        break;
+                    case ITEMS_TAB:
+                        fabMode = FloatingActionBarMenuDialogFragment.FABMode.CLASS_ITEMS_FRAGMENT;
+                        break;
+                    case STUDENTS_TAB:
+                        fabMode = FloatingActionBarMenuDialogFragment.FABMode.CLASS_STUDENTS_FRAGMENT;
+                        break;
+                    default:
+                        fabMode = FloatingActionBarMenuDialogFragment.FABMode.CLASS_INFO_FRAGMENT;
+                        break;
+                }
+                mFab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FragmentManager fm = getSupportFragmentManager();
+                        FloatingActionBarMenuDialogFragment df = (FloatingActionBarMenuDialogFragment) fm.findFragmentByTag(FloatingActionBarMenuDialogFragment.TAG);
+                        if(df == null) {
+                            df = FloatingActionBarMenuDialogFragment.newInstance(getFragmentTag(position), fabMode);
+                            df.show(fm, FloatingActionBarMenuDialogFragment.TAG);
+                        }
+                    }
+                });
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+        });
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
     }
 
 
@@ -480,17 +526,6 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         public Fragment getItem(final int position) {
             switch(position) {
                 case INFO_TAB:
-                    mFab.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            FragmentManager fm = getSupportFragmentManager();
-                            FloatingActionBarMenuDialogFragment df = (FloatingActionBarMenuDialogFragment) fm.findFragmentByTag(FloatingActionBarMenuDialogFragment.TAG);
-                            if(df == null) {
-                                df = FloatingActionBarMenuDialogFragment.newInstance(getFragmentTag(position));
-                                df.show(fm, FloatingActionBarMenuDialogFragment.TAG);
-                            }
-                        }
-                    });
                     return ClassInfoFragment.newInstance(mClass);
                 case ITEMS_TAB:
                     return ClassItemsFragment.newInstance(mClass);
