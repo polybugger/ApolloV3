@@ -301,7 +301,7 @@ public class ClassesFragment extends Fragment {
             notifyDataSetChanged();
         }
 
-        public void sortBy(final int sortId) {
+        public void sortBy(int sortId) {
             mSortId = (mSortId == sortId) ? -sortId : sortId;
             Collections.sort(mArrayList, mComparator);
             notifyDataSetChanged();

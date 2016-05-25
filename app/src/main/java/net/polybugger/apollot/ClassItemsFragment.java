@@ -11,6 +11,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -18,6 +21,9 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import net.polybugger.apollot.db.AcademicTermContract;
@@ -69,6 +75,7 @@ public class ClassItemsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         Bundle args = getArguments();
         mClass = (ClassContract.ClassEntry) args.getSerializable(CLASS_ARG);
 
@@ -94,6 +101,38 @@ public class ClassItemsFragment extends Fragment {
         // TODO onResume
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch(id) {
+            case R.id.action_sort_item_description:
+                mAdapter.sortBy(R.id.action_sort_item_description);
+                return true;
+            case R.id.action_sort_item_date:
+                mAdapter.sortBy(R.id.action_sort_item_date);
+                return true;
+            case R.id.action_sort_item_type:
+                mAdapter.sortBy(R.id.action_sort_item_type);
+                return true;
+            case R.id.action_sort_check_attendance:
+                mAdapter.sortBy(R.id.action_sort_check_attendance);
+                return true;
+            case R.id.action_sort_perfect_score:
+                mAdapter.sortBy(R.id.action_sort_perfect_score);
+                return true;
+            case R.id.action_sort_submission_due_date:
+                mAdapter.sortBy(R.id.action_sort_submission_due_date);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_class_items, menu);
+    }
+
     public void onGetClassItemsSummary(ArrayList<ClassItemSummary> arrayList, String fragmentTag) {
         mAdapter.setArrayList(arrayList);
     }
@@ -103,9 +142,123 @@ public class ClassItemsFragment extends Fragment {
         private Fragment mFragment;
         private ArrayList<ClassItemSummary> mArrayList;
 
+        private int mSortId;
+
+        private Comparator<ClassItemSummary> mComparator;
+
         public Adapter(Fragment fragment) {
             mFragment = fragment;
             mArrayList = new ArrayList<>();
+            mComparator = new Comparator<ClassItemSummary>() {
+                @Override
+                public int compare(ClassItemSummary lhs, ClassItemSummary rhs) {
+                    if(mSortId == R.id.action_sort_item_description) {
+                        return lhs.mClassItem.getDescription().compareToIgnoreCase(rhs.mClassItem.getDescription());
+                    }
+                    else if(-mSortId == R.id.action_sort_item_description) {
+                        return -lhs.mClassItem.getDescription().compareToIgnoreCase(rhs.mClassItem.getDescription());
+                    }
+                    else if(mSortId == R.id.action_sort_item_date) {
+                        Date lDate = lhs.mClassItem.getItemDate();
+                        Date rDate = rhs.mClassItem.getItemDate();
+                        if(lDate == null)
+                            return 1;
+                        if(rDate == null)
+                            return -1;
+                        Calendar lCal = Calendar.getInstance();
+                        lCal.setTime(lDate);
+                        Calendar rCal = Calendar.getInstance();
+                        rCal.setTime(rDate);
+                        return lCal.compareTo(rCal);
+                    }
+                    else if(-mSortId == R.id.action_sort_item_date) {
+                        Date lDate = lhs.mClassItem.getItemDate();
+                        Date rDate = rhs.mClassItem.getItemDate();
+                        if(lDate == null)
+                            return -1;
+                        if(rDate == null)
+                            return 1;
+                        Calendar lCal = Calendar.getInstance();
+                        lCal.setTime(lDate);
+                        Calendar rCal = Calendar.getInstance();
+                        rCal.setTime(rDate);
+                        return -lCal.compareTo(rCal);
+                    }
+                    else if(mSortId == R.id.action_sort_item_type) {
+                        ClassItemTypeContract.ClassItemTypeEntry lit = lhs.mClassItem.getItemType();
+                        ClassItemTypeContract.ClassItemTypeEntry rit = rhs.mClassItem.getItemType();
+                        if(lit == null)
+                            return 1;
+                        if(rit == null)
+                            return -1;
+                        return lit.getDescription().compareToIgnoreCase(rit.getDescription());
+                    }
+                    else if(-mSortId == R.id.action_sort_item_type) {
+                        ClassItemTypeContract.ClassItemTypeEntry lit = lhs.mClassItem.getItemType();
+                        ClassItemTypeContract.ClassItemTypeEntry rit = rhs.mClassItem.getItemType();
+                        if(lit == null)
+                            return -1;
+                        if(rit == null)
+                            return 1;
+                        return -lit.getDescription().compareToIgnoreCase(rit.getDescription());
+                    }
+                    else if(mSortId == R.id.action_sort_check_attendance) {
+                        boolean lb = lhs.mClassItem.isCheckAttendance();
+                        boolean rb = rhs.mClassItem.isCheckAttendance();
+                        return (lb ? -1 : rb ? 1 : 0);
+                    }
+                    else if(-mSortId == R.id.action_sort_check_attendance) {
+                        boolean lb = lhs.mClassItem.isCheckAttendance();
+                        boolean rb = rhs.mClassItem.isCheckAttendance();
+                        return -(lb ? -1 : rb ? 1 : 0);
+                    }
+                    else if(mSortId == R.id.action_sort_perfect_score) {
+                        Float lps = lhs.mClassItem.getPerfectScore();
+                        Float rps = rhs.mClassItem.getPerfectScore();
+                        if(lps == null)
+                            return 1;
+                        if(rps == null)
+                            return -1;
+                        return (lps < rps ? -1 : 1);
+                    }
+                    else if(-mSortId == R.id.action_sort_perfect_score) {
+                        Float lps = lhs.mClassItem.getPerfectScore();
+                        Float rps = rhs.mClassItem.getPerfectScore();
+                        if(lps == null)
+                            return -1;
+                        if(rps == null)
+                            return 1;
+                        return -(lps < rps ? -1 : 1);
+                    }
+                    else if(mSortId == R.id.action_sort_submission_due_date) {
+                        Date lDate = lhs.mClassItem.getSubmissionDueDate();
+                        Date rDate = rhs.mClassItem.getSubmissionDueDate();
+                        if(lDate == null)
+                            return 1;
+                        if(rDate == null)
+                            return -1;
+                        Calendar lCal = Calendar.getInstance();
+                        lCal.setTime(lDate);
+                        Calendar rCal = Calendar.getInstance();
+                        rCal.setTime(rDate);
+                        return lCal.compareTo(rCal);
+                    }
+                    else if(-mSortId == R.id.action_sort_submission_due_date) {
+                        Date lDate = lhs.mClassItem.getSubmissionDueDate();
+                        Date rDate = rhs.mClassItem.getSubmissionDueDate();
+                        if(lDate == null)
+                            return -1;
+                        if(rDate == null)
+                            return 1;
+                        Calendar lCal = Calendar.getInstance();
+                        lCal.setTime(lDate);
+                        Calendar rCal = Calendar.getInstance();
+                        rCal.setTime(rDate);
+                        return -lCal.compareTo(rCal);
+                    }
+                    return 0;
+                }
+            };
         }
 
         public void setArrayList(ArrayList<ClassItemSummary> arrayList) {
@@ -145,6 +298,12 @@ public class ClassItemsFragment extends Fragment {
             if(pos < size)
                 mArrayList.remove(pos);
             mArrayList.add(pos, classItemSummary);
+            notifyDataSetChanged();
+        }
+
+        public void sortBy(int sortId) {
+            mSortId = (mSortId == sortId) ? -sortId : sortId;
+            Collections.sort(mArrayList, mComparator);
             notifyDataSetChanged();
         }
 

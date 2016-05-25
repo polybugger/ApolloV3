@@ -193,6 +193,13 @@
     <string name="action_sort_year">Year</string>
     <string name="action_sort_academic_term">Academic Term</string>
 
+    <string name="action_sort_item_description">Description</string>
+    <string name="action_sort_item_date">Date</string>
+    <string name="action_sort_item_type">Activity</string>
+    <string name="action_sort_check_attendance">Check Attendance</string>
+    <string name="action_sort_perfect_score">Perfect Score</string>
+    <string name="action_sort_submission_due_date">Due Date</string>
+
 
 
     <string name="action_sort_last_name">Last Name</string>
@@ -200,11 +207,6 @@
     <string name="action_sort_attendance">Attendance</string>
     <string name="action_sort_score">Score</string>
     <string name="action_sort_submission_date">Date Submitted</string>
-    <string name="action_sort_description">Description</string>
-    <string name="action_sort_date">Date</string>
     <string name="action_sort_activity">Activity</string>
-    <string name="action_sort_check_attendance">Check Attendance</string>
-    <string name="action_sort_perfect_score">Perfect Score</string>
-    <string name="action_sort_submission_due_date">Due Date</string>
 
 </resources>
