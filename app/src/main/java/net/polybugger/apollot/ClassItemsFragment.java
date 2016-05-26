@@ -2,12 +2,10 @@ package net.polybugger.apollot;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,7 +24,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
-import net.polybugger.apollot.db.AcademicTermContract;
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassItemContract;
@@ -38,6 +35,8 @@ import org.apache.commons.lang3.StringUtils;
 public class ClassItemsFragment extends Fragment {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
+
+    public static boolean REQUERY = false;
 
     private ClassContract.ClassEntry mClass;
     private RecyclerView mRecyclerView;
@@ -99,6 +98,19 @@ public class ClassItemsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         // TODO onResume
+        if(REQUERY) {
+            ClassActivityFragment rf = (ClassActivityFragment) getFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+            if(rf != null)
+                rf.getClassItemsSummary(mClass, getTag());
+            REQUERY = false;
+        }
+        else {
+
+        }
+    }
+
+    public void requeryClass(ClassContract.ClassEntry _class) {
+        mClass = _class;
     }
 
     @Override

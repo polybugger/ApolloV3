@@ -418,6 +418,10 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         if(f1 != null) {
             f1.requeryClass(_class);
         }
+        ClassItemsFragment f2 = (ClassItemsFragment) fm.findFragmentByTag(getFragmentTag(ITEMS_TAB));
+        if(f2 != null) {
+            f2.requeryClass(_class);
+        }
     }
 
     @Override
