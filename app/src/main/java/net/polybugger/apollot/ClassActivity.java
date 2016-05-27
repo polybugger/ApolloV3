@@ -23,6 +23,7 @@ import java.util.Date;
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassGradeBreakdownContract;
+import net.polybugger.apollot.db.ClassItemContract;
 import net.polybugger.apollot.db.ClassNoteContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
 
@@ -37,7 +38,8 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         ClassGradeBreakdownInsertUpdateDialogFragment.Listener,
         ClassNoteInsertUpdateDialogFragment.Listener,
         DatePickerDialogFragment.Listener,
-        ClassNoteDeleteDialogFragment.Listener {
+        ClassNoteDeleteDialogFragment.Listener,
+        ClassItemInsertUpdateDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
@@ -100,32 +102,36 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
             @Override
             public void onPageSelected(final int position) {
-                final FloatingActionBarMenuDialogFragment.FABMode fabMode;
                 switch(position) {
                     case INFO_TAB:
-                        fabMode = FloatingActionBarMenuDialogFragment.FABMode.CLASS_INFO_FRAGMENT;
+                        mFab.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                FragmentManager fm = getSupportFragmentManager();
+                                FloatingActionBarMenuDialogFragment df = (FloatingActionBarMenuDialogFragment) fm.findFragmentByTag(FloatingActionBarMenuDialogFragment.TAG);
+                                if(df == null) {
+                                    df = FloatingActionBarMenuDialogFragment.newInstance(getFragmentTag(position), FloatingActionBarMenuDialogFragment.FABMode.CLASS_INFO_FRAGMENT);
+                                    df.show(fm, FloatingActionBarMenuDialogFragment.TAG);
+                                }
+                            }
+                        });
                         break;
                     case ITEMS_TAB:
-                        fabMode = FloatingActionBarMenuDialogFragment.FABMode.CLASS_ITEMS_FRAGMENT;
+                        mFab.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                FragmentManager fm = getSupportFragmentManager();
+                                ClassItemInsertUpdateDialogFragment df = (ClassItemInsertUpdateDialogFragment) fm.findFragmentByTag(ClassItemInsertUpdateDialogFragment.TAG);
+                                if(df == null) {
+                                    df = ClassItemInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_item), getString(R.string.add), getFragmentTag(ITEMS_TAB));
+                                    df.show(fm, ClassItemInsertUpdateDialogFragment.TAG);
+                                }
+                            }
+                        });
                         break;
                     case STUDENTS_TAB:
-                        fabMode = FloatingActionBarMenuDialogFragment.FABMode.CLASS_STUDENTS_FRAGMENT;
-                        break;
-                    default:
-                        fabMode = FloatingActionBarMenuDialogFragment.FABMode.CLASS_INFO_FRAGMENT;
                         break;
                 }
-                mFab.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FragmentManager fm = getSupportFragmentManager();
-                        FloatingActionBarMenuDialogFragment df = (FloatingActionBarMenuDialogFragment) fm.findFragmentByTag(FloatingActionBarMenuDialogFragment.TAG);
-                        if(df == null) {
-                            df = FloatingActionBarMenuDialogFragment.newInstance(getFragmentTag(position), fabMode);
-                            df.show(fm, FloatingActionBarMenuDialogFragment.TAG);
-                        }
-                    }
-                });
             }
             @Override
             public void onPageScrollStateChanged(int state) {}
@@ -133,9 +139,7 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         mViewPager.setAdapter(mSectionsPagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -508,9 +512,13 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
 
     @Override
     public void onSetButtonDate(Date date, String dialogFragmentTag, int buttonId) {
-        ClassNoteInsertUpdateDialogFragment df = (ClassNoteInsertUpdateDialogFragment) getSupportFragmentManager().findFragmentByTag(dialogFragmentTag);
-        if(df != null)
-            df.setButtonDate(date, buttonId);
+        Fragment f = getSupportFragmentManager().findFragmentByTag(dialogFragmentTag);
+        if(f != null) {
+            if(f instanceof ClassNoteInsertUpdateDialogFragment)
+                ((ClassNoteInsertUpdateDialogFragment) f).setButtonDate(date, buttonId);
+            else if(f instanceof ClassItemInsertUpdateDialogFragment)
+                ((ClassItemInsertUpdateDialogFragment) f).setButtonDate(date, buttonId);
+        }
     }
 
     @Override
@@ -518,6 +526,11 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
         if(rf != null)
             rf.deleteClassNote(entry, fragmentTag);
+    }
+
+    @Override
+    public void onConfirmInsertUpdateClassItem(ClassItemContract.ClassItemEntry classItem, String fragmentTag) {
+
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

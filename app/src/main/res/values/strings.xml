@@ -210,4 +210,14 @@
     <string name="action_sort_submission_date">Date Submitted</string>
     <string name="action_sort_activity">Activity</string>
 
+    <string name="please_enter_an_activity_description">Please enter an activity description!</string>
+    <string name="new_class_item">New activity?</string>
+
+    <string name="item_date_hint">Activity Date</string>
+    <string name="check_attendance_check_box_label">Check attendance?</string>
+    <string name="record_scores_check_box_label">Record scores?</string>
+    <string name="perfect_score_hint">Perfect Score</string>
+    <string name="record_submissions_check_box_label">Record submissions?</string>
+    <string name="submission_due_date_hint">Submission Due Date</string>
+
 </resources>

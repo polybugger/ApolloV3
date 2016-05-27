@@ -80,24 +80,6 @@ public class FloatingActionBarMenuDialogFragment extends AppCompatDialogFragment
                     }
                 });
                 break;
-            case CLASS_ITEMS_FRAGMENT:
-                view.findViewById(R.id.fragment_class_items_layout).setVisibility(View.VISIBLE);
-                view.findViewById(R.id.new_class_item_clickable_layout).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dismiss();
-                        /*
-                        FragmentManager fm = getFragmentManager();
-                        ClassScheduleInsertUpdateDialogFragment df = (ClassScheduleInsertUpdateDialogFragment) fm.findFragmentByTag(ClassScheduleInsertUpdateDialogFragment.TAG);
-                        if(df == null) {
-                            df = ClassScheduleInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_schedule), getString(R.string.add), fragmentTag);
-                            df.show(fm, ClassScheduleInsertUpdateDialogFragment.TAG);
-                        }
-                        */
-                    }
-                });
-
-                break;
         }
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
@@ -154,8 +136,7 @@ public class FloatingActionBarMenuDialogFragment extends AppCompatDialogFragment
     public enum FABMode {
 
         CLASS_INFO_FRAGMENT(0),
-        CLASS_ITEMS_FRAGMENT(1),
-        CLASS_STUDENTS_FRAGMENT(2);
+        CLASS_STUDENTS_FRAGMENT(1);
 
         private int mValue;
 
