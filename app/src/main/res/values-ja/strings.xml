@@ -49,7 +49,7 @@
 
     <string name="settings">設定</string>
 
-    <string name="application_data">アプリケーションデータ</string>
+    <string name="application_data">アプリデータ</string>
     <string name="academic_terms">学期</string>
     <string name="class_activities">アクティビティー</string>
     <string name="default_time_start">デフォルト時間開始</string>
@@ -179,5 +179,45 @@
     <string name="class_note_added">メモ追加済み。</string>
     <string name="class_note_updated">メモ更新済み。</string>
     <string name="class_note_removed">メモ削除済み。</string>
+
+    <string name="check_attendance">出欠確認</string>
+    <string name="perfect_score_label">満点：</string>
+    <string name="submission_due_date_label">提出日：</string>
+
+    <string name="action_sort">Sort</string>
+    <string name="action_sort_class_code">コード</string>
+    <string name="action_sort_class_description">科目</string>
+    <string name="action_sort_year">年</string>
+    <string name="action_sort_academic_term">学期</string>
+
+    <string name="action_sort_item_description">詳細</string>
+    <string name="action_sort_item_date">日付</string>
+    <string name="action_sort_item_type">アクティビティー</string>
+    <string name="action_sort_check_attendance">出欠確認</string>
+    <string name="action_sort_perfect_score">満点</string>
+    <string name="action_sort_submission_due_date">提出日</string>
+
+    <string name="please_enter_an_activity_description">アクティビティーを入れてください！</string>
+
+    <string name="new_class_item">新しいアクティビティーを設定しますか？</string>
+
+    <string name="item_date_hint">日付</string>
+    <string name="class_description_hint">詳細</string>
+    <string name="check_attendance_check_box_label">出欠確認しますか？</string>
+    <string name="record_scores_check_box_label">スコアを記録しますか？</string>
+    <string name="perfect_score_hint">満点</string>
+    <string name="record_submissions_check_box_label">提出日を記録しますか？</string>
+    <string name="submission_due_date_hint">提出期限</string>
+    <string name="please_enter_a_perfect_score">満点を入れてください！</string>
+    <string name="please_input_a_submission_due_date">提出期限を入れてください！</string>
+
+    <string name="percent_symbol">％</string>
+
+    <string name="class_item_added">Activity added.</string>
+    <string name="class_item_updated">Activity updated.</string>
+    <string name="class_item_removed">Activity removed.</string>
+
+    <string name="update_class_item">Update activity?</string>
+    <string name="delete_class_item">Delete Activity</string>
 
 </resources>

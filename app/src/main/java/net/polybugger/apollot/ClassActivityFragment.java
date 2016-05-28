@@ -12,6 +12,7 @@ import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassGradeBreakdownContract;
 import net.polybugger.apollot.db.ClassItemContract;
+import net.polybugger.apollot.db.ClassItemTypeContract;
 import net.polybugger.apollot.db.ClassNoteContract;
 import net.polybugger.apollot.db.ClassPasswordContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
@@ -40,6 +41,7 @@ public class ClassActivityFragment extends Fragment {
         void onGetClassNotes(ArrayList<ClassNoteContract.ClassNoteEntry> classNotes, String fragmentTag);
         void onRequeryClass(ClassContract.ClassEntry _class);
         void onGetClassItemsSummary(ArrayList<ClassItemsFragment.ClassItemSummary> arrayList, String fragmentTag);
+        void onInsertClassItem(ClassItemContract.ClassItemEntry classItem, long id, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_activity_fragment";
@@ -165,6 +167,13 @@ public class ClassActivityFragment extends Fragment {
         params.mClass = _class;
         params.mFragmentTag = fragmentTag;
         new GetClassItemsSummaryAsyncTask().execute(params);
+    }
+
+    public void insertClassItem(ClassItemContract.ClassItemEntry classItem, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassItem = classItem;
+        params.mFragmentTag = fragmentTag;
+        new InsertClassItemAsyncTask().execute(params);
     }
 
     private class InsertClassScheduleAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
@@ -509,7 +518,7 @@ public class ClassActivityFragment extends Fragment {
             ArrayList<ClassItemContract.ClassItemEntry> classItems = ClassItemContract._getEntries(db, result.mClass.getId());
             for(ClassItemContract.ClassItemEntry classItem : classItems) {
                 ClassItemsFragment.ClassItemSummary classItemSummary = new ClassItemsFragment.ClassItemSummary(classItem);
-                // fetch class item records for summary
+                // TODO fetch class item records for summary
                 result.mClassItemsSummary.add(classItemSummary);
             }
             ApolloDbAdapter.close();
@@ -522,6 +531,27 @@ public class ClassActivityFragment extends Fragment {
         protected void onPostExecute(AsyncTaskResult result) {
             if(mListener != null) {
                 mListener.onGetClassItemsSummary(result.mClassItemsSummary, result.mFragmentTag);
+            }
+        }
+    }
+
+    private class InsertClassItemAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassItem = params[0].mClassItem;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mId = ClassItemContract._insert(db, result.mClassItem.getClassId(), result.mClassItem.getDescription(), result.mClassItem.getItemType(), result.mClassItem.getItemDate(), result.mClassItem.isCheckAttendance(), result.mClassItem.isRecordScores(), result.mClassItem.getPerfectScore(), result.mClassItem.isRecordSubmissions(), result.mClassItem.getSubmissionDueDate());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onInsertClassItem(result.mClassItem, result.mId, result.mFragmentTag);
             }
         }
     }
@@ -550,6 +580,7 @@ public class ClassActivityFragment extends Fragment {
         public ClassScheduleContract.ClassScheduleEntry mClassSchedule;
         public ClassGradeBreakdownContract.ClassGradeBreakdownEntry mClassGradeBreakdown;
         public ClassNoteContract.ClassNoteEntry mClassNote;
+        public ClassItemContract.ClassItemEntry mClassItem;
         public boolean mPasswordMatched;
         public int mRowsUpdated;
         public int mRowsDeleted;
@@ -567,6 +598,7 @@ public class ClassActivityFragment extends Fragment {
         public ClassScheduleContract.ClassScheduleEntry mClassSchedule;
         public ClassNoteContract.ClassNoteEntry mClassNote;
         public ClassGradeBreakdownContract.ClassGradeBreakdownEntry mClassGradeBreakdown;
+        public ClassItemContract.ClassItemEntry mClassItem;
         public String mPassword;
         public String mFragmentTag;
 

@@ -179,6 +179,7 @@
     <string name="please_input_a_note_date">Please input a note date!</string>
     <string name="please_write_a_note">Please write a note!</string>
     <string name="characters_left">character(s) left.</string>
+
     <string name="class_note_added">Class note added.</string>
     <string name="class_note_updated">Class note updated.</string>
     <string name="class_note_removed">Class note removed.</string>
@@ -198,18 +199,10 @@
     <string name="action_sort_item_type">Activity</string>
     <string name="action_sort_check_attendance">Check Attendance</string>
     <string name="action_sort_perfect_score">Perfect Score</string>
-    <string name="action_sort_submission_due_date">Due Date</string>
-
-    <string name="new_class_item_fab_label">New Activity</string>
-
-    <string name="action_sort_last_name">Last Name</string>
-    <string name="action_sort_first_name">First Name</string>
-    <string name="action_sort_attendance">Attendance</string>
-    <string name="action_sort_score">Score</string>
-    <string name="action_sort_submission_date">Date Submitted</string>
-    <string name="action_sort_activity">Activity</string>
+    <string name="action_sort_submission_due_date">Submission Due Date</string>
 
     <string name="please_enter_an_activity_description">Please enter an activity description!</string>
+
     <string name="new_class_item">New activity?</string>
 
     <string name="item_date_hint">Activity Date</string>
@@ -220,5 +213,25 @@
     <string name="submission_due_date_hint">Submission Due Date</string>
     <string name="please_enter_a_perfect_score">Please enter a perfect score!</string>
     <string name="please_input_a_submission_due_date">Please input a submission due date!</string>
+
+    <string name="percent_symbol">%</string>
+
+    <string name="class_item_added">Activity added.</string>
+    <string name="class_item_updated">Activity updated.</string>
+    <string name="class_item_removed">Activity removed.</string>
+
+    <string name="update_class_item">Update activity?</string>
+    <string name="delete_class_item">Delete Activity</string>
+
+
+
+
+    <string name="action_sort_last_name">Last Name</string>
+    <string name="action_sort_first_name">First Name</string>
+    <string name="action_sort_attendance">Attendance</string>
+    <string name="action_sort_score">Score</string>
+    <string name="action_sort_submission_date">Date Submitted</string>
+    <string name="action_sort_activity">Activity</string>
+
 
 </resources>

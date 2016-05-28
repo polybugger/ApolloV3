@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -111,6 +113,21 @@ public class ClassItemsFragment extends Fragment {
 
     public void requeryClass(ClassContract.ClassEntry _class) {
         mClass = _class;
+    }
+
+    public void insertClassItem(ClassItemContract.ClassItemEntry classItem, long id, String fragmentTag) {
+        if(id != -1) {
+            classItem.setId(id);
+            ClassItemSummary classItemSummary = new ClassItemSummary(classItem);
+            mAdapter.add(classItemSummary);
+            mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_item_added), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
     }
 
     @Override

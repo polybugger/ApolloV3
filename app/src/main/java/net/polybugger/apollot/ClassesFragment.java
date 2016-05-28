@@ -168,7 +168,7 @@ public class ClassesFragment extends Fragment {
     }
 
     public void insertClass(ClassContract.ClassEntry entry) {
-        ClassesFragment.ClassSummary classSummary = new ClassesFragment.ClassSummary(entry);
+        ClassSummary classSummary = new ClassSummary(entry);
         mAdapter.add(classSummary);
         mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
         new Handler().postDelayed(new Runnable() {

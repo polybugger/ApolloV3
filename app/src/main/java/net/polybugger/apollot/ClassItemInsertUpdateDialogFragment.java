@@ -40,7 +40,7 @@ import org.apache.commons.lang3.StringUtils;
 public class ClassItemInsertUpdateDialogFragment extends AppCompatDialogFragment {
 
     public interface Listener {
-        void onConfirmInsertUpdateClassItem(ClassItemContract.ClassItemEntry classItem, String fragmentTag);
+        void onConfirmInsertUpdateClassItem(ClassItemContract.ClassItemEntry entry, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.insert_update_class_item_dialog_fragment";

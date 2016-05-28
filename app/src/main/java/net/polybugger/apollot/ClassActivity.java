@@ -436,6 +436,17 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     }
 
     @Override
+    public void onInsertClassItem(ClassItemContract.ClassItemEntry classItem, long id, String fragmentTag) {
+        if(classItem.getId() == -1) {
+            FragmentManager fm = getSupportFragmentManager();
+            ClassItemsFragment f2 = (ClassItemsFragment) fm.findFragmentByTag(fragmentTag);
+            if(f2 != null) {
+                f2.insertClassItem(classItem, id, fragmentTag);
+            }
+        }
+    }
+
+    @Override
     public void onConfirmInsertUpdateClass(ClassContract.ClassEntry _class) {
         ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
         if(rf != null)
@@ -529,8 +540,13 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     }
 
     @Override
-    public void onConfirmInsertUpdateClassItem(ClassItemContract.ClassItemEntry classItem, String fragmentTag) {
-
+    public void onConfirmInsertUpdateClassItem(ClassItemContract.ClassItemEntry entry, String fragmentTag) {
+        ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+        if(rf != null) {
+            entry.setClassId(mClass.getId()); // capture class id here
+            if(entry.getId() == -1)
+                rf.insertClassItem(entry, fragmentTag);
+        }
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
