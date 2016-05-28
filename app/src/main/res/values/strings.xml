@@ -202,7 +202,6 @@
 
     <string name="new_class_item_fab_label">New Activity</string>
 
-
     <string name="action_sort_last_name">Last Name</string>
     <string name="action_sort_first_name">First Name</string>
     <string name="action_sort_attendance">Attendance</string>
@@ -219,5 +218,7 @@
     <string name="perfect_score_hint">Perfect Score</string>
     <string name="record_submissions_check_box_label">Record submissions?</string>
     <string name="submission_due_date_hint">Submission Due Date</string>
+    <string name="please_enter_a_perfect_score">Please enter a perfect score!</string>
+    <string name="please_input_a_submission_due_date">Please input a submission due date!</string>
 
 </resources>
