@@ -315,7 +315,7 @@ public class ClassItemsFragment extends Fragment {
         }
 
         public void update(ClassItemSummary classItemSummary) {
-            ClassItemSummary tmpClassItemSummary = null;
+            ClassItemSummary tmpClassItemSummary;
             int size = mArrayList.size(), pos = size;
             for(int i = 0; i < size; ++i) {
                 tmpClassItemSummary = mArrayList.get(i);

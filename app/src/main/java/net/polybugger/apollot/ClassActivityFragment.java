@@ -42,6 +42,7 @@ public class ClassActivityFragment extends Fragment {
         void onRequeryClass(ClassContract.ClassEntry _class);
         void onGetClassItemsSummary(ArrayList<ClassItemsFragment.ClassItemSummary> arrayList, String fragmentTag);
         void onInsertClassItem(ClassItemContract.ClassItemEntry classItem, long id, String fragmentTag);
+        void onGetClassStudentsSummary(ArrayList<ClassStudentsFragment.ClassStudentSummary> arrayList, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_activity_fragment";
@@ -174,6 +175,13 @@ public class ClassActivityFragment extends Fragment {
         params.mClassItem = classItem;
         params.mFragmentTag = fragmentTag;
         new InsertClassItemAsyncTask().execute(params);
+    }
+
+    public void getClassStudentsSummary(ClassContract.ClassEntry _class, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClass = _class;
+        params.mFragmentTag = fragmentTag;
+        new GetClassStudentsSummaryAsyncTask().execute(params);
     }
 
     private class InsertClassScheduleAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
@@ -556,6 +564,34 @@ public class ClassActivityFragment extends Fragment {
         }
     }
 
+    private class GetClassStudentsSummaryAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClass = params[0].mClass;
+            result.mClassStudentsSummary = new ArrayList<>();
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            ArrayList<ClassStudentContract.ClassStudentEntry> classStudents = ClassStudentContract._getEntries(db, result.mClass.getId());
+            for(ClassStudentContract.ClassStudentEntry classStudent : classStudents) {
+                ClassStudentsFragment.ClassStudentSummary classStudentSummary = new ClassStudentsFragment.ClassStudentSummary(classStudent);
+                // TODO fetch class item records for summary
+                result.mClassStudentsSummary.add(classStudentSummary);
+            }
+            ApolloDbAdapter.close();
+
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onGetClassStudentsSummary(result.mClassStudentsSummary, result.mFragmentTag);
+            }
+        }
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -589,6 +625,7 @@ public class ClassActivityFragment extends Fragment {
         public ArrayList<ClassGradeBreakdownContract.ClassGradeBreakdownEntry> mGradeBreakdowns;
         public ArrayList<ClassNoteContract.ClassNoteEntry> mClassNotes;
         public ArrayList<ClassItemsFragment.ClassItemSummary> mClassItemsSummary;
+        public ArrayList<ClassStudentsFragment.ClassStudentSummary> mClassStudentsSummary;
         public String mFragmentTag;
         public AsyncTaskResult() { }
     }

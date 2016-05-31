@@ -419,13 +419,14 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         mClass = _class;
         FragmentManager fm = getSupportFragmentManager();
         ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(getFragmentTag(INFO_TAB));
-        if(f1 != null) {
+        if(f1 != null)
             f1.requeryClass(_class);
-        }
         ClassItemsFragment f2 = (ClassItemsFragment) fm.findFragmentByTag(getFragmentTag(ITEMS_TAB));
-        if(f2 != null) {
+        if(f2 != null)
             f2.requeryClass(_class);
-        }
+        ClassStudentsFragment f3 = (ClassStudentsFragment) fm.findFragmentByTag(getFragmentTag(STUDENTS_TAB));
+        if(f3 != null)
+            f3.requeryClass(_class);
     }
 
     @Override
@@ -444,6 +445,13 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
                 f2.insertClassItem(classItem, id, fragmentTag);
             }
         }
+    }
+
+    @Override
+    public void onGetClassStudentsSummary(ArrayList<ClassStudentsFragment.ClassStudentSummary> arrayList, String fragmentTag) {
+        ClassStudentsFragment f = (ClassStudentsFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        if(f != null)
+            f.onGetClassStudentsSummary(arrayList, fragmentTag);
     }
 
     @Override
@@ -563,7 +571,7 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
                 case ITEMS_TAB:
                     return ClassItemsFragment.newInstance(mClass);
                 case STUDENTS_TAB:
-                    return ClassInfoFragment.newInstance(mClass);
+                    return ClassStudentsFragment.newInstance(mClass);
             }
             return null;
         }

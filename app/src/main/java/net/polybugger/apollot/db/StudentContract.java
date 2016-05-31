@@ -9,9 +9,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.support.annotation.StyleableRes;
 
+import net.polybugger.apollot.R;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -249,6 +253,50 @@ public class StudentContract {
 
         public void setContactNumber(String contactNumber) {
             mContactNumber = contactNumber;
+        }
+
+        public String getName(Context context) {
+            StringBuilder fName = new StringBuilder();
+
+            if(StringUtils.equalsIgnoreCase(context.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE)) {
+                fName.append(mFirstName);
+            }
+            else {
+                if(StringUtils.isBlank(mMiddleName)) {
+                    fName.append(mFirstName);
+                }
+                else {
+                    fName.append(mFirstName);
+                    if(!StringUtils.isBlank(mFirstName)) {
+                        fName.append(context.getString(R.string.space_symbol));
+                    }
+                    fName.append(mMiddleName.substring(0, 1));
+                    fName.append(".");
+                }
+            }
+
+            StringBuilder name = new StringBuilder();
+            switch(STUDENT_NAME_DISPLAY) {
+                case FIRST_NAME_LAST_NAME:
+                    name.append(fName.toString());
+                    if(fName.length() > 0)
+                        name.append(context.getString(R.string.space_symbol));
+                    name.append(mLastName);
+                    break;
+                case LAST_NAME_FIRST_NAME:
+                    name.append(mLastName);
+                    if(name.length() > 0)
+                        name.append(context.getString(R.string.space_symbol));
+                    name.append(fName.toString());
+                    break;
+                default:
+                    name.append(mLastName);
+                    if(name.length() > 0)
+                        name.append(context.getString(R.string.space_symbol));
+                    name.append(fName.toString());
+                    break;
+            }
+            return name.toString();
         }
 
         @Override

@@ -220,4 +220,14 @@
     <string name="update_class_item">Update activity?</string>
     <string name="delete_class_item">Delete Activity</string>
 
+    <string name="action_sort_last_name">Last Name</string>
+    <string name="action_sort_first_name">First Name</string>
+    <string name="space_symbol">"　"</string>
+
+
+    <string name="action_sort_attendance">Attendance</string>
+    <string name="action_sort_score">Score</string>
+    <string name="action_sort_submission_date">Date Submitted</string>
+    <string name="action_sort_activity">Activity</string>
+
 </resources>

@@ -206,6 +206,7 @@
     <string name="new_class_item">New activity?</string>
 
     <string name="item_date_hint">Activity Date</string>
+    <string name="class_description_hint">Description</string>
     <string name="check_attendance_check_box_label">Check attendance?</string>
     <string name="record_scores_check_box_label">Record scores?</string>
     <string name="perfect_score_hint">Perfect Score</string>
@@ -223,11 +224,11 @@
     <string name="update_class_item">Update activity?</string>
     <string name="delete_class_item">Delete Activity</string>
 
-
-
-
     <string name="action_sort_last_name">Last Name</string>
     <string name="action_sort_first_name">First Name</string>
+    <string name="space_symbol">" "</string>
+
+
     <string name="action_sort_attendance">Attendance</string>
     <string name="action_sort_score">Score</string>
     <string name="action_sort_submission_date">Date Submitted</string>
