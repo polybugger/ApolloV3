@@ -2,6 +2,7 @@ package net.polybugger.apollot;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
@@ -374,13 +375,13 @@ public class ClassItemsFragment extends Fragment {
             holder.mClickableLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /*
-                    Intent intent = new Intent(mFragment.getContext(), ClassActivity.class);
+                    ClassItemSummary classItemSummary = (ClassItemSummary) v.getTag();
+                    Intent intent = new Intent(mFragment.getContext(), ClassItemActivity.class);
                     Bundle args = new Bundle();
-                    args.putSerializable(ClassActivity.CLASS_ARG, classSummary.mClass);
+                    args.putSerializable(ClassItemActivity.CLASS_ARG, ((ClassActivity) mFragment.getActivity()).getClassEntry());
+                    args.putSerializable(ClassItemActivity.CLASS_ITEM_ARG, classItemSummary.mClassItem);
                     intent.putExtras(args);
                     mFragment.startActivity(intent);
-                    */
                 }
             });
 

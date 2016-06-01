@@ -228,6 +228,11 @@
     <string name="action_sort_first_name">First Name</string>
     <string name="space_symbol">" "</string>
 
+    <string name="activity_info_tab">Activity Info</string>
+    <string name="records_tab">Records</string>
+
+
+
 
     <string name="action_sort_attendance">Attendance</string>
     <string name="action_sort_score">Score</string>
