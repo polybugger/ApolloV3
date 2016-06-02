@@ -2,7 +2,9 @@ package net.polybugger.apollot;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,7 +20,11 @@ import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassItemContract;
 
-public class ClassItemActivity extends AppCompatActivity implements ClassItemActivityFragment.Listener {
+import java.util.Date;
+
+public class ClassItemActivity extends AppCompatActivity implements ClassItemActivityFragment.Listener,
+        ClassItemInsertUpdateDialogFragment.Listener,
+        DatePickerDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
     public static final String CLASS_ITEM_ARG = "net.polybugger.apollot.class_item_arg";
@@ -161,6 +167,42 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
         return mClassItem;
     }
 
+    @Override
+    public void onConfirmInsertUpdateClassItem(ClassItemContract.ClassItemEntry entry, String fragmentTag) {
+        if(entry.getId() != -1) {
+            ClassItemActivityFragment rf = (ClassItemActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
+            if(rf != null) {
+                rf.updateClassItem(entry, fragmentTag);
+            }
+        }
+    }
+
+    @Override
+    public void onUpdateClassItem(ClassItemContract.ClassItemEntry classItem, int rowsUpdated, String fragmentTag) {
+        if(rowsUpdated > 0) {
+            FragmentManager fm = getSupportFragmentManager();
+            ClassItemInfoFragment f1 = (ClassItemInfoFragment) fm.findFragmentByTag(fragmentTag);
+            if(f1 != null) {
+                f1.updateClassItem(classItem, rowsUpdated, fragmentTag);
+            }
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.class_item_updated), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
+    }
+
+    @Override
+    public void onSetButtonDate(Date date, String dialogFragmentTag, int buttonId) {
+        Fragment f = getSupportFragmentManager().findFragmentByTag(dialogFragmentTag);
+        if(f != null) {
+            if(f instanceof ClassItemInsertUpdateDialogFragment)
+                ((ClassItemInsertUpdateDialogFragment) f).setButtonDate(date, buttonId);
+        }
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -171,9 +213,9 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
         public Fragment getItem(final int position) {
             switch(position) {
                 case INFO_TAB:
-                    return ClassInfoFragment.newInstance(mClass);
+                    return ClassItemInfoFragment.newInstance(mClass, mClassItem);
                 case RECORDS_TAB:
-                    return ClassItemsFragment.newInstance(mClass);
+                    return ClassItemInfoFragment.newInstance(mClass, mClassItem);
             }
             return null;
         }

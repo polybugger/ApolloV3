@@ -451,7 +451,6 @@ public class ClassItemsFragment extends Fragment {
                 holder.mItemTypeTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                 holder.mItemDateTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                 holder.mTitleTextView.setPadding(paddingLeft, paddingTop, paddingRight, 0);
-
             }
             else if(holder.mCheckAttendanceTextView.getVisibility() == View.VISIBLE) {
                 holder.mCheckAttendanceTextView.setPadding(paddingLeft, 0, paddingRight, paddingTop);
@@ -470,7 +469,6 @@ public class ClassItemsFragment extends Fragment {
             }
             else
                 holder.mTitleTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingTop);
-
         }
 
         @Override

@@ -12,12 +12,10 @@ import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassGradeBreakdownContract;
 import net.polybugger.apollot.db.ClassItemContract;
-import net.polybugger.apollot.db.ClassItemTypeContract;
 import net.polybugger.apollot.db.ClassNoteContract;
 import net.polybugger.apollot.db.ClassPasswordContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
 import net.polybugger.apollot.db.ClassStudentContract;
-import net.polybugger.apollot.db.PastCurrentEnum;
 
 import org.apache.commons.lang3.StringUtils;
 
