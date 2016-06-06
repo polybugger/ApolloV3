@@ -258,7 +258,9 @@ public class StudentContract {
         public String getName(Context context) {
             StringBuilder fName = new StringBuilder();
 
-            if(StringUtils.equalsIgnoreCase(context.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE)) {
+            boolean ja = StringUtils.equalsIgnoreCase(context.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE);
+
+            if(ja) {
                 fName.append(mFirstName);
             }
             else {
@@ -285,12 +287,16 @@ public class StudentContract {
                     break;
                 case LAST_NAME_FIRST_NAME:
                     name.append(mLastName);
+                    if(!ja)
+                        name.append(",");
                     if(name.length() > 0)
                         name.append(context.getString(R.string.space_symbol));
                     name.append(fName.toString());
                     break;
                 default:
                     name.append(mLastName);
+                    if(!ja)
+                        name.append(",");
                     if(name.length() > 0)
                         name.append(context.getString(R.string.space_symbol));
                     name.append(fName.toString());

@@ -3,6 +3,7 @@ package net.polybugger.apollot;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -20,6 +21,7 @@ import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassItemContract;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ClassItemActivity extends AppCompatActivity implements ClassItemActivityFragment.Listener,
@@ -87,8 +89,12 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
             @Override
             public void onPageSelected(final int position) {
+                CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) mFab.getLayoutParams();
                 switch(position) {
                     case INFO_TAB:
+                        p.setBehavior(new FABScrollBehavior(ClassItemActivity.this, null));
+                        mFab.setLayoutParams(p);
+                        mFab.setVisibility(View.VISIBLE);
                         /*
                         mFab.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -104,6 +110,9 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
                         */
                         break;
                     case RECORDS_TAB:
+                        p.setBehavior(null);
+                        mFab.setLayoutParams(p);
+                        mFab.setVisibility(View.GONE);
                         /*
                         mFab.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -195,11 +204,20 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
     }
 
     @Override
+    public void onGetClassItemRecords(ArrayList<ClassItemRecordsFragment.ClassItemRecordSummary> arrayList, String fragmentTag) {
+        ClassItemRecordsFragment f = (ClassItemRecordsFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        if(f != null)
+            f.onGetClassItemRecords(arrayList, fragmentTag);
+    }
+
+    @Override
     public void onSetButtonDate(Date date, String dialogFragmentTag, int buttonId) {
         Fragment f = getSupportFragmentManager().findFragmentByTag(dialogFragmentTag);
         if(f != null) {
             if(f instanceof ClassItemInsertUpdateDialogFragment)
                 ((ClassItemInsertUpdateDialogFragment) f).setButtonDate(date, buttonId);
+            if(f instanceof ClassItemRecordsFragment)
+                ((ClassItemRecordsFragment) f).setButtonDate(date, buttonId);
         }
     }
 
@@ -215,7 +233,7 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
                 case INFO_TAB:
                     return ClassItemInfoFragment.newInstance(mClass, mClassItem);
                 case RECORDS_TAB:
-                    return ClassItemInfoFragment.newInstance(mClass, mClassItem);
+                    return ClassItemRecordsFragment.newInstance(mClass, mClassItem);
             }
             return null;
         }

@@ -233,12 +233,15 @@
 
     <string name="summary">Summary</string>
 
+    <string name="present">Present</string>
+    <string name="absent">Absent</string>
 
+    <string name="score_hint">Score</string>
+    <string name="submission_date_hint">Submission Date</string>
+    <string name="remarks_hint">Remarks</string>
 
     <string name="action_sort_attendance">Attendance</string>
     <string name="action_sort_score">Score</string>
-    <string name="action_sort_submission_date">Date Submitted</string>
-    <string name="action_sort_activity">Activity</string>
-
+    <string name="action_sort_submission_date">Submission Date</string>
 
 </resources>
