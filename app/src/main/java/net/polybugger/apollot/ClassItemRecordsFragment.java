@@ -160,12 +160,17 @@ public class ClassItemRecordsFragment extends Fragment {
         mSubmissionDateMenuItem.setVisible(mClassItem.isRecordSubmissions());
     }
 
-    public  void onGetClassItemRecords(ArrayList<ClassItemRecordsFragment.ClassItemRecordSummary> arrayList, String fragmentTag) {
+    public void onGetClassItemRecords(ArrayList<ClassItemRecordsFragment.ClassItemRecordSummary> arrayList, String fragmentTag) {
         mAdapter.setArrayList(arrayList);
     }
 
     public void setButtonDate(Date date, int position) {
         mAdapter.updateSubmissionDate(date, position);
+    }
+
+    public void updateClassItem(ClassItemContract.ClassItemEntry classItem) {
+        mClassItem = classItem;
+        mAdapter.setClassItem(classItem);
     }
 
     public static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
@@ -200,6 +205,11 @@ public class ClassItemRecordsFragment extends Fragment {
 
         public void setArrayList(ArrayList<ClassItemRecordSummary> arrayList) {
             mArrayList = arrayList;
+            notifyDataSetChanged();
+        }
+
+        public void setClassItem(ClassItemContract.ClassItemEntry classItem) {
+            mClassItem = classItem;
             notifyDataSetChanged();
         }
 
@@ -268,70 +278,94 @@ public class ClassItemRecordsFragment extends Fragment {
                 holder.mBackgroundLayout.setLayoutParams(layoutParams);
             }
 
+            holder.mClickableLayout.setTag(entry);
+            holder.mClickableLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ClassItemRecordSummary classItemSummary = (ClassItemRecordSummary) v.getTag();
+                    // TODO dialog fragment for item record
+                }
+            });
+
             holder.mNameTextView.setText(entry.mClassItemRecord.getClassStudent().getStudent().getName(mFragment.getContext()));
 
             if(mClassItem.isCheckAttendance()) {
-                holder.mAttendanceRadioGroup.setVisibility(View.VISIBLE);
-                holder.mAttendanceRadioGroup.setTag(null);
-                holder.mAttendanceRadioGroup.clearCheck();
+                holder.mAttendanceLinearLayout.setVisibility(View.VISIBLE);
                 Boolean attendance = entry.mClassItemRecord.getAttendance();
-                if(attendance != null) {
-                    if(attendance)
-                        holder.mPresentRadioButton.setChecked(true);
-                    else
-                        holder.mAbsentRadioButton.setChecked(true);
-                }
-                holder.mAttendanceRadioGroup.setTag(new InfoTag(mArrayList, position, 0, this));
+                if(attendance != null)
+                    holder.mAttendanceTextView.setText(attendance ? mFragment.getString(R.string.attendance_present) : mFragment.getString(R.string.attendance_absent));
+                else
+                    holder.mAttendanceTextView.setText(mFragment.getString(R.string.dash_string));
             }
             else
-                holder.mAttendanceRadioGroup.setVisibility(View.GONE);
+                holder.mAttendanceLinearLayout.setVisibility(View.GONE);
 
             if(mClassItem.isRecordScores()) {
-                holder.mScoreEditText.setVisibility(View.VISIBLE);
-                holder.mScoreEditText.setTag(null);
+                holder.mScoreLinearLayout.setVisibility(View.VISIBLE);
                 Float score = entry.mClassItemRecord.getScore();
-                if(score != null)
-                    holder.mScoreEditText.setText(String.format("%.2f", score));
-                else {
-                    holder.mScoreEditText.setText(null);
+                if(score != null) {
+                    holder.mScoreTextView.setText(String.format("%.2f", score));
+                    holder.mSlashSeparatorTextView.setVisibility(View.VISIBLE);
+                    holder.mPerfectScoreTextView.setVisibility(View.VISIBLE);
+                    holder.mPerfectScoreTextView.setText(String.format("%.2f", mClassItem.getPerfectScore()));
                 }
-                holder.mScoreEditText.setTag(new InfoTag(mArrayList, position, 0, this));
+                else {
+                    holder.mScoreTextView.setText(mFragment.getString(R.string.dash_string));
+                    holder.mSlashSeparatorTextView.setVisibility(View.GONE);
+                    holder.mPerfectScoreTextView.setVisibility(View.GONE);
+                }
             }
             else
-                holder.mScoreEditText.setVisibility(View.GONE);
+                holder.mScoreLinearLayout.setVisibility(View.GONE);
+
+            SimpleDateFormat sdf;
+            if(StringUtils.equalsIgnoreCase(mFragment.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE))
+                sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE_JA, mFragment.getResources().getConfiguration().locale);
+            else
+                sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE, mFragment.getResources().getConfiguration().locale);
 
             if(mClassItem.isRecordSubmissions()) {
-                holder.mSubmissionDateButton.setVisibility(View.VISIBLE);
-                final SimpleDateFormat sdf;
-                if(StringUtils.equalsIgnoreCase(mFragment.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE))
-                    sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE_JA, mFragment.getResources().getConfiguration().locale);
-                else
-                    sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE, mFragment.getResources().getConfiguration().locale);
+                holder.mSubmissionDateLinearLayout.setVisibility(View.VISIBLE);
                 Date submissionDate = entry.mClassItemRecord.getSubmissionDate();
                 if(submissionDate != null)
-                    holder.mSubmissionDateButton.setText(sdf.format(submissionDate));
+                    holder.mSubmissionDateTextView.setText(sdf.format(submissionDate));
                 else
-                    holder.mSubmissionDateButton.setText(null);
-                holder.mSubmissionDateButton.setTag(submissionDate);
-                holder.mSubmissionDateButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FragmentManager fm = mFragment.getFragmentManager();
-                        DatePickerDialogFragment df = (DatePickerDialogFragment) fm.findFragmentByTag(DatePickerDialogFragment.TAG);
-                        if(df == null) {
-                            df = DatePickerDialogFragment.newInstance((Date) v.getTag(), mFragment.getString(R.string.submission_date_hint), mFragment.getTag(), position);
-                            df.show(fm, DatePickerDialogFragment.TAG);
-                        }
-                    }
-                });
+                    holder.mSubmissionDateTextView.setText(mFragment.getString(R.string.dash_string));
             }
             else
-                holder.mSubmissionDateButton.setVisibility(View.GONE);
+                holder.mSubmissionDateLinearLayout.setVisibility(View.GONE);
 
-            holder.mRemarksEditText.setTag(null);
-            holder.mRemarksEditText.setText(entry.mClassItemRecord.getRemarks());
-            holder.mRemarksEditText.setTag(new InfoTag(mArrayList, position, 1, this));
+            String remarks = entry.mClassItemRecord.getRemarks();
+            if(!StringUtils.isBlank(remarks)) {
+                holder.mRemarksTextView.setVisibility(View.VISIBLE);
+                holder.mRemarksTextView.setText(remarks);
+            }
+            else
+                holder.mRemarksTextView.setVisibility(View.GONE);
 
+            // only set padding if remarks is gone
+            if(holder.mRemarksTextView.getVisibility() == View.GONE) {
+                int paddingTop = holder.mNameTextView.getPaddingTop();
+                int paddingRight = holder.mNameTextView.getPaddingRight();
+                int paddingLeft = holder.mNameTextView.getPaddingLeft();
+                if(holder.mSubmissionDateLinearLayout.getVisibility() == View.VISIBLE) {
+                    holder.mSubmissionDateLinearLayout.setPadding(paddingLeft, 0, paddingRight, paddingTop);
+                    holder.mScoreLinearLayout.setPadding(paddingLeft, 0, paddingRight, 0);
+                    holder.mAttendanceLinearLayout.setPadding(paddingLeft, 0, paddingRight, 0);
+                    holder.mNameTextView.setPadding(paddingLeft, paddingTop, paddingRight, 0);
+                }
+                else if(holder.mScoreLinearLayout.getVisibility() == View.VISIBLE) {
+                    holder.mScoreLinearLayout.setPadding(paddingLeft, 0, paddingRight, paddingTop);
+                    holder.mAttendanceLinearLayout.setPadding(paddingLeft, 0, paddingRight, 0);
+                    holder.mNameTextView.setPadding(paddingLeft, paddingTop, paddingRight, 0);
+                }
+                else if(holder.mAttendanceLinearLayout.getVisibility() == View.VISIBLE) {
+                    holder.mAttendanceLinearLayout.setPadding(paddingLeft, 0, paddingRight, paddingTop);
+                    holder.mNameTextView.setPadding(paddingLeft, paddingTop, paddingRight, 0);
+                }
+                else
+                    holder.mNameTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingTop);
+            }
         }
 
         @Override
@@ -342,32 +376,32 @@ public class ClassItemRecordsFragment extends Fragment {
         public static class ViewHolder extends RecyclerView.ViewHolder {
 
             protected LinearLayout mBackgroundLayout;
+            protected LinearLayout mClickableLayout;
             protected TextView mNameTextView;
-            protected RadioGroup mAttendanceRadioGroup;
-            protected RadioButton mPresentRadioButton;
-            protected RadioButton mAbsentRadioButton;
-            protected EditText mScoreEditText;
-            protected Button mSubmissionDateButton;
-            protected EditText mRemarksEditText;
+            protected LinearLayout mAttendanceLinearLayout;
+            protected TextView mAttendanceTextView;
+            protected LinearLayout mScoreLinearLayout;
+            protected TextView mScoreTextView;
+            protected TextView mSlashSeparatorTextView;
+            protected TextView mPerfectScoreTextView;
+            protected LinearLayout mSubmissionDateLinearLayout;
+            protected TextView mSubmissionDateTextView;
+            protected TextView mRemarksTextView;
 
             public ViewHolder(View itemView) {
                 super(itemView);
                 mBackgroundLayout = (LinearLayout) itemView.findViewById(R.id.background_layout);
+                mClickableLayout = (LinearLayout) itemView.findViewById(R.id.clickable_layout);
                 mNameTextView = (TextView) itemView.findViewById(R.id.name_text_view);
-                mAttendanceRadioGroup = (RadioGroup) itemView.findViewById(R.id.attendance_radio_group);
-                mPresentRadioButton = (RadioButton) itemView.findViewById(R.id.present_radio_button);
-                mAbsentRadioButton = (RadioButton) itemView.findViewById(R.id.absent_radio_button);
-                mScoreEditText = (EditText) itemView.findViewById(R.id.score_edit_text);
-                mSubmissionDateButton = (Button) itemView.findViewById(R.id.submission_date_button);
-                mRemarksEditText = (EditText) itemView.findViewById(R.id.remarks_edit_text);
-
-                mAttendanceRadioGroup.setOnCheckedChangeListener(new MyCheckChangedListener(mScoreEditText));
-                mScoreEditText.setOnEditorActionListener(new MyEditorActionListener(mScoreEditText));
-                mScoreEditText.setOnFocusChangeListener(new MyFocusChangeListener(mScoreEditText));
-                //mScoreEditText.addTextChangedListener(new MyTextWatcher(mScoreEditText));
-                mRemarksEditText.setOnEditorActionListener(new MyEditorActionListener(mRemarksEditText));
-                mRemarksEditText.setOnFocusChangeListener(new MyFocusChangeListener(mRemarksEditText));
-                //mRemarksEditText.addTextChangedListener(new MyTextWatcher(mRemarksEditText));
+                mAttendanceLinearLayout = (LinearLayout) itemView.findViewById(R.id.attendance_linear_layout);
+                mAttendanceTextView = (TextView) itemView.findViewById(R.id.attendance_text_view);
+                mScoreLinearLayout = (LinearLayout) itemView.findViewById(R.id.score_linear_layout);
+                mScoreTextView = (TextView) itemView.findViewById(R.id.score_text_view);
+                mSlashSeparatorTextView = (TextView) itemView.findViewById(R.id.slash_separator_text_view);
+                mPerfectScoreTextView = (TextView) itemView.findViewById(R.id.perfect_score_text_view);
+                mSubmissionDateLinearLayout = (LinearLayout) itemView.findViewById(R.id.submission_date_linear_layout);
+                mSubmissionDateTextView = (TextView) itemView.findViewById(R.id.submission_date_text_view);
+                mRemarksTextView = (TextView) itemView.findViewById(R.id.remarks_text_view);
             }
         }
     }
@@ -377,160 +411,6 @@ public class ClassItemRecordsFragment extends Fragment {
 
         public ClassItemRecordSummary(ClassItemRecordContract.ClassItemRecordEntry classItemRecord) {
             mClassItemRecord = classItemRecord;
-        }
-    }
-
-    public static class InfoTag {
-        public ArrayList<ClassItemRecordSummary> mArrayList;
-        public int mPosition;
-        public int mField;
-        public Adapter mAdapter;
-
-        public InfoTag(ArrayList<ClassItemRecordSummary> arrayList, int position, int field, Adapter adapter) {
-            mArrayList = arrayList;
-            mPosition = position;
-            mField = field;
-            mAdapter = adapter;
-        }
-    }
-
-    public static class MyEditorActionListener implements EditText.OnEditorActionListener {
-
-        private EditText mEditText;
-
-        public MyEditorActionListener(EditText editText) {
-            mEditText = editText;
-        }
-
-        @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-            actionId = actionId & EditorInfo.IME_MASK_ACTION;
-            if(actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE ||
-                    actionId == EditorInfo.IME_ACTION_GO || actionId == EditorInfo.IME_ACTION_NEXT ||
-                    event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                if(true) { //!event.isShiftPressed()) {
-                    InfoTag infoTag = (InfoTag) mEditText.getTag();
-                    if(infoTag == null)
-                        return false;
-                    ClassItemRecordSummary itemRecordSummary = infoTag.mArrayList.get(infoTag.mPosition);
-                    switch(infoTag.mField) {
-                        case 0:
-                            Float score;
-                            try {
-                                score = Float.parseFloat(mEditText.getText().toString());
-                            }
-                            catch(Exception e) {
-                                score = null;
-                            }
-                            itemRecordSummary.mClassItemRecord.setScore(score);
-                            break;
-                        case 1:
-                            itemRecordSummary.mClassItemRecord.setRemarks(mEditText.getText().toString());
-                            break;
-                    }
-                    infoTag.mAdapter.notifyDataSetChanged();
-                    return true; // consume.
-                }
-            }
-            return false; // pass on to other listeners.
-        }
-    }
-
-    public static class MyFocusChangeListener implements View.OnFocusChangeListener {
-
-        private EditText mEditText;
-
-        public MyFocusChangeListener(EditText editText) {
-            mEditText = editText;
-        }
-
-        @Override
-        public void onFocusChange(View v, boolean hasFocus) {
-            if(!hasFocus) {
-                InfoTag infoTag = (InfoTag) mEditText.getTag();
-                if(infoTag == null)
-                    return;
-                ClassItemRecordSummary itemRecordSummary = infoTag.mArrayList.get(infoTag.mPosition);
-                switch(infoTag.mField) {
-                    case 0:
-                        Float score;
-                        try {
-                            score = Float.parseFloat(mEditText.getText().toString());
-                        }
-                        catch(Exception e) {
-                            score = null;
-                        }
-                        itemRecordSummary.mClassItemRecord.setScore(score);
-                        break;
-                    case 1:
-                        itemRecordSummary.mClassItemRecord.setRemarks(mEditText.getText().toString());
-                        break;
-                }
-                infoTag.mAdapter.notifyDataSetChanged();
-            }
-        }
-    }
-
-    public static class MyTextWatcher implements TextWatcher {
-
-        private EditText mEditText;
-
-        public MyTextWatcher(EditText editText) {
-            mEditText = editText;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) { }
-        @Override
-        public void afterTextChanged(Editable s) {
-            InfoTag infoTag = (InfoTag) mEditText.getTag();
-            if(infoTag == null)
-                return;
-            ClassItemRecordSummary itemRecordSummary = infoTag.mArrayList.get(infoTag.mPosition);
-            switch(infoTag.mField) {
-                case 0:
-                    Float score;
-                    try {
-                        score = Float.parseFloat(mEditText.getText().toString());
-                    }
-                    catch(Exception e) {
-                        score = null;
-                    }
-                    itemRecordSummary.mClassItemRecord.setScore(score);
-                    break;
-                case 1:
-                    itemRecordSummary.mClassItemRecord.setRemarks(mEditText.getText().toString());
-                    break;
-            }
-            infoTag.mAdapter.notifyDataSetChanged();
-        }
-    }
-
-    public static class MyCheckChangedListener implements RadioGroup.OnCheckedChangeListener {
-
-        private EditText mScoreEditText;
-
-        public MyCheckChangedListener(EditText scoreEditText) {
-            mScoreEditText = scoreEditText;
-        }
-
-        @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
-            InfoTag infoTag = (InfoTag) group.getTag();
-            if(infoTag == null)
-                return;
-            ClassItemRecordSummary itemRecordSummary = infoTag.mArrayList.get(infoTag.mPosition);
-            if(checkedId == R.id.absent_radio_button) {
-                mScoreEditText.setEnabled(false);
-                itemRecordSummary.mClassItemRecord.setAttendance(false);
-            }
-            else {
-                mScoreEditText.setEnabled(true);
-                itemRecordSummary.mClassItemRecord.setAttendance(true);
-            }
-            infoTag.mAdapter.notifyDataSetChanged();
         }
     }
 }

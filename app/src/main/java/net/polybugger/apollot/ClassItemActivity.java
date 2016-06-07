@@ -191,9 +191,11 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
         if(rowsUpdated > 0) {
             FragmentManager fm = getSupportFragmentManager();
             ClassItemInfoFragment f1 = (ClassItemInfoFragment) fm.findFragmentByTag(fragmentTag);
-            if(f1 != null) {
+            if(f1 != null)
                 f1.updateClassItem(classItem, rowsUpdated, fragmentTag);
-            }
+            ClassItemRecordsFragment f2 = (ClassItemRecordsFragment) fm.findFragmentByTag(getFragmentTag(RECORDS_TAB));
+            if(f2 != null)
+                f2.updateClassItem(classItem);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

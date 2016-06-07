@@ -233,12 +233,18 @@
 
     <string name="summary">Summary</string>
 
-    <string name="present">Present</string>
-    <string name="absent">Absent</string>
+    <string name="attendance_present">Present</string>
+    <string name="attendance_absent">Absent</string>
 
     <string name="score_hint">Score</string>
     <string name="submission_date_hint">Submission Date</string>
     <string name="remarks_hint">Remarks</string>
+
+    <string name="attendance_label">Attendance:</string>
+    <string name="dash_string">-</string>
+    <string name="score_label">Score:</string>
+    <string name="slash_separator">/</string>
+    <string name="submission_date_label">Date Submitted:</string>
 
     <string name="action_sort_attendance">Attendance</string>
     <string name="action_sort_score">Score</string>
