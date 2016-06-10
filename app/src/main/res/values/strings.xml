@@ -187,6 +187,7 @@
     <string name="check_attendance">Check Attendance</string>
     <string name="perfect_score_label">Perfect Score:</string>
     <string name="submission_due_date_label">Submission Due Date:</string>
+    <string name="due_date_label">Due Date:</string>
 
     <string name="action_sort">Sort</string>
     <string name="action_sort_class_code">Code</string>
@@ -245,6 +246,7 @@
     <string name="score_label">Score:</string>
     <string name="slash_separator">/</string>
     <string name="submission_date_label">Date Submitted:</string>
+    <string name="update_class_item_record">Update activity record?</string>
 
     <string name="action_sort_attendance">Attendance</string>
     <string name="action_sort_score">Score</string>

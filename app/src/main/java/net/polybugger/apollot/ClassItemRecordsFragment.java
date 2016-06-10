@@ -164,10 +164,6 @@ public class ClassItemRecordsFragment extends Fragment {
         mAdapter.setArrayList(arrayList);
     }
 
-    public void setButtonDate(Date date, int position) {
-        mAdapter.updateSubmissionDate(date, position);
-    }
-
     public void updateClassItem(ClassItemContract.ClassItemEntry classItem) {
         mClassItem = classItem;
         mAdapter.setClassItem(classItem);
@@ -283,7 +279,12 @@ public class ClassItemRecordsFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     ClassItemRecordSummary classItemSummary = (ClassItemRecordSummary) v.getTag();
-                    // TODO dialog fragment for item record
+                    FragmentManager fm = mFragment.getFragmentManager();
+                    ClassItemRecordInsertUpdateDialogFragment df = (ClassItemRecordInsertUpdateDialogFragment) fm.findFragmentByTag(ClassItemRecordInsertUpdateDialogFragment.TAG);
+                    if(df == null) {
+                        df = ClassItemRecordInsertUpdateDialogFragment.newInstance(classItemSummary.mClassItemRecord, mClassItem, mFragment.getString(R.string.update_class_item_record), mFragment.getString(R.string.save_changes), mFragment.getTag());
+                        df.show(fm, ClassItemRecordInsertUpdateDialogFragment.TAG);
+                    }
                 }
             });
 

@@ -17,16 +17,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import net.polybugger.apollot.db.ApolloDbAdapter;
-import net.polybugger.apollot.db.ClassContract;
-import net.polybugger.apollot.db.ClassItemContract;
-
 import java.util.ArrayList;
 import java.util.Date;
 
+import net.polybugger.apollot.db.ApolloDbAdapter;
+import net.polybugger.apollot.db.ClassContract;
+import net.polybugger.apollot.db.ClassItemContract;
+import net.polybugger.apollot.db.ClassItemRecordContract;
+
 public class ClassItemActivity extends AppCompatActivity implements ClassItemActivityFragment.Listener,
         ClassItemInsertUpdateDialogFragment.Listener,
-        DatePickerDialogFragment.Listener {
+        DatePickerDialogFragment.Listener,
+        ClassItemRecordInsertUpdateDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
     public static final String CLASS_ITEM_ARG = "net.polybugger.apollot.class_item_arg";
@@ -218,9 +220,14 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
         if(f != null) {
             if(f instanceof ClassItemInsertUpdateDialogFragment)
                 ((ClassItemInsertUpdateDialogFragment) f).setButtonDate(date, buttonId);
-            if(f instanceof ClassItemRecordsFragment)
-                ((ClassItemRecordsFragment) f).setButtonDate(date, buttonId);
+            if(f instanceof ClassItemRecordInsertUpdateDialogFragment)
+                ((ClassItemRecordInsertUpdateDialogFragment) f).setButtonDate(date, buttonId);
         }
+    }
+
+    @Override
+    public void onConfirmInsertUpdateClassItemRecord(ClassItemRecordContract.ClassItemRecordEntry entry, ClassItemContract.ClassItemEntry classItem, String fragmentTag) {
+
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
