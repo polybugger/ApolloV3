@@ -289,128 +289,104 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
 
     @Override
     public void onGetClassSchedules(ArrayList<ClassScheduleContract.ClassScheduleEntry> classSchedules, String fragmentTag) {
-        FragmentManager fm = getSupportFragmentManager();
-        ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
-        if(f1 != null) {
+        ClassInfoFragment f1 = (ClassInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        if(f1 != null)
             f1.populateClassSchedules(classSchedules, fragmentTag);
-        }
     }
 
     @Override
     public void onInsertClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, long id, String fragmentTag) {
         if(classSchedule.getId() == -1) {
-            FragmentManager fm = getSupportFragmentManager();
-            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
-            if(f1 != null) {
+            ClassInfoFragment f1 = (ClassInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f1 != null)
                 f1.insertClassSchedule(classSchedule, id, fragmentTag);
-            }
         }
     }
 
     @Override
     public void onUpdateClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsUpdated, String fragmentTag) {
         if(rowsUpdated > 0) {
-            FragmentManager fm = getSupportFragmentManager();
-            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
-            if(f1 != null) {
+            ClassInfoFragment f1 = (ClassInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f1 != null)
                 f1.updateClassSchedule(classSchedule, rowsUpdated, fragmentTag);
-            }
         }
     }
 
     @Override
     public void onDeleteClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsDeleted, String fragmentTag) {
         if(rowsDeleted > 0) {
-            FragmentManager fm = getSupportFragmentManager();
-            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
-            if(f1 != null) {
+            ClassInfoFragment f1 = (ClassInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f1 != null)
                 f1.deleteClassSchedule(classSchedule, rowsDeleted, fragmentTag);
-            }
         }
     }
 
     @Override
     public void onGetGradeBreakdowns(ArrayList<ClassGradeBreakdownContract.ClassGradeBreakdownEntry> gradeBreakdowns, String fragmentTag) {
-        FragmentManager fm = getSupportFragmentManager();
-        ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
-        if(f1 != null) {
+        ClassInfoFragment f1 = (ClassInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        if(f1 != null)
             f1.populateGradeBreakdowns(gradeBreakdowns, fragmentTag);
-        }
     }
 
     @Override
     public void onInsertClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, long id, String fragmentTag) {
         if(classGradeBreakdown.getId() == -1) {
-            FragmentManager fm = getSupportFragmentManager();
-            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
-            if(f1 != null) {
+            ClassInfoFragment f1 = (ClassInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f1 != null)
                 f1.insertClassGradeBreakdown(classGradeBreakdown, id, fragmentTag);
-            }
         }
     }
 
     @Override
     public void onUpdateClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsUpdated, String fragmentTag) {
         if(rowsUpdated > 0) {
-            FragmentManager fm = getSupportFragmentManager();
-            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
-            if(f1 != null) {
+            ClassInfoFragment f1 = (ClassInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f1 != null)
                 f1.updateClassGradeBreakdown(classGradeBreakdown, rowsUpdated, fragmentTag);
-            }
         }
     }
 
     @Override
     public void onDeleteClassGradeBreakdown(ClassGradeBreakdownContract.ClassGradeBreakdownEntry classGradeBreakdown, int rowsDeleted, String fragmentTag) {
         if(rowsDeleted > 0) {
-            FragmentManager fm = getSupportFragmentManager();
-            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
-            if(f1 != null) {
+            ClassInfoFragment f1 = (ClassInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f1 != null)
                 f1.deleteClassGradeBreakdown(classGradeBreakdown, rowsDeleted, fragmentTag);
-            }
         }
     }
 
     @Override
     public void onInsertClassNote(ClassNoteContract.ClassNoteEntry classNote, long id, String fragmentTag) {
         if(classNote.getId() == -1) {
-            FragmentManager fm = getSupportFragmentManager();
-            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
-            if(f1 != null) {
+            ClassInfoFragment f1 = (ClassInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f1 != null)
                 f1.insertClassNote(classNote, id, fragmentTag);
-            }
         }
     }
 
     @Override
     public void onUpdateClassNote(ClassNoteContract.ClassNoteEntry classNote, int rowsUpdated, String fragmentTag) {
         if(rowsUpdated > 0) {
-            FragmentManager fm = getSupportFragmentManager();
-            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
-            if(f1 != null) {
+            ClassInfoFragment f1 = (ClassInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f1 != null)
                 f1.updateClassNote(classNote, rowsUpdated, fragmentTag);
-            }
         }
     }
 
     @Override
     public void onDeleteClassNote(ClassNoteContract.ClassNoteEntry classNote, int rowsDeleted, String fragmentTag) {
         if(rowsDeleted > 0) {
-            FragmentManager fm = getSupportFragmentManager();
-            ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
-            if(f1 != null) {
+            ClassInfoFragment f1 = (ClassInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f1 != null)
                 f1.deleteClassNote(classNote, rowsDeleted, fragmentTag);
-            }
         }
     }
 
     @Override
     public void onGetClassNotes(ArrayList<ClassNoteContract.ClassNoteEntry> classNotes, String fragmentTag) {
-        FragmentManager fm = getSupportFragmentManager();
-        ClassInfoFragment f1 = (ClassInfoFragment) fm.findFragmentByTag(fragmentTag);
-        if(f1 != null) {
+        ClassInfoFragment f1 = (ClassInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        if(f1 != null)
             f1.populateClassNotes(classNotes, fragmentTag);
-        }
     }
 
     // TODO requery other fragments if necessary
@@ -439,11 +415,9 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     @Override
     public void onInsertClassItem(ClassItemContract.ClassItemEntry classItem, long id, String fragmentTag) {
         if(classItem.getId() == -1) {
-            FragmentManager fm = getSupportFragmentManager();
-            ClassItemsFragment f2 = (ClassItemsFragment) fm.findFragmentByTag(fragmentTag);
-            if(f2 != null) {
+            ClassItemsFragment f2 = (ClassItemsFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f2 != null)
                 f2.insertClassItem(classItem, id, fragmentTag);
-            }
         }
     }
 

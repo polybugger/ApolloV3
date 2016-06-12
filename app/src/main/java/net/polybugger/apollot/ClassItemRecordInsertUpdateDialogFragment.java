@@ -128,6 +128,8 @@ public class ClassItemRecordInsertUpdateDialogFragment extends AppCompatDialogFr
         mAttendanceRadioGroup = (RadioGroup) view.findViewById(R.id.attendance_radio_group);
         mPresentRadioButton = (RadioButton) view.findViewById(R.id.present_radio_button);
         mAbsentRadioButton = (RadioButton) view.findViewById(R.id.absent_radio_button);
+        mPerfectScoreTextView = (TextView) view.findViewById(R.id.perfect_score_text_view);
+        mScoreEditText = (EditText) view.findViewById(R.id.score_edit_text);
         if(mClassItem.isCheckAttendance()) {
             mCheckAttendanceTextView.setVisibility(View.VISIBLE);
             mAttendanceRadioGroup.setVisibility(View.VISIBLE);
@@ -156,8 +158,6 @@ public class ClassItemRecordInsertUpdateDialogFragment extends AppCompatDialogFr
             mCheckAttendanceTextView.setVisibility(View.GONE);
             mAttendanceRadioGroup.setVisibility(View.GONE);
         }
-        mPerfectScoreTextView = (TextView) view.findViewById(R.id.perfect_score_text_view);
-        mScoreEditText = (EditText) view.findViewById(R.id.score_edit_text);
         if(mClassItem.isRecordScores()) {
             mPerfectScoreTextView.setVisibility(View.VISIBLE);
             mScoreEditText.setVisibility(View.VISIBLE);

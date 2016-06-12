@@ -31,6 +31,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -122,28 +123,23 @@ public class ClassItemRecordsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        /*
         switch(id) {
-            case R.id.action_sort_item_description:
-                mAdapter.sortBy(R.id.action_sort_item_description);
+            case R.id.action_sort_last_name:
+                mAdapter.sortBy(R.id.action_sort_last_name);
                 return true;
-            case R.id.action_sort_item_date:
-                mAdapter.sortBy(R.id.action_sort_item_date);
+            case R.id.action_sort_first_name:
+                mAdapter.sortBy(R.id.action_sort_first_name);
                 return true;
-            case R.id.action_sort_item_type:
-                mAdapter.sortBy(R.id.action_sort_item_type);
+            case R.id.action_sort_attendance:
+                mAdapter.sortBy(R.id.action_sort_attendance);
                 return true;
-            case R.id.action_sort_check_attendance:
-                mAdapter.sortBy(R.id.action_sort_check_attendance);
+            case R.id.action_sort_score:
+                mAdapter.sortBy(R.id.action_sort_score);
                 return true;
-            case R.id.action_sort_perfect_score:
-                mAdapter.sortBy(R.id.action_sort_perfect_score);
-                return true;
-            case R.id.action_sort_submission_due_date:
-                mAdapter.sortBy(R.id.action_sort_submission_due_date);
+            case R.id.action_sort_submission_date:
+                mAdapter.sortBy(R.id.action_sort_submission_date);
                 return true;
         }
-        */
         return super.onOptionsItemSelected(item);
     }
 
@@ -167,6 +163,35 @@ public class ClassItemRecordsFragment extends Fragment {
     public void updateClassItem(ClassItemContract.ClassItemEntry classItem) {
         mClassItem = classItem;
         mAdapter.setClassItem(classItem);
+        mAttendanceMenuItem.setVisible(mClassItem.isCheckAttendance());
+        mScoreMenuItem.setVisible(mClassItem.isRecordScores());
+        mSubmissionDateMenuItem.setVisible(mClassItem.isRecordSubmissions());
+    }
+
+    public void onInsertClassItemRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, long id, String fragmentTag) {
+        if(id != -1) {
+            classItemRecord.setId(id);
+            ClassItemRecordSummary classItemRecordSummary = new ClassItemRecordSummary(classItemRecord);
+            mAdapter.update(classItemRecordSummary);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_item_record_updated), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
+
+    }
+
+    public void onUpdateClassItemRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, int rowsUpdated, String fragmentTag) {
+        ClassItemRecordSummary classItemRecordSummary = new ClassItemRecordSummary(classItemRecord);
+        mAdapter.update(classItemRecordSummary);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_item_record_updated), Snackbar.LENGTH_SHORT).show();
+            }
+        }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
     }
 
     public static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
@@ -186,14 +211,72 @@ public class ClassItemRecordsFragment extends Fragment {
             mComparator = new Comparator<ClassItemRecordSummary>() {
                 @Override
                 public int compare(ClassItemRecordSummary lhs, ClassItemRecordSummary rhs) {
-                    /*
-                    if(mSortId == R.id.action_sort_item_description) {
-                        return lhs.mClassItem.getDescription().compareToIgnoreCase(rhs.mClassItem.getDescription());
+                    if(mSortId == R.id.action_sort_last_name) {
+                        return lhs.mClassItemRecord.getClassStudent().getStudent().getLastName().compareToIgnoreCase(rhs.mClassItemRecord.getClassStudent().getStudent().getLastName());
                     }
-                    else if(-mSortId == R.id.action_sort_item_description) {
-                        return -lhs.mClassItem.getDescription().compareToIgnoreCase(rhs.mClassItem.getDescription());
+                    else if(-mSortId == R.id.action_sort_last_name) {
+                        return -lhs.mClassItemRecord.getClassStudent().getStudent().getLastName().compareToIgnoreCase(rhs.mClassItemRecord.getClassStudent().getStudent().getLastName());
                     }
-                    */
+                    else if(mSortId == R.id.action_sort_first_name) {
+                        return lhs.mClassItemRecord.getClassStudent().getStudent().getFirstName().compareToIgnoreCase(rhs.mClassItemRecord.getClassStudent().getStudent().getFirstName());
+                    }
+                    else if(-mSortId == R.id.action_sort_first_name) {
+                        return -lhs.mClassItemRecord.getClassStudent().getStudent().getFirstName().compareToIgnoreCase(rhs.mClassItemRecord.getClassStudent().getStudent().getFirstName());
+                    }
+                    else if(mSortId == R.id.action_sort_attendance) {
+                        boolean lb = lhs.mClassItemRecord.getAttendance();
+                        boolean rb = rhs.mClassItemRecord.getAttendance();
+                        return (lb ? -1 : rb ? 1 : 0);
+                    }
+                    else if(-mSortId == R.id.action_sort_attendance) {
+                        boolean lb = lhs.mClassItemRecord.getAttendance();
+                        boolean rb = rhs.mClassItemRecord.getAttendance();
+                        return -(lb ? -1 : rb ? 1 : 0);
+                    }
+                    else if(mSortId == R.id.action_sort_score) {
+                        Float lps = lhs.mClassItemRecord.getScore();
+                        Float rps = rhs.mClassItemRecord.getScore();
+                        if(lps == null)
+                            return 1;
+                        if(rps == null)
+                            return -1;
+                        return (lps < rps ? -1 : 1);
+                    }
+                    else if(-mSortId == R.id.action_sort_score) {
+                        Float lps = lhs.mClassItemRecord.getScore();
+                        Float rps = rhs.mClassItemRecord.getScore();
+                        if(lps == null)
+                            return -1;
+                        if(rps == null)
+                            return 1;
+                        return -(lps < rps ? -1 : 1);
+                    }
+                    else if(mSortId == R.id.action_sort_submission_date) {
+                        Date lDate = lhs.mClassItemRecord.getSubmissionDate();
+                        Date rDate = rhs.mClassItemRecord.getSubmissionDate();
+                        if(lDate == null)
+                            return 1;
+                        if(rDate == null)
+                            return -1;
+                        Calendar lCal = Calendar.getInstance();
+                        lCal.setTime(lDate);
+                        Calendar rCal = Calendar.getInstance();
+                        rCal.setTime(rDate);
+                        return lCal.compareTo(rCal);
+                    }
+                    else if(-mSortId == R.id.action_sort_submission_date) {
+                        Date lDate = lhs.mClassItemRecord.getSubmissionDate();
+                        Date rDate = rhs.mClassItemRecord.getSubmissionDate();
+                        if(lDate == null)
+                            return -1;
+                        if(rDate == null)
+                            return 1;
+                        Calendar lCal = Calendar.getInstance();
+                        lCal.setTime(lDate);
+                        Calendar rCal = Calendar.getInstance();
+                        rCal.setTime(rDate);
+                        return -lCal.compareTo(rCal);
+                    }
                     return 0;
                 }
             };
@@ -214,21 +297,20 @@ public class ClassItemRecordsFragment extends Fragment {
             notifyDataSetChanged();
         }
 
-        public void update(ClassItemRecordSummary classItemSummary) {
-            /*
-            ClassItemSummary tmpClassItemSummary;
+        public void update(ClassItemRecordSummary classItemRecordSummary) {
+
+            ClassItemRecordSummary tmpClassItemRecordSummary;
             int size = mArrayList.size(), pos = size;
             for(int i = 0; i < size; ++i) {
-                tmpClassItemSummary = mArrayList.get(i);
-                if(tmpClassItemSummary.mClassItem.equals(classItemSummary.mClassItem)) {
+                tmpClassItemRecordSummary = mArrayList.get(i);
+                if(tmpClassItemRecordSummary.mClassItemRecord.getClassStudent().equals(classItemRecordSummary.mClassItemRecord.getClassStudent())) {
                     pos = i;
                     break;
                 }
             }
             if(pos < size)
                 mArrayList.remove(pos);
-            mArrayList.add(pos, classItemSummary);
-            */
+            mArrayList.add(pos, classItemRecordSummary);
             notifyDataSetChanged();
         }
 
@@ -339,16 +421,16 @@ public class ClassItemRecordsFragment extends Fragment {
             String remarks = entry.mClassItemRecord.getRemarks();
             if(!StringUtils.isBlank(remarks)) {
                 holder.mRemarksTextView.setVisibility(View.VISIBLE);
-                holder.mRemarksTextView.setText(remarks);
+                holder.mRemarksTextView.setText(String.format("%s %s", mFragment.getString(R.string.remarks_label), remarks));
             }
             else
                 holder.mRemarksTextView.setVisibility(View.GONE);
 
             // only set padding if remarks is gone
+            int paddingTop = holder.mNameTextView.getPaddingTop();
+            int paddingRight = holder.mNameTextView.getPaddingRight();
+            int paddingLeft = holder.mNameTextView.getPaddingLeft();
             if(holder.mRemarksTextView.getVisibility() == View.GONE) {
-                int paddingTop = holder.mNameTextView.getPaddingTop();
-                int paddingRight = holder.mNameTextView.getPaddingRight();
-                int paddingLeft = holder.mNameTextView.getPaddingLeft();
                 if(holder.mSubmissionDateLinearLayout.getVisibility() == View.VISIBLE) {
                     holder.mSubmissionDateLinearLayout.setPadding(paddingLeft, 0, paddingRight, paddingTop);
                     holder.mScoreLinearLayout.setPadding(paddingLeft, 0, paddingRight, 0);
@@ -366,6 +448,12 @@ public class ClassItemRecordsFragment extends Fragment {
                 }
                 else
                     holder.mNameTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingTop);
+            }
+            else {
+                holder.mSubmissionDateLinearLayout.setPadding(paddingLeft, 0, paddingRight, 0);
+                holder.mScoreLinearLayout.setPadding(paddingLeft, 0, paddingRight, 0);
+                holder.mAttendanceLinearLayout.setPadding(paddingLeft, 0, paddingRight, 0);
+                holder.mNameTextView.setPadding(paddingLeft, paddingTop, paddingRight, 0);
             }
         }
 

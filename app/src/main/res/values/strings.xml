@@ -247,7 +247,8 @@
     <string name="slash_separator">/</string>
     <string name="submission_date_label">Date Submitted:</string>
     <string name="update_class_item_record">Update activity record?</string>
-
+    <string name="class_item_record_updated">Activity record updated.</string>
+    <string name="remarks_label">Remarks:</string>
     <string name="action_sort_attendance">Attendance</string>
     <string name="action_sort_score">Score</string>
     <string name="action_sort_submission_date">Submission Date</string>

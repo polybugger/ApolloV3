@@ -58,7 +58,7 @@ public class ClassItemRecordContract {
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
         values.put(ClassItemRecordEntry.SUBMISSION_DATE, (submissionDate != null) ? sdf.format(submissionDate) : null);
         values.put(ClassItemRecordEntry.REMARKS, remarks);
-        return db.update(TABLE_NAME + String.valueOf(classId), values, ClassItemRecordEntry._ID + "=? AND " + ClassItemContract.ClassItemEntry._ID + "=? AND " + StudentContract.StudentEntry._ID + "=?",
+        return db.update(TABLE_NAME + String.valueOf(classId), values, ClassItemRecordEntry._ID + "=? AND " + ClassItemRecordEntry.ITEM_ID + "=? AND " + ClassItemRecordEntry.STUDENT_ID + "=?",
                 new String[]{String.valueOf(id), String.valueOf(classItemId), String.valueOf(classStudent.getStudent().getId())});
     }
 

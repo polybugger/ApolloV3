@@ -182,9 +182,8 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
     public void onConfirmInsertUpdateClassItem(ClassItemContract.ClassItemEntry entry, String fragmentTag) {
         if(entry.getId() != -1) {
             ClassItemActivityFragment rf = (ClassItemActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
-            if(rf != null) {
+            if(rf != null)
                 rf.updateClassItem(entry, fragmentTag);
-            }
         }
     }
 
@@ -215,6 +214,24 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
     }
 
     @Override
+    public void onInsertClassItemRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, long id, String fragmentTag) {
+        if(classItemRecord.getId() == -1) {
+            ClassItemRecordsFragment f = (ClassItemRecordsFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f != null)
+                f.onInsertClassItemRecord(classItemRecord, classItem, id, fragmentTag);
+        }
+    }
+
+    @Override
+    public void onUpdateClassItemRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, int rowsUpdated, String fragmentTag) {
+        if(rowsUpdated > 0) {
+            ClassItemRecordsFragment f = (ClassItemRecordsFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f != null)
+                f.onUpdateClassItemRecord(classItemRecord, classItem, rowsUpdated, fragmentTag);
+        }
+    }
+
+    @Override
     public void onSetButtonDate(Date date, String dialogFragmentTag, int buttonId) {
         Fragment f = getSupportFragmentManager().findFragmentByTag(dialogFragmentTag);
         if(f != null) {
@@ -227,7 +244,13 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
 
     @Override
     public void onConfirmInsertUpdateClassItemRecord(ClassItemRecordContract.ClassItemRecordEntry entry, ClassItemContract.ClassItemEntry classItem, String fragmentTag) {
-
+        ClassItemActivityFragment f = (ClassItemActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
+        if(f != null) {
+            if(entry.getId() == -1)
+                f.insertClassItemRecord(entry, classItem, fragmentTag);
+            else
+                f.updateClassItemRecord(entry, classItem, fragmentTag);
+        }
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
