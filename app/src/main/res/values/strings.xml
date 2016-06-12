@@ -253,4 +253,14 @@
     <string name="action_sort_score">Score</string>
     <string name="action_sort_submission_date">Submission Date</string>
 
+    <string name="present_label">Present:</string>
+    <string name="absent_label">Absent:</string>
+    <string name="unchecked_attendance_label">Unchecked:</string>
+
+    <string name="recorded_scores_label">Scores:</string>
+    <string name="unrecorded_scores_label">Unrecorded:</string>
+
+    <string name="recorded_submissions_label">Submitted:</string>
+    <string name="unrecorded_submissions_label">Noy Yet Submitted:</string>
+
 </resources>

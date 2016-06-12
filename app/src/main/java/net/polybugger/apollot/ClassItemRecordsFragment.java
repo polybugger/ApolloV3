@@ -163,9 +163,12 @@ public class ClassItemRecordsFragment extends Fragment {
     public void updateClassItem(ClassItemContract.ClassItemEntry classItem) {
         mClassItem = classItem;
         mAdapter.setClassItem(classItem);
-        mAttendanceMenuItem.setVisible(mClassItem.isCheckAttendance());
-        mScoreMenuItem.setVisible(mClassItem.isRecordScores());
-        mSubmissionDateMenuItem.setVisible(mClassItem.isRecordSubmissions());
+        if(mAttendanceMenuItem != null)
+            mAttendanceMenuItem.setVisible(mClassItem.isCheckAttendance());
+        if(mScoreMenuItem != null)
+            mScoreMenuItem.setVisible(mClassItem.isRecordScores());
+        if(mSubmissionDateMenuItem != null)
+            mSubmissionDateMenuItem.setVisible(mClassItem.isRecordSubmissions());
     }
 
     public void onInsertClassItemRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, long id, String fragmentTag) {
@@ -179,6 +182,12 @@ public class ClassItemRecordsFragment extends Fragment {
                     Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_item_record_updated), Snackbar.LENGTH_SHORT).show();
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+            ClassItemActivityFragment rf = (ClassItemActivityFragment) getFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
+            if(rf != null) {
+                rf.getClassItemSummaryInfo(mClassItem, getTag());
+                //rf.getGradeBreakdowns(mClass, getTag());
+                //rf.getClassNotes(mClass, getTag());
+            }
         }
 
     }
@@ -192,6 +201,12 @@ public class ClassItemRecordsFragment extends Fragment {
                 Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_item_record_updated), Snackbar.LENGTH_SHORT).show();
             }
         }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        ClassItemActivityFragment rf = (ClassItemActivityFragment) getFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
+        if(rf != null) {
+            rf.getClassItemSummaryInfo(mClassItem, getTag());
+            //rf.getGradeBreakdowns(mClass, getTag());
+            //rf.getClassNotes(mClass, getTag());
+        }
     }
 
     public static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {

@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
@@ -20,6 +21,7 @@ public class ClassItemActivityFragment extends Fragment {
         void onGetClassItemRecords(ArrayList<ClassItemRecordsFragment.ClassItemRecordSummary> arrayList, String fragmentTag);
         void onInsertClassItemRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, long id, String fragmentTag);
         void onUpdateClassItemRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, int rowsUpdated, String fragmentTag);
+        void onGetClassItemSummaryInfo(ClassItemInfoFragment.ClassItemSummaryInfo classItemSummaryInfo, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_item_activity_fragment";
@@ -63,6 +65,14 @@ public class ClassItemActivityFragment extends Fragment {
         params.mFragmentTag = fragmentTag;
         new UpdateClassItemRecordAsyncTask().execute(params);
     }
+
+    public void getClassItemSummaryInfo(ClassItemContract.ClassItemEntry classItem, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassItem = classItem;
+        params.mFragmentTag = fragmentTag;
+        new GetClassItemSummaryInfoAsyncTask().execute(params);
+    }
+
 
     private class UpdateClassItemAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
 
@@ -138,12 +148,11 @@ public class ClassItemActivityFragment extends Fragment {
             result.mClassItemRecords = new ArrayList<>();
             SQLiteDatabase db = ApolloDbAdapter.open();
             ArrayList<ClassItemRecordContract.ClassItemRecordEntry> classItemRecords = ClassItemRecordContract._getEntriesByClassItem(db, result.mClassItem.getClassId(), result.mClassItem.getId());
+            ApolloDbAdapter.close();
             for(ClassItemRecordContract.ClassItemRecordEntry classItemRecord : classItemRecords) {
                 ClassItemRecordsFragment.ClassItemRecordSummary classItemRecordSummary = new ClassItemRecordsFragment.ClassItemRecordSummary(classItemRecord);
-                // TODO fetch class item records for summary
                 result.mClassItemRecords.add(classItemRecordSummary);
             }
-            ApolloDbAdapter.close();
             result.mFragmentTag = params[0].mFragmentTag;
             return result;
         }
@@ -152,6 +161,49 @@ public class ClassItemActivityFragment extends Fragment {
         protected void onPostExecute(AsyncTaskResult result) {
             if(mListener != null) {
                 mListener.onGetClassItemRecords(result.mClassItemRecords, result.mFragmentTag);
+            }
+        }
+    }
+
+    private class GetClassItemSummaryInfoAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassItem = params[0].mClassItem;
+            result.mClassItemRecords = new ArrayList<>();
+            result.mClassItemSummaryInfo = new ClassItemInfoFragment.ClassItemSummaryInfo();
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            ArrayList<ClassItemRecordContract.ClassItemRecordEntry> classItemRecords = ClassItemRecordContract._getEntriesByClassItem(db, result.mClassItem.getClassId(), result.mClassItem.getId());
+            ApolloDbAdapter.close();
+            int total = 0;
+            for(ClassItemRecordContract.ClassItemRecordEntry classItemRecord : classItemRecords) {
+                total = total + 1;
+                Boolean attendance = classItemRecord.getAttendance();
+                if(attendance != null) {
+                    if(attendance)
+                        result.mClassItemSummaryInfo.mPresentAttendance = result.mClassItemSummaryInfo.mPresentAttendance + 1;
+                    else
+                        result.mClassItemSummaryInfo.mAbsentAttendance = result.mClassItemSummaryInfo.mAbsentAttendance + 1;
+                }
+                Float score = classItemRecord.getScore();
+                if(score != null)
+                    result.mClassItemSummaryInfo.mRecordedScores = result.mClassItemSummaryInfo.mRecordedScores + 1;
+                Date submissionDate = classItemRecord.getSubmissionDate();
+                if(submissionDate != null)
+                    result.mClassItemSummaryInfo.mRecordedSubmissions = result.mClassItemSummaryInfo.mRecordedSubmissions + 1;
+            }
+            result.mClassItemSummaryInfo.mTotalAttendance = total;
+            result.mClassItemSummaryInfo.mTotalScore = total;
+            result.mClassItemSummaryInfo.mTotalSubmission = total;
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onGetClassItemSummaryInfo(result.mClassItemSummaryInfo, result.mFragmentTag);
             }
         }
     }
@@ -179,6 +231,7 @@ public class ClassItemActivityFragment extends Fragment {
         public ClassContract.ClassEntry mClass;
         public ClassItemContract.ClassItemEntry mClassItem;
         public ClassItemRecordContract.ClassItemRecordEntry mClassItemRecord;
+        public ClassItemInfoFragment.ClassItemSummaryInfo mClassItemSummaryInfo;
         public int mRowsUpdated;
         public int mRowsDeleted;
         public long mId;

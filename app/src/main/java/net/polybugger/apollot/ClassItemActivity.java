@@ -232,6 +232,13 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
     }
 
     @Override
+    public void onGetClassItemSummaryInfo(ClassItemInfoFragment.ClassItemSummaryInfo classItemSummaryInfo, String fragmentTag) {
+        ClassItemInfoFragment f1 = (ClassItemInfoFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(INFO_TAB));
+        if(f1 != null)
+            f1.updateClassItemSummaryInfo(classItemSummaryInfo, getFragmentTag(INFO_TAB));
+    }
+
+    @Override
     public void onSetButtonDate(Date date, String dialogFragmentTag, int buttonId) {
         Fragment f = getSupportFragmentManager().findFragmentByTag(dialogFragmentTag);
         if(f != null) {

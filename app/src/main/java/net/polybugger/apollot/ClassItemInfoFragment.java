@@ -46,6 +46,14 @@ public class ClassItemInfoFragment extends Fragment {
     private TextView mPerfectScoreTextView;
     private TextView mSubmissionDueDateTextView;
 
+    private TextView mPresentSummaryTextView;
+    private TextView mAbsentSummaryTextView;
+    private TextView mUncheckedAttendanceSummaryTextView;
+    private TextView mRecordedScoreSummaryTextView;
+    private TextView mUnrecordedScoreSummaryTextView;
+    private TextView mRecordedSubmissionSummaryTextView;
+    private TextView mUnrecordedSubmissionSummaryTextView;
+
     private LinearLayout mClassItemNoteLinearLayout;
     private ArrayList<ClassItemNoteContract.ClassItemNoteEntry> mClassItemNoteList;
     private View.OnClickListener mEditClassItemNoteClickListener;
@@ -109,6 +117,14 @@ public class ClassItemInfoFragment extends Fragment {
             }
         });
 
+        mPresentSummaryTextView = (TextView) view.findViewById(R.id.present_summary_text_view);
+        mAbsentSummaryTextView = (TextView) view.findViewById(R.id.absent_summary_text_view);
+        mUncheckedAttendanceSummaryTextView = (TextView) view.findViewById(R.id.unchecked_attendance_summary_text_view);
+        mRecordedScoreSummaryTextView = (TextView) view.findViewById(R.id.recorded_score_summary_text_view);
+        mUnrecordedScoreSummaryTextView = (TextView) view.findViewById(R.id.unrecorded_score_summary_text_view);
+        mRecordedSubmissionSummaryTextView = (TextView) view.findViewById(R.id.recorded_submission_summary_text_view);
+        mUnrecordedSubmissionSummaryTextView = (TextView) view.findViewById(R.id.unrecorded_submission_summary_text_view);
+
         mClassItemNoteLinearLayout = (LinearLayout) view.findViewById(R.id.notes_linear_layout);
         mRemoveClassItemNoteClickListener = new View.OnClickListener() {
             @Override
@@ -141,7 +157,7 @@ public class ClassItemInfoFragment extends Fragment {
 
         ClassItemActivityFragment rf = (ClassItemActivityFragment) getFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
         if(rf != null) {
-            //rf.getClassSchedules(mClass, getTag());
+            rf.getClassItemSummaryInfo(mClassItem, getTag());
             //rf.getGradeBreakdowns(mClass, getTag());
             //rf.getClassNotes(mClass, getTag());
         }
@@ -158,6 +174,48 @@ public class ClassItemInfoFragment extends Fragment {
     public void updateClassItem(ClassItemContract.ClassItemEntry classItem, int rowsUpdated, String fragmentTag) {
         mClassItem = classItem;
         populateClassItemInfo();
+        ClassItemActivityFragment rf = (ClassItemActivityFragment) getFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
+        if(rf != null) {
+            rf.getClassItemSummaryInfo(mClassItem, getTag());
+            //rf.getGradeBreakdowns(mClass, getTag());
+            //rf.getClassNotes(mClass, getTag());
+        }
+    }
+
+    public void updateClassItemSummaryInfo(ClassItemSummaryInfo classItemSummaryInfo, String fragmentTag) {
+        if(mClassItem.isCheckAttendance()) {
+            mPresentSummaryTextView.setVisibility(View.VISIBLE);
+            mAbsentSummaryTextView.setVisibility(View.VISIBLE);
+            mUncheckedAttendanceSummaryTextView.setVisibility(View.VISIBLE);
+            mPresentSummaryTextView.setText(String.format("%s %d", getString(R.string.present_label), classItemSummaryInfo.mPresentAttendance));
+            mAbsentSummaryTextView.setText(String.format("%s %d", getString(R.string.absent_label), classItemSummaryInfo.mAbsentAttendance));
+            mUncheckedAttendanceSummaryTextView.setText(String.format("%s %d", getString(R.string.unchecked_attendance_label), classItemSummaryInfo.mTotalAttendance - classItemSummaryInfo.mPresentAttendance - classItemSummaryInfo.mAbsentAttendance));
+        }
+        else {
+            mPresentSummaryTextView.setVisibility(View.GONE);
+            mAbsentSummaryTextView.setVisibility(View.GONE);
+            mUncheckedAttendanceSummaryTextView.setVisibility(View.GONE);
+        }
+        if(mClassItem.isRecordScores()) {
+            mRecordedScoreSummaryTextView.setVisibility(View.VISIBLE);
+            mUnrecordedScoreSummaryTextView.setVisibility(View.VISIBLE);
+            mRecordedScoreSummaryTextView.setText(String.format("%s %d", getString(R.string.recorded_scores_label), classItemSummaryInfo.mRecordedScores));
+            mUnrecordedScoreSummaryTextView.setText(String.format("%s %d", getString(R.string.unrecorded_scores_label), classItemSummaryInfo.mTotalScore - classItemSummaryInfo.mRecordedScores));
+        }
+        else {
+            mRecordedScoreSummaryTextView.setVisibility(View.GONE);
+            mUnrecordedScoreSummaryTextView.setVisibility(View.GONE);
+        }
+        if(mClassItem.isRecordSubmissions()) {
+            mRecordedSubmissionSummaryTextView.setVisibility(View.VISIBLE);
+            mUnrecordedSubmissionSummaryTextView.setVisibility(View.VISIBLE);
+            mRecordedSubmissionSummaryTextView.setText(String.format("%s %d", getString(R.string.recorded_submissions_label), classItemSummaryInfo.mRecordedSubmissions));
+            mUnrecordedSubmissionSummaryTextView.setText(String.format("%s %d", getString(R.string.unrecorded_submissions_label), classItemSummaryInfo.mTotalSubmission - classItemSummaryInfo.mRecordedSubmissions));
+        }
+        else {
+            mRecordedSubmissionSummaryTextView.setVisibility(View.GONE);
+            mUnrecordedSubmissionSummaryTextView.setVisibility(View.GONE);
+        }
     }
 
     private void populateClassItemInfo() {
@@ -256,4 +314,25 @@ public class ClassItemInfoFragment extends Fragment {
             mTitleTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingTop);
     }
 
+    public static class ClassItemSummaryInfo {
+        public int mTotalAttendance;
+        public int mPresentAttendance;
+        public int mAbsentAttendance;
+
+        public int mTotalScore;
+        public int mRecordedScores;
+
+        public int mTotalSubmission;
+        public int mRecordedSubmissions;
+
+        public ClassItemSummaryInfo() {
+            mTotalAttendance = 0;
+            mPresentAttendance = 0;
+            mAbsentAttendance = 0;
+            mTotalScore = 0;
+            mRecordedScores = 0;
+            mTotalSubmission = 0;
+            mRecordedSubmissions = 0;
+        }
+    }
 }
