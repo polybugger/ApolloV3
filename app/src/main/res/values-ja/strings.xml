@@ -58,7 +58,7 @@
 
     <string name="security">セキュリティー</string>
     <string name="lock_enabled">ロック機能</string>
-    <string name="unlock_password">ロック解除</string>
+    <string name="unlock_password">ロック解除パスワード</string>
 
     <string name="details">情報</string>
     <string name="about_this_app">Apolloについて</string>
@@ -68,8 +68,8 @@
     <string name="cancel">キャンセル</string>
     <string name="change">変更</string>
     <string name="incorrect_password">パスワードが間違っています！</string>
-    <string name="unlock_password_changed">ロック解除変更済み。</string>
-    <string name="unlock_password_cleared">ロック解除が取り消されました。</string>
+    <string name="unlock_password_changed">パスワード変更済み。</string>
+    <string name="unlock_password_cleared">パスワードが取り消されました。</string>
 
     <string name="last_name_first_name">「姓」「名」</string>
     <string name="first_name_last_name">「名」「姓」</string>
@@ -120,8 +120,8 @@
     <string name="unlock">ロック解除</string>
     <string name="lock">ロック</string>
     <string name="ellipsis">。。。</string>
-    <string name="class_password_removed">授業情報ロックが解除されました。</string>
-    <string name="class_password_applied">授業情報がロックされました。</string>
+    <string name="class_password_removed">授業情報のパスワードが取り消されました。</string>
+    <string name="class_password_applied">授業情報のパスワードがロックされました。</string>
 
     <string name="class_schedule">スケジュール</string>
     <string name="grade_breakdown">学年</string>
@@ -182,7 +182,8 @@
 
     <string name="check_attendance">出欠確認</string>
     <string name="perfect_score_label">満点：</string>
-    <string name="submission_due_date_label">提出日：</string>
+    <string name="submission_due_date_label">提出期限：</string>
+    <string name="due_date_label">提出期限：</string>
 
     <string name="action_sort">Sort</string>
     <string name="action_sort_class_code">コード</string>
@@ -195,7 +196,7 @@
     <string name="action_sort_item_type">アクティビティー</string>
     <string name="action_sort_check_attendance">出欠確認</string>
     <string name="action_sort_perfect_score">満点</string>
-    <string name="action_sort_submission_due_date">提出日</string>
+    <string name="action_sort_submission_due_date">提出期限</string>
 
     <string name="please_enter_an_activity_description">アクティビティーを入れてください！</string>
 
@@ -213,21 +214,49 @@
 
     <string name="percent_symbol">％</string>
 
-    <string name="class_item_added">Activity added.</string>
-    <string name="class_item_updated">Activity updated.</string>
-    <string name="class_item_removed">Activity removed.</string>
+    <string name="class_item_added">アクティビティーを追加済み。</string>
+    <string name="class_item_updated">アクティビティーを更新。</string>
+    <string name="class_item_removed">アクティビティーが削除されました。</string>
 
-    <string name="update_class_item">Update activity?</string>
-    <string name="delete_class_item">Delete Activity</string>
+    <string name="update_class_item">アクティビティーを更新しますか？</string>
+    <string name="delete_class_item">アクティビティーを削除</string>
 
-    <string name="action_sort_last_name">Last Name</string>
-    <string name="action_sort_first_name">First Name</string>
+    <string name="action_sort_last_name">姓</string>
+    <string name="action_sort_first_name">名</string>
     <string name="space_symbol">"　"</string>
 
+    <string name="activity_info_tab">アクティビティー情報</string>
+    <string name="records_tab">記録</string>
 
-    <string name="action_sort_attendance">Attendance</string>
-    <string name="action_sort_score">Score</string>
-    <string name="action_sort_submission_date">Date Submitted</string>
-    <string name="action_sort_activity">Activity</string>
+    <string name="summary">一覧</string>
+
+    <string name="attendance_present">出席</string>
+    <string name="attendance_absent">欠席</string>
+
+    <string name="score_hint">スコア</string>
+    <string name="submission_date_hint">提出日</string>
+    <string name="remarks_hint">コメント</string>
+
+    <string name="attendance_label">出欠：</string>
+    <string name="dash_string">-</string>
+    <string name="score_label">スコア：</string>
+    <string name="slash_separator">/</string>
+    <string name="submission_date_label">提出日：</string>
+    <string name="update_class_item_record">記録を更新しますか？</string>
+    <string name="class_item_record_updated">記録更新済み。</string>
+    <string name="remarks_label">コメント：</string>
+    <string name="action_sort_attendance">出欠</string>
+    <string name="action_sort_score">スコア</string>
+    <string name="action_sort_submission_date">提出日</string>
+
+    <string name="present_label">出席：</string>
+    <string name="absent_label">欠席：</string>
+    <string name="unchecked_attendance_label">未確認：</string>
+
+    <string name="recorded_scores_label">スコア記録済み：</string>
+    <string name="unrecorded_scores_label">未記録：</string>
+
+    <string name="recorded_submissions_label">提出者数：</string>
+    <string name="unrecorded_submissions_label">未提出：</string>
 
 </resources>

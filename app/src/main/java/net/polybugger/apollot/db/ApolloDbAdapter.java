@@ -1,7 +1,7 @@
 package net.polybugger.apollot.db;
 
-// TODO primes used: academicTerm 2,3, itemType 5,7, class 11,13, student 17,19, schedule 23,29, note 31,37, password 41,43, classItem 47,53, classStudent 59,61, classGradeBreakdown 67,71
-// TODO use next hash 73,79
+// TODO primes used: academicTerm 2,3, itemType 5,7, class 11,13, student 17,19, schedule 23,29, note 31,37, password 41,43, classItem 47,53, classStudent 59,61, classGradeBreakdown 67,71, classItemRecord 73,79, classItemNote 83,89
+// TODO use next hash 97,101
 
 // TODO application tag in manifest needs to be google indexed
 

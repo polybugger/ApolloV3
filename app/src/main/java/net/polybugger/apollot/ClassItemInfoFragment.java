@@ -8,9 +8,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.NestedScrollView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,6 +26,7 @@ import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassItemContract;
 import net.polybugger.apollot.db.ClassItemNoteContract;
 import net.polybugger.apollot.db.ClassItemTypeContract;
+import net.polybugger.apollot.db.ClassNoteContract;
 import net.polybugger.apollot.db.DateTimeFormat;
 import net.polybugger.apollot.db.PastCurrentEnum;
 
@@ -158,8 +161,7 @@ public class ClassItemInfoFragment extends Fragment {
         ClassItemActivityFragment rf = (ClassItemActivityFragment) getFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
         if(rf != null) {
             rf.getClassItemSummaryInfo(mClassItem, getTag());
-            //rf.getGradeBreakdowns(mClass, getTag());
-            //rf.getClassNotes(mClass, getTag());
+            rf.getClassItemNotes(mClassItem, getTag());
         }
 
         return view;
@@ -312,6 +314,29 @@ public class ClassItemInfoFragment extends Fragment {
         }
         else
             mTitleTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingTop);
+    }
+
+    public void populateClassItemNotes(ArrayList<ClassItemNoteContract.ClassItemNoteEntry> classItemNotes, String fragmentTag) {
+        mClassItemNoteList = classItemNotes;
+        mClassItemNoteLinearLayout.removeAllViews();
+        for(ClassItemNoteContract.ClassItemNoteEntry classNote: mClassItemNoteList) {
+            mClassItemNoteLinearLayout.addView(getClassItemNoteView(getLayoutInflater(null), classNote, mEditClassItemNoteClickListener, mRemoveClassItemNoteClickListener));
+        }
+    }
+
+    private View getClassItemNoteView(LayoutInflater inflater, ClassItemNoteContract.ClassItemNoteEntry classItemNote, View.OnClickListener editClickListener, View.OnClickListener removeClickListener) {
+        return _getClassItemNoteView(inflater.inflate(R.layout.row_class_note, null), classItemNote, editClickListener, removeClickListener);
+    }
+
+    private View _getClassItemNoteView(View view, ClassItemNoteContract.ClassItemNoteEntry classItemNote, View.OnClickListener editClickListener, View.OnClickListener removeClickListener) {
+        ((TextView) view.findViewById(R.id.date_created_note_text_view)).setText(Html.fromHtml(classItemNote.getDateCreatedNote(getContext())));
+        LinearLayout editLinearLayout = (LinearLayout) view.findViewById(R.id.note_clickable_layout);
+        editLinearLayout.setTag(classItemNote);
+        editLinearLayout.setOnClickListener(editClickListener);
+        ImageButton removeButton = (ImageButton) view.findViewById(R.id.remove_button);
+        removeButton.setTag(classItemNote);
+        removeButton.setOnClickListener(removeClickListener);
+        return view;
     }
 
     public static class ClassItemSummaryInfo {

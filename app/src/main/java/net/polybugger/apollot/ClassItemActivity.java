@@ -23,6 +23,7 @@ import java.util.Date;
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassItemContract;
+import net.polybugger.apollot.db.ClassItemNoteContract;
 import net.polybugger.apollot.db.ClassItemRecordContract;
 
 public class ClassItemActivity extends AppCompatActivity implements ClassItemActivityFragment.Listener,
@@ -236,6 +237,14 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
         ClassItemInfoFragment f1 = (ClassItemInfoFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(INFO_TAB));
         if(f1 != null)
             f1.updateClassItemSummaryInfo(classItemSummaryInfo, getFragmentTag(INFO_TAB));
+    }
+
+    @Override
+    public void onGetClassItemNotes(ArrayList<ClassItemNoteContract.ClassItemNoteEntry> classItemNotes, String fragmentTag) {
+        ClassItemInfoFragment f1 = (ClassItemInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        if(f1 != null)
+            f1.populateClassItemNotes(classItemNotes, fragmentTag);
+
     }
 
     @Override

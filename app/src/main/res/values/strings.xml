@@ -261,6 +261,6 @@
     <string name="unrecorded_scores_label">Unrecorded:</string>
 
     <string name="recorded_submissions_label">Submitted:</string>
-    <string name="unrecorded_submissions_label">Noy Yet Submitted:</string>
+    <string name="unrecorded_submissions_label">Not Yet Submitted:</string>
 
 </resources>
