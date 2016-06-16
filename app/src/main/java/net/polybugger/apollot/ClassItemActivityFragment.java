@@ -14,6 +14,7 @@ import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassItemContract;
 import net.polybugger.apollot.db.ClassItemNoteContract;
 import net.polybugger.apollot.db.ClassItemRecordContract;
+import net.polybugger.apollot.db.ClassNoteContract;
 
 public class ClassItemActivityFragment extends Fragment {
 
@@ -24,6 +25,9 @@ public class ClassItemActivityFragment extends Fragment {
         void onUpdateClassItemRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, int rowsUpdated, String fragmentTag);
         void onGetClassItemSummaryInfo(ClassItemInfoFragment.ClassItemSummaryInfo classItemSummaryInfo, String fragmentTag);
         void onGetClassItemNotes(ArrayList<ClassItemNoteContract.ClassItemNoteEntry> classItemNotes, String fragmentTag);
+        void onInsertClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, long id, String fragmentTag);
+        void onUpdateClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, int rowsUpdated, String fragmentTag);
+        void onDeleteClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, int rowsDeleted, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_item_activity_fragment";
@@ -80,6 +84,27 @@ public class ClassItemActivityFragment extends Fragment {
         params.mClassItem = classItem;
         params.mFragmentTag = fragmentTag;
         new GetClassItemNotesAsyncTask().execute(params);
+    }
+
+    public void insertClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mItemNote = itemNote;
+        params.mFragmentTag = fragmentTag;
+        new InsertClassItemNoteAsyncTask().execute(params);
+    }
+
+    public void updateClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mItemNote = itemNote;
+        params.mFragmentTag = fragmentTag;
+        new UpdateClassItemNoteAsyncTask().execute(params);
+    }
+
+    public void deleteClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mItemNote = itemNote;
+        params.mFragmentTag = fragmentTag;
+        new DeleteClassItemNoteAsyncTask().execute(params);
     }
 
     private class UpdateClassItemAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
@@ -236,6 +261,69 @@ public class ClassItemActivityFragment extends Fragment {
         }
     }
 
+    private class InsertClassItemNoteAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mItemNote = params[0].mItemNote;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mId = ClassItemNoteContract._insert(db, result.mItemNote.getClassId(), result.mItemNote.getClassItemId(), result.mItemNote.getNote(), result.mItemNote.getDateCreated());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onInsertClassItemNote(result.mItemNote, result.mId, result.mFragmentTag);
+            }
+        }
+    }
+
+    private class UpdateClassItemNoteAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mItemNote = params[0].mItemNote;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mRowsUpdated = ClassItemNoteContract._update(db, result.mItemNote.getId(), result.mItemNote.getClassId(), result.mItemNote.getClassItemId(), result.mItemNote.getNote(), result.mItemNote.getDateCreated());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onUpdateClassItemNote(result.mItemNote, result.mRowsUpdated, result.mFragmentTag);
+            }
+        }
+    }
+
+    private class DeleteClassItemNoteAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mItemNote = params[0].mItemNote;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mRowsDeleted = ClassItemNoteContract._delete(db, result.mItemNote.getId(), result.mItemNote.getClassId());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onDeleteClassItemNote(result.mItemNote, result.mRowsDeleted, result.mFragmentTag);
+            }
+        }
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -260,6 +348,7 @@ public class ClassItemActivityFragment extends Fragment {
         public ClassItemContract.ClassItemEntry mClassItem;
         public ClassItemRecordContract.ClassItemRecordEntry mClassItemRecord;
         public ClassItemInfoFragment.ClassItemSummaryInfo mClassItemSummaryInfo;
+        public ClassItemNoteContract.ClassItemNoteEntry mItemNote;
         public int mRowsUpdated;
         public int mRowsDeleted;
         public long mId;
@@ -273,6 +362,7 @@ public class ClassItemActivityFragment extends Fragment {
         public ClassContract.ClassEntry mClass;
         public ClassItemContract.ClassItemEntry mClassItem;
         public ClassItemRecordContract.ClassItemRecordEntry mClassItemRecord;
+        public ClassItemNoteContract.ClassItemNoteEntry mItemNote;
         public String mFragmentTag;
 
         public AsyncTaskParams() { }

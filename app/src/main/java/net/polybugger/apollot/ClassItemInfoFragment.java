@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.NestedScrollView;
@@ -27,6 +29,7 @@ import net.polybugger.apollot.db.ClassItemContract;
 import net.polybugger.apollot.db.ClassItemNoteContract;
 import net.polybugger.apollot.db.ClassItemTypeContract;
 import net.polybugger.apollot.db.ClassNoteContract;
+import net.polybugger.apollot.db.ClassScheduleContract;
 import net.polybugger.apollot.db.DateTimeFormat;
 import net.polybugger.apollot.db.PastCurrentEnum;
 
@@ -145,14 +148,12 @@ public class ClassItemInfoFragment extends Fragment {
         mEditClassItemNoteClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
                 FragmentManager fm = getFragmentManager();
                 ClassNoteInsertUpdateDialogFragment df = (ClassNoteInsertUpdateDialogFragment) fm.findFragmentByTag(ClassNoteInsertUpdateDialogFragment.TAG);
                 if(df == null) {
-                    df = ClassNoteInsertUpdateDialogFragment.newInstance((ClassNoteContract.ClassNoteEntry) v.getTag(), getString(R.string.update_class_note), getString(R.string.save_changes), getTag());
+                    df = ClassNoteInsertUpdateDialogFragment.newInstance(null, getString(R.string.update_item_note), getString(R.string.save_changes), getTag(), (ClassItemNoteContract.ClassItemNoteEntry) v.getTag(), false);
                     df.show(fm, ClassNoteInsertUpdateDialogFragment.TAG);
                 }
-                */
             }
         };
 
@@ -321,6 +322,39 @@ public class ClassItemInfoFragment extends Fragment {
         mClassItemNoteLinearLayout.removeAllViews();
         for(ClassItemNoteContract.ClassItemNoteEntry classNote: mClassItemNoteList) {
             mClassItemNoteLinearLayout.addView(getClassItemNoteView(getLayoutInflater(null), classNote, mEditClassItemNoteClickListener, mRemoveClassItemNoteClickListener));
+        }
+    }
+
+    public void insertClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, long id, String fragmentTag) {
+        if(id != -1) {
+            itemNote.setId(id);
+            mClassItemNoteList.add(itemNote);
+            final View view = getClassItemNoteView(getActivity().getLayoutInflater(), itemNote, mEditClassItemNoteClickListener, mRemoveClassItemNoteClickListener);
+            mClassItemNoteLinearLayout.addView(view);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mNestedScrollView.smoothScrollTo(0, view.getBottom());
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.item_note_added), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
+    }
+
+    public void updateClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, int rowsUpdated, String fragmentTag) {
+        int position = mClassItemNoteList.indexOf(itemNote);
+        if(position != -1) {
+            mClassItemNoteList.set(position, itemNote);
+            final View view = mClassItemNoteLinearLayout.getChildAt(position);
+            if(view != null)
+                _getClassItemNoteView(view, itemNote, mEditClassItemNoteClickListener, mRemoveClassItemNoteClickListener);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mNestedScrollView.smoothScrollTo(0, view.getBottom());
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.item_note_updated), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
         }
     }
 

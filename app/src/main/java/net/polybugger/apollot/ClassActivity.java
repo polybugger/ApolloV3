@@ -24,6 +24,7 @@ import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassGradeBreakdownContract;
 import net.polybugger.apollot.db.ClassItemContract;
+import net.polybugger.apollot.db.ClassItemNoteContract;
 import net.polybugger.apollot.db.ClassNoteContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
 
@@ -492,7 +493,7 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     }
 
     @Override
-    public void onConfirmInsertUpdateClassNote(ClassNoteContract.ClassNoteEntry entry, String fragmentTag) {
+    public void onConfirmInsertUpdateClassNote(ClassNoteContract.ClassNoteEntry entry, String fragmentTag, ClassItemNoteContract.ClassItemNoteEntry itemNote, boolean isClassNote) {
         ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
         if(rf != null) {
             entry.setClassId(mClass.getId()); // capture class id here

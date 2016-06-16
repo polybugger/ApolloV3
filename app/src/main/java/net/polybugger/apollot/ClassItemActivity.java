@@ -25,11 +25,13 @@ import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassItemContract;
 import net.polybugger.apollot.db.ClassItemNoteContract;
 import net.polybugger.apollot.db.ClassItemRecordContract;
+import net.polybugger.apollot.db.ClassNoteContract;
 
 public class ClassItemActivity extends AppCompatActivity implements ClassItemActivityFragment.Listener,
         ClassItemInsertUpdateDialogFragment.Listener,
         DatePickerDialogFragment.Listener,
-        ClassItemRecordInsertUpdateDialogFragment.Listener {
+        ClassItemRecordInsertUpdateDialogFragment.Listener,
+        ClassNoteInsertUpdateDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
     public static final String CLASS_ITEM_ARG = "net.polybugger.apollot.class_item_arg";
@@ -73,14 +75,12 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
                 FragmentManager fm = getSupportFragmentManager();
-                FloatingActionBarMenuDialogFragment df = (FloatingActionBarMenuDialogFragment) fm.findFragmentByTag(FloatingActionBarMenuDialogFragment.TAG);
+                ClassNoteInsertUpdateDialogFragment df = (ClassNoteInsertUpdateDialogFragment) fm.findFragmentByTag(ClassNoteInsertUpdateDialogFragment.TAG);
                 if(df == null) {
-                    df = FloatingActionBarMenuDialogFragment.newInstance(getFragmentTag(INFO_TAB), FloatingActionBarMenuDialogFragment.FABMode.CLASS_INFO_FRAGMENT);
-                    df.show(fm, FloatingActionBarMenuDialogFragment.TAG);
+                    df = ClassNoteInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_item_note), getString(R.string.add), getFragmentTag(INFO_TAB), null, false);
+                    df.show(fm, ClassNoteInsertUpdateDialogFragment.TAG);
                 }
-                */
             }
         });
 
@@ -98,37 +98,22 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
                         p.setBehavior(new FABScrollBehavior(ClassItemActivity.this, null));
                         mFab.setLayoutParams(p);
                         mFab.setVisibility(View.VISIBLE);
-                        /*
                         mFab.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 FragmentManager fm = getSupportFragmentManager();
-                                FloatingActionBarMenuDialogFragment df = (FloatingActionBarMenuDialogFragment) fm.findFragmentByTag(FloatingActionBarMenuDialogFragment.TAG);
+                                ClassNoteInsertUpdateDialogFragment df = (ClassNoteInsertUpdateDialogFragment) fm.findFragmentByTag(ClassNoteInsertUpdateDialogFragment.TAG);
                                 if(df == null) {
-                                    df = FloatingActionBarMenuDialogFragment.newInstance(getFragmentTag(position), FloatingActionBarMenuDialogFragment.FABMode.CLASS_INFO_FRAGMENT);
-                                    df.show(fm, FloatingActionBarMenuDialogFragment.TAG);
+                                    df = ClassNoteInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_item_note), getString(R.string.add), getFragmentTag(INFO_TAB), null, false);
+                                    df.show(fm, ClassNoteInsertUpdateDialogFragment.TAG);
                                 }
                             }
                         });
-                        */
                         break;
                     case RECORDS_TAB:
                         p.setBehavior(null);
                         mFab.setLayoutParams(p);
                         mFab.setVisibility(View.GONE);
-                        /*
-                        mFab.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                FragmentManager fm = getSupportFragmentManager();
-                                ClassItemInsertUpdateDialogFragment df = (ClassItemInsertUpdateDialogFragment) fm.findFragmentByTag(ClassItemInsertUpdateDialogFragment.TAG);
-                                if(df == null) {
-                                    df = ClassItemInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_item), getString(R.string.add), getFragmentTag(ITEMS_TAB));
-                                    df.show(fm, ClassItemInsertUpdateDialogFragment.TAG);
-                                }
-                            }
-                        });
-                        */
                         break;
                 }
             }
@@ -248,6 +233,30 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
     }
 
     @Override
+    public void onInsertClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, long id, String fragmentTag) {
+        if(itemNote.getId() == -1) {
+            ClassItemInfoFragment f1 = (ClassItemInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f1 != null)
+                f1.insertClassItemNote(itemNote, id, fragmentTag);
+        }
+
+    }
+
+    @Override
+    public void onUpdateClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, int rowsUpdated, String fragmentTag) {
+        if(rowsUpdated > 0) {
+            ClassItemInfoFragment f1 = (ClassItemInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f1 != null)
+                f1.updateClassItemNote(itemNote, rowsUpdated, fragmentTag);
+        }
+    }
+
+    @Override
+    public void onDeleteClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, int rowsDeleted, String fragmentTag) {
+
+    }
+
+    @Override
     public void onSetButtonDate(Date date, String dialogFragmentTag, int buttonId) {
         Fragment f = getSupportFragmentManager().findFragmentByTag(dialogFragmentTag);
         if(f != null) {
@@ -255,6 +264,8 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
                 ((ClassItemInsertUpdateDialogFragment) f).setButtonDate(date, buttonId);
             if(f instanceof ClassItemRecordInsertUpdateDialogFragment)
                 ((ClassItemRecordInsertUpdateDialogFragment) f).setButtonDate(date, buttonId);
+            if(f instanceof ClassNoteInsertUpdateDialogFragment)
+                ((ClassNoteInsertUpdateDialogFragment) f).setButtonDate(date, buttonId);
         }
     }
 
@@ -266,6 +277,19 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
                 f.insertClassItemRecord(entry, classItem, fragmentTag);
             else
                 f.updateClassItemRecord(entry, classItem, fragmentTag);
+        }
+    }
+
+    @Override
+    public void onConfirmInsertUpdateClassNote(ClassNoteContract.ClassNoteEntry entry, String fragmentTag, ClassItemNoteContract.ClassItemNoteEntry itemNote, boolean isClassNote) {
+        ClassItemActivityFragment rf = (ClassItemActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
+        if(rf != null) {
+            itemNote.setClassId(mClassItem.getClassId()); // capture class id here
+            itemNote.setClassItemId(mClassItem.getId()); // capture class item id here
+            if(itemNote.getId() == -1)
+                rf.insertClassItemNote(itemNote, fragmentTag);
+            else
+                rf.updateClassItemNote(itemNote, fragmentTag);
         }
     }
 

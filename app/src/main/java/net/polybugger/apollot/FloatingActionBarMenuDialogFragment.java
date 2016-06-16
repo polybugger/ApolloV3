@@ -74,7 +74,7 @@ public class FloatingActionBarMenuDialogFragment extends AppCompatDialogFragment
                         FragmentManager fm = getFragmentManager();
                         ClassNoteInsertUpdateDialogFragment df = (ClassNoteInsertUpdateDialogFragment) fm.findFragmentByTag(ClassNoteInsertUpdateDialogFragment.TAG);
                         if(df == null) {
-                            df = ClassNoteInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_note), getString(R.string.add), fragmentTag);
+                            df = ClassNoteInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_note), getString(R.string.add), fragmentTag, null, true);
                             df.show(fm, ClassNoteInsertUpdateDialogFragment.TAG);
                         }
                     }

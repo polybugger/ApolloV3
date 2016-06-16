@@ -263,4 +263,12 @@
     <string name="recorded_submissions_label">Submitted:</string>
     <string name="unrecorded_submissions_label">Not Yet Submitted:</string>
 
+    <string name="new_class_item_note">New activity note?</string>
+    <string name="update_item_note">Update activity note?</string>
+    <string name="remove_item_note">Remove activity note?</string>
+
+    <string name="item_note_added">Activity note added.</string>
+    <string name="item_note_updated">Activity note updated.</string>
+    <string name="item_note_removed">Activity note removed.</string>
+
 </resources>

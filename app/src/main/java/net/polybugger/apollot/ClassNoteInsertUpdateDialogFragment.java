@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import net.polybugger.apollot.db.ApolloDbAdapter;
+import net.polybugger.apollot.db.ClassItemNoteContract;
 import net.polybugger.apollot.db.ClassNoteContract;
 import net.polybugger.apollot.db.DateTimeFormat;
 
@@ -28,7 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 public class ClassNoteInsertUpdateDialogFragment extends AppCompatDialogFragment {
 
     public interface Listener {
-        void onConfirmInsertUpdateClassNote(ClassNoteContract.ClassNoteEntry entry, String fragmentTag);
+        void onConfirmInsertUpdateClassNote(ClassNoteContract.ClassNoteEntry entry, String fragmentTag, ClassItemNoteContract.ClassItemNoteEntry itemNote, boolean isClassNote);
     }
 
     public static final String TAG = "net.polybugger.apollot.insert_update_class_note_dialog_fragment";
@@ -36,6 +37,8 @@ public class ClassNoteInsertUpdateDialogFragment extends AppCompatDialogFragment
     public static final String TITLE_ARG = "net.polybugger.apollot.title_arg";
     public static final String BUTTON_TEXT_ARG = "net.polybugger.apollot.button_text_arg";
     public static final String FRAGMENT_TAG_ARG = "net.polybugger.apollot.fragment_tag_arg";
+    public static final String ITEM_NOTE_ARG = "net.polybugger.apollot.item_note_arg";
+    public static final String IS_CLASS_NOTE_ARG = "net.polybugger.apollot.is_class_note_arg";
 
     private Listener mListener;
     private ClassNoteContract.ClassNoteEntry mEntry;
@@ -44,14 +47,18 @@ public class ClassNoteInsertUpdateDialogFragment extends AppCompatDialogFragment
     private TextView mNoteDateErrorTextView;
     private EditText mNoteEditText;
     private TextView mNoteErrorTextView;
+    private ClassItemNoteContract.ClassItemNoteEntry mItemNote;
+    private boolean mIsClassNote;
 
-    public static ClassNoteInsertUpdateDialogFragment newInstance(ClassNoteContract.ClassNoteEntry entry, String title, String buttonText, String fragmentTag) {
+    public static ClassNoteInsertUpdateDialogFragment newInstance(ClassNoteContract.ClassNoteEntry entry, String title, String buttonText, String fragmentTag, ClassItemNoteContract.ClassItemNoteEntry itemNote, boolean isClassNote) {
         ClassNoteInsertUpdateDialogFragment df = new ClassNoteInsertUpdateDialogFragment();
         Bundle args = new Bundle();
         args.putSerializable(ENTRY_ARG, entry);
         args.putString(TITLE_ARG, title);
         args.putString(BUTTON_TEXT_ARG, buttonText);
         args.putString(FRAGMENT_TAG_ARG, fragmentTag);
+        args.putSerializable(ITEM_NOTE_ARG, itemNote);
+        args.putBoolean(IS_CLASS_NOTE_ARG, isClassNote);
         df.setArguments(args);
         return df;
     }
@@ -61,6 +68,9 @@ public class ClassNoteInsertUpdateDialogFragment extends AppCompatDialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
         mEntry = (ClassNoteContract.ClassNoteEntry) args.getSerializable(ENTRY_ARG);
+        mItemNote = (ClassItemNoteContract.ClassItemNoteEntry) args.getSerializable(ITEM_NOTE_ARG);
+        mIsClassNote = args.getBoolean(IS_CLASS_NOTE_ARG);
+
         final String fragmentTag = args.getString(FRAGMENT_TAG_ARG);
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_class_note_insert_update, null);
         mNoteDateButton = (Button) view.findViewById(R.id.note_date_button);
@@ -100,15 +110,16 @@ public class ClassNoteInsertUpdateDialogFragment extends AppCompatDialogFragment
         else
             sdf = new SimpleDateFormat(DateTimeFormat.DATE_DISPLAY_TEMPLATE, context.getResources().getConfiguration().locale);
 
-        if(mEntry == null) {
+        if(mEntry == null)
             mEntry = new ClassNoteContract.ClassNoteEntry(-1, -1, "", new Date());
-        }
-        Date noteDate = mEntry.getDateCreated();
+        if(mItemNote == null)
+            mItemNote = new ClassItemNoteContract.ClassItemNoteEntry(-1, -1, -1, "", new Date());
+        Date noteDate = mIsClassNote ? mEntry.getDateCreated() : mItemNote.getDateCreated();
         if(noteDate != null) {
             mNoteDateButton.setText(sdf.format(noteDate));
             mNoteDateButton.setTag(noteDate);
         }
-        mNoteEditText.setText(mEntry.getNote());
+        mNoteEditText.setText(mIsClassNote ? mEntry.getNote() : mItemNote.getNote());
         mAlertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(args.getString(TITLE_ARG))
                 .setView(view)
@@ -135,7 +146,9 @@ public class ClassNoteInsertUpdateDialogFragment extends AppCompatDialogFragment
                         }
                         mEntry.setDateCreated(noteDate);
                         mEntry.setNote(note);
-                        mListener.onConfirmInsertUpdateClassNote(mEntry, fragmentTag);
+                        mItemNote.setDateCreated(noteDate);
+                        mItemNote.setNote(note);
+                        mListener.onConfirmInsertUpdateClassNote(mEntry, fragmentTag, mItemNote, mIsClassNote);
                         dismiss();
                     }
                 });

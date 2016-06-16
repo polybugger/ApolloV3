@@ -179,7 +179,7 @@ public class ClassInfoFragment extends Fragment {
                 FragmentManager fm = getFragmentManager();
                 ClassNoteInsertUpdateDialogFragment df = (ClassNoteInsertUpdateDialogFragment) fm.findFragmentByTag(ClassNoteInsertUpdateDialogFragment.TAG);
                 if(df == null) {
-                    df = ClassNoteInsertUpdateDialogFragment.newInstance((ClassNoteContract.ClassNoteEntry) v.getTag(), getString(R.string.update_class_note), getString(R.string.save_changes), getTag());
+                    df = ClassNoteInsertUpdateDialogFragment.newInstance((ClassNoteContract.ClassNoteEntry) v.getTag(), getString(R.string.update_class_note), getString(R.string.save_changes), getTag(), null, true);
                     df.show(fm, ClassNoteInsertUpdateDialogFragment.TAG);
                 }
             }

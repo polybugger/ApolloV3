@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -104,7 +105,7 @@ public class ClassItemNoteContract {
         return entries;
     }
 
-    public static class ClassItemNoteEntry implements BaseColumns {
+    public static class ClassItemNoteEntry implements BaseColumns, Serializable {
 
         public static final String CLASS_ID = "ClassId";
         public static final String ITEM_ID = "ItemId";
