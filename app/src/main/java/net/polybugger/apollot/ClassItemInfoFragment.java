@@ -178,7 +178,6 @@ public class ClassItemInfoFragment extends Fragment {
         ClassItemActivityFragment rf = (ClassItemActivityFragment) getFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
         if(rf != null) {
             rf.getClassItemSummaryInfo(mClassItem, getTag());
-            //rf.getClassNotes(mClass, getTag());
         }
     }
 

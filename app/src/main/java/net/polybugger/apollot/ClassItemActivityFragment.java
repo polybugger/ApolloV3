@@ -14,12 +14,12 @@ import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassItemContract;
 import net.polybugger.apollot.db.ClassItemNoteContract;
 import net.polybugger.apollot.db.ClassItemRecordContract;
-import net.polybugger.apollot.db.ClassNoteContract;
 
 public class ClassItemActivityFragment extends Fragment {
 
     public interface Listener {
         void onUpdateClassItem(ClassItemContract.ClassItemEntry classItem, int rowsUpdated, String fragmentTag);
+        void onGetClassItem(ClassItemContract.ClassItemEntry classItem, String fragmentTag);
         void onGetClassItemRecords(ArrayList<ClassItemRecordsFragment.ClassItemRecordSummary> arrayList, String fragmentTag);
         void onInsertClassItemRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, long id, String fragmentTag);
         void onUpdateClassItemRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, int rowsUpdated, String fragmentTag);
@@ -47,6 +47,13 @@ public class ClassItemActivityFragment extends Fragment {
         params.mClassItem = classItem;
         params.mFragmentTag = fragmentTag;
         new UpdateClassItemAsyncTask().execute(params);
+    }
+
+    public void getClassItem(ClassItemContract.ClassItemEntry classItem, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassItem = classItem;
+        params.mFragmentTag = fragmentTag;
+        new GetClassItemAsyncTask().execute(params);
     }
 
     public void getClassItemRecords(ClassItemContract.ClassItemEntry classItem, String fragmentTag) {
@@ -128,6 +135,26 @@ public class ClassItemActivityFragment extends Fragment {
         }
     }
 
+    private class GetClassItemAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassItem = params[0].mClassItem;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mClassItem = ClassItemContract._getEntry(db, result.mClassItem.getId(), result.mClassItem.getClassId());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onGetClassItem(result.mClassItem, result.mFragmentTag);
+            }
+        }
+    }
     private class InsertClassItemRecordAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
 
         @Override

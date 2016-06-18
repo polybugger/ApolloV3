@@ -40,6 +40,8 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
     private static final int INFO_TAB = 0;
     private static final int RECORDS_TAB = 1;
 
+    public static boolean REQUERY = false;
+
     private ClassContract.ClassEntry mClass;
     private ClassItemContract.ClassItemEntry mClassItem;
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -155,6 +157,12 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
     @Override
     public void onResume() {
         super.onResume();
+        if(REQUERY) {
+            ClassItemActivityFragment f = (ClassItemActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
+            if(f != null)
+                f.getClassItem(mClassItem, getFragmentTag(INFO_TAB));
+            REQUERY = false;
+        }
     }
 
     public ClassContract.ClassEntry getClassEntry() {
@@ -177,6 +185,7 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
     @Override
     public void onUpdateClassItem(ClassItemContract.ClassItemEntry classItem, int rowsUpdated, String fragmentTag) {
         if(rowsUpdated > 0) {
+            mClassItem = classItem;
             FragmentManager fm = getSupportFragmentManager();
             ClassItemInfoFragment f1 = (ClassItemInfoFragment) fm.findFragmentByTag(fragmentTag);
             if(f1 != null)
@@ -191,6 +200,18 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
         }
+    }
+
+    @Override
+    public void onGetClassItem(ClassItemContract.ClassItemEntry classItem, String fragmentTag) {
+        mClassItem = classItem;
+        FragmentManager fm = getSupportFragmentManager();
+        ClassItemInfoFragment f1 = (ClassItemInfoFragment) fm.findFragmentByTag(fragmentTag);
+        if(f1 != null)
+            f1.updateClassItem(classItem, 1, fragmentTag);
+        ClassItemRecordsFragment f2 = (ClassItemRecordsFragment) fm.findFragmentByTag(getFragmentTag(RECORDS_TAB));
+        if(f2 != null)
+            f2.updateClassItem(classItem);
     }
 
     @Override
