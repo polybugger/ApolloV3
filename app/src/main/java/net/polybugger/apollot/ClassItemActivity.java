@@ -150,7 +150,8 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
 
     @Override
     public void onBackPressed() {
-
+        ClassItemsFragment.REQUERY_CLASS_ITEM = true;
+        ClassItemsFragment.CLASS_ITEM = mClassItem;
         super.onBackPressed();
     }
 
@@ -186,6 +187,7 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
     public void onUpdateClassItem(ClassItemContract.ClassItemEntry classItem, int rowsUpdated, String fragmentTag) {
         if(rowsUpdated > 0) {
             mClassItem = classItem;
+            setTitle(mClassItem.getDescription());
             FragmentManager fm = getSupportFragmentManager();
             ClassItemInfoFragment f1 = (ClassItemInfoFragment) fm.findFragmentByTag(fragmentTag);
             if(f1 != null)

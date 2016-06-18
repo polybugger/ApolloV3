@@ -41,6 +41,7 @@ public class ClassActivityFragment extends Fragment {
         void onGetClassItemsSummary(ArrayList<ClassItemsFragment.ClassItemSummary> arrayList, String fragmentTag);
         void onInsertClassItem(ClassItemContract.ClassItemEntry classItem, long id, String fragmentTag);
         void onGetClassStudentsSummary(ArrayList<ClassStudentsFragment.ClassStudentSummary> arrayList, String fragmentTag);
+        void onGetClassItemSummary(ClassItemsFragment.ClassItemSummary classItemSummary, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_activity_fragment";
@@ -180,6 +181,13 @@ public class ClassActivityFragment extends Fragment {
         params.mClass = _class;
         params.mFragmentTag = fragmentTag;
         new GetClassStudentsSummaryAsyncTask().execute(params);
+    }
+
+    public void getClassItemSummary(ClassItemContract.ClassItemEntry classItem, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassItem = classItem;
+        params.mFragmentTag = fragmentTag;
+        new GetClassItemSummaryAsyncTask().execute(params);
     }
 
     private class InsertClassScheduleAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
@@ -541,6 +549,28 @@ public class ClassActivityFragment extends Fragment {
         }
     }
 
+    private class GetClassItemSummaryAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassItem = params[0].mClassItem;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mClassItem = ClassItemContract._getEntry(db, result.mClassItem.getId(), result.mClassItem.getClassId());
+            result.mClassItemSummary = new ClassItemsFragment.ClassItemSummary(result.mClassItem);
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onGetClassItemSummary(result.mClassItemSummary, result.mFragmentTag);
+            }
+        }
+    }
+
     private class InsertClassItemAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
 
         @Override
@@ -615,6 +645,7 @@ public class ClassActivityFragment extends Fragment {
         public ClassGradeBreakdownContract.ClassGradeBreakdownEntry mClassGradeBreakdown;
         public ClassNoteContract.ClassNoteEntry mClassNote;
         public ClassItemContract.ClassItemEntry mClassItem;
+        public ClassItemsFragment.ClassItemSummary mClassItemSummary;
         public boolean mPasswordMatched;
         public int mRowsUpdated;
         public int mRowsDeleted;

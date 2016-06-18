@@ -40,6 +40,8 @@ public class ClassItemsFragment extends Fragment {
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
     public static boolean REQUERY = false;
+    public static boolean REQUERY_CLASS_ITEM = false;
+    public static ClassItemContract.ClassItemEntry CLASS_ITEM = null;
 
     private ClassContract.ClassEntry mClass;
     private RecyclerView mRecyclerView;
@@ -107,6 +109,14 @@ public class ClassItemsFragment extends Fragment {
                 rf.getClassItemsSummary(mClass, getTag());
             REQUERY = false;
         }
+        else if(REQUERY_CLASS_ITEM) {
+            ClassActivityFragment rf = (ClassActivityFragment) getFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+            if(rf != null) {
+                rf.getClassItemSummary(CLASS_ITEM, getTag());
+                CLASS_ITEM = null;
+            }
+            REQUERY_CLASS_ITEM = false;
+        }
         else {
 
         }
@@ -129,6 +139,10 @@ public class ClassItemsFragment extends Fragment {
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
         }
+    }
+
+    public void updateClassItemSummary(ClassItemSummary classItemSummary, String fragmentTag) {
+        mAdapter.update(classItemSummary);
     }
 
     @Override

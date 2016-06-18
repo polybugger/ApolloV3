@@ -430,6 +430,13 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     }
 
     @Override
+    public void onGetClassItemSummary(ClassItemsFragment.ClassItemSummary classItemSummary, String fragmentTag) {
+        ClassItemsFragment f = (ClassItemsFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        if(f != null)
+            f.updateClassItemSummary(classItemSummary, fragmentTag);
+    }
+
+    @Override
     public void onConfirmInsertUpdateClass(ClassContract.ClassEntry _class) {
         ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
         if(rf != null)
