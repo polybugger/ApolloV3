@@ -168,7 +168,7 @@ public class ClassInfoFragment extends Fragment {
                 FragmentManager fm = getFragmentManager();
                 ClassNoteDeleteDialogFragment df = (ClassNoteDeleteDialogFragment) fm.findFragmentByTag(ClassNoteDeleteDialogFragment.TAG);
                 if(df == null) {
-                    df = ClassNoteDeleteDialogFragment.newInstance((ClassNoteContract.ClassNoteEntry) v.getTag(), getTag());
+                    df = ClassNoteDeleteDialogFragment.newInstance((ClassNoteContract.ClassNoteEntry) v.getTag(), getTag(), null, true);
                     df.show(fm, ClassNoteDeleteDialogFragment.TAG);
                 }
             }

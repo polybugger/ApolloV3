@@ -31,7 +31,8 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
         ClassItemInsertUpdateDialogFragment.Listener,
         DatePickerDialogFragment.Listener,
         ClassItemRecordInsertUpdateDialogFragment.Listener,
-        ClassNoteInsertUpdateDialogFragment.Listener {
+        ClassNoteInsertUpdateDialogFragment.Listener,
+        ClassNoteDeleteDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
     public static final String CLASS_ITEM_ARG = "net.polybugger.apollot.class_item_arg";
@@ -253,7 +254,11 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
 
     @Override
     public void onDeleteClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, int rowsDeleted, String fragmentTag) {
-
+        if(rowsDeleted > 0) {
+            ClassItemInfoFragment f1 = (ClassItemInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f1 != null)
+                f1.deleteClassItemNote(itemNote, rowsDeleted, fragmentTag);
+        }
     }
 
     @Override
@@ -291,6 +296,13 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
             else
                 rf.updateClassItemNote(itemNote, fragmentTag);
         }
+    }
+
+    @Override
+    public void onConfirmDeleteClassNote(ClassNoteContract.ClassNoteEntry entry, String fragmentTag, ClassItemNoteContract.ClassItemNoteEntry itemNote, boolean isClassNote) {
+        ClassItemActivityFragment rf = (ClassItemActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
+        if(rf != null)
+            rf.deleteClassItemNote(itemNote, fragmentTag);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

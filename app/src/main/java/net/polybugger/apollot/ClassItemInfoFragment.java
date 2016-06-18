@@ -135,14 +135,12 @@ public class ClassItemInfoFragment extends Fragment {
         mRemoveClassItemNoteClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
                 FragmentManager fm = getFragmentManager();
                 ClassNoteDeleteDialogFragment df = (ClassNoteDeleteDialogFragment) fm.findFragmentByTag(ClassNoteDeleteDialogFragment.TAG);
                 if(df == null) {
-                    df = ClassNoteDeleteDialogFragment.newInstance((ClassNoteContract.ClassNoteEntry) v.getTag(), getTag());
+                    df = ClassNoteDeleteDialogFragment.newInstance(null, getTag(), (ClassItemNoteContract.ClassItemNoteEntry) v.getTag(), false);
                     df.show(fm, ClassNoteDeleteDialogFragment.TAG);
                 }
-                */
             }
         };
         mEditClassItemNoteClickListener = new View.OnClickListener() {
@@ -180,7 +178,6 @@ public class ClassItemInfoFragment extends Fragment {
         ClassItemActivityFragment rf = (ClassItemActivityFragment) getFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
         if(rf != null) {
             rf.getClassItemSummaryInfo(mClassItem, getTag());
-            //rf.getGradeBreakdowns(mClass, getTag());
             //rf.getClassNotes(mClass, getTag());
         }
     }
@@ -353,6 +350,20 @@ public class ClassItemInfoFragment extends Fragment {
                 public void run() {
                     mNestedScrollView.smoothScrollTo(0, view.getBottom());
                     Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.item_note_updated), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
+    }
+
+    public void deleteClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, int rowsDeleted, String fragmentTag) {
+        int childPosition = mClassItemNoteList.indexOf(itemNote);
+        if(childPosition != -1) {
+            mClassItemNoteList.remove(childPosition);
+            mClassItemNoteLinearLayout.removeViewAt(childPosition);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.item_note_removed), Snackbar.LENGTH_SHORT).show();
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
         }

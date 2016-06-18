@@ -516,7 +516,7 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     }
 
     @Override
-    public void onConfirmDeleteClassNote(ClassNoteContract.ClassNoteEntry entry, String fragmentTag) {
+    public void onConfirmDeleteClassNote(ClassNoteContract.ClassNoteEntry entry, String fragmentTag, ClassItemNoteContract.ClassItemNoteEntry itemNote, boolean isClassNote) {
         ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
         if(rf != null)
             rf.deleteClassNote(entry, fragmentTag);

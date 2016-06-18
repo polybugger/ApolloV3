@@ -239,13 +239,21 @@ public class ClassItemRecordsFragment extends Fragment {
                         return -lhs.mClassItemRecord.getClassStudent().getStudent().getFirstName().compareToIgnoreCase(rhs.mClassItemRecord.getClassStudent().getStudent().getFirstName());
                     }
                     else if(mSortId == R.id.action_sort_attendance) {
-                        boolean lb = lhs.mClassItemRecord.getAttendance();
-                        boolean rb = rhs.mClassItemRecord.getAttendance();
+                        Boolean lb = lhs.mClassItemRecord.getAttendance();
+                        Boolean rb = rhs.mClassItemRecord.getAttendance();
+                        if(lb == null)
+                            return 1;
+                        if(rb == null)
+                            return -1;
                         return (lb ? -1 : rb ? 1 : 0);
                     }
                     else if(-mSortId == R.id.action_sort_attendance) {
-                        boolean lb = lhs.mClassItemRecord.getAttendance();
-                        boolean rb = rhs.mClassItemRecord.getAttendance();
+                        Boolean lb = lhs.mClassItemRecord.getAttendance();
+                        Boolean rb = rhs.mClassItemRecord.getAttendance();
+                        if(lb == null)
+                            return -1;
+                        if(rb == null)
+                            return 1;
                         return -(lb ? -1 : rb ? 1 : 0);
                     }
                     else if(mSortId == R.id.action_sort_score) {
