@@ -27,6 +27,7 @@ import net.polybugger.apollot.db.ClassItemContract;
 import net.polybugger.apollot.db.ClassItemNoteContract;
 import net.polybugger.apollot.db.ClassNoteContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
+import net.polybugger.apollot.db.ClassStudentContract;
 
 public class ClassActivity extends AppCompatActivity implements ClassActivityFragment.Listener,
         UnlockPasswordDialogFragment.Listener,
@@ -40,7 +41,8 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         ClassNoteInsertUpdateDialogFragment.Listener,
         DatePickerDialogFragment.Listener,
         ClassNoteDeleteDialogFragment.Listener,
-        ClassItemInsertUpdateDialogFragment.Listener {
+        ClassItemInsertUpdateDialogFragment.Listener,
+        ClassStudentInsertUpdateDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
@@ -131,6 +133,17 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
                         });
                         break;
                     case STUDENTS_TAB:
+                        mFab.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                FragmentManager fm = getSupportFragmentManager();
+                                FloatingActionBarMenuDialogFragment df = (FloatingActionBarMenuDialogFragment) fm.findFragmentByTag(FloatingActionBarMenuDialogFragment.TAG);
+                                if(df == null) {
+                                    df = FloatingActionBarMenuDialogFragment.newInstance(getFragmentTag(position), FloatingActionBarMenuDialogFragment.FABMode.CLASS_STUDENTS_FRAGMENT);
+                                    df.show(fm, FloatingActionBarMenuDialogFragment.TAG);
+                                }
+                            }
+                        });
                         break;
                 }
             }
@@ -537,6 +550,11 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
             if(entry.getId() == -1)
                 rf.insertClassItem(entry, fragmentTag);
         }
+    }
+
+    @Override
+    public void onConfirmInsertUpdateClassStudent(ClassStudentContract.ClassStudentEntry entry, String fragmentTag) {
+
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

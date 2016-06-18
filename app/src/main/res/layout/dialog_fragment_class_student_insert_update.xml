@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clipToPadding="false"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:scrollbars="none"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dialog_fragment_padding_top"
+        android:paddingRight="@dimen/dialog_fragment_padding_right"
+        android:paddingBottom="@dimen/dialog_fragment_padding_bottom"
+        android:paddingLeft="@dimen/dialog_fragment_padding_left">
+
+        <EditText
+            android:id="@+id/last_name_edit_text"
+            android:hint="@string/last_name_hint"
+            android:inputType="textPersonName"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/edit_text_spacer_top"
+            android:textSize="@dimen/normal_text_size" />
+        <TextView
+            android:id="@+id/error_text_view"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/edit_text_text_view_padding_left"
+            android:paddingRight="@dimen/edit_text_text_view_padding_right"
+            android:textColor="@color/color_error"
+            android:textSize="@dimen/small_text_size" />
+
+        <EditText
+            android:id="@+id/first_name_edit_text"
+            android:hint="@string/first_name_hint"
+            android:inputType="textPersonName"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/edit_text_spacer_top"
+            android:textSize="@dimen/normal_text_size" />
+
+        <EditText
+            android:id="@+id/middle_name_edit_text"
+            android:hint="@string/middle_name_hint"
+            android:inputType="textPersonName"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/edit_text_spacer_top"
+            android:textSize="@dimen/normal_text_size" />
+
+        <RadioGroup
+            android:id="@+id/gender_radio_group"
+            android:layout_marginTop="@dimen/radio_button_spacer_top_half"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/male_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/normal_text_size"
+                android:text="@string/gender_male" />
+
+            <RadioButton
+                android:id="@+id/female_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/normal_text_size"
+                android:text="@string/gender_female" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/email_address_edit_text"
+            android:hint="@string/email_address_hint"
+            android:inputType="textWebEmailAddress"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/edit_text_spacer_top"
+            android:textSize="@dimen/normal_text_size" />
+
+        <EditText
+            android:id="@+id/contact_number_edit_text"
+            android:hint="@string/contact_number_hint"
+            android:inputType="phone"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/edit_text_spacer_top"
+            android:textSize="@dimen/normal_text_size" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

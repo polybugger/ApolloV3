@@ -28,6 +28,9 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassItemContract;
 import net.polybugger.apollot.db.ClassItemRecordContract;
@@ -35,10 +38,6 @@ import net.polybugger.apollot.db.ClassItemTypeContract;
 import net.polybugger.apollot.db.DateTimeFormat;
 
 import org.apache.commons.lang3.StringUtils;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class ClassItemRecordInsertUpdateDialogFragment extends AppCompatDialogFragment {
 

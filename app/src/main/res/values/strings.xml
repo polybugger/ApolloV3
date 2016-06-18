@@ -271,4 +271,18 @@
     <string name="item_note_updated">Activity note updated.</string>
     <string name="item_note_removed">Activity note removed.</string>
 
+    <string name="please_enter_a_last_name">Please enter a last name!</string>
+    <string name="last_name_hint">Last Name</string>
+    <string name="first_name_hint">First Name</string>
+    <string name="middle_name_hint">Middle Name</string>
+    <string name="email_address_hint">Email Address</string>
+    <string name="contact_number_hint">Contact Number</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+
+    <string name="new_student_fab_label">New Student</string>
+    <string name="existing_student_fab_label">Existing Student From Another Class</string>
+
+    <string name="new_class_student">New student?</string>
+
 </resources>

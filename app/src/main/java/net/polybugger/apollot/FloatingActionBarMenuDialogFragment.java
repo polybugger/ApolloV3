@@ -80,6 +80,35 @@ public class FloatingActionBarMenuDialogFragment extends AppCompatDialogFragment
                     }
                 });
                 break;
+            case CLASS_STUDENTS_FRAGMENT:
+                view.findViewById(R.id.fragment_class_students_layout).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.new_student_clickable_layout).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dismiss();
+                        FragmentManager fm = getFragmentManager();
+                        ClassStudentInsertUpdateDialogFragment df = (ClassStudentInsertUpdateDialogFragment) fm.findFragmentByTag(ClassStudentInsertUpdateDialogFragment.TAG);
+                        if(df == null) {
+                            df = ClassStudentInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_student), getString(R.string.add), fragmentTag);
+                            df.show(fm, ClassStudentInsertUpdateDialogFragment.TAG);
+                        }
+                    }
+                });
+                view.findViewById(R.id.existing_student_clickable_layout).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dismiss();
+                        /*
+                        FragmentManager fm = getFragmentManager();
+                        ClassGradeBreakdownInsertUpdateDialogFragment df = (ClassGradeBreakdownInsertUpdateDialogFragment) fm.findFragmentByTag(ClassGradeBreakdownInsertUpdateDialogFragment.TAG);
+                        if(df == null) {
+                            df = ClassGradeBreakdownInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_grade_breakdown), getString(R.string.add), fragmentTag);
+                            df.show(fm, ClassGradeBreakdownInsertUpdateDialogFragment.TAG);
+                        }
+                        */
+                    }
+                });
+                break;
         }
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
