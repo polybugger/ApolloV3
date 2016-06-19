@@ -16,6 +16,7 @@ import net.polybugger.apollot.db.ClassNoteContract;
 import net.polybugger.apollot.db.ClassPasswordContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
 import net.polybugger.apollot.db.ClassStudentContract;
+import net.polybugger.apollot.db.StudentContract;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -42,6 +43,7 @@ public class ClassActivityFragment extends Fragment {
         void onInsertClassItem(ClassItemContract.ClassItemEntry classItem, long id, String fragmentTag);
         void onGetClassStudentsSummary(ArrayList<ClassStudentsFragment.ClassStudentSummary> arrayList, String fragmentTag);
         void onGetClassItemSummary(ClassItemsFragment.ClassItemSummary classItemSummary, String fragmentTag);
+        void onInsertClassStudent(ClassStudentContract.ClassStudentEntry classStudent, long id, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_activity_fragment";
@@ -190,6 +192,13 @@ public class ClassActivityFragment extends Fragment {
         new GetClassItemSummaryAsyncTask().execute(params);
     }
 
+    public void insertClassStudent(ClassStudentContract.ClassStudentEntry classStudent, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassStudent = classStudent;
+        params.mFragmentTag = fragmentTag;
+        new InsertClassStudentAsyncTask().execute(params);
+    }
+
     private class InsertClassScheduleAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
 
         @Override
@@ -205,9 +214,8 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onInsertClassSchedule(result.mClassSchedule, result.mId, result.mFragmentTag);
-            }
         }
     }
 
@@ -226,9 +234,8 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onUpdateClassSchedule(result.mClassSchedule, result.mRowsUpdated, result.mFragmentTag);
-            }
         }
     }
 
@@ -247,9 +254,8 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onDeleteClassSchedule(result.mClassSchedule, result.mRowsDeleted, result.mFragmentTag);
-            }
         }
     }
 
@@ -310,9 +316,8 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onDeleteClassGradeBreakdown(result.mClassGradeBreakdown, result.mRowsDeleted, result.mFragmentTag);
-            }
         }
     }
 
@@ -331,9 +336,8 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onInsertClassNote(result.mClassNote, result.mId, result.mFragmentTag);
-            }
         }
     }
 
@@ -352,9 +356,8 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onUpdateClassNote(result.mClassNote, result.mRowsUpdated, result.mFragmentTag);
-            }
         }
     }
 
@@ -393,9 +396,8 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onLockClass(result.mClass);
-            }
         }
     }
 
@@ -436,9 +438,8 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onUpdateClass(result.mClass, result.mRowsUpdated);
-            }
         }
     }
 
@@ -456,9 +457,8 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onGetClassSchedules(result.mClassSchedules, result.mFragmentTag);
-            }
         }
     }
 
@@ -476,9 +476,8 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onGetGradeBreakdowns(result.mGradeBreakdowns, result.mFragmentTag);
-            }
         }
     }
 
@@ -496,9 +495,8 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onGetClassNotes(result.mClassNotes, result.mFragmentTag);
-            }
         }
     }
 
@@ -514,9 +512,8 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(ClassContract.ClassEntry _class) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onRequeryClass(_class);
-            }
         }
     }
 
@@ -543,9 +540,8 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onGetClassItemsSummary(result.mClassItemsSummary, result.mFragmentTag);
-            }
         }
     }
 
@@ -565,9 +561,8 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onGetClassItemSummary(result.mClassItemSummary, result.mFragmentTag);
-            }
         }
     }
 
@@ -586,9 +581,8 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onInsertClassItem(result.mClassItem, result.mId, result.mFragmentTag);
-            }
         }
     }
 
@@ -614,9 +608,31 @@ public class ClassActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(AsyncTaskResult result) {
-            if(mListener != null) {
+            if(mListener != null)
                 mListener.onGetClassStudentsSummary(result.mClassStudentsSummary, result.mFragmentTag);
-            }
+        }
+    }
+
+    private class InsertClassStudentAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassStudent = params[0].mClassStudent;
+            StudentContract.StudentEntry student = result.mClassStudent.getStudent();
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            long studentId = StudentContract._insert(db, student.getLastName(), student.getFirstName(), student.getMiddleName(), student.getGender(), student.getEmailAddress(), student.getContactNumber());
+            student.setId(studentId);
+            result.mId = ClassStudentContract._insert(db, result.mClassStudent.getClassId(), studentId, result.mClassStudent.getDateCreated());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null)
+                mListener.onInsertClassStudent(result.mClassStudent, result.mId, result.mFragmentTag);
         }
     }
 
@@ -646,6 +662,7 @@ public class ClassActivityFragment extends Fragment {
         public ClassNoteContract.ClassNoteEntry mClassNote;
         public ClassItemContract.ClassItemEntry mClassItem;
         public ClassItemsFragment.ClassItemSummary mClassItemSummary;
+        public ClassStudentContract.ClassStudentEntry mClassStudent;
         public boolean mPasswordMatched;
         public int mRowsUpdated;
         public int mRowsDeleted;
@@ -665,6 +682,7 @@ public class ClassActivityFragment extends Fragment {
         public ClassNoteContract.ClassNoteEntry mClassNote;
         public ClassGradeBreakdownContract.ClassGradeBreakdownEntry mClassGradeBreakdown;
         public ClassItemContract.ClassItemEntry mClassItem;
+        public ClassStudentContract.ClassStudentEntry mClassStudent;
         public String mPassword;
         public String mFragmentTag;
 

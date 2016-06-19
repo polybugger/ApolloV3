@@ -20,7 +20,7 @@
         <EditText
             android:id="@+id/last_name_edit_text"
             android:hint="@string/last_name_hint"
-            android:inputType="textPersonName"
+            android:inputType="textPersonName|textCapSentences"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/edit_text_spacer_top"
@@ -37,7 +37,7 @@
         <EditText
             android:id="@+id/first_name_edit_text"
             android:hint="@string/first_name_hint"
-            android:inputType="textPersonName"
+            android:inputType="textPersonName|textCapSentences"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/edit_text_spacer_top"
@@ -46,7 +46,7 @@
         <EditText
             android:id="@+id/middle_name_edit_text"
             android:hint="@string/middle_name_hint"
-            android:inputType="textPersonName"
+            android:inputType="textPersonName|textCapSentences"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/edit_text_spacer_top"

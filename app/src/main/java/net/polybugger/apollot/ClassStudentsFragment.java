@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +24,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import net.polybugger.apollot.db.ClassContract;
+import net.polybugger.apollot.db.ClassItemContract;
 import net.polybugger.apollot.db.ClassStudentContract;
 
 public class ClassStudentsFragment extends Fragment {
@@ -118,6 +121,21 @@ public class ClassStudentsFragment extends Fragment {
 
     public void onGetClassStudentsSummary(ArrayList<ClassStudentSummary> arrayList, String fragmentTag) {
         mAdapter.setArrayList(arrayList);
+    }
+
+    public void insertClassStudent(ClassStudentContract.ClassStudentEntry classStudent, long id, String fragmentTag) {
+        if(id != -1) {
+            classStudent.setId(id);
+            ClassStudentSummary classStudentSummary = new ClassStudentSummary(classStudent);
+            mAdapter.add(classStudentSummary);
+            mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_student_added), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
     }
 
     public static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {

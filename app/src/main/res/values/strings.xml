@@ -284,5 +284,6 @@
     <string name="existing_student_fab_label">Existing Student From Another Class</string>
 
     <string name="new_class_student">New student?</string>
+    <string name="class_student_added">New student added.</string>
 
 </resources>
