@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
@@ -44,6 +45,8 @@ public class ClassActivityFragment extends Fragment {
         void onGetClassStudentsSummary(ArrayList<ClassStudentsFragment.ClassStudentSummary> arrayList, String fragmentTag);
         void onGetClassItemSummary(ClassItemsFragment.ClassItemSummary classItemSummary, String fragmentTag);
         void onInsertClassStudent(ClassStudentContract.ClassStudentEntry classStudent, long id, String fragmentTag);
+        void onGetExistingStudents(ArrayList<StudentContract.StudentEntry> arrayList, String fragmentTag);
+        void onInsertExistingStudents(String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_activity_fragment";
@@ -197,6 +200,21 @@ public class ClassActivityFragment extends Fragment {
         params.mClassStudent = classStudent;
         params.mFragmentTag = fragmentTag;
         new InsertClassStudentAsyncTask().execute(params);
+    }
+
+    public void insertExistingStudents(ArrayList<Long> studentIds, ClassContract.ClassEntry _class, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mStudentIds = studentIds;
+        params.mClass = _class;
+        params.mFragmentTag = fragmentTag;
+        new InsertExistingStudentsAsyncTask().execute(params);
+    }
+
+    public void getExistingStudents(ClassContract.ClassEntry _class, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClass = _class;
+        params.mFragmentTag = fragmentTag;
+        new GetExistingStudentsAsyncTask().execute(params);
     }
 
     private class InsertClassScheduleAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
@@ -636,6 +654,50 @@ public class ClassActivityFragment extends Fragment {
         }
     }
 
+    private class GetExistingStudentsAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClass = params[0].mClass;
+            result.mExistingStudents = new ArrayList<>();
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mExistingStudents = StudentContract._getEntriesNotInClass(db, result.mClass.getId());
+            ApolloDbAdapter.close();
+
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null)
+                mListener.onGetExistingStudents(result.mExistingStudents, result.mFragmentTag);
+        }
+    }
+
+    private class InsertExistingStudentsAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClass = params[0].mClass;
+            long classId = result.mClass.getId();
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            for(Long studentId : params[0].mStudentIds)
+                result.mId = ClassStudentContract._insert(db, classId, studentId, new Date());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null)
+                mListener.onInsertExistingStudents(result.mFragmentTag);
+        }
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -671,6 +733,7 @@ public class ClassActivityFragment extends Fragment {
         public ArrayList<ClassGradeBreakdownContract.ClassGradeBreakdownEntry> mGradeBreakdowns;
         public ArrayList<ClassNoteContract.ClassNoteEntry> mClassNotes;
         public ArrayList<ClassItemsFragment.ClassItemSummary> mClassItemsSummary;
+        public ArrayList<StudentContract.StudentEntry> mExistingStudents;
         public ArrayList<ClassStudentsFragment.ClassStudentSummary> mClassStudentsSummary;
         public String mFragmentTag;
         public AsyncTaskResult() { }
@@ -683,6 +746,7 @@ public class ClassActivityFragment extends Fragment {
         public ClassGradeBreakdownContract.ClassGradeBreakdownEntry mClassGradeBreakdown;
         public ClassItemContract.ClassItemEntry mClassItem;
         public ClassStudentContract.ClassStudentEntry mClassStudent;
+        public ArrayList<Long> mStudentIds;
         public String mPassword;
         public String mFragmentTag;
 

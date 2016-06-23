@@ -98,14 +98,13 @@ public class FloatingActionBarMenuDialogFragment extends AppCompatDialogFragment
                     @Override
                     public void onClick(View v) {
                         dismiss();
-                        /*
                         FragmentManager fm = getFragmentManager();
-                        ClassGradeBreakdownInsertUpdateDialogFragment df = (ClassGradeBreakdownInsertUpdateDialogFragment) fm.findFragmentByTag(ClassGradeBreakdownInsertUpdateDialogFragment.TAG);
+                        ClassStudentInsertExistingDialogFragment df = (ClassStudentInsertExistingDialogFragment) fm.findFragmentByTag(ClassStudentInsertExistingDialogFragment.TAG);
                         if(df == null) {
-                            df = ClassGradeBreakdownInsertUpdateDialogFragment.newInstance(null, getString(R.string.new_class_grade_breakdown), getString(R.string.add), fragmentTag);
-                            df.show(fm, ClassGradeBreakdownInsertUpdateDialogFragment.TAG);
+                            ClassActivity pa = (ClassActivity) getActivity();
+                            df = ClassStudentInsertExistingDialogFragment.newInstance(pa.getClassEntry(), getString(R.string.existing_students), getString(R.string.add), fragmentTag);
+                            df.show(fm, ClassStudentInsertExistingDialogFragment.TAG);
                         }
-                        */
                     }
                 });
                 break;

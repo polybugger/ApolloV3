@@ -28,6 +28,7 @@ import net.polybugger.apollot.db.ClassItemNoteContract;
 import net.polybugger.apollot.db.ClassNoteContract;
 import net.polybugger.apollot.db.ClassScheduleContract;
 import net.polybugger.apollot.db.ClassStudentContract;
+import net.polybugger.apollot.db.StudentContract;
 
 public class ClassActivity extends AppCompatActivity implements ClassActivityFragment.Listener,
         UnlockPasswordDialogFragment.Listener,
@@ -42,7 +43,8 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         DatePickerDialogFragment.Listener,
         ClassNoteDeleteDialogFragment.Listener,
         ClassItemInsertUpdateDialogFragment.Listener,
-        ClassStudentInsertUpdateDialogFragment.Listener {
+        ClassStudentInsertUpdateDialogFragment.Listener,
+        ClassStudentInsertExistingDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
@@ -459,6 +461,20 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     }
 
     @Override
+    public void onGetExistingStudents(ArrayList<StudentContract.StudentEntry> arrayList, String fragmentTag) {
+        ClassStudentInsertExistingDialogFragment f = (ClassStudentInsertExistingDialogFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        if(f != null)
+            f.onGetExistingStudents(arrayList);
+    }
+
+    @Override
+    public void onInsertExistingStudents(String fragmentTag) {
+        ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+        if(rf != null)
+            rf.getClassStudentsSummary(mClass, fragmentTag);
+    }
+
+    @Override
     public void onConfirmInsertUpdateClass(ClassContract.ClassEntry _class) {
         ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
         if(rf != null)
@@ -568,6 +584,14 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
             entry.setClassId(mClass.getId()); // capture class id here
             if(entry.getId() == -1)
                 rf.insertClassStudent(entry, fragmentTag);
+        }
+    }
+
+    @Override
+    public void onConfirmInsertExistingStudent(ArrayList<Long> studentIds, String fragmentTag) {
+        ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+        if(rf != null) {
+            rf.insertExistingStudents(studentIds, mClass, fragmentTag);
         }
     }
 

@@ -151,6 +151,35 @@ public class StudentContract {
         return entries;
     }
 
+    public static ArrayList<StudentEntry> _getEntriesNotInClass(SQLiteDatabase db, long classId) {
+        String classStudentTableName = ClassStudentContract.TABLE_NAME + String.valueOf(classId);
+        ArrayList<StudentEntry> entries = new ArrayList<>();
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{StudentEntry._ID, // 0
+                        StudentEntry.LAST_NAME, // 1
+                        StudentEntry.FIRST_NAME, // 2 nullable
+                        StudentEntry.MIDDLE_NAME, // 3 nullable
+                        StudentEntry.GENDER, // 4 nullable
+                        StudentEntry.EMAIL_ADDRESS, // 5 nullable
+                        StudentEntry.CONTACT_NUMBER}, // 6 nullable
+                StudentEntry._ID + " NOT IN (SELECT " + ClassStudentContract.ClassStudentEntry.STUDENT_ID + " FROM " + classStudentTableName + ")",
+                null, null, null,
+                StudentEntry.LAST_NAME + " ASC, " + StudentEntry.FIRST_NAME + " ASC");
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            entries.add(new StudentEntry(cursor.getLong(0),
+                    cursor.getString(1),
+                    cursor.isNull(2) ? null : cursor.getString(2),
+                    cursor.isNull(3) ? null : cursor.getString(3),
+                    cursor.isNull(4) ? null : GenderEnum.fromInt(cursor.getInt(4)),
+                    cursor.isNull(5) ? null : cursor.getString(5),
+                    cursor.isNull(6) ? null : cursor.getString(6)));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return entries;
+    }
+
     public static long _insertDummyStudent(SQLiteDatabase db, int studentResourceId, Context context) {
         @StyleableRes final int LAST_NAME_INDEX = 0;
         @StyleableRes final int FIRST_NAME_INDEX = 1;

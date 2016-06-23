@@ -281,9 +281,10 @@
     <string name="gender_female">Female</string>
 
     <string name="new_student_fab_label">New Student</string>
-    <string name="existing_student_fab_label">Existing Student From Another Class</string>
+    <string name="existing_student_fab_label">Existing Student</string>
 
     <string name="new_class_student">New student?</string>
     <string name="class_student_added">New student added.</string>
+    <string name="existing_students">Existing students</string>
 
 </resources>
