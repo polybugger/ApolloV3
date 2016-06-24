@@ -593,6 +593,12 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         if(rf != null) {
             rf.insertExistingStudents(studentIds, mClass, fragmentTag);
         }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.existing_students_added), Snackbar.LENGTH_SHORT).show();
+            }
+        }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

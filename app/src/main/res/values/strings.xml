@@ -286,5 +286,6 @@
     <string name="new_class_student">New student?</string>
     <string name="class_student_added">New student added.</string>
     <string name="existing_students">Existing students</string>
+    <string name="existing_students_added">Existing students added.</string>
 
 </resources>
