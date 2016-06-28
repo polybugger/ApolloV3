@@ -288,4 +288,14 @@
     <string name="existing_students">Existing students</string>
     <string name="existing_students_added">Existing students added.</string>
 
+    <string name="passing_grade_percentage_label">Passing Grade Percentage:</string>
+    <string name="grade_system">Grade System</string>
+    <string name="a_to_f">A to F</string>
+    <string name="one_to_five">1.0 to 5.0</string>
+    <string name="four_to_one">4.0 to 1.0</string>
+    <string name="passing_grade_percentage_hint">Passing Grade Percentage</string>
+    <string name="please_enter_a_passing_grade_percentage">Please enter a passing grade percentage!</string>
+    <string name="update_passing_grade_percentage">Update passing grade percentage?</string>
+    <string name="passing_grade_percentage_updated">Passing grade percentage updated.</string>
+
 </resources>

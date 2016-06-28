@@ -64,7 +64,7 @@ public class SettingsActivity extends AppCompatActivity implements DefaultTimeSt
         findViewById(R.id.final_grade_calculation_settings_item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(SettingsActivity.this, FinalGradeCalculationActivity.class));
             }
         });
 
