@@ -298,4 +298,24 @@
     <string name="update_passing_grade_percentage">Update passing grade percentage?</string>
     <string name="passing_grade_percentage_updated">Passing grade percentage updated.</string>
 
+    <string name="a_plus">A+</string>
+    <string name="a">A</string>
+    <string name="a_minus">A-</string>
+    <string name="b_plus">B+</string>
+    <string name="b">B</string>
+    <string name="b_minus">B-</string>
+    <string name="c_plus">C+</string>
+    <string name="c">C</string>
+    <string name="c_minus">C-</string>
+    <string name="d_plus">D+</string>
+    <string name="d">D</string>
+    <string name="d_minus">D-</string>
+    <string name="f">F</string>
+
+    <string name="a_to_f_grade_system">A To F Grade System</string>
+    <string name="please_enter_an_a_to_f_percentage">Please enter a valid percentage!</string>
+    <string name="update_a_to_f_percentage">Update A to F percentage?</string>
+    <string name="a_to_f_percentage_hint">A to F Percentage</string>
+    <string name="a_to_f_percentage_updated">A to F percentage updated.</string>
+
 </resources>

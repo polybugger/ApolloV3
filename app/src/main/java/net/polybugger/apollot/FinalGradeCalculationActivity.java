@@ -1,5 +1,6 @@
 package net.polybugger.apollot;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
@@ -82,7 +83,7 @@ public class FinalGradeCalculationActivity extends AppCompatActivity implements
         mAToFImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(FinalGradeCalculationActivity.this, AToFActivity.class));
             }
         });
 

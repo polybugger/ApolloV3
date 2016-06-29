@@ -13,4 +13,35 @@
     <string name="one_to_five_selected_key">net.polybugger.apollot.one_to_five_selected</string>
     <string name="four_to_one_selected_key">net.polybugger.apollot.four_to_one_selected</string>
 
+    <string name="a_plus_percentage_key">net.polybugger.apollot.a_plus_percentage</string>
+    <string name="a_plus_hidden_key">net.polybugger.apollot.a_plus_hidden</string>
+    <string name="a_percentage_key">net.polybugger.apollot.a_percentage</string>
+    <string name="a_hidden_key">net.polybugger.apollot.a_hidden</string>
+    <string name="a_minus_percentage_key">net.polybugger.apollot.a_minus_percentage</string>
+    <string name="a_minus_hidden_key">net.polybugger.apollot.a_minus_hidden</string>
+
+    <string name="b_plus_percentage_key">net.polybugger.apollot.b_plus_percentage</string>
+    <string name="b_plus_hidden_key">net.polybugger.apollot.b_plus_hidden</string>
+    <string name="b_percentage_key">net.polybugger.apollot.b_percentage</string>
+    <string name="b_hidden_key">net.polybugger.apollot.b_hidden</string>
+    <string name="b_minus_percentage_key">net.polybugger.apollot.b_minus_percentage</string>
+    <string name="b_minus_hidden_key">net.polybugger.apollot.b_minus_hidden</string>
+
+    <string name="c_plus_percentage_key">net.polybugger.apollot.c_plus_percentage</string>
+    <string name="c_plus_hidden_key">net.polybugger.apollot.c_plus_hidden</string>
+    <string name="c_percentage_key">net.polybugger.apollot.c_percentage</string>
+    <string name="c_hidden_key">net.polybugger.apollot.c_hidden</string>
+    <string name="c_minus_percentage_key">net.polybugger.apollot.c_minus_percentage</string>
+    <string name="c_minus_hidden_key">net.polybugger.apollot.c_minus_hidden</string>
+
+    <string name="d_plus_percentage_key">net.polybugger.apollot.d_plus_percentage</string>
+    <string name="d_plus_hidden_key">net.polybugger.apollot.d_plus_hidden</string>
+    <string name="d_percentage_key">net.polybugger.apollot.d_percentage</string>
+    <string name="d_hidden_key">net.polybugger.apollot.d_hidden</string>
+    <string name="d_minus_percentage_key">net.polybugger.apollot.d_minus_percentage</string>
+    <string name="d_minus_hidden_key">net.polybugger.apollot.d_minus_hidden</string>
+
+    <string name="f_percentage_key">net.polybugger.apollot.f_percentage</string>
+    <string name="f_hidden_key">net.polybugger.apollot.f_hidden</string>
+
 </resources>
