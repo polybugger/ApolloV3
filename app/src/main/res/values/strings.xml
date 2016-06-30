@@ -318,4 +318,12 @@
     <string name="a_to_f_percentage_hint">A to F Percentage</string>
     <string name="a_to_f_percentage_updated">A to F percentage updated.</string>
 
+    <string name="one_to_five_label">1.0 to 5.0:</string>
+    <string name="one_to_five_instructions">Please enter a value between 1.0 to 5.0!</string>
+    <string name="four_to_one_label">4.0 to 1.0:</string>
+    <string name="four_to_one_instructions">Please enter a value between 4.0 to 1.0!</string>
+    <string name="update_passing_grade_mark">Update passing grade mark?</string>
+    <string name="passing_grade_mark_hint">Passing Grade Mark</string>
+    <string name="passing_grade_mark_updated">Passing grade mark updated.</string>
+
 </resources>

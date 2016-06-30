@@ -19,7 +19,8 @@ import android.widget.TextView;
 import net.polybugger.apollot.db.ApolloDbAdapter;
 
 public class FinalGradeCalculationActivity extends AppCompatActivity implements
-        PassingGradePercentageUpdateDialogFragment.Listener {
+        PassingGradePercentageUpdateDialogFragment.Listener,
+        PassingGradeMarkUpdateDialogFragment.Listener {
 
     public static float DEFAULT_PASSING_GRADE_PERCENTAGE = (float) 75.0;
     public static float DEFAULT_ONE_TO_FIVE_PASSING_GRADE_MARK = (float) 3.0;
@@ -96,10 +97,15 @@ public class FinalGradeCalculationActivity extends AppCompatActivity implements
             }
         });
         mOneToFiveCheckBox.setChecked(sharedPref.getBoolean(getString(R.string.one_to_five_selected_key), false));
-        mOneToFiveCheckBox.setOnClickListener(new View.OnClickListener() {
+        mOneToFiveImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FragmentManager fm = getSupportFragmentManager();
+                PassingGradeMarkUpdateDialogFragment df = (PassingGradeMarkUpdateDialogFragment) fm.findFragmentByTag(PassingGradeMarkUpdateDialogFragment.TAG);
+                if(df == null) {
+                    df = PassingGradeMarkUpdateDialogFragment.newInstance(GradeSystemType.ONE_TO_FIVE, getString(R.string.update_passing_grade_mark), getString(R.string.save_changes));
+                    df.show(fm, PassingGradeMarkUpdateDialogFragment.TAG);
+                }
             }
         });
 
@@ -112,10 +118,15 @@ public class FinalGradeCalculationActivity extends AppCompatActivity implements
             }
         });
         mFourToOneCheckBox.setChecked(sharedPref.getBoolean(getString(R.string.four_to_one_selected_key), false));
-        mFourToOneCheckBox.setOnClickListener(new View.OnClickListener() {
+        mFourToOneImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FragmentManager fm = getSupportFragmentManager();
+                PassingGradeMarkUpdateDialogFragment df = (PassingGradeMarkUpdateDialogFragment) fm.findFragmentByTag(PassingGradeMarkUpdateDialogFragment.TAG);
+                if(df == null) {
+                    df = PassingGradeMarkUpdateDialogFragment.newInstance(GradeSystemType.FOUR_TO_ONE, getString(R.string.update_passing_grade_mark), getString(R.string.save_changes));
+                    df.show(fm, PassingGradeMarkUpdateDialogFragment.TAG);
+                }
             }
         });
     }
@@ -144,5 +155,48 @@ public class FinalGradeCalculationActivity extends AppCompatActivity implements
                 Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.passing_grade_percentage_updated), Snackbar.LENGTH_SHORT).show();
             }
         }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+    }
+
+    @Override
+    public void onConfirmUpdatePassingGradeMark(Float passingGradeMark, GradeSystemType gradeSystemType) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        switch(gradeSystemType) {
+            case ONE_TO_FIVE:
+                sharedPref.edit().putFloat(getString(R.string.one_to_five_passing_grade_mark_key), passingGradeMark).apply();
+                break;
+            case FOUR_TO_ONE:
+                sharedPref.edit().putFloat(getString(R.string.four_to_one_passing_grade_mark_key), passingGradeMark).apply();
+                break;
+        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.passing_grade_mark_updated), Snackbar.LENGTH_SHORT).show();
+            }
+        }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+    }
+
+    public enum GradeSystemType {
+        ONE_TO_FIVE(0),
+        A_TO_F(1),
+        FOUR_TO_ONE(2);
+
+        private static final GradeSystemType[] sValues = GradeSystemType.values();
+
+        public static GradeSystemType fromInt(int x) {
+            if(x < 0 || x > 2)
+                return ONE_TO_FIVE;
+            return sValues[x];
+        }
+
+        private int mValue;
+
+        private GradeSystemType(int value) {
+            mValue = value;
+        }
+
+        public int getValue() {
+            return mValue;
+        }
     }
 }

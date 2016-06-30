@@ -12,6 +12,8 @@
     <string name="a_to_f_selected_key">net.polybugger.apollot.a_to_f_selected</string>
     <string name="one_to_five_selected_key">net.polybugger.apollot.one_to_five_selected</string>
     <string name="four_to_one_selected_key">net.polybugger.apollot.four_to_one_selected</string>
+    <string name="one_to_five_passing_grade_mark_key">net.polybugger.apollot.one_to_five_passing_grade_mark</string>
+    <string name="four_to_one_passing_grade_mark_key">net.polybugger.apollot.four_to_one_passing_grade_mark</string>
 
     <string name="a_plus_percentage_key">net.polybugger.apollot.a_plus_percentage</string>
     <string name="a_plus_hidden_key">net.polybugger.apollot.a_plus_hidden</string>
