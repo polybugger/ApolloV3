@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import net.polybugger.apollot.db.ClassContract;
-import net.polybugger.apollot.db.ClassItemContract;
 import net.polybugger.apollot.db.ClassStudentContract;
 
 public class ClassStudentsFragment extends Fragment {
@@ -231,19 +230,22 @@ public class ClassStudentsFragment extends Fragment {
             int bottomMargin = res.getDimensionPixelSize(R.dimen.recycler_view_item_margin_bottom);
             int leftMargin = res.getDimensionPixelSize(R.dimen.recycler_view_item_margin_left);
             if(position == 0) {
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mClickableLayout.getLayoutParams();
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mLinearLayout.getLayoutParams();
                 layoutParams.setMargins(leftMargin, topMargin * 2, rightMargin, bottomMargin);
-                holder.mClickableLayout.setLayoutParams(layoutParams);
+                holder.mLinearLayout.setLayoutParams(layoutParams);
+                holder.mDivider.setVisibility(View.VISIBLE);
             }
             else if(position == (mArrayList.size() - 1)) {
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mClickableLayout.getLayoutParams();
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mLinearLayout.getLayoutParams();
                 layoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin * 2);
-                holder.mClickableLayout.setLayoutParams(layoutParams);
+                holder.mLinearLayout.setLayoutParams(layoutParams);
+                holder.mDivider.setVisibility(View.GONE);
             }
             else {
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mClickableLayout.getLayoutParams();
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mLinearLayout.getLayoutParams();
                 layoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
-                holder.mClickableLayout.setLayoutParams(layoutParams);
+                holder.mLinearLayout.setLayoutParams(layoutParams);
+                holder.mDivider.setVisibility(View.VISIBLE);
             }
             holder.mClickableLayout.setTag(entry);
             holder.mClickableLayout.setOnClickListener(new View.OnClickListener() {
@@ -270,12 +272,16 @@ public class ClassStudentsFragment extends Fragment {
         public static class ViewHolder extends RecyclerView.ViewHolder {
 
             protected LinearLayout mClickableLayout;
+            protected LinearLayout mLinearLayout;
             protected TextView mNameTextView;
+            protected View mDivider;
 
             public ViewHolder(View itemView) {
                 super(itemView);
                 mClickableLayout = (LinearLayout) itemView.findViewById(R.id.clickable_layout);
+                mLinearLayout = (LinearLayout) itemView.findViewById(R.id.linear_layout);
                 mNameTextView = (TextView) itemView.findViewById(R.id.name_text_view);
+                mDivider = itemView.findViewById(R.id.divider);
             }
         }
     }

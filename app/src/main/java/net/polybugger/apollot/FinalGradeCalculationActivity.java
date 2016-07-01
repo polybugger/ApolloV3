@@ -58,7 +58,7 @@ public class FinalGradeCalculationActivity extends AppCompatActivity implements
 
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         final float passingGradePercentage = sharedPref.getFloat(getString(R.string.passing_grade_percentage_key), DEFAULT_PASSING_GRADE_PERCENTAGE);
-        mPassingGradePercentageTextView.setText(String.format("%.2f", passingGradePercentage));
+        mPassingGradePercentageTextView.setText(String.format("%.2f%%", passingGradePercentage));
 
         mPassingGradePercentageLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,7 +148,7 @@ public class FinalGradeCalculationActivity extends AppCompatActivity implements
     public void onConfirmUpdatePassingGradePercentage(Float passingGradePercentage) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPref.edit().putFloat(getString(R.string.passing_grade_percentage_key), passingGradePercentage).apply();
-        mPassingGradePercentageTextView.setText(String.format("%.2f", passingGradePercentage));
+        mPassingGradePercentageTextView.setText(String.format("%.2f%%", passingGradePercentage));
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

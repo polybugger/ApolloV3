@@ -1,36 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clickable_layout"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
     android:clipToPadding="false"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <LinearLayout
-            android:id="@+id/clickable_layout"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
+        android:id="@+id/linear_layout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/recycler_view_item_margin_top"
+        android:layout_marginRight="@dimen/recycler_view_item_margin_right"
+        android:layout_marginBottom="@dimen/recycler_view_item_margin_bottom"
+        android:layout_marginLeft="@dimen/recycler_view_item_margin_left"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name_text_view"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/recycler_view_item_margin_top"
-            android:layout_marginRight="@dimen/recycler_view_item_margin_right"
-            android:layout_marginBottom="@dimen/recycler_view_item_margin_bottom"
-            android:layout_marginLeft="@dimen/recycler_view_item_margin_left"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/name_text_view"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:paddingTop="@dimen/recycler_view_content_padding_top"
-                android:paddingRight="@dimen/recycler_view_content_padding_right"
-                android:paddingLeft="@dimen/recycler_view_content_padding_left"
-                android:textSize="@dimen/large_text_size"
-                android:textStyle="bold" />
-
+            android:layout_width="wrap_content"
+            android:paddingTop="@dimen/recycler_view_content_padding_top"
+            android:paddingRight="@dimen/recycler_view_content_padding_right"
+            android:paddingLeft="@dimen/recycler_view_content_padding_left"
+            android:paddingBottom="@dimen/recycler_view_content_padding_bottom"
+            android:textSize="@dimen/large_text_size"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
+    <View
+        android:id="@+id/divider"
+        style="@style/AppListDivider" />
 
 </LinearLayout>

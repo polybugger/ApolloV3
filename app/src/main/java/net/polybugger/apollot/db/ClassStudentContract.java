@@ -138,7 +138,7 @@ public class ClassStudentContract {
                         "s." + StudentContract.StudentEntry.EMAIL_ADDRESS, // 7 nullable
                         "s." + StudentContract.StudentEntry.CONTACT_NUMBER, // 8 nullable
                         "cs." + ClassStudentEntry.DATE_CREATED}, // 9 nullable
-                null, null, null, null, null);
+                null, null, null, null, "s." + StudentContract.StudentEntry.LAST_NAME + " COLLATE NOCASE ASC, s." + StudentContract.StudentEntry.FIRST_NAME + " COLLATE NOCASE ASC");
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
             try {
