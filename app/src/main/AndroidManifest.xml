@@ -69,6 +69,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.polybugger.apollot.FinalGradeCalculationActivity"/>
         </activity>
+        <activity
+            android:name=".ClassStudentActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
