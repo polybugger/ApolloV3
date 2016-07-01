@@ -288,19 +288,17 @@ public class StudentContract {
             StringBuilder fName = new StringBuilder();
 
             boolean ja = StringUtils.equalsIgnoreCase(context.getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE);
+            boolean fNameIsBlank = StringUtils.isBlank(mFirstName);
 
-            if(ja) {
+            if(ja)
                 fName.append(mFirstName);
-            }
             else {
-                if(StringUtils.isBlank(mMiddleName)) {
+                if(StringUtils.isBlank(mMiddleName))
                     fName.append(mFirstName);
-                }
                 else {
                     fName.append(mFirstName);
-                    if(!StringUtils.isBlank(mFirstName)) {
+                    if(!fNameIsBlank)
                         fName.append(context.getString(R.string.space_symbol));
-                    }
                     fName.append(mMiddleName.substring(0, 1));
                     fName.append(".");
                 }
@@ -309,26 +307,31 @@ public class StudentContract {
             StringBuilder name = new StringBuilder();
             switch(STUDENT_NAME_DISPLAY) {
                 case FIRST_NAME_LAST_NAME:
-                    name.append(fName.toString());
-                    if(fName.length() > 0)
+                    if(!fNameIsBlank) {
+                        name.append(fName.toString());
                         name.append(context.getString(R.string.space_symbol));
+                    }
                     name.append(mLastName);
                     break;
                 case LAST_NAME_FIRST_NAME:
                     name.append(mLastName);
-                    if(!ja)
-                        name.append(",");
-                    if(name.length() > 0)
-                        name.append(context.getString(R.string.space_symbol));
-                    name.append(fName.toString());
+                    if(!fNameIsBlank) {
+                        if(!ja)
+                            name.append(",");
+                        if(name.length() > 0)
+                            name.append(context.getString(R.string.space_symbol));
+                        name.append(fName.toString());
+                    }
                     break;
                 default:
                     name.append(mLastName);
-                    if(!ja)
-                        name.append(",");
-                    if(name.length() > 0)
-                        name.append(context.getString(R.string.space_symbol));
-                    name.append(fName.toString());
+                    if(!fNameIsBlank) {
+                        if(!ja)
+                            name.append(",");
+                        if(name.length() > 0)
+                            name.append(context.getString(R.string.space_symbol));
+                        name.append(fName.toString());
+                    }
                     break;
             }
             return name.toString();

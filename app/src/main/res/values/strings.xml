@@ -328,5 +328,6 @@
 
     <string name="delete_class_student">Delete Student</string>
     <string name="class_student_info_tab">Student Info</string>
+    <string name="final_grade">Final Grade</string>
 
 </resources>
