@@ -590,9 +590,8 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     @Override
     public void onConfirmInsertExistingStudent(ArrayList<Long> studentIds, String fragmentTag) {
         ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
-        if(rf != null) {
+        if(rf != null)
             rf.insertExistingStudents(studentIds, mClass, fragmentTag);
-        }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

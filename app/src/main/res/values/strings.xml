@@ -330,4 +330,7 @@
     <string name="class_student_info_tab">Student Info</string>
     <string name="final_grade">Final Grade</string>
 
+    <string name="update_class_student">Update student?</string>
+    <string name="class_student_updated">Student updated.</string>
+
 </resources>

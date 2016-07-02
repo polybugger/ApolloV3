@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,12 @@ public class ClassStudentInfoFragment extends Fragment {
         view.findViewById(R.id.edit_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                ClassStudentInsertUpdateDialogFragment df = (ClassStudentInsertUpdateDialogFragment) fm.findFragmentByTag(ClassStudentInsertUpdateDialogFragment.TAG);
+                if(df == null) {
+                    df = ClassStudentInsertUpdateDialogFragment.newInstance(mClassStudent, getString(R.string.update_class_student), getString(R.string.save_changes), getTag());
+                    df.show(fm, ClassStudentInsertUpdateDialogFragment.TAG);
+                }
             }
         });
 
@@ -143,5 +150,10 @@ public class ClassStudentInfoFragment extends Fragment {
         }
         else
             mNameTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingTop);
+    }
+
+    public void updateClassStudent(ClassStudentContract.ClassStudentEntry classStudent) {
+        mClassStudent = classStudent;
+        populateClassStudentInfo();
     }
 }

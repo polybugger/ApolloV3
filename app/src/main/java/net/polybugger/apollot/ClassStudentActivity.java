@@ -2,6 +2,8 @@ package net.polybugger.apollot;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,7 +19,8 @@ import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassStudentContract;
 
 public class ClassStudentActivity extends AppCompatActivity implements
-        ClassStudentActivityFragment.Listener {
+        ClassStudentActivityFragment.Listener,
+        ClassStudentInsertUpdateDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
     public static final String CLASS_STUDENT_ARG = "net.polybugger.apollot.class_student_arg";
@@ -102,6 +105,30 @@ public class ClassStudentActivity extends AppCompatActivity implements
 
     public ClassStudentContract.ClassStudentEntry getClassStudentEntry() {
         return mClassStudent;
+    }
+
+    @Override
+    public void onConfirmInsertUpdateClassStudent(ClassStudentContract.ClassStudentEntry entry, String fragmentTag) {
+        ClassStudentActivityFragment rf = (ClassStudentActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassStudentActivityFragment.TAG);
+        if(rf != null) {
+            if(entry.getId() != -1)
+                rf.updateClassStudent(entry, fragmentTag);
+        }
+    }
+
+    @Override
+    public void onUpdateClassStudent(ClassStudentContract.ClassStudentEntry classStudent, int rowsUpdated, String fragmentTag) {
+        mClassStudent = classStudent;
+        setTitle(mClassStudent.getStudent().getName(this));
+        ClassStudentInfoFragment f1 = (ClassStudentInfoFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(INFO_TAB));
+        if(f1 != null)
+            f1.updateClassStudent(classStudent);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.class_student_updated), Snackbar.LENGTH_SHORT).show();
+            }
+        }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

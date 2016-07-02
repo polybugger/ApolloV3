@@ -47,7 +47,7 @@ public class ClassStudentInsertUpdateDialogFragment extends AppCompatDialogFragm
     private EditText mEmailAddressEditText;
     private EditText mContactNumberEditText;
 
-    public static ClassStudentInsertUpdateDialogFragment newInstance(ClassItemContract.ClassItemEntry entry, String title, String buttonText, String fragmentTag) {
+    public static ClassStudentInsertUpdateDialogFragment newInstance(ClassStudentContract.ClassStudentEntry entry, String title, String buttonText, String fragmentTag) {
         ClassStudentInsertUpdateDialogFragment df = new ClassStudentInsertUpdateDialogFragment();
         Bundle args = new Bundle();
         args.putSerializable(ENTRY_ARG, entry);
