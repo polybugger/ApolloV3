@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import net.polybugger.apollot.ClassStudentRecordsFragment;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -135,6 +137,90 @@ public class ClassItemRecordContract {
         return entries;
     }
 
+    public static ArrayList<ClassStudentRecordsFragment.ClassStudentRecordSummary> _getEntriesByClassStudent(SQLiteDatabase db, long classId, long studentId) {
+        String tableName1 = TABLE_NAME + String.valueOf(classId);
+        String tableName2 = ClassItemContract.TABLE_NAME + String.valueOf(classId);
+        String tableName3 = ClassStudentContract.TABLE_NAME + String.valueOf(classId);
+        ArrayList<ClassStudentRecordsFragment.ClassStudentRecordSummary> entries = new ArrayList<>();
+        final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
+        Long recordId; Boolean attendance; Float score; Date itemDate, submissionDueDate, submissionDate;
+        db.execSQL(CREATE_TABLE_SQL1 + tableName1 + CREATE_TABLE_SQL2 + tableName2 + CREATE_TABLE_SQL3 + tableName3 + CREATE_TABLE_SQL4);
+        Cursor cursor = db.query(tableName3 +
+                        " AS cs INNER JOIN " + tableName2 +
+                        " AS ci ON cs." + ClassStudentContract.ClassStudentEntry.CLASS_ID + "=ci." + ClassItemContract.ClassItemEntry.CLASS_ID +
+                        " LEFT OUTER JOIN " + ClassItemTypeContract.TABLE_NAME + " AS cit ON ci." + ClassItemContract.ClassItemEntry.ITEM_TYPE_ID + "=cit." + ClassItemTypeContract.ClassItemTypeEntry._ID +
+                        " LEFT OUTER JOIN (SELECT " + ClassItemRecordEntry._ID + ", " + ClassItemRecordEntry.ITEM_ID + ", " + ClassItemRecordEntry.ATTENDANCE + ", " +
+                        ClassItemRecordEntry.SCORE + ", " + ClassItemRecordEntry.SUBMISSION_DATE + ", " + ClassItemRecordEntry.REMARKS +
+                        " FROM " + tableName1 +
+                        " WHERE " + ClassItemRecordEntry.STUDENT_ID + "=" + String.valueOf(studentId) +
+                        ") as cir ON ci." + ClassItemContract.ClassItemEntry._ID + "=cir." + ClassItemRecordEntry.ITEM_ID,
+                new String[]{"ci." + ClassItemContract.ClassItemEntry._ID, // 0
+                        "ci." + ClassItemContract.ClassItemEntry.CLASS_ID, // 1
+                        "ci." + ClassItemContract.ClassItemEntry.DESCRIPTION, // 2
+                        "ci." + ClassItemContract.ClassItemEntry.ITEM_TYPE_ID, // 3 nullable
+                        "cit." + ClassItemTypeContract.ClassItemTypeEntry.DESCRIPTION, // 4
+                        "cit." + ClassItemTypeContract.ClassItemTypeEntry.COLOR, // 5
+                        "ci." + ClassItemContract.ClassItemEntry.ITEM_DATE, // 6 nullable
+                        "ci." + ClassItemContract.ClassItemEntry.CHECK_ATTENDANCE, // 7
+                        "ci." + ClassItemContract.ClassItemEntry.RECORD_SCORES, // 8
+                        "ci." + ClassItemContract.ClassItemEntry.PERFECT_SCORE, // 9 nullable
+                        "ci." + ClassItemContract.ClassItemEntry.RECORD_SUBMISSIONS, // 10
+                        "ci." + ClassItemContract.ClassItemEntry.SUBMISSION_DUE_DATE, // 11
+                        "cir." + ClassItemRecordEntry._ID, // 12 nullable
+                        "cir." + ClassItemRecordEntry.ATTENDANCE, // 13  nullable
+                        "cir." + ClassItemRecordEntry.SCORE, // 14  nullable
+                        "cir." + ClassItemRecordEntry.SUBMISSION_DATE, // 15 nullable
+                        "cir." + ClassItemRecordEntry.REMARKS}, // 16 nullable
+                "cs." + ClassItemRecordEntry.STUDENT_ID + "=?",
+                new String[]{String.valueOf(studentId)}, null, null, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            try {
+                itemDate = sdf.parse(cursor.getString(6));
+            }
+            catch(Exception e) {
+                itemDate = null;
+            }
+            try {
+                submissionDueDate = sdf.parse(cursor.getString(11));
+            }
+            catch(Exception e) {
+                submissionDueDate = null;
+            }
+
+            recordId = cursor.isNull(12) ? -1 : cursor.getLong(12); // -1 for nonexistent id
+            attendance = cursor.isNull(13) ? null : cursor.getInt(13) != 0;
+            score = cursor.isNull(14) ? null : cursor.getFloat(14);
+            try {
+                submissionDate = sdf.parse(cursor.getString(15));
+            }
+            catch(Exception e) {
+                submissionDate = null;
+            }
+
+            entries.add(new ClassStudentRecordsFragment.ClassStudentRecordSummary(new ClassItemContract.ClassItemEntry(cursor.getLong(0),
+                    cursor.getLong(1),
+                    cursor.getString(2),
+                    cursor.isNull(3) ? null : new ClassItemTypeContract.ClassItemTypeEntry(cursor.getLong(3), cursor.getString(4), cursor.isNull(5) ? null : cursor.getString(5)),
+                    itemDate, // 6
+                    cursor.getInt(7) != 0,
+                    cursor.getInt(8) != 0,
+                    cursor.isNull(9) ? null : cursor.getFloat(9),
+                    cursor.getInt(10) != 0,
+                    submissionDueDate),
+                new ClassItemRecordEntry(recordId,
+                    cursor.getLong(1),
+                    cursor.getLong(0),
+                    null,
+                    attendance,
+                    score,
+                    submissionDate,
+                    cursor.getString(16))));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return entries;
+    }
 
     public static class ClassItemRecordEntry implements BaseColumns, Serializable {
 

@@ -6,9 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 
+import java.util.ArrayList;
+
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
-import net.polybugger.apollot.db.ClassScheduleContract;
+import net.polybugger.apollot.db.ClassItemRecordContract;
 import net.polybugger.apollot.db.ClassStudentContract;
 import net.polybugger.apollot.db.StudentContract;
 
@@ -16,6 +18,7 @@ public class ClassStudentActivityFragment extends Fragment {
 
     public interface Listener {
         void onUpdateClassStudent(ClassStudentContract.ClassStudentEntry classStudent, int rowsUpdated, String fragmentTag);
+        void onGetClassStudentRecords(ArrayList<ClassStudentRecordsFragment.ClassStudentRecordSummary> classStudentRecords, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_student_activity_fragment";
@@ -37,6 +40,13 @@ public class ClassStudentActivityFragment extends Fragment {
         new UpdateClassStudentAsyncTask().execute(params);
     }
 
+    public void getClassStudentRecords(ClassStudentContract.ClassStudentEntry classStudent, String fragmentTag) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassStudent = classStudent;
+        params.mFragmentTag = fragmentTag;
+        new GetClassStudentRecordsAsyncTask().execute(params);
+    }
+
     private class UpdateClassStudentAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
 
         @Override
@@ -55,6 +65,27 @@ public class ClassStudentActivityFragment extends Fragment {
         protected void onPostExecute(AsyncTaskResult result) {
             if(mListener != null)
                 mListener.onUpdateClassStudent(result.mClassStudent, result.mRowsUpdated, result.mFragmentTag);
+        }
+    }
+
+    private class GetClassStudentRecordsAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassStudent = params[0].mClassStudent;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mClassStudentRecords = ClassItemRecordContract._getEntriesByClassStudent(db, result.mClassStudent.getClassId(), result.mClassStudent.getStudent().getId());
+            ApolloDbAdapter.close();
+            result.mFragmentTag = params[0].mFragmentTag;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onGetClassStudentRecords(result.mClassStudentRecords, result.mFragmentTag);
+            }
         }
     }
 
@@ -83,6 +114,7 @@ public class ClassStudentActivityFragment extends Fragment {
         public int mRowsUpdated;
         public int mRowsDeleted;
         public long mId;
+        public ArrayList<ClassStudentRecordsFragment.ClassStudentRecordSummary> mClassStudentRecords;
         public String mFragmentTag;
         public AsyncTaskResult() { }
     }

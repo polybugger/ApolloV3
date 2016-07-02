@@ -14,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassStudentContract;
@@ -131,6 +133,14 @@ public class ClassStudentActivity extends AppCompatActivity implements
         }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
     }
 
+    @Override
+    public void onGetClassStudentRecords(ArrayList<ClassStudentRecordsFragment.ClassStudentRecordSummary> classStudentRecords, String fragmentTag) {
+        ClassStudentRecordsFragment f2 = (ClassStudentRecordsFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(RECORDS_TAB));
+        if(f2 != null) {
+            f2.onGetClassStudentRecords(classStudentRecords, fragmentTag);
+        }
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -143,7 +153,7 @@ public class ClassStudentActivity extends AppCompatActivity implements
                 case INFO_TAB:
                     return ClassStudentInfoFragment.newInstance(mClass, mClassStudent);
                 case RECORDS_TAB:
-                    return ClassStudentInfoFragment.newInstance(mClass, mClassStudent);
+                    return ClassStudentRecordsFragment.newInstance(mClass, mClassStudent);
             }
             return null;
         }
