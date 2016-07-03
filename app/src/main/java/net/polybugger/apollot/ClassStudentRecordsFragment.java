@@ -5,8 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -150,6 +153,50 @@ public class ClassStudentRecordsFragment extends Fragment {
 
     public void onGetClassStudentRecords(ArrayList<ClassStudentRecordsFragment.ClassStudentRecordSummary> classStudentRecords, String fragmentTag) {
         mAdapter.setArrayList(classStudentRecords);
+    }
+
+    public void onInsertClassStudentRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, long id, String fragmentTag) {
+        if(id != -1) {
+            classItemRecord.setId(id);
+            ClassStudentRecordSummary classItemRecordSummary = new ClassStudentRecordSummary(classItem, classItemRecord);
+            mAdapter.update(classItemRecordSummary);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_student_record_updated), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+            // TODO update student info tab
+            /*
+            ClassItemActivityFragment rf = (ClassItemActivityFragment) getFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
+            if(rf != null) {
+                rf.getClassItemSummaryInfo(mClassItem, getTag());
+                //rf.getGradeBreakdowns(mClass, getTag());
+                //rf.getClassNotes(mClass, getTag());
+            }
+            */
+        }
+
+    }
+
+    public void onUpdateClassStudentRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, int rowsUpdated, String fragmentTag) {
+        ClassStudentRecordSummary classItemRecordSummary = new ClassStudentRecordSummary(classItem, classItemRecord);
+        mAdapter.update(classItemRecordSummary);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_student_record_updated), Snackbar.LENGTH_SHORT).show();
+            }
+        }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        // TODO update student info tab
+        /*
+        ClassItemActivityFragment rf = (ClassItemActivityFragment) getFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
+        if(rf != null) {
+            rf.getClassItemSummaryInfo(mClassItem, getTag());
+            //rf.getGradeBreakdowns(mClass, getTag());
+            //rf.getClassNotes(mClass, getTag());
+        }
+        */
     }
 
     public static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
@@ -351,6 +398,22 @@ public class ClassStudentRecordsFragment extends Fragment {
             notifyDataSetChanged();
         }
 
+        public void update(ClassStudentRecordSummary classStudentRecordSummary) {
+            ClassStudentRecordSummary tmpClassItemRecordSummary;
+            int size = mArrayList.size(), pos = size;
+            for(int i = 0; i < size; ++i) {
+                tmpClassItemRecordSummary = mArrayList.get(i);
+                if(tmpClassItemRecordSummary.mClassItem.equals(classStudentRecordSummary.mClassItem)) {
+                    pos = i;
+                    break;
+                }
+            }
+            if(pos < size)
+                mArrayList.remove(pos);
+            mArrayList.add(pos, classStudentRecordSummary);
+            notifyDataSetChanged();
+        }
+
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_class_student_record, parent, false));
@@ -390,6 +453,14 @@ public class ClassStudentRecordsFragment extends Fragment {
             holder.mClickableLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ClassStudentRecordSummary classStudentRecordSummary = (ClassStudentRecordSummary) v.getTag();
+                    FragmentManager fm = mFragment.getFragmentManager();
+                    ClassItemRecordInsertUpdateDialogFragment df = (ClassItemRecordInsertUpdateDialogFragment) fm.findFragmentByTag(ClassItemRecordInsertUpdateDialogFragment.TAG);
+                    if(df == null) {
+                        classStudentRecordSummary.mClassItemRecord.setClassStudent(mClassStudent);
+                        df = ClassItemRecordInsertUpdateDialogFragment.newInstance(classStudentRecordSummary.mClassItemRecord, classStudentRecordSummary.mClassItem, mFragment.getString(R.string.update_class_student_record), mFragment.getString(R.string.save_changes), mFragment.getTag());
+                        df.show(fm, ClassItemRecordInsertUpdateDialogFragment.TAG);
+                    }
                 }
             });
 
@@ -421,26 +492,26 @@ public class ClassStudentRecordsFragment extends Fragment {
             if(entry.mClassItem.isRecordScores()) {
                 Float perfectScore = entry.mClassItem.getPerfectScore();
                 if(perfectScore == null)
-                    holder.mPerfectScoreTextView.setVisibility(View.GONE);
+                    holder.mPerfectScoreLinearLayout.setVisibility(View.GONE);
                 else {
-                    holder.mPerfectScoreTextView.setText(String.format("%s %.2f", mFragment.getString(R.string.perfect_score_label), perfectScore));
-                    holder.mPerfectScoreTextView.setVisibility(View.VISIBLE);
+                    holder.mPerfectScoreTextView.setText(String.format("%.2f", perfectScore));
+                    holder.mPerfectScoreLinearLayout.setVisibility(View.VISIBLE);
                 }
             }
             else
-                holder.mPerfectScoreTextView.setVisibility(View.GONE);
+                holder.mPerfectScoreLinearLayout.setVisibility(View.GONE);
 
             if(entry.mClassItem.isRecordSubmissions()) {
                 Date submissionDueDate = entry.mClassItem.getSubmissionDueDate();
                 if(submissionDueDate == null)
-                    holder.mSubmissionDueDateTextView.setVisibility(View.GONE);
+                    holder.mSubmissionDueDateLinearLayout.setVisibility(View.GONE);
                 else {
-                    holder.mSubmissionDueDateTextView.setText(String.format("%s %s", mFragment.getString(R.string.submission_due_date_label), sdf.format(submissionDueDate)));
-                    holder.mSubmissionDueDateTextView.setVisibility(View.VISIBLE);
+                    holder.mSubmissionDueDateTextView.setText(sdf.format(submissionDueDate));
+                    holder.mSubmissionDueDateLinearLayout.setVisibility(View.VISIBLE);
                 }
             }
             else
-                holder.mSubmissionDueDateTextView.setVisibility(View.GONE);
+                holder.mSubmissionDueDateLinearLayout.setVisibility(View.GONE);
 
             if(entry.mClassItem.isCheckAttendance()) {
                 holder.mAttendanceLinearLayout.setVisibility(View.VISIBLE);
@@ -499,8 +570,8 @@ public class ClassStudentRecordsFragment extends Fragment {
                     holder.mSubmissionDateLinearLayout.setPadding(paddingLeft, 0, paddingRight, paddingTop);
                     holder.mScoreLinearLayout.setPadding(paddingLeft, 0, paddingRight, 0);
                     holder.mAttendanceLinearLayout.setPadding(paddingLeft, 0, paddingRight, 0);
-                    holder.mSubmissionDueDateTextView.setPadding(paddingLeft, 0, paddingRight, 0);
-                    holder.mPerfectScoreTextView.setPadding(paddingLeft, 0, paddingRight, 0);
+                    holder.mSubmissionDueDateLinearLayout.setPadding(0, 0, 0, 0);
+                    holder.mPerfectScoreLinearLayout.setPadding(0, 0, 0, 0);
                     holder.mCheckAttendanceTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                     holder.mItemTypeTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                     holder.mItemDateTextView.setPadding(paddingLeft, 0, paddingRight, 0);
@@ -509,8 +580,8 @@ public class ClassStudentRecordsFragment extends Fragment {
                 else if(holder.mScoreLinearLayout.getVisibility() == View.VISIBLE) {
                     holder.mScoreLinearLayout.setPadding(paddingLeft, 0, paddingRight, paddingTop);
                     holder.mAttendanceLinearLayout.setPadding(paddingLeft, 0, paddingRight, 0);
-                    holder.mSubmissionDueDateTextView.setPadding(paddingLeft, 0, paddingRight, 0);
-                    holder.mPerfectScoreTextView.setPadding(paddingLeft, 0, paddingRight, 0);
+                    holder.mSubmissionDueDateLinearLayout.setPadding(0, 0, 0, 0);
+                    holder.mPerfectScoreLinearLayout.setPadding(0, 0, 0, 0);
                     holder.mCheckAttendanceTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                     holder.mItemTypeTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                     holder.mItemDateTextView.setPadding(paddingLeft, 0, paddingRight, 0);
@@ -518,23 +589,23 @@ public class ClassStudentRecordsFragment extends Fragment {
                 }
                 else if(holder.mAttendanceLinearLayout.getVisibility() == View.VISIBLE) {
                     holder.mAttendanceLinearLayout.setPadding(paddingLeft, 0, paddingRight, paddingTop);
-                    holder.mSubmissionDueDateTextView.setPadding(paddingLeft, 0, paddingRight, 0);
-                    holder.mPerfectScoreTextView.setPadding(paddingLeft, 0, paddingRight, 0);
+                    holder.mSubmissionDueDateLinearLayout.setPadding(0, 0, 0, 0);
+                    holder.mPerfectScoreLinearLayout.setPadding(0, 0, 0, 0);
                     holder.mCheckAttendanceTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                     holder.mItemTypeTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                     holder.mItemDateTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                     holder.mTitleTextView.setPadding(paddingLeft, paddingTop, paddingRight, 0);
                 }
-                else if(holder.mSubmissionDueDateTextView.getVisibility() == View.VISIBLE) {
-                    holder.mSubmissionDueDateTextView.setPadding(paddingLeft, 0, paddingRight, paddingTop);
-                    holder.mPerfectScoreTextView.setPadding(paddingLeft, 0, paddingRight, 0);
+                else if(holder.mSubmissionDueDateLinearLayout.getVisibility() == View.VISIBLE) {
+                    holder.mSubmissionDueDateLinearLayout.setPadding(0, 0, 0, paddingTop);
+                    holder.mPerfectScoreLinearLayout.setPadding(0, 0, 0, 0);
                     holder.mCheckAttendanceTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                     holder.mItemTypeTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                     holder.mItemDateTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                     holder.mTitleTextView.setPadding(paddingLeft, paddingTop, paddingRight, 0);
                 }
-                else if(holder.mPerfectScoreTextView.getVisibility() == View.VISIBLE) {
-                    holder.mPerfectScoreTextView.setPadding(paddingLeft, 0, paddingRight, paddingTop);
+                else if(holder.mPerfectScoreLinearLayout.getVisibility() == View.VISIBLE) {
+                    holder.mPerfectScoreLinearLayout.setPadding(0, 0, 0, paddingTop);
                     holder.mCheckAttendanceTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                     holder.mItemTypeTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                     holder.mItemDateTextView.setPadding(paddingLeft, 0, paddingRight, 0);
@@ -584,7 +655,9 @@ public class ClassStudentRecordsFragment extends Fragment {
             protected TextView mItemDateTextView;
             protected TextView mItemTypeTextView;
             protected TextView mCheckAttendanceTextView;
+            protected LinearLayout mPerfectScoreLinearLayout;
             protected TextView mPerfectScoreTextView;
+            protected LinearLayout mSubmissionDueDateLinearLayout;
             protected TextView mSubmissionDueDateTextView;
             protected LinearLayout mAttendanceLinearLayout;
             protected TextView mAttendanceTextView;
@@ -604,7 +677,9 @@ public class ClassStudentRecordsFragment extends Fragment {
                 mItemDateTextView = (TextView) itemView.findViewById(R.id.item_date_text_view);
                 mItemTypeTextView = (TextView) itemView.findViewById(R.id.item_type_text_view);
                 mCheckAttendanceTextView = (TextView) itemView.findViewById(R.id.check_attendance_text_view);
+                mPerfectScoreLinearLayout = (LinearLayout) itemView.findViewById(R.id.perfect_score_linear_layout);
                 mPerfectScoreTextView = (TextView) itemView.findViewById(R.id.perfect_score_text_view);
+                mSubmissionDueDateLinearLayout = (LinearLayout) itemView.findViewById(R.id.submission_due_date_linear_layout);
                 mSubmissionDueDateTextView = (TextView) itemView.findViewById(R.id.submission_due_date_text_view);
                 mAttendanceLinearLayout = (LinearLayout) itemView.findViewById(R.id.attendance_linear_layout);
                 mAttendanceTextView = (TextView) itemView.findViewById(R.id.attendance_text_view);

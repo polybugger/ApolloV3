@@ -321,7 +321,6 @@ public class ClassItemRecordsFragment extends Fragment {
         }
 
         public void update(ClassItemRecordSummary classItemRecordSummary) {
-
             ClassItemRecordSummary tmpClassItemRecordSummary;
             int size = mArrayList.size(), pos = size;
             for(int i = 0; i < size; ++i) {

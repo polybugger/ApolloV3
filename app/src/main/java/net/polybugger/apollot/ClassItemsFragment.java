@@ -427,40 +427,40 @@ public class ClassItemsFragment extends Fragment {
             if(entry.mClassItem.isRecordScores()) {
                 Float perfectScore = entry.mClassItem.getPerfectScore();
                 if(perfectScore == null)
-                    holder.mPerfectScoreTextView.setVisibility(View.GONE);
+                    holder.mPerfectScoreLinearLayout.setVisibility(View.GONE);
                 else {
-                    holder.mPerfectScoreTextView.setText(String.format("%s %.2f", mFragment.getString(R.string.perfect_score_label), perfectScore));
-                    holder.mPerfectScoreTextView.setVisibility(View.VISIBLE);
+                    holder.mPerfectScoreTextView.setText(String.format("%.2f", perfectScore));
+                    holder.mPerfectScoreLinearLayout.setVisibility(View.VISIBLE);
                 }
             }
             else
-                holder.mPerfectScoreTextView.setVisibility(View.GONE);
+                holder.mPerfectScoreLinearLayout.setVisibility(View.GONE);
 
             if(entry.mClassItem.isRecordSubmissions()) {
                 Date submissionDueDate = entry.mClassItem.getSubmissionDueDate();
                 if(submissionDueDate == null)
-                    holder.mSubmissionDueDateTextView.setVisibility(View.GONE);
+                    holder.mSubmissionDueDateLinearLayout.setVisibility(View.GONE);
                 else {
-                    holder.mSubmissionDueDateTextView.setText(String.format("%s %s", mFragment.getString(R.string.submission_due_date_label), sdf.format(submissionDueDate)));
-                    holder.mSubmissionDueDateTextView.setVisibility(View.VISIBLE);
+                    holder.mSubmissionDueDateTextView.setText(sdf.format(submissionDueDate));
+                    holder.mSubmissionDueDateLinearLayout.setVisibility(View.VISIBLE);
                 }
             }
             else
-                holder.mSubmissionDueDateTextView.setVisibility(View.GONE);
+                holder.mSubmissionDueDateLinearLayout.setVisibility(View.GONE);
 
             int paddingTop = holder.mTitleTextView.getPaddingTop();
             int paddingRight = holder.mTitleTextView.getPaddingRight();
             int paddingLeft = holder.mTitleTextView.getPaddingLeft();
-            if(holder.mSubmissionDueDateTextView.getVisibility() == View.VISIBLE) {
-                holder.mSubmissionDueDateTextView.setPadding(paddingLeft, 0, paddingRight, paddingTop);
-                holder.mPerfectScoreTextView.setPadding(paddingLeft, 0, paddingRight, 0);
+            if(holder.mSubmissionDueDateLinearLayout.getVisibility() == View.VISIBLE) {
+                holder.mSubmissionDueDateLinearLayout.setPadding(0, 0, 0, paddingTop);
+                holder.mPerfectScoreLinearLayout.setPadding(0, 0, 0, 0);
                 holder.mCheckAttendanceTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                 holder.mItemTypeTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                 holder.mItemDateTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                 holder.mTitleTextView.setPadding(paddingLeft, paddingTop, paddingRight, 0);
             }
-            else if(holder.mPerfectScoreTextView.getVisibility() == View.VISIBLE) {
-                holder.mPerfectScoreTextView.setPadding(paddingLeft, 0, paddingRight, paddingTop);
+            else if(holder.mPerfectScoreLinearLayout.getVisibility() == View.VISIBLE) {
+                holder.mPerfectScoreLinearLayout.setPadding(0, 0, 0, paddingTop);
                 holder.mCheckAttendanceTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                 holder.mItemTypeTextView.setPadding(paddingLeft, 0, paddingRight, 0);
                 holder.mItemDateTextView.setPadding(paddingLeft, 0, paddingRight, 0);
@@ -498,7 +498,9 @@ public class ClassItemsFragment extends Fragment {
             protected TextView mItemDateTextView;
             protected TextView mItemTypeTextView;
             protected TextView mCheckAttendanceTextView;
+            protected LinearLayout mPerfectScoreLinearLayout;
             protected TextView mPerfectScoreTextView;
+            protected LinearLayout mSubmissionDueDateLinearLayout;
             protected TextView mSubmissionDueDateTextView;
 
             public ViewHolder(View itemView) {
@@ -509,7 +511,9 @@ public class ClassItemsFragment extends Fragment {
                 mItemDateTextView = (TextView) itemView.findViewById(R.id.item_date_text_view);
                 mItemTypeTextView = (TextView) itemView.findViewById(R.id.item_type_text_view);
                 mCheckAttendanceTextView = (TextView) itemView.findViewById(R.id.check_attendance_text_view);
+                mPerfectScoreLinearLayout = (LinearLayout) itemView.findViewById(R.id.perfect_score_linear_layout);
                 mPerfectScoreTextView = (TextView) itemView.findViewById(R.id.perfect_score_text_view);
+                mSubmissionDueDateLinearLayout = (LinearLayout) itemView.findViewById(R.id.submission_due_date_linear_layout);
                 mSubmissionDueDateTextView = (TextView) itemView.findViewById(R.id.submission_due_date_text_view);
             }
         }

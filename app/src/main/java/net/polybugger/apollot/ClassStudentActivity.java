@@ -15,14 +15,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
+import net.polybugger.apollot.db.ClassItemContract;
+import net.polybugger.apollot.db.ClassItemRecordContract;
 import net.polybugger.apollot.db.ClassStudentContract;
 
 public class ClassStudentActivity extends AppCompatActivity implements
         ClassStudentActivityFragment.Listener,
-        ClassStudentInsertUpdateDialogFragment.Listener {
+        ClassStudentInsertUpdateDialogFragment.Listener,
+        ClassItemRecordInsertUpdateDialogFragment.Listener,
+        DatePickerDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
     public static final String CLASS_STUDENT_ARG = "net.polybugger.apollot.class_student_arg";
@@ -138,6 +143,44 @@ public class ClassStudentActivity extends AppCompatActivity implements
         ClassStudentRecordsFragment f2 = (ClassStudentRecordsFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(RECORDS_TAB));
         if(f2 != null) {
             f2.onGetClassStudentRecords(classStudentRecords, fragmentTag);
+        }
+    }
+
+    @Override
+    public void onInsertClassStudentRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, long id, String fragmentTag) {
+        if(classItemRecord.getId() == -1) {
+            ClassStudentRecordsFragment f = (ClassStudentRecordsFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f != null)
+                f.onInsertClassStudentRecord(classItemRecord, classItem, id, fragmentTag);
+        }
+    }
+
+    @Override
+    public void onUpdateClassStudentRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, int rowsUpdated, String fragmentTag) {
+        if(rowsUpdated > 0) {
+            ClassStudentRecordsFragment f = (ClassStudentRecordsFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if(f != null)
+                f.onUpdateClassStudentRecord(classItemRecord, classItem, rowsUpdated, fragmentTag);
+        }
+    }
+
+    @Override
+    public void onConfirmInsertUpdateClassItemRecord(ClassItemRecordContract.ClassItemRecordEntry entry, ClassItemContract.ClassItemEntry classItem, String fragmentTag) {
+        ClassStudentActivityFragment f = (ClassStudentActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassStudentActivityFragment.TAG);
+        if(f != null) {
+            if(entry.getId() == -1)
+                f.insertClassStudentRecord(entry, classItem, fragmentTag);
+            else
+                f.updateClassStudentRecord(entry, classItem, fragmentTag);
+        }
+    }
+
+    @Override
+    public void onSetButtonDate(Date date, String dialogFragmentTag, int buttonId) {
+        Fragment f = getSupportFragmentManager().findFragmentByTag(dialogFragmentTag);
+        if(f != null) {
+            if(f instanceof ClassItemRecordInsertUpdateDialogFragment)
+                ((ClassItemRecordInsertUpdateDialogFragment) f).setButtonDate(date, buttonId);
         }
     }
 

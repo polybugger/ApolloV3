@@ -155,6 +155,7 @@ public class ClassItemActivityFragment extends Fragment {
             }
         }
     }
+
     private class InsertClassItemRecordAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
 
         @Override
