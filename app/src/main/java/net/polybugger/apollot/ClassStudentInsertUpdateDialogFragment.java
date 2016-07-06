@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.util.Date;
 
+import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassItemContract;
 import net.polybugger.apollot.db.ClassStudentContract;
 import net.polybugger.apollot.db.GenderEnum;
@@ -95,6 +96,11 @@ public class ClassStudentInsertUpdateDialogFragment extends AppCompatDialogFragm
         }
         mEmailAddressEditText.setText(student.getEmailAddress());
         mContactNumberEditText.setText(student.getContactNumber());
+
+        if(StringUtils.equalsIgnoreCase(getContext().getResources().getConfiguration().locale.getLanguage(), ApolloDbAdapter.JA_LANGUAGE))
+            mMiddleNameEditText.setVisibility(View.GONE);
+        else
+            mMiddleNameEditText.setVisibility(View.VISIBLE);
 
         mAlertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(args.getString(TITLE_ARG))

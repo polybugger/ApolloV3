@@ -259,4 +259,77 @@
     <string name="recorded_submissions_label">提出者数：</string>
     <string name="unrecorded_submissions_label">未提出：</string>
 
+    <string name="new_class_item_note">新しいメモを設定しますか？</string>
+    <string name="update_item_note">メモを更新しますか？</string>
+    <string name="remove_item_note">メモを削除しますか？</string>
+
+    <string name="item_note_added">メモ追加済み。</string>
+    <string name="item_note_updated">メモ更新済み。</string>
+    <string name="item_note_removed">メモ削除済み。</string>
+
+    <string name="please_enter_a_last_name">姓を入れて下さい！</string>
+    <string name="last_name_hint">姓</string>
+    <string name="first_name_hint">名</string>
+    <string name="middle_name_hint">Middle Name</string>
+    <string name="email_address_hint">メールアドレス</string>
+    <string name="contact_number_hint">連絡先</string>
+    <string name="gender_male">男</string>
+    <string name="gender_female">女</string>
+
+    <string name="new_student_fab_label">新しい学生</string>
+    <string name="existing_student_fab_label">既存の学生</string>
+
+    <string name="new_class_student">新しい学生を設定しますか？</string>
+    <string name="class_student_added">新しい学生追加済み。</string>
+    <string name="existing_students">既存の学生</string>
+    <string name="existing_students_added">既存の学生追加済み。</string>
+
+    <string name="passing_grade_percentage_label">合格パーセンテージ：</string>
+    <string name="grade_system">評価システム</string>
+    <string name="a_to_f">A~F</string>
+    <string name="one_to_five">1~5</string>
+    <string name="four_to_one">4~1</string>
+    <string name="passing_grade_percentage_hint">合格パーセンテージ</string>
+    <string name="please_enter_a_passing_grade_percentage">合格パーセンテージを入れて下さい！</string>
+    <string name="update_passing_grade_percentage">合格パーセンテージを更新しますか？</string>
+    <string name="passing_grade_percentage_updated">合格パーセンテージ更新済み。</string>
+
+    <string name="a_plus">A+</string>
+    <string name="a">A</string>
+    <string name="a_minus">A-</string>
+    <string name="b_plus">B+</string>
+    <string name="b">B</string>
+    <string name="b_minus">B-</string>
+    <string name="c_plus">C+</string>
+    <string name="c">C</string>
+    <string name="c_minus">C-</string>
+    <string name="d_plus">D+</string>
+    <string name="d">D</string>
+    <string name="d_minus">D-</string>
+    <string name="f">F</string>
+
+    <string name="a_to_f_grade_system">A~F評価システム</string>
+    <string name="please_enter_an_a_to_f_percentage">パーセンテージを入れて下さい！</string>
+    <string name="update_a_to_f_percentage">A~Fのパーセンテージを更新しますか？</string>
+    <string name="a_to_f_percentage_hint">A~Fのパーセンテージ</string>
+    <string name="a_to_f_percentage_updated">A~Fのパーセンテージ更新済み。</string>
+
+    <string name="one_to_five_label">1~5：</string>
+    <string name="one_to_five_instructions">評価1～5を入れて下さい！</string>
+    <string name="four_to_one_label">4~1：</string>
+    <string name="four_to_one_instructions">評価4～1を入れて下さい！</string>
+    <string name="update_passing_grade_mark">合格点を更新しますか？</string>
+    <string name="passing_grade_mark_hint">合格点</string>
+    <string name="passing_grade_mark_updated">合格点更新済み。</string>
+
+    <string name="delete_class_student">学生を削除</string>
+    <string name="class_student_info_tab">学生情報</string>
+    <string name="final_grade">最終成績</string>
+
+    <string name="update_class_student">学生を更新しますか？</string>
+    <string name="class_student_updated">学生更新済み。</string>
+
+    <string name="update_class_student_record">学生の記録を更新しますか？</string>
+    <string name="class_student_record_updated">学生の記録更新済み。</string>
+
 </resources>
