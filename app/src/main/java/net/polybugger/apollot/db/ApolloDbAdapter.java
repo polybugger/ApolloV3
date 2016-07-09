@@ -237,7 +237,9 @@ public class ApolloDbAdapter {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+            db.execSQL("select 'drop table ' || name || ';' from sqlite_master where type = 'table';");
+            db.execSQL("select 'drop table ' || name || ';' from sqlite_master where type = 'index';");
+            onCreate(db);
         }
     }
 
