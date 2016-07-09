@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clipToPadding="false"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/background_layout"
+        android:background="@drawable/bg_rounded_rect_0"
+        android:elevation="@dimen/low_elevation"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/item_count_margin_top"
+        android:layout_marginRight="@dimen/item_count_margin_right"
+        android:layout_marginBottom="@dimen/item_count_margin_bottom"
+        android:layout_marginLeft="@dimen/item_count_margin_left"
+        android:paddingTop="@dimen/item_count_padding_top"
+        android:paddingRight="@dimen/item_count_padding_right"
+        android:paddingBottom="@dimen/item_count_padding_bottom"
+        android:paddingLeft="@dimen/item_count_padding_left"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/grade_breakdown_text_view"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:textSize="@dimen/small_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/percentage_text_view"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/small_text_size"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/count_text_view"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/small_text_size" />
+
+        <TextView
+            android:id="@+id/attendance_count_text_view"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/small_text_size" />
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/grade_breakdown_percentage_text_view"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:textSize="@dimen/small_text_size" />
+
+            <TextView
+                android:id="@+id/subtotal_percentage_text_view"
+                android:layout_gravity="center_vertical|right"
+                android:gravity="right"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:textSize="@dimen/small_text_size"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

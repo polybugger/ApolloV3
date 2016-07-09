@@ -100,14 +100,18 @@ public class ClassStudentRecordsFragment extends Fragment {
         ClassStudentActivityFragment rf = (ClassStudentActivityFragment) getFragmentManager().findFragmentByTag(ClassStudentActivityFragment.TAG);
         if(rf != null)
             rf.getClassStudentRecords(mClassStudent, getTag());
-
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        // TODO onResume
+        if(REQUERY) {
+            ClassStudentActivityFragment rf = (ClassStudentActivityFragment) getFragmentManager().findFragmentByTag(ClassStudentActivityFragment.TAG);
+            if(rf != null)
+                rf.getClassStudentRecords(mClassStudent, getTag());
+            REQUERY = false;
+        }
     }
 
     @Override
@@ -166,15 +170,10 @@ public class ClassStudentRecordsFragment extends Fragment {
                     Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_student_record_updated), Snackbar.LENGTH_SHORT).show();
                 }
             }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
-            // TODO update student info tab
-            /*
-            ClassItemActivityFragment rf = (ClassItemActivityFragment) getFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
+            ClassStudentActivityFragment rf = (ClassStudentActivityFragment) getFragmentManager().findFragmentByTag(ClassStudentActivityFragment.TAG);
             if(rf != null) {
-                rf.getClassItemSummaryInfo(mClassItem, getTag());
-                //rf.getGradeBreakdowns(mClass, getTag());
-                //rf.getClassNotes(mClass, getTag());
+                rf.getClassItemSubTotalSummary(mClassStudent, getTag());
             }
-            */
         }
 
     }
@@ -188,15 +187,10 @@ public class ClassStudentRecordsFragment extends Fragment {
                 Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_student_record_updated), Snackbar.LENGTH_SHORT).show();
             }
         }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
-        // TODO update student info tab
-        /*
-        ClassItemActivityFragment rf = (ClassItemActivityFragment) getFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
+        ClassStudentActivityFragment rf = (ClassStudentActivityFragment) getFragmentManager().findFragmentByTag(ClassStudentActivityFragment.TAG);
         if(rf != null) {
-            rf.getClassItemSummaryInfo(mClassItem, getTag());
-            //rf.getGradeBreakdowns(mClass, getTag());
-            //rf.getClassNotes(mClass, getTag());
+            rf.getClassItemSubTotalSummary(mClassStudent, getTag());
         }
-        */
     }
 
     public static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {

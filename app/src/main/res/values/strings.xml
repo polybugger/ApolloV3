@@ -336,4 +336,11 @@
     <string name="update_class_student_record">Update student record?</string>
     <string name="class_student_record_updated">Student record updated.</string>
 
+    <string name="count_label">Count:</string>
+    <string name="attendance_count_label">Attendance:</string>
+    <string name="percentage_label">Percentage:</string>
+    <string name="sub_total_label">Sub Total:</string>
+    <string name="total_label">Total:</string>
+    <string name="a_to_f_label">A to F:</string>
+
 </resources>

@@ -165,6 +165,15 @@ public class ClassStudentActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onGetClassItemSubTotalSummaries(ArrayList<ClassStudentInfoFragment.ClassItemSubTotalSummary> classItemSubTotalSummaries, String fragmentTag) {
+        if(classItemSubTotalSummaries.size() > 0) {
+            ClassStudentInfoFragment f1 = (ClassStudentInfoFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(INFO_TAB));
+            if(f1 != null)
+                f1.populateClassItemSubTotalSummaries(classItemSubTotalSummaries);
+        }
+    }
+
+    @Override
     public void onConfirmInsertUpdateClassItemRecord(ClassItemRecordContract.ClassItemRecordEntry entry, ClassItemContract.ClassItemEntry classItem, String fragmentTag) {
         ClassStudentActivityFragment f = (ClassStudentActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassStudentActivityFragment.TAG);
         if(f != null) {

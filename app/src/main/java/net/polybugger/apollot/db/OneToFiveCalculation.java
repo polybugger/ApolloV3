@@ -47,7 +47,7 @@ public class OneToFiveCalculation {
         mPassingGradeMark =  sharedPref.getFloat(mContext.getString(R.string.one_to_five_passing_grade_mark_key), FinalGradeCalculationActivity.DEFAULT_ONE_TO_FIVE_PASSING_GRADE_MARK);
         mHigherMarkMultiplier = (1 - mPassingGradeMark) / (100 - mPassingGradePercentage);
         mLowerMarkMultiplier = (mPassingGradeMark - 5) / (mPassingGradePercentage);
-        mSet = sharedPref.getBoolean(mContext.getString(R.string.one_to_five_selected_key), true);
+        mSet = sharedPref.getBoolean(mContext.getString(R.string.one_to_five_selected_key), false);
     }
 
     public float getPassingGradeMark() {

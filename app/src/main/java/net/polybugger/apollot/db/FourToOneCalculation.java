@@ -47,7 +47,7 @@ public class FourToOneCalculation {
         mPassingGradeMark =  sharedPref.getFloat(mContext.getString(R.string.four_to_one_passing_grade_mark_key), FinalGradeCalculationActivity.DEFAULT_FOUR_TO_ONE_PASSING_GRADE_MARK);
         mHigherMarkMultiplier = (4 - mPassingGradeMark) / (100 - mPassingGradePercentage);
         mLowerMarkMultiplier = (mPassingGradeMark) / (mPassingGradePercentage);
-        mSet = sharedPref.getBoolean(mContext.getString(R.string.four_to_one_selected_key), true);
+        mSet = sharedPref.getBoolean(mContext.getString(R.string.four_to_one_selected_key), false);
     }
 
     public float getPassingGradeMark() {

@@ -75,6 +75,8 @@ public class SettingsClassItemTypesActivity extends AppCompatActivity implements
         ClassInfoFragment.REQUERY_GRADE_BREAKDOWNS = true;
         ClassItemsFragment.REQUERY = true;
         ClassItemActivity.REQUERY = true;
+        ClassStudentInfoFragment.REQUERY = true;
+        ClassStudentRecordsFragment.REQUERY = true;
         super.onBackPressed();
     }
 

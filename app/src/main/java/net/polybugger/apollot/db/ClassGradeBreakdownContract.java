@@ -209,7 +209,6 @@ public class ClassGradeBreakdownContract {
                 return true;
             ClassGradeBreakdownEntry entry = (ClassGradeBreakdownEntry) object;
             return new EqualsBuilder()
-                    .append(mId, entry.mId)
                     .append(mClassId, entry.mClassId)
                     .append(mItemType.getId(), entry.mItemType.getId()).isEquals();
         }
@@ -217,7 +216,6 @@ public class ClassGradeBreakdownContract {
         @Override
         public int hashCode() {
             return new HashCodeBuilder(67, 71)
-                    .append(mId)
                     .append(mClassId)
                     .append(mItemType.getId()).toHashCode();
         }
