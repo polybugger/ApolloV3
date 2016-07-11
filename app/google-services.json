@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "161533226216",
+    "firebase_url": "https://apollot-34751.firebaseio.com",
+    "project_id": "apollot-34751",
+    "storage_bucket": "apollot-34751.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161533226216:android:4893d06f2f81234a",
+        "android_client_info": {
+          "package_name": "net.polybugger.apollot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "161533226216-85m1acegffmu8shom14h9hgfb4vghv9m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLnP5_vBh-cs31sXwt0rk50Gns5kziFRc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

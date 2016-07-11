@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
 
+    <string name="classes_banner_ad_unit_id">ca-app-pub-8261911525114790/1031733867</string>
+
     <string name="default_nav_drawer_menu_item_index_key">net.polybugger.apollot.default_nav_drawer_menu_item_index</string>
     <string name="lock_enabled_key">net.polybugger.apollot.lock_enabled</string>
     <string name="unlock_password_key">net.polybugger.apollot.unlock_password</string>
