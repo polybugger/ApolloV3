@@ -343,4 +343,8 @@
     <string name="total_label">Total:</string>
     <string name="a_to_f_label">A to F:</string>
 
+    <string name="delete_class_title">Delete class?</string>
+    <string name="delete">Delete</string>
+    <string name="delete_class_warning">Warning! All data about this class will be deleted permanently. This action cannot be undone.</string>
+
 </resources>

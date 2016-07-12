@@ -44,7 +44,8 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
         ClassNoteDeleteDialogFragment.Listener,
         ClassItemInsertUpdateDialogFragment.Listener,
         ClassStudentInsertUpdateDialogFragment.Listener,
-        ClassStudentInsertExistingDialogFragment.Listener {
+        ClassStudentInsertExistingDialogFragment.Listener,
+        ClassDeleteDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
@@ -177,10 +178,18 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     public boolean onOptionsItemSelected(MenuItem item) {
         FragmentManager fm = getSupportFragmentManager();
         UnlockPasswordDialogFragment df;
+        ClassDeleteDialogFragment cdf;
 
         int id = item.getItemId();
 
         switch(id) {
+            case R.id.action_delete:
+                cdf = (ClassDeleteDialogFragment) fm.findFragmentByTag(ClassDeleteDialogFragment.TAG);
+                if(cdf == null) {
+                    cdf = ClassDeleteDialogFragment.newInstance(mClass);
+                    cdf.show(fm, ClassDeleteDialogFragment.TAG);
+                }
+                return true;
             case R.id.action_lock:
                 if(!mClass.isLocked()) {
                     df = (UnlockPasswordDialogFragment) fm.findFragmentByTag(UnlockPasswordDialogFragment.TAG);
@@ -598,6 +607,11 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
                 Snackbar.make(findViewById(R.id.coordinator_layout), getString(R.string.existing_students_added), Snackbar.LENGTH_SHORT).show();
             }
         }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+    }
+
+    @Override
+    public void onConfirmDeleteClass(ClassContract.ClassEntry entry) {
+
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

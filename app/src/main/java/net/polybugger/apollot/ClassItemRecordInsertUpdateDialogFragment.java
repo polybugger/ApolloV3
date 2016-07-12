@@ -249,13 +249,15 @@ public class ClassItemRecordInsertUpdateDialogFragment extends AppCompatDialogFr
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (Listener) activity;
-        }
-        catch(ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement " + Listener.class.toString());
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof Activity) {
+            try {
+                mListener = (Listener) context;
+            }
+            catch(ClassCastException e) {
+                throw new ClassCastException(context.toString() + " must implement " + Listener.class.toString());
+            }
         }
     }
 

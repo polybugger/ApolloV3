@@ -77,6 +77,7 @@ public class SettingsClassItemTypesActivity extends AppCompatActivity implements
         ClassItemActivity.REQUERY = true;
         ClassStudentInfoFragment.REQUERY = true;
         ClassStudentRecordsFragment.REQUERY = true;
+        ClassItemRecordsFragment.REQUERY = true;
         super.onBackPressed();
     }
 
