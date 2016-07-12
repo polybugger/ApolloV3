@@ -126,11 +126,13 @@ public class MainActivityFragment extends Fragment {
             long classId = params[0].mClass.getId();
             SQLiteDatabase db = ApolloDbAdapter.open();
             result.mClass = ClassContract._getEntry(db, classId);
-            result.mClassSummary = new ClassesFragment.ClassSummary(result.mClass);
-            if(!result.mClass.isLocked()) {
-                result.mClassSummary.mClassSchedules = ClassScheduleContract._getEntriesByClassId(db, classId);
-                result.mClassSummary.mStudentCount = ClassStudentContract._getCount(db, classId);
-                result.mClassSummary.mItemSummaryCount = ClassItemContract._getItemSummaryCount(db, classId);
+            if(result.mClass != null) {
+                result.mClassSummary = new ClassesFragment.ClassSummary(result.mClass);
+                if(!result.mClass.isLocked()) {
+                    result.mClassSummary.mClassSchedules = ClassScheduleContract._getEntriesByClassId(db, classId);
+                    result.mClassSummary.mStudentCount = ClassStudentContract._getCount(db, classId);
+                    result.mClassSummary.mItemSummaryCount = ClassItemContract._getItemSummaryCount(db, classId);
+                }
             }
             ApolloDbAdapter.close();
             result.mFragmentTag = params[0].mFragmentTag;

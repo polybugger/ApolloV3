@@ -346,5 +346,6 @@
     <string name="delete_class_title">Delete class?</string>
     <string name="delete">Delete</string>
     <string name="delete_class_warning">Warning! All data about this class will be deleted permanently. This action cannot be undone.</string>
+    <string name="class_deleted">Class deleted.</string>
 
 </resources>

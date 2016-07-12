@@ -45,6 +45,7 @@ public class ClassesFragment extends Fragment {
 
     public static boolean REQUERY = false;
     public static boolean REQUERY_CLASS = false;
+    public static boolean DELETE_CLASS = false;
     public static ClassContract.ClassEntry CLASS = null;
 
     private PastCurrentEnum mPastCurrent;
@@ -119,8 +120,24 @@ public class ClassesFragment extends Fragment {
             if(f != null)
                 f.getClassesSummary(mPastCurrent);
             REQUERY = false;
+            DELETE_CLASS = false;
+            REQUERY_CLASS = false;
         }
         // TODO other types of REQUERY
+        else if(DELETE_CLASS) {
+            if(mPastCurrent == CLASS.getPastCurrent())
+                mAdapter.removeByClass(CLASS);
+            DELETE_CLASS = false;
+            REQUERY_CLASS = false;
+            REQUERY = false;
+            CLASS = null;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_deleted), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
         else if(REQUERY_CLASS) {
             if(mPastCurrent != CLASS.getPastCurrent())
                 mAdapter.removeByClass(CLASS);
@@ -130,6 +147,8 @@ public class ClassesFragment extends Fragment {
                     f.requeryClassSummary(CLASS, getTag());
             }
             REQUERY_CLASS = false;
+            DELETE_CLASS = false;
+            REQUERY = false;
             CLASS = null;
         }
         else {

@@ -313,6 +313,14 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
     }
 
     @Override
+    public void onDeleteClass(ClassContract.ClassEntry _class, int rowsDeleted) {
+        if(rowsDeleted == 1) {
+            ClassesFragment.DELETE_CLASS = true;
+            onBackPressed();
+        }
+    }
+
+    @Override
     public void onGetClassSchedules(ArrayList<ClassScheduleContract.ClassScheduleEntry> classSchedules, String fragmentTag) {
         ClassInfoFragment f1 = (ClassInfoFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
         if(f1 != null)
@@ -611,7 +619,9 @@ public class ClassActivity extends AppCompatActivity implements ClassActivityFra
 
     @Override
     public void onConfirmDeleteClass(ClassContract.ClassEntry entry) {
-
+        ClassActivityFragment rf = (ClassActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
+        if(rf != null)
+            rf.deleteClass(entry);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

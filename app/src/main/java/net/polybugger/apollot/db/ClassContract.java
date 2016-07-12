@@ -71,6 +71,15 @@ public class ClassContract {
     }
 
     public static int _delete(SQLiteDatabase db, long id) {
+        ClassScheduleContract._deleteByClassId(db, id);
+        ClassNoteContract._deleteByClassId(db, id);
+        ClassPasswordContract._deleteByClassId(db, id);
+        db.execSQL("DROP TABLE IF EXISTS " + ClassItemNoteContract.TABLE_NAME + String.valueOf(id));
+        db.execSQL("DROP TABLE IF EXISTS " + ClassItemRecordContract.TABLE_NAME + String.valueOf(id));
+        db.execSQL("DROP TABLE IF EXISTS " + ClassItemContract.TABLE_NAME + String.valueOf(id));
+        db.execSQL("DROP TABLE IF EXISTS " + ClassNoteContract.TABLE_NAME + String.valueOf(id));
+        db.execSQL("DROP TABLE IF EXISTS " + ClassGradeBreakdownContract.TABLE_NAME + String.valueOf(id));
+        db.execSQL("DROP TABLE IF EXISTS " + ClassStudentContract.TABLE_NAME + String.valueOf(id));
         return db.delete(TABLE_NAME, ClassEntry._ID + "=?", new String[]{String.valueOf(id)});
     }
 

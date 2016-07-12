@@ -27,6 +27,7 @@ public class ClassActivityFragment extends Fragment {
         void onUnlockClass(ClassContract.ClassEntry _class, boolean passwordMatched);
         void onLockClass(ClassContract.ClassEntry _class);
         void onUpdateClass(ClassContract.ClassEntry _class, int rowsUpdated);
+        void onDeleteClass(ClassContract.ClassEntry _class, int rowsDeleted);
         void onGetClassSchedules(ArrayList<ClassScheduleContract.ClassScheduleEntry> classSchedules, String fragmentTag);
         void onInsertClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, long id, String fragmentTag);
         void onUpdateClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, int rowsUpdated, String fragmentTag);
@@ -77,6 +78,10 @@ public class ClassActivityFragment extends Fragment {
 
     public void updateClass(ClassContract.ClassEntry _class) {
         new UpdateClassAsyncTask().execute(_class);
+    }
+
+    public void deleteClass(ClassContract.ClassEntry _class) {
+        new DeleteClassAsyncTask().execute(_class);
     }
 
     public void insertClassSchedule(ClassScheduleContract.ClassScheduleEntry classSchedule, String fragmentTag) {
@@ -458,6 +463,25 @@ public class ClassActivityFragment extends Fragment {
         protected void onPostExecute(AsyncTaskResult result) {
             if(mListener != null)
                 mListener.onUpdateClass(result.mClass, result.mRowsUpdated);
+        }
+    }
+
+    private class DeleteClassAsyncTask extends AsyncTask<ClassContract.ClassEntry, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(ClassContract.ClassEntry... _class) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClass = _class[0];
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            result.mRowsDeleted = ClassContract._delete(db, result.mClass.getId());
+            ApolloDbAdapter.close();
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null)
+                mListener.onDeleteClass(result.mClass, result.mRowsDeleted);
         }
     }
 

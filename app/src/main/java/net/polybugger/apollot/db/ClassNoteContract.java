@@ -58,6 +58,10 @@ public class ClassNoteContract {
         return db.delete(TABLE_NAME, ClassNoteEntry._ID + "=?", new String[]{String.valueOf(id)});
     }
 
+    public static int _deleteByClassId(SQLiteDatabase db, long classId) {
+        return db.delete(TABLE_NAME, ClassNoteEntry.CLASS_ID + "=?", new String[]{String.valueOf(classId)});
+    }
+
     public static ClassNoteEntry _getEntry(SQLiteDatabase db, long id) {
         ClassNoteEntry entry = null;
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);

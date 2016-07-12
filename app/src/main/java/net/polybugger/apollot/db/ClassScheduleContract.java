@@ -75,6 +75,10 @@ public class ClassScheduleContract {
         return db.delete(TABLE_NAME, ClassScheduleEntry._ID + "=?", new String[]{String.valueOf(id)});
     }
 
+    public static int _deleteByClassId(SQLiteDatabase db, long classId) {
+        return db.delete(TABLE_NAME, ClassScheduleEntry.CLASS_ID + "=?", new String[]{String.valueOf(classId)});
+    }
+
     public static ClassScheduleEntry _getEntry(SQLiteDatabase db, long id) {
         ClassScheduleEntry entry = null;
         final SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.TIME_DB_TEMPLATE, ApolloDbAdapter.getAppContext().getResources().getConfiguration().locale);
