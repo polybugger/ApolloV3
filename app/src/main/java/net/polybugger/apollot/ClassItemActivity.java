@@ -32,7 +32,8 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
         DatePickerDialogFragment.Listener,
         ClassItemRecordInsertUpdateDialogFragment.Listener,
         ClassNoteInsertUpdateDialogFragment.Listener,
-        ClassNoteDeleteDialogFragment.Listener {
+        ClassNoteDeleteDialogFragment.Listener,
+        ClassItemDeleteDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
     public static final String CLASS_ITEM_ARG = "net.polybugger.apollot.class_item_arg";
@@ -143,6 +144,14 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
                 return true;
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.action_delete:
+                FragmentManager fm = getSupportFragmentManager();
+                ClassItemDeleteDialogFragment df = (ClassItemDeleteDialogFragment) fm.findFragmentByTag(ClassItemDeleteDialogFragment.TAG);
+                if(df == null) {
+                    df = ClassItemDeleteDialogFragment.newInstance(mClassItem);
+                    df.show(fm, ClassItemDeleteDialogFragment.TAG);
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -285,6 +294,15 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
     }
 
     @Override
+    public void onDeleteClassItem(ClassItemContract.ClassItemEntry entry, int rowsDeleted) {
+        if(rowsDeleted == 1) {
+            ClassItemsFragment.DELETE_CLASS_ITEM = true;
+            ClassItemsFragment.CLASS_ITEM = entry;
+            onBackPressed();
+        }
+    }
+
+    @Override
     public void onSetButtonDate(Date date, String dialogFragmentTag, int buttonId) {
         Fragment f = getSupportFragmentManager().findFragmentByTag(dialogFragmentTag);
         if(f != null) {
@@ -326,6 +344,13 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
         ClassItemActivityFragment rf = (ClassItemActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
         if(rf != null)
             rf.deleteClassItemNote(itemNote, fragmentTag);
+    }
+
+    @Override
+    public void onConfirmDeleteClassItem(ClassItemContract.ClassItemEntry entry) {
+        ClassItemActivityFragment rf = (ClassItemActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassItemActivityFragment.TAG);
+        if(rf != null)
+            rf.deleteClassItem(entry);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

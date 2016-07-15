@@ -105,6 +105,12 @@ public class ClassItemNoteContract {
         return entries;
     }
 
+    public static int _deleteByItemId(SQLiteDatabase db, long itemId, long classId) {
+        String tableName = TABLE_NAME + String.valueOf(classId);
+        return db.delete(tableName, ClassItemNoteEntry.CLASS_ID + "=? AND " + ClassItemNoteEntry.ITEM_ID + "=?",
+                new String[]{String.valueOf(classId), String.valueOf(itemId)});
+    }
+
     public static class ClassItemNoteEntry implements BaseColumns, Serializable {
 
         public static final String CLASS_ID = "ClassId";

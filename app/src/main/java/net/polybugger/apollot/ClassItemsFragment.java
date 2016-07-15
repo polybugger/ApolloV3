@@ -41,6 +41,7 @@ public class ClassItemsFragment extends Fragment {
 
     public static boolean REQUERY = false;
     public static boolean REQUERY_CLASS_ITEM = false;
+    public static boolean DELETE_CLASS_ITEM = false;
     public static ClassItemContract.ClassItemEntry CLASS_ITEM = null;
 
     private ClassContract.ClassEntry mClass;
@@ -108,6 +109,22 @@ public class ClassItemsFragment extends Fragment {
             if(rf != null)
                 rf.getClassItemsSummary(mClass, getTag());
             REQUERY = false;
+            REQUERY_CLASS_ITEM = false;
+            DELETE_CLASS_ITEM = false;
+            CLASS_ITEM = null;
+        }
+        else if(DELETE_CLASS_ITEM) {
+            mAdapter.removeByClassItem(CLASS_ITEM);
+            REQUERY = false;
+            REQUERY_CLASS_ITEM = false;
+            DELETE_CLASS_ITEM = false;
+            CLASS_ITEM = null;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_item_deleted), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
         }
         else if(REQUERY_CLASS_ITEM) {
             ClassActivityFragment rf = (ClassActivityFragment) getFragmentManager().findFragmentByTag(ClassActivityFragment.TAG);
@@ -115,7 +132,10 @@ public class ClassItemsFragment extends Fragment {
                 rf.getClassItemSummary(CLASS_ITEM, getTag());
                 CLASS_ITEM = null;
             }
+            REQUERY = false;
             REQUERY_CLASS_ITEM = false;
+            DELETE_CLASS_ITEM = false;
+            CLASS_ITEM = null;
         }
         else {
 

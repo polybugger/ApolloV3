@@ -28,6 +28,7 @@ public class ClassItemActivityFragment extends Fragment {
         void onInsertClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, long id, String fragmentTag);
         void onUpdateClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, int rowsUpdated, String fragmentTag);
         void onDeleteClassItemNote(ClassItemNoteContract.ClassItemNoteEntry itemNote, int rowsDeleted, String fragmentTag);
+        void onDeleteClassItem(ClassItemContract.ClassItemEntry entry, int rowsDeleted);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_item_activity_fragment";
@@ -112,6 +113,12 @@ public class ClassItemActivityFragment extends Fragment {
         params.mItemNote = itemNote;
         params.mFragmentTag = fragmentTag;
         new DeleteClassItemNoteAsyncTask().execute(params);
+    }
+
+    public void deleteClassItem(ClassItemContract.ClassItemEntry entry) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassItem = entry;
+        new DeleteClassItemAsyncTask().execute(params);
     }
 
     private class UpdateClassItemAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
@@ -349,6 +356,29 @@ public class ClassItemActivityFragment extends Fragment {
             if(mListener != null) {
                 mListener.onDeleteClassItemNote(result.mItemNote, result.mRowsDeleted, result.mFragmentTag);
             }
+        }
+    }
+
+    private class DeleteClassItemAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassItem = params[0].mClassItem;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            long classId = result.mClassItem.getClassId();
+            long itemId = result.mClassItem.getId();
+            ClassItemRecordContract._deleteByItemId(db, itemId, classId);
+            ClassItemNoteContract._deleteByItemId(db, itemId, classId);
+            result.mRowsDeleted = ClassItemContract._delete(db, itemId, classId);
+            ApolloDbAdapter.close();
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null)
+                mListener.onDeleteClassItem(result.mClassItem, result.mRowsDeleted);
         }
     }
 
