@@ -12,6 +12,7 @@ import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
 import net.polybugger.apollot.db.ClassGradeBreakdownContract;
 import net.polybugger.apollot.db.ClassItemContract;
+import net.polybugger.apollot.db.ClassItemNoteContract;
 import net.polybugger.apollot.db.ClassItemRecordContract;
 import net.polybugger.apollot.db.ClassStudentContract;
 import net.polybugger.apollot.db.StudentContract;
@@ -24,6 +25,7 @@ public class ClassStudentActivityFragment extends Fragment {
         void onInsertClassStudentRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, long id, String fragmentTag);
         void onUpdateClassStudentRecord(ClassItemRecordContract.ClassItemRecordEntry classItemRecord, ClassItemContract.ClassItemEntry classItem, int rowsUpdated, String fragmentTag);
         void onGetClassItemSubTotalSummaries(ArrayList<ClassStudentInfoFragment.ClassItemSubTotalSummary> classItemSubTotalSummaries, String fragmentTag);
+        void onDeleteClassStudent(ClassStudentContract.ClassStudentEntry entry, int rowsDeleted);
     }
 
     public static final String TAG = "net.polybugger.apollot.class_student_activity_fragment";
@@ -73,6 +75,12 @@ public class ClassStudentActivityFragment extends Fragment {
         params.mClassStudent = classStudent;
         params.mFragmentTag = fragmentTag;
         new GetClassItemSubTotalSummaryAsyncTask().execute(params);
+    }
+
+    public void deleteClassStudent(ClassStudentContract.ClassStudentEntry entry) {
+        AsyncTaskParams params = new AsyncTaskParams();
+        params.mClassStudent = entry;
+        new DeleteClassStudentAsyncTask().execute(params);
     }
 
     private class UpdateClassStudentAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
@@ -216,6 +224,28 @@ public class ClassStudentActivityFragment extends Fragment {
             if(mListener != null) {
                 mListener.onGetClassItemSubTotalSummaries(result.mClassItemSubTotalSummaries, result.mFragmentTag);
             }
+        }
+    }
+
+    private class DeleteClassStudentAsyncTask extends AsyncTask<AsyncTaskParams, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(AsyncTaskParams... params) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mClassStudent = params[0].mClassStudent;
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            long studentId = result.mClassStudent.getStudent().getId();
+            long classId = result.mClassStudent.getClassId();
+            ClassItemRecordContract._deleteByStudentId(db, studentId, classId);
+            result.mRowsDeleted = ClassStudentContract._deleteByStudentId(db, studentId, classId);
+            ApolloDbAdapter.close();
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null)
+                mListener.onDeleteClassStudent(result.mClassStudent, result.mRowsDeleted);
         }
     }
 

@@ -27,7 +27,8 @@ public class ClassStudentActivity extends AppCompatActivity implements
         ClassStudentActivityFragment.Listener,
         ClassStudentInsertUpdateDialogFragment.Listener,
         ClassItemRecordInsertUpdateDialogFragment.Listener,
-        DatePickerDialogFragment.Listener {
+        DatePickerDialogFragment.Listener,
+        ClassStudentDeleteDialogFragment.Listener {
 
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
     public static final String CLASS_STUDENT_ARG = "net.polybugger.apollot.class_student_arg";
@@ -91,6 +92,14 @@ public class ClassStudentActivity extends AppCompatActivity implements
                 return true;
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.action_delete:
+                FragmentManager fm = getSupportFragmentManager();
+                ClassStudentDeleteDialogFragment df = (ClassStudentDeleteDialogFragment) fm.findFragmentByTag(ClassStudentDeleteDialogFragment.TAG);
+                if(df == null) {
+                    df = ClassStudentDeleteDialogFragment.newInstance(mClassStudent);
+                    df.show(fm, ClassStudentDeleteDialogFragment.TAG);
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -174,6 +183,15 @@ public class ClassStudentActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onDeleteClassStudent(ClassStudentContract.ClassStudentEntry entry, int rowsDeleted) {
+        if(rowsDeleted == 1) {
+            ClassStudentsFragment.DELETE_CLASS_STUDENT = true;
+            ClassStudentsFragment.CLASS_STUDENT = entry;
+            onBackPressed();
+        }
+    }
+
+    @Override
     public void onConfirmInsertUpdateClassItemRecord(ClassItemRecordContract.ClassItemRecordEntry entry, ClassItemContract.ClassItemEntry classItem, String fragmentTag) {
         ClassStudentActivityFragment f = (ClassStudentActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassStudentActivityFragment.TAG);
         if(f != null) {
@@ -191,6 +209,13 @@ public class ClassStudentActivity extends AppCompatActivity implements
             if(f instanceof ClassItemRecordInsertUpdateDialogFragment)
                 ((ClassItemRecordInsertUpdateDialogFragment) f).setButtonDate(date, buttonId);
         }
+    }
+
+    @Override
+    public void onConfirmDeleteClassStudent(ClassStudentContract.ClassStudentEntry entry) {
+        ClassStudentActivityFragment f = (ClassStudentActivityFragment) getSupportFragmentManager().findFragmentByTag(ClassStudentActivityFragment.TAG);
+        if(f != null)
+            f.deleteClassStudent(entry);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

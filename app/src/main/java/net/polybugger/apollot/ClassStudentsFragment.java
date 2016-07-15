@@ -32,6 +32,8 @@ public class ClassStudentsFragment extends Fragment {
     public static final String CLASS_ARG = "net.polybugger.apollot.class_arg";
 
     public static boolean REQUERY = false;
+    public static boolean DELETE_CLASS_STUDENT = false;
+    public static ClassStudentContract.ClassStudentEntry CLASS_STUDENT = null;
 
     private ClassContract.ClassEntry mClass;
     private RecyclerView mRecyclerView;
@@ -92,7 +94,17 @@ public class ClassStudentsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        // TODO onResume
+        if(DELETE_CLASS_STUDENT) {
+            mAdapter.removeByClassStudent(CLASS_STUDENT);
+            DELETE_CLASS_STUDENT = false;
+            CLASS_STUDENT = null;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Snackbar.make(getActivity().findViewById(R.id.coordinator_layout), getString(R.string.class_student_deleted), Snackbar.LENGTH_SHORT).show();
+                }
+            }, MainActivity.SNACKBAR_POST_DELAYED_MSEC);
+        }
     }
 
     public void requeryClass(ClassContract.ClassEntry _class) {

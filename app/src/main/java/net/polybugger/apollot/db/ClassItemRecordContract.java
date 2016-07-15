@@ -224,8 +224,14 @@ public class ClassItemRecordContract {
 
     public static int _deleteByItemId(SQLiteDatabase db, long itemId, long classId) {
         String tableName = TABLE_NAME + String.valueOf(classId);
-        return db.delete(tableName, ClassItemRecordEntry.CLASS_ID + "=? AND " + ClassItemRecordEntry.ITEM_ID + "=?",
-                new String[]{String.valueOf(classId), String.valueOf(itemId)});
+        return db.delete(tableName, ClassItemRecordEntry.ITEM_ID + "=?",
+                new String[]{String.valueOf(itemId)});
+    }
+
+    public static int _deleteByStudentId(SQLiteDatabase db, long studentId, long classId) {
+        String tableName = TABLE_NAME + String.valueOf(classId);
+        return db.delete(tableName, ClassItemRecordEntry.STUDENT_ID + "=?",
+                new String[]{String.valueOf(studentId)});
     }
 
     public static class ClassItemRecordEntry implements BaseColumns, Serializable {

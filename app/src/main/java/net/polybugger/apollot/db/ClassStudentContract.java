@@ -62,6 +62,12 @@ public class ClassStudentContract {
         return db.delete(TABLE_NAME + String.valueOf(classId), ClassStudentEntry._ID + "=?", new String[]{String.valueOf(id)});
     }
 
+    public static int _deleteByStudentId(SQLiteDatabase db, long studentId, long classId) {
+        String tableName = TABLE_NAME + String.valueOf(classId);
+        return db.delete(tableName, ClassStudentEntry.STUDENT_ID + "=?",
+                new String[]{String.valueOf(studentId)});
+    }
+
     public static ClassStudentEntry _getEntry(SQLiteDatabase db, long id, long classId) {
         String tableName = TABLE_NAME + String.valueOf(classId);
         db.execSQL(CREATE_TABLE_SQL1 + tableName + CREATE_TABLE_SQL2);

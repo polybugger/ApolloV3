@@ -350,5 +350,8 @@
     <string name="delete_class_item_title">Delete activity?</string>
     <string name="class_item_deleted">Activity deleted.</string>
     <string name="delete_class_item_warning">Warning! All data about this activity will be deleted permanently. This action cannot be undone.</string>
+    <string name="delete_class_student_title">Delete student?</string>
+    <string name="delete_class_student_warning">Warning! All data about this student will be deleted permanently. This action cannot be undone.</string>
+    <string name="class_student_deleted">Student deleted.</string>
 
 </resources>
