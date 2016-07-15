@@ -354,4 +354,14 @@
     <string name="delete_class_student_warning">Warning! All data about this student will be deleted permanently. This action cannot be undone.</string>
     <string name="class_student_deleted">Student deleted.</string>
 
+    <string name="close">Close</string>
+    <string name="developer_name">Developer:</string>
+    <string name="poly_bug">Poly Bug</string>
+    <string name="developer_email">Email:</string>
+    <string name="gmail">polybugger@gmail.com</string>
+    <string name="app_site">App Website:</string>
+    <string name="appengine_site">https://apollo-1263.appspot.com/</string>
+    <string name="translator">Translated By:</string>
+    <string name="translator_name">宇治原久美子</string>
+
 </resources>

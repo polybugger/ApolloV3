@@ -113,7 +113,12 @@ public class SettingsActivity extends AppCompatActivity implements DefaultTimeSt
         findViewById(R.id.about_this_app_settings_item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FragmentManager fm = getSupportFragmentManager();
+                AboutDialogFragment df = (AboutDialogFragment) fm.findFragmentByTag(AboutDialogFragment.TAG);
+                if(df == null) {
+                    df = AboutDialogFragment.newInstance();
+                    df.show(fm, AboutDialogFragment.TAG);
+                }
             }
         });
     }
