@@ -11,10 +11,12 @@
             android:icon="@drawable/ic_today_black_24dp"
             android:title="@string/day_activities" />
 
+        <!--
         <item
             android:id="@+id/nav_week_activities"
             android:icon="@drawable/ic_view_week_black_24dp"
             android:title="@string/week_activities" />
+            -->
 
     </group>
 
@@ -34,6 +36,7 @@
 
     </group>
 
+    <!--
     <group
         android:id="@+id/group_students"
         android:checkableBehavior="single">
@@ -44,5 +47,6 @@
             android:title="@string/students" />
 
     </group>
+    -->
 
 </menu>

@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import net.polybugger.apollot.db.ApolloDbAdapter;
 import net.polybugger.apollot.db.ClassContract;
@@ -26,6 +28,7 @@ public class MainActivityFragment extends Fragment {
         void onInsertClass(ClassContract.ClassEntry entry);
         void onUnlockClass(ClassContract.ClassEntry entry, boolean passwordMatched);
         void onRequeryClassSummary(ClassesFragment.ClassSummary classSummary, String fragmentTag);
+        void onGetTodayItemsSummary(ArrayList<TodayItemsFragment.TodayItemSummary> arrayList, String fragmentTag);
     }
 
     public static final String TAG = "net.polybugger.apollot.main_activity_fragment";
@@ -61,6 +64,10 @@ public class MainActivityFragment extends Fragment {
 
     public void getClassesSummary(PastCurrentEnum pastCurrent) {
         new GetClassesSummaryAsyncTask().execute(pastCurrent);
+    }
+
+    public void getTodayItemsSummary(String fragmentTag) {
+        new GetTodayItemsSummaryAsyncTask().execute(fragmentTag);
     }
 
     /*
@@ -212,9 +219,49 @@ public class MainActivityFragment extends Fragment {
         }
     }
 
+    private class GetTodayItemsSummaryAsyncTask extends AsyncTask<String, Integer, AsyncTaskResult> {
+
+        @Override
+        protected AsyncTaskResult doInBackground(String... fragmentTag) {
+            AsyncTaskResult result = new AsyncTaskResult();
+            result.mFragmentTag = fragmentTag[0];
+            result.mTodayItemsSummary = new ArrayList<>();
+            Date todayDate = new Date();
+            Calendar todayCal = Calendar.getInstance();
+            todayCal.setTime(todayDate);
+            SQLiteDatabase db = ApolloDbAdapter.open();
+            ArrayList<ClassContract.ClassEntry> classes = ClassContract._getEntriesByPastCurrent(db, PastCurrentEnum.CURRENT);
+            for(ClassContract.ClassEntry _class : classes) {
+                ArrayList<ClassItemContract.ClassItemEntry> classItems = ClassItemContract._getEntries(db, _class.getId());
+                for(ClassItemContract.ClassItemEntry classItem : classItems) {
+                    Calendar itemCal = Calendar.getInstance();
+                    Date itemDate = classItem.getItemDate();
+                    if(itemDate != null) {
+                        itemCal.setTime(classItem.getItemDate());
+                        if((todayCal.get(Calendar.DATE) == itemCal.get(Calendar.DATE))
+                                && (todayCal.get(Calendar.MONTH) == itemCal.get(Calendar.MONTH))
+                                && (todayCal.get(Calendar.YEAR) == itemCal.get(Calendar.YEAR))) {
+                            result.mTodayItemsSummary.add(new TodayItemsFragment.TodayItemSummary(_class, classItem));
+                        }
+                    }
+                }
+            }
+            ApolloDbAdapter.close();
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(AsyncTaskResult result) {
+            if(mListener != null) {
+                mListener.onGetTodayItemsSummary(result.mTodayItemsSummary, result.mFragmentTag);
+            }
+        }
+    }
+
     private class AsyncTaskResult {
         public PastCurrentEnum mPastCurrent;
         public ArrayList<ClassesFragment.ClassSummary> mClassesSummary;
+        public ArrayList<TodayItemsFragment.TodayItemSummary> mTodayItemsSummary;
         public String mFragmentTag;
         // public ArrayList<AcademicTermContract.AcademicTermEntry> mAcademicTerms;
         public ClassContract.ClassEntry mClass;

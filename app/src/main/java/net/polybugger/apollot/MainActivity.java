@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.design.internal.NavigationMenuView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -107,21 +108,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
+        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) mFab.getLayoutParams();
+
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int id = item.getItemId();
 
         switch(id) {
             case R.id.nav_day_activities:
                 sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 0).apply();
-
+                ft.replace(R.id.fragment_container, TodayItemsFragment.newInstance(), TodayItemsFragment.TAG);
+                p.setBehavior(null);
+                mFab.setLayoutParams(p);
+                mFab.setVisibility(View.GONE);
                 break;
+            /*
             case R.id.nav_week_activities:
                 sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 1).apply();
 
                 break;
+            */
             case R.id.nav_current_classes:
                 sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 2).apply();
                 ft.replace(R.id.fragment_container, ClassesFragment.newInstance(PastCurrentEnum.CURRENT), ClassesFragment.TAG_CURRENT);
+                p.setBehavior(new FABScrollBehavior(MainActivity.this, null));
+                mFab.setLayoutParams(p);
+                mFab.setVisibility(View.VISIBLE);
                 mFab.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -138,6 +149,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_past_classes:
                 sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 3).apply();
                 ft.replace(R.id.fragment_container, ClassesFragment.newInstance(PastCurrentEnum.PAST), ClassesFragment.TAG_PAST);
+                p.setBehavior(new FABScrollBehavior(MainActivity.this, null));
+                mFab.setLayoutParams(p);
+                mFab.setVisibility(View.VISIBLE);
                 mFab.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -151,18 +165,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
                 break;
+            /*
             case R.id.nav_students:
                 sharedPref.edit().putInt(getString(R.string.default_nav_drawer_menu_item_index_key), 4).apply();
 
                 break;
+            */
         }
 
         // ft.addToBackStack(null);
         ft.commit();
 
         // TODO fab is not anchored to any view, check if this creates any bugs
-        if(mFab.getVisibility() == View.GONE)
-            mFab.show();
+        //if(mFab.getVisibility() == View.GONE)
+        //    mFab.show();
 
         return true;
     }
@@ -241,6 +257,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    public void onGetTodayItemsSummary(ArrayList<TodayItemsFragment.TodayItemSummary> arrayList, String fragmentTag) {
+        TodayItemsFragment f = (TodayItemsFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        if(f != null)
+            f.onGetTodayItemsSummary(arrayList, fragmentTag);
+    }
+
+    @Override
     public void onConfirmInsertUpdateClass(ClassContract.ClassEntry _class) {
         MainActivityFragment rf = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(MainActivityFragment.TAG);
         if(rf != null)
@@ -267,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationMenuView.setVerticalScrollBarEnabled(false);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        int defaultNavDrawerMenuItemIndex = sharedPref.getInt(getString(R.string.default_nav_drawer_menu_item_index_key), 0);
+        int defaultNavDrawerMenuItemIndex = sharedPref.getInt(getString(R.string.default_nav_drawer_menu_item_index_key), 1);
         MenuItem defaultNavDrawerMenuItem = navigationView.getMenu().getItem(defaultNavDrawerMenuItemIndex);
         defaultNavDrawerMenuItem.setChecked(true);
         onNavigationItemSelected(defaultNavDrawerMenuItem);

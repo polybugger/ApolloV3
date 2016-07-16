@@ -161,6 +161,7 @@ public class ClassItemActivity extends AppCompatActivity implements ClassItemAct
     public void onBackPressed() {
         ClassItemsFragment.REQUERY_CLASS_ITEM = true;
         ClassItemsFragment.CLASS_ITEM = mClassItem;
+        TodayItemsFragment.REQUERY = true;
         super.onBackPressed();
     }
 
